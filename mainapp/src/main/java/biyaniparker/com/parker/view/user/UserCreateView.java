@@ -2,6 +2,7 @@ package biyaniparker.com.parker.view.user;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,11 +22,12 @@ import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
+import biyaniparker.com.parker.view.login.LoginActivity;
 
 public class UserCreateView extends AppCompatActivity implements View.OnClickListener, DownloadUtility {
 
-    EditText edShopName, edPersonName, edContact, edAddress, edCreadit,edUserName, edPassward,edEmail,edRePass;
-    Button buttonSave;
+    EditText edShopName, edPersonName, edContact, edAddress, edCreadit,edUserName, edPassward,edEmail,edRePass,edGstNo;
+    Button buttonSave,btnLogIn;
     UserBean bean; ShopMaster shopMasterbean;
     ModuleUser moduleUser;
     RadioButton rdAdmin, rdCustomer;
@@ -58,8 +60,11 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
         rdCustomer=(RadioButton)findViewById(R.id.rdoCustomer);
         rdCustomer.setChecked(true);
         edRePass=(EditText)findViewById(R.id.edRePass);
+        edGstNo = (EditText) findViewById(R.id.edGstNumber);
         buttonSave=(Button)findViewById(R.id.btnsave);
+        btnLogIn = (Button) findViewById(R.id.btnlogin);
         buttonSave.setOnClickListener(this);
+        btnLogIn.setOnClickListener(this);
     }
 
     @Override
@@ -68,7 +73,12 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
         CommonUtilities.hideSoftKeyBord(this);
         if (!new ConnectionDetector(this).isConnectingToInternet()) {
             Toast.makeText(this, "Check Internet Connection", Toast.LENGTH_LONG).show();
-        } else {
+        }else if (v.getId() == R.id.btnlogin){
+            finish();
+            Intent intent= new Intent(UserCreateView.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        else {
             if (validation()) {
                 if (edPassward.getText().toString().equals(edRePass.getText().toString())) {
                     shopMasterbean.setShopName(edShopName.getText().toString());
@@ -90,6 +100,7 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
                     bean.setIsActive("true");
                     bean.setDeleteStatus("false");
                     bean.setClientId(UserUtilities.getClientId(this));
+                    bean.setGSTNumber(edGstNo.getText().toString());
 
 
                     try {

@@ -91,19 +91,16 @@ public class PrintOrderSummary
         }
         catch (Exception e){}
 
-
         moduleProduct=new ModuleProduct(context);
         moduleCategory=new ModuleCategory(context);
-
-
-
     }
 
     public void  call()
     {
         try
         {
-            pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
+         //   pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
+            pdffile = new File(Environment.getExternalStorageDirectory() +"/parkerreport","Order_"+master.orderId+".pdf");
             try {
                 createPdf(pdffile.getAbsolutePath());
             } catch (IOException e) {
@@ -115,7 +112,6 @@ public class PrintOrderSummary
                 @Override
                 public void run()
                 {
-
                     AlertDialog.Builder alBuilder=new AlertDialog.Builder(context);
                     alBuilder.setTitle("Order Summary");
                     alBuilder.setMessage("\n\n" + "File Generted In Location " + pdffile.getAbsolutePath() + "\n\n");
@@ -129,17 +125,12 @@ public class PrintOrderSummary
                     alBuilder.show();
                 }
             });
-
-
         }
         catch (Exception e)
         {
-
             CommonUtilities.alert(context,e.toString());
         }
     }
-
-
 
     public static PdfPCell createImageCell(String path) throws DocumentException, IOException {
         Image img = Image.getInstance(path);
@@ -154,10 +145,6 @@ public class PrintOrderSummary
         //  cell.a
         return cell;
     }
-
-
-
-
 
     class HeaderFooter extends PdfPageEventHelper
     {

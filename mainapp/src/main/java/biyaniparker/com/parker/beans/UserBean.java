@@ -24,9 +24,11 @@ public class UserBean
     public String gCMID;
     public String deviceID;
 
+    public String GSTNumber;
+    public float discount;
+    public  String VerifiedStatus;
 
     public String isActive;
-
 
     public String emailId;
     public long  expiryDate;
@@ -45,10 +47,6 @@ public class UserBean
     public long enterDate;
     public long createdBy;
     public long changedDate;
-
-
-
-
 
 
     public UserBean()
@@ -156,10 +154,6 @@ public class UserBean
         this.oldPassword = oldPassword;
     }
 
-
-
-
-
     public String getName() {
         return name;
     }
@@ -167,10 +161,6 @@ public class UserBean
     public void setName(String name) {
         this.name = name;
     }
-
-
-
-
 
     public String getOrgnisationIds() {
         return orgnisationIds;
@@ -276,5 +266,27 @@ public class UserBean
         this.changedDate = changedDate;
     }
 
+    public String getGSTNumber() {
+        return GSTNumber;
+    }
 
+    public void setGSTNumber(String GSTNumber) {
+        this.GSTNumber = GSTNumber;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
+
+    public String getVerifiedStatus() {
+        return VerifiedStatus;
+    }
+
+    public void setVerifiedStatus(String verifiedStatus) {
+        VerifiedStatus = verifiedStatus;
+    }
 }

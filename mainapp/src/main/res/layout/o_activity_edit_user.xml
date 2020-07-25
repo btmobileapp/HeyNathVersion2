@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="parker.biyani.com.parker.user.ActivityUserCreation">
     <ScrollView
         android:layout_width="match_parent"
@@ -148,10 +148,78 @@
                         android:inputType="numberDecimal"
                         style="@android:style/Widget.Holo.Light.EditText"
                         />
-
-
-
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="GST Number"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:id="@+id/edgstNumber"
+                        android:inputType="numberDecimal"
+                        style="@android:style/Widget.Holo.Light.EditText"
+                        />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Discount"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:id="@+id/edDiscount"
+                        android:inputType="numberDecimal"
+                        style="@android:style/Widget.Holo.Light.EditText"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status:"
+                            android:textSize="15dp"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@android:color/black"/>
+                        <RadioGroup
+                            android:id="@+id/rg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <RadioButton
+                                android:id="@+id/rbVerified"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/tvVerified"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/black"
+                                android:text="Verified"/>
+                            <RadioButton
+                                android:id="@+id/rbNotVerified"
+                                android:layout_width="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/tvNotVerified"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/black"
+                                android:text="Not Verified"/>
+                            <RadioButton
+                                android:id="@+id/rbRejected"
+                                android:layout_width="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/tvRejected"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/black"
+                                android:text="Rejected"/>
+                        </RadioGroup>
+                    </LinearLayout>
                 </LinearLayout>
+
 
             </LinearLayout>
 

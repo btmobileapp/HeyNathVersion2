@@ -22,7 +22,7 @@ public class DBHELPER extends SQLiteOpenHelper
 			"  MobileNo Text, IsActive Text, ClientId Integer, OrgnisationIds Text, EmailId Text, " +
 			"DeleteStatus Text, ExpiryDate Integer, DepartmentIds Text," +
 			" CanCreateUser Text, CanAssignTask Text, GCMID Text, DeviceID Text," +
-			" EnterBy Integer, EnterDate Integer, ChangedBy Integer, ChangedDate Integer)";
+			" EnterBy Integer, EnterDate Integer, ChangedBy Integer, ChangedDate Integer,GSTNumber Text,Discount REAL,VerifiedStatus Text)";
 	String dispatchMaster=" Create table DispatchMaster(DispatchId Integer primary key, DispatchNo Integer, " +
 			"ChallanNo Integer, DispatchDate Integer," +
 			" ChallanDate Integer, DispatchBy Integer, OrderId Integer, " +

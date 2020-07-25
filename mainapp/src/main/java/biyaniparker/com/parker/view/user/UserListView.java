@@ -51,8 +51,6 @@ public class UserListView extends AppCompatActivity implements AdapterView.OnIte
         getSupportActionBar().setHomeButtonEnabled(true);
 
 
-
-
         listView=(ListView)findViewById(R.id.listView);
         moduleUser=new ModuleUser(this);
         moduleUser.getUserList();
@@ -71,7 +69,6 @@ public class UserListView extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.syncmenu,menu);
         return super.onCreateOptionsMenu(menu);
     }

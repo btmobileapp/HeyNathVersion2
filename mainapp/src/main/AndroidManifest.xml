@@ -251,6 +251,18 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name=".view.unitmaster.UnitMasterListView"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".view.unitmaster.CreateUnitMaster"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".view.unitmaster.UnitMasterEditView"
+            android:screenOrientation="portrait">
+        </activity>
+
 <!--        <provider-->
 <!--            android:name="androidx.core.content.FileProvider"-->
 <!--            android:authorities="${appliationId}.provider"-->

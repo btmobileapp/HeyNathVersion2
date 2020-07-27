@@ -140,8 +140,8 @@ public class AdminHomeScreen extends AppCompatActivity
 
         //    calling recent orders
 
-        moduleOrder=new ModuleOrder(this);
-        moduleProduct=new ModuleProduct(this);
+        moduleOrder = new ModuleOrder(this);
+        moduleProduct = new ModuleProduct(this);
         moduleOrder.getOrderList();
 
 

@@ -32,7 +32,7 @@ public class OrderAdapter extends ArrayAdapter
 
     class ViewHolder
     {
-        TextView txtShop, txtAddress, txtOrderId, txtOrderDate;
+        TextView txtShop, txtAddress, txtOrderId, txtOrderDate,tvStatus;
     }
 
 

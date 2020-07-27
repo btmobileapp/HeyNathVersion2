@@ -32,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.gson.JsonObject;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
@@ -41,8 +42,10 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,6 +57,7 @@ import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.bal.ModuleProduct1;
 import biyaniparker.com.parker.beans.CategoryBean;
 import biyaniparker.com.parker.beans.ProductBean;
+import biyaniparker.com.parker.beans.UnitMasterBean;
 import biyaniparker.com.parker.utilities.BitmapUtilities;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
@@ -67,8 +71,9 @@ import biyaniparker.com.parker.view.deduct.DeductProductView;
 import biyaniparker.com.parker.view.homeadmin.ImageRotateSetting;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
 import biyaniparker.com.parker.view.managestock.StockManageProductView;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
-public class ProductEditViewNew extends AppCompatActivity implements  View.OnClickListener,DownloadUtility,MultifileUploadUtility, AdapterView.OnItemClickListener {
+public class ProductEditViewNew extends AppCompatActivity implements View.OnClickListener, DownloadUtility, MultifileUploadUtility, AdapterView.OnItemClickListener {
 
     int width=525,height=700;
     ImageView image1,image2,image3,image4;
@@ -138,9 +143,9 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
         {}
     }
 
-    EditText edName, edStripCode, edPrice;
+    EditText edName, edStripCode, edPrice,edRemark;
     CheckBox chkIsActive;
-    Spinner spCategory, spPrice;
+    Spinner spCategory, spPrice,spUnitMaster;
     Button btnSave, btnDelete;
     ImageView img, camera, gallary;
     ModuleProduct1 moduleProduct;
@@ -153,6 +158,8 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
     private AnimateFirstDisplayListener animateFirstListener;
     private ImageLoader imageLoader;
     int flag=0;
+    ArrayList<UnitMasterBean> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,6 +196,20 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
             }
         });
 
+    spUnitMaster.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
+                ArrayList<UnitMasterBean> listUnitMaster = moduleProduct.getUnitMasterList();
+                ArrayAdapter arrayAdapter1=new ArrayAdapter(ProductEditViewNew.this,android.R.layout.simple_spinner_dropdown_item,listUnitMaster);
+                spUnitMaster.setAdapter(arrayAdapter1);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+        });
 
         String url=CommonUtilities.URL+"ProductService.svc/GetProductDetailsForAdmin?ProductId="+bean.getProductId();
         AsyncUtilities utilities=new AsyncUtilities(this,false,url,null,150,this);
@@ -229,7 +250,10 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
         spCategory = (Spinner) findViewById(R.id.spCategory);
         //spCategory.setEnabled(true);
         spPrice=(Spinner)findViewById(R.id.spinnerPrice);
+        spUnitMaster = findViewById(R.id.spinnerEditUnit);
+        edRemark = findViewById(R.id.ed_editRemark);
         img = (ImageView) findViewById(R.id.img);
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,7 +295,11 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
     }
 
   int previousCateposition=-1;
+  int previousUnitposition = -1;
+
+
     private void renderView() {
+
         ArrayAdapter priceArray=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,modulePrice.list);
         spPrice.setAdapter(priceArray);
        // spPrice.setOnItemClickListener(this);
@@ -284,7 +312,7 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
                 bean = moduleProduct.list.get(i);
             }
         }
-
+//        edRemark.setText(bean.getRemark());
 
         edName.setText(bean.getProductName());
         //ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, moduleCategory.list);
@@ -348,6 +376,7 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
 
                            // Toast.makeText(ProductEditViewNew.this, previousCateposition+"", Toast.LENGTH_SHORT).show();
                             spCategory.setSelection(previousCateposition);
+                            spUnitMaster.setSelection(previousUnitposition);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -355,7 +384,6 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
                 }
             }
         }).start();
-
    //     Toast.makeText(this, spCategory.getSelectedItemPosition()+"", Toast.LENGTH_SHORT).show();
     }
 
@@ -698,6 +726,20 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
         else if(requestCode==150 && responseCode==200)
         {
             intitMultipleImages( str);
+            list = new ArrayList<>();
+            UnitMasterBean unitMasterBean = new UnitMasterBean();
+            try {
+                JSONArray jsonArray = new JSONArray(str);
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonobject = jsonArray.getJSONObject(i);
+                    unitMasterBean.setUnitName(jsonobject.getString("UnitName"));
+                    list.add(unitMasterBean);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ArrayAdapter unitArray=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,list);
+            spUnitMaster.setAdapter(unitArray);
         }
         else
         {
@@ -746,11 +788,8 @@ public class ProductEditViewNew extends AppCompatActivity implements  View.OnCli
             Toast.makeText(getApplicationContext()," Bad request.....",Toast.LENGTH_LONG).show();
             img.setImageResource(android.R.drawable.ic_menu_camera);
         }
-
-
-
-
     }
+
 
     private class AnimateFirstDisplayListener extends
             SimpleImageLoadingListener

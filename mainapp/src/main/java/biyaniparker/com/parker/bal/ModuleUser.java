@@ -137,8 +137,7 @@ public class ModuleUser implements  DownloadUtility{
 
                 if (parseUsers(str)) {
 
-                    downloadUtility.onComplete("Success", 1, responseCode);
-                } else {
+                                                                                                                     } else {
                     downloadUtility.onComplete("Failed", 1, responseCode);
                 }
             } else
@@ -298,7 +297,6 @@ public class ModuleUser implements  DownloadUtility{
                 JSONObject shopJson=shopArray.getJSONObject(i);
                 itemDAOUser.insertShopMaster(parseShopMaster(shopJson.toString()));
             }
-
 
             for(int j=0;j<userArray.length();j++)
             {

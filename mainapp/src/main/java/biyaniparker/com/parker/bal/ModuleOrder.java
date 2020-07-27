@@ -2,24 +2,18 @@ package biyaniparker.com.parker.bal;
 
 import android.content.Context;
 import android.util.Log;
-
-
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-
 import biyaniparker.com.parker.beans.GsonOrder;
 import biyaniparker.com.parker.beans.GsonOrderDetails;
 import biyaniparker.com.parker.beans.GsonOrderMaster;
@@ -71,12 +65,9 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
     public void getRecentOrdersOfUser() {
        /* AsyncUtilities asyncUtilities = new AsyncUtilities(context, false, CommonUtilities.URL + "OrderService.svc/getUserRecentOrder?ClientId=" + UserUtilities.getClientId(context) + "&UserId=" + UserUtilities.getUserId(context), "", 1, this);
         asyncUtilities.execute();*/
-
-
         AsyncStreamParsingUtilities asyncParsingUtilities=new AsyncStreamParsingUtilities(context, false, CommonUtilities.URL + "OrderService.svc/getUserRecentOrder?ClientId=" + UserUtilities.getClientId(context) + "&UserId=" + UserUtilities.getUserId(context), "", 1, this,this);
         asyncParsingUtilities.setProgressDialoaugeVisibility(true);
         asyncParsingUtilities.execute();
-
     }
 
     // delete order
@@ -95,7 +86,6 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
 
     @Override
     public void onComplete(String str, int requestCode, int responseCode) {
-
         // CommonUtilities.alert(context,str);
         DownloadUtility downloadUtility = (DownloadUtility) context;
         if (requestCode == 1)
@@ -129,11 +119,8 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }
-
     }
 
 
@@ -284,7 +271,4 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
 
         return false;
     }
-
-
-
 }

@@ -1,7 +1,6 @@
 package biyaniparker.com.parker.bal;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +10,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 import biyaniparker.com.parker.beans.CategoryBean;
 import biyaniparker.com.parker.beans.PriceBean;
@@ -19,6 +17,7 @@ import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.SizeDetailBean;
 import biyaniparker.com.parker.beans.SizeMaster;
 import biyaniparker.com.parker.beans.StockMasterBean;
+import biyaniparker.com.parker.beans.UnitMasterBean;
 import biyaniparker.com.parker.database.ItemDAOCategory;
 import biyaniparker.com.parker.database.ItemDAOPrice;
 import biyaniparker.com.parker.database.ItemDAOProduct;
@@ -28,6 +27,7 @@ import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncFileUploadUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 /**
  * Created by bt on 08/13/2016.
@@ -489,6 +489,29 @@ public class ModuleProduct implements DownloadUtility{
         list.clear();
         list.addAll(itemDAOProduct.getAllProductsAboveDate(UserUtilities.getClientId(context),dateLong));
         Collections.reverse(list);
+    }
+
+    public ArrayList<UnitMasterBean> getUnitMasterList(){
+        SharedPreference sharedPreference = new SharedPreference(context);
+        String response = sharedPreference.getStr("Response");
+        ArrayList<UnitMasterBean> list = new ArrayList<>();
+
+        try {
+            JSONArray jsonarray = new JSONArray(response);
+            for (int i=0;i<jsonarray.length();i++){
+                UnitMasterBean unitMasterBean = new UnitMasterBean();
+                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    unitMasterBean.setUnitId(jsonobject.getInt("UnitId"));
+                    unitMasterBean.setUnitName(jsonobject.getString("UnitName"));
+                    unitMasterBean.setUnitType(jsonobject.getString("UnitType"));
+                    unitMasterBean.setRemark(jsonobject.getString("Remark"));
+
+                    list.add(unitMasterBean);
+                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 

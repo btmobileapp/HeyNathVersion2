@@ -39,7 +39,7 @@ public class UserListView extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_activity_user_list);
         FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(    new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), UserCreateView.class));

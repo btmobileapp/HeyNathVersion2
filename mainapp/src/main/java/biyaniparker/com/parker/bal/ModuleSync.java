@@ -229,6 +229,17 @@ public class ModuleSync implements DownloadUtility {
                     }
                     reader.endArray();
                 }
+                if(name.equals("unitMaster"))
+                {
+                    reader.beginArray();
+
+                    while (reader.hasNext())
+                    {
+                        UnitMasterBean bean = gson.fromJson(reader, UnitMasterBean.class);
+                    }
+                    reader.endArray();
+                }
+
                 if(name.equals("allProducts"))
                 {
                     reader.beginArray();

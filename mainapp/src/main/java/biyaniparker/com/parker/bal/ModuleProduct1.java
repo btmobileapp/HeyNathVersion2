@@ -106,7 +106,8 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
         contentValues.put("ChangedDate", productBean.getChagedDate());
         contentValues.put("DeleteStatus", productBean.getDeleteStatus());
         contentValues.put("IsActive", productBean.getIsActive());
-
+        contentValues.put("UnitName",productBean.getUnitName());
+        contentValues.put("Remark",productBean.getRemark());
 
         JSONArray jsonArray=new JSONArray();
 

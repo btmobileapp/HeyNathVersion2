@@ -2,13 +2,10 @@ package biyaniparker.com.parker.bal;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import biyaniparker.com.parker.beans.ShopMaster;
 import biyaniparker.com.parker.beans.UserBean;
 import biyaniparker.com.parker.beans.UserShopBean;
@@ -66,6 +63,7 @@ public class ModuleUser implements  DownloadUtility{
         jsonObject.put("UserName",userBean.getUserName());
         jsonObject.put("IsActive",userBean.getIsActive());
         jsonObject.put("MobileNo",userBean.getMobileNo());
+        jsonObject.put("GSTNumber",userBean.getGSTNumber());
 
         AsyncUtilities asyncUtilities=new AsyncUtilities(context,true, CommonUtilities.URL+"UtilService.svc/CreateUser",jsonObject.toString(),2,this);
         asyncUtilities.execute();
@@ -97,6 +95,10 @@ public class ModuleUser implements  DownloadUtility{
         jsonObject.put("MobileNo",userBean.getMobileNo());
         jsonObject.put("UserId",userBean.getUserId());
         jsonObject.put("CreatedBy",userBean.getCreatedBy());
+        jsonObject.put("GSTNumber",userBean.getGSTNumber());
+        jsonObject.put("Discount",userBean.getDiscount());
+        jsonObject.put("VerifiedStatus",userBean.getVerifiedStatus());
+
 
         AsyncUtilities asyncUtilities=new AsyncUtilities(context,true, CommonUtilities.URL+"UtilService.svc/UpdateUser",jsonObject.toString(),3,this);
         asyncUtilities.execute();
@@ -135,8 +137,7 @@ public class ModuleUser implements  DownloadUtility{
 
                 if (parseUsers(str)) {
 
-                    downloadUtility.onComplete("Success", 1, responseCode);
-                } else {
+                                                                                                                     } else {
                     downloadUtility.onComplete("Failed", 1, responseCode);
                 }
             } else
@@ -297,7 +298,6 @@ public class ModuleUser implements  DownloadUtility{
                 itemDAOUser.insertShopMaster(parseShopMaster(shopJson.toString()));
             }
 
-
             for(int j=0;j<userArray.length();j++)
             {
                 JSONObject userJson=userArray.getJSONObject(j);
@@ -370,6 +370,9 @@ public class ModuleUser implements  DownloadUtility{
         userBean.setCanAssignTask(jsonObject.getString("CanAssignTask"));
         userBean.setgCMID(jsonObject.getString("GCMID"));
         userBean.setDeviceID(jsonObject.getString("DeviceID"));
+        userBean.setVerifiedStatus(jsonObject.getString("VerifiedStatus"));
+        userBean.setGSTNumber(jsonObject.getString("GSTNumber"));
+        userBean.setDiscount(jsonObject.getInt("Discount"));
         try {
             userBean.setEnterBy(jsonObject.getInt("EnterBy"));
         }
@@ -377,7 +380,6 @@ public class ModuleUser implements  DownloadUtility{
         try {
             userBean.setChangedBy(jsonObject.getInt("ChangedBy"));
         }catch (Exception e){}
-
 
         try {
             userBean.setEnterDate(jsonObject.getLong("EnterDate"));

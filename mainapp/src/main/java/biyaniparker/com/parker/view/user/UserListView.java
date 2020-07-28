@@ -39,7 +39,7 @@ public class UserListView extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_activity_user_list);
         FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(    new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), UserCreateView.class));
@@ -49,8 +49,6 @@ public class UserListView extends AppCompatActivity implements AdapterView.OnIte
         getSupportActionBar().setTitle(" User  ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-
 
 
         listView=(ListView)findViewById(R.id.listView);
@@ -71,7 +69,6 @@ public class UserListView extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.syncmenu,menu);
         return super.onCreateOptionsMenu(menu);
     }

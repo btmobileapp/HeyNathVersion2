@@ -90,6 +90,8 @@ public class ItemDAOProduct
                    bean.setChagedDate(c.getLong(c.getColumnIndex("ChangedDate")));
                    bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
                    bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
+                   bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                   bean.setRemark(c.getString(c.getColumnIndex("Remark")));
                    list.add(bean);
                    c.moveToNext();
                    i++;
@@ -172,6 +174,8 @@ public class ItemDAOProduct
         contentValues.put("ChangedDate", productBean.getChagedDate());
         contentValues.put("DeleteStatus", productBean.getDeleteStatus());
         contentValues.put("IsActive", productBean.getIsActive());
+        contentValues.put("UnitName",productBean.getUnitName());
+        contentValues.put("Remark",productBean.getRemark());
         long status=db.insert("Product",null,contentValues);
         db.close();
     }
@@ -296,6 +300,8 @@ public class ItemDAOProduct
                     bean.setChagedDate(c.getLong(c.getColumnIndex("ChangedDate")));
                     bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
                     bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
+                    bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                    bean.setRemark(c.getString(c.getColumnIndex("Remark")));
 
                     c.moveToNext();
                     i++;

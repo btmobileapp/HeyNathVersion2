@@ -41,8 +41,6 @@ public class ItemDAOOrder
         db.close();
     }
 
-
-
     // method overloading
 
     private ContentValues convertToContent(OrderMasterBean orderMasterBean)
@@ -129,7 +127,6 @@ public class ItemDAOOrder
                 i++;
             }
         }
-
         db.close();
         return list;
     }
@@ -234,20 +231,17 @@ public class ItemDAOOrder
         }
         db.close();
         return list;
-
     }
 
     public void updateOrderMaster(OrderMasterBean orderMasterBean)
     {
-            SQLiteDatabase db=new DBHELPER(context).getWritableDatabase();
-            db.update("OrderMaster",convertToContent(orderMasterBean),"OrderId="+orderMasterBean.getOrderId(),null);
+        SQLiteDatabase db=new DBHELPER(context).getWritableDatabase();
+        db.update("OrderMaster",convertToContent(orderMasterBean),"OrderId="+orderMasterBean.getOrderId(),null);
         db.close();
-
     }
 
     public ArrayList<OrderMasterBean> getCustomOrders(String custName, long fromDate, long toDate)
     {
-
         String dateCondition= (fromDate==0 || toDate==0) ? "1==1": "OrderDate BETWEEN "+fromDate+"  and "+toDate ;
         String nameCondition= custName.equals("")? "1==1" : "Name='"+custName+"'" ;
         SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
@@ -278,7 +272,6 @@ public class ItemDAOOrder
                 i++;
             }
         }
-
         db.close();
         return list;
     }
@@ -353,7 +346,6 @@ public class ItemDAOOrder
                 i++;
             }
         }
-
         db.close();
         return list;
     }
@@ -374,7 +366,6 @@ public class ItemDAOOrder
         cursor.close();
         db.close();
         return maxCDate;
-
     }
 
     public void deleteAllOrder() {
@@ -383,5 +374,4 @@ public class ItemDAOOrder
         db.delete("OrderMaster", null, null);
         db.close();
     }
-
 }

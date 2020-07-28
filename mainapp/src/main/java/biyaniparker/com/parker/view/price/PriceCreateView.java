@@ -31,10 +31,6 @@ public class PriceCreateView extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_activity_create_price);
-
-
-
-
         getSupportActionBar().setTitle(" Create Price  ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);

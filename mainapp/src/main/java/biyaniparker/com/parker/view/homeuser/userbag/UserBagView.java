@@ -276,10 +276,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
         {
             if(str.equals("Success"))
             {
-
-
-
-
                 finish();
                 startActivity(new Intent(this, UserBagView.class));
             }

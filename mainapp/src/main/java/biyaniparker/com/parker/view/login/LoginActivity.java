@@ -29,11 +29,12 @@ import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 import biyaniparker.com.parker.view.category.CategoryListView;
 import biyaniparker.com.parker.view.homeadmin.AdminProductMenu;
 import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
+import biyaniparker.com.parker.view.user.UserCreateView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener  ,DownloadUtility
 {
 //TextInputLayout
-    Button btnLogin;
+    Button btnLogin,btnRegister;
     EditText edUserId,edPassword;
     ModuleLogin objModuleLogin;
     TextView txtAddress,txt;
@@ -64,31 +65,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void inItUi()
     {
         btnLogin=(Button)findViewById(R.id.btnLogin);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
         edUserId=(EditText)findViewById(R.id.edUserId);
         edPassword=(EditText)findViewById(R.id.edPassword);
         btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v)
     {
-        CommonUtilities.hideSoftKeyBord(this);
-        String userid=edUserId.getText().toString();
-        String pass=edPassword.getText().toString();
-        if(userid.trim().equalsIgnoreCase("")||pass.trim().equalsIgnoreCase(""))
-        {
-                     Toast.makeText(this,"Please enter username and password ",Toast.LENGTH_LONG).show();
+        if (v.getId()==R.id.btnLogin) {
+            CommonUtilities.hideSoftKeyBord(this);
+            String userid = edUserId.getText().toString();
+            String pass = edPassword.getText().toString();
+            if (userid.trim().equalsIgnoreCase("") || pass.trim().equalsIgnoreCase("")) {
+                Toast.makeText(this, "Please enter username and password ", Toast.LENGTH_LONG).show();
+            } else {
+                if (new ConnectionDetector(this).isConnectingToInternet()) {
+                    objModuleLogin.performLogin(userid.trim(), pass.trim());
+                } else {
+                    Toast.makeText(this, "Check Internet Connection", Toast.LENGTH_LONG).show();
+                }
+            }
         }
-       else
-        {
-            if(new ConnectionDetector(this).isConnectingToInternet())
-            {
-                objModuleLogin.performLogin(userid.trim(), pass.trim());
-            }
-            else
-            {
-                Toast.makeText(this,"Check Internet Connection",Toast.LENGTH_LONG).show();
-            }
+        else if (v.getId()==R.id.btnRegister){
+               finish();
+              Intent intent = new Intent(LoginActivity.this, UserCreateView.class);
+              startActivity(intent);
         }
     }
 
@@ -104,9 +108,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //if(UserUtilities.getUserType(this).equalsIgnoreCase("Admin"))
                     if(true)
                     {
-
-
-
                         SharedPreferences sh=getSharedPreferences("Sync",MODE_PRIVATE);
                         sh.edit().putBoolean("Sync",false).commit();
 

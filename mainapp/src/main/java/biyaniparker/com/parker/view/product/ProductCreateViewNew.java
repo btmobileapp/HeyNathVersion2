@@ -39,6 +39,7 @@ import androidx.core.content.ContextCompat;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,6 +54,7 @@ import biyaniparker.com.parker.bal.ModuleProduct1;
 import biyaniparker.com.parker.beans.CategoryBean;
 import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.StockMasterBean;
+import biyaniparker.com.parker.beans.UnitMasterBean;
 import biyaniparker.com.parker.utilities.AsyncFileUpload;
 import biyaniparker.com.parker.utilities.BitmapUtilities;
 import biyaniparker.com.parker.utilities.CommonUtilities;
@@ -64,6 +66,8 @@ import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 import biyaniparker.com.parker.utilities.serverutilities.FileUpload;
 import biyaniparker.com.parker.view.homeadmin.ImageRotateSetting;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
+import biyaniparker.com.parker.view.unitmaster.UnitMasterEditView;
 
 public class ProductCreateViewNew extends AppCompatActivity implements View.OnClickListener, DownloadUtility, MultifileUploadUtility, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
@@ -72,8 +76,8 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
 
     ImageView image1,image2,image3,image4;
 
-    EditText edName, edStripCode, edPrice,edUnitName;
-    Spinner spCategory   ;//, spPrices;
+    EditText edName, edStripCode, edPrice,edUnitName,edRemark;
+    Spinner spCategory,spUnitMaster   ;//, spPrices;
     StockMasterBean stockBean;
     LinearLayout l1;
     CheckBox chkIsActive;
@@ -84,6 +88,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
     ModulePrice modulePrice;
     String path="";
     String path1="";
+    String UnitName;
     ArrayList<View> viewList=new ArrayList<View>() ;
     ArrayList<StockMasterBean> stockList=new ArrayList<StockMasterBean>();
      int categoryId;
@@ -101,6 +106,11 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,moduleCategory.lastCategoryList);
         spCategory.setAdapter(arrayAdapter);
 
+        ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
+        ArrayList<UnitMasterBean> listUnitMaster = moduleProduct.getUnitMasterList();
+        ArrayAdapter arrayAdapter1=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,listUnitMaster);
+        spUnitMaster.setAdapter(arrayAdapter1);
+
         //  setting consumer price list for spinner
         modulePrice.getPrices();
         ArrayAdapter priceArrayAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,modulePrice.list);
@@ -110,7 +120,6 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
 
         CommonUtilities.hideatInItInputBoard(this);
         intitMultipleImages();
-
     }
 
     private void intitMultipleImages() {
@@ -160,7 +169,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
     private void init() {
         edPrice=findViewById(R.id.edPrice);
         edName=(EditText)findViewById(R.id.name);
-        edUnitName=(EditText)findViewById(R.id.edUnitName);
+       // edUnitName=(EditText)findViewById(R.id.edUnitName);
 
         edStripCode=(EditText)findViewById(R.id.stripCode);
        // spPrices=(Spinner)findViewById(R.id.spinnerPrice);
@@ -171,9 +180,42 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
         chkIsActive.setChecked(true);
         img=(ImageView)findViewById(R.id.img);
         camera=(ImageView)findViewById(R.id.camera);
+        spUnitMaster = findViewById(R.id.spinnerUnit);
+        edRemark = findViewById(R.id.etProductRemark);
 
         //spPrices.setOnItemClickListener(this);
         spCategory.setOnItemSelectedListener(this);
+
+        spUnitMaster.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
+                ArrayList<UnitMasterBean> list = moduleProduct.getUnitMasterList();
+               // UnitName = list.get(position).getUnitName();
+
+
+                SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+                String response = sharedPreference.getStr("Response");
+
+                try {
+                    JSONArray jsonarray = new JSONArray(response);
+                    for (int i=0;i<jsonarray.length();i++){
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+
+                        if (list.get(position).getUnitId()== jsonobject.getInt("UnitId")){
+                            edRemark.setText(jsonobject.getString("Remark"));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +230,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
                 pickPhoto(2);
             }
         });
+
         getSupportActionBar().setTitle("Create Product");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -222,8 +265,6 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
         else
         {
             if (validation()) {
-
-
                 for(int i=0;i<viewList.size();i++)
                 {
 
@@ -247,6 +288,14 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
                 bean.setProductName(edName.getText().toString());
                 bean.setStripCode(edStripCode.getText().toString());
                 bean.setDetails(" Product Details");
+
+                try{
+                    bean.setUnitName(spUnitMaster.getSelectedItem().toString());
+                    bean.setRemark(edRemark.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 try
                 {
                    // bean.setPriceId(modulePrice.list.get(spPrices.getSelectedItemPosition()).getPriceId());
@@ -312,7 +361,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
     private boolean validation() {
         if(edStripCode.getText().toString().equals("")||edName.getText().toString().equals(""))
         {return false;}
-        else  if(edPrice.getText().toString().equals("")||edUnitName.getText().toString().equals(""))
+        else  if(edPrice.getText().toString().equals(""))
         {return false;}
         else
         {return true;}

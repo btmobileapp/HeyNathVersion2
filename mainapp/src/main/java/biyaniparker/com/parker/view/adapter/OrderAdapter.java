@@ -32,7 +32,7 @@ public class OrderAdapter extends ArrayAdapter
 
     class ViewHolder
     {
-        TextView txtShop, txtAddress, txtOrderId, txtOrderDate;
+        TextView txtShop, txtAddress, txtOrderId, txtOrderDate,tvStatus;
     }
 
 
@@ -51,18 +51,15 @@ public class OrderAdapter extends ArrayAdapter
             convertView.setTag(viewHolder);
         }
 
-
         viewHolder.txtAddress=(TextView)convertView.findViewById(R.id.txtAddress);
         viewHolder.txtOrderDate=(TextView)convertView.findViewById(R.id.txtOrderDate);
         viewHolder.txtOrderId=(TextView)convertView.findViewById(R.id.txtOrder);
         viewHolder.txtShop=(TextView)convertView.findViewById(R.id.txtShop);
 
-
         viewHolder.txtShop.setText(orderList.get(position).getShopName());
         viewHolder.txtAddress.setText(orderList.get(position).getAddress());
         viewHolder.txtOrderId.setText("Or No : " + orderList.get(position).getOrderId() + "");
         viewHolder.txtOrderDate.setText(CommonUtilities.longToDate(orderList.get(position).getOrderDate()));
-
 
         return convertView;
     }

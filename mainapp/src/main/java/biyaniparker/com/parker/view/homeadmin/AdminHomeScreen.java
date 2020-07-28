@@ -109,6 +109,7 @@ public class AdminHomeScreen extends AppCompatActivity
         RowItem item4= new RowItem("Users", R.drawable.ic_user);
         RowItem item5= new RowItem("Change password", R.drawable.ic_changepass);
         RowItem item6= new RowItem("Logout", R.drawable.ic_logout);
+        //RowItem item8= new RowItem("Verify User",R.drawable.verify_user);
         item1.isLocal=true;
         item2.isLocal=true;
      //   item3.isLocal=true;
@@ -128,6 +129,7 @@ public class AdminHomeScreen extends AppCompatActivity
         items.add(item4);
         items.add(item5);
         items.add(item6);
+       // items.add(item8);
 
 
         slider_list=(ListView)findViewById(R.id.slider_list);
@@ -138,8 +140,8 @@ public class AdminHomeScreen extends AppCompatActivity
 
         //    calling recent orders
 
-        moduleOrder=new ModuleOrder(this);
-        moduleProduct=new ModuleProduct(this);
+        moduleOrder = new ModuleOrder(this);
+        moduleProduct = new ModuleProduct(this);
         moduleOrder.getOrderList();
 
 
@@ -148,9 +150,7 @@ public class AdminHomeScreen extends AppCompatActivity
 //if(moduleOrder.orderList.size()==0) {
         moduleOrder.getRecentOrders(moduleOrder.getMaxChanedDate());  //sync method
 //}
-
-
-
+        
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -163,14 +163,8 @@ public class AdminHomeScreen extends AppCompatActivity
                 {
                     CommonUtilities.alert(AdminHomeScreen.this,"Err:  "+e.toString());
                 }
-
             }
         });
-
-
-
-
-
 
         getSupportActionBar().setTitle(getString(R.string.app_name));
         getSupportActionBar().setSubtitle(CommonUtilities.Slogan);

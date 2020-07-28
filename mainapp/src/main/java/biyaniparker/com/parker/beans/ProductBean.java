@@ -18,7 +18,7 @@ public class ProductBean
     public String IconFull4;
     public String IconFull5;
     public String UnitName;
-
+    public  String Remark;
 
     public ProductBean()
     {
@@ -195,6 +195,21 @@ public class ProductBean
         this.isActive = isActive;
     }
 
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
+
+    public String getUnitName() {
+        return UnitName;
+    }
+
+    public void setUnitName(String unitName) {
+        UnitName = unitName;
+    }
 
 //  orriding toString for display product names on listview or spinner\
 

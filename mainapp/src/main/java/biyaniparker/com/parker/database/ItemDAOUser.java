@@ -106,6 +106,9 @@ public class ItemDAOUser
         values.put("EnterDate",userBean.getEnterDate());
         values.put("ChangedBy",userBean.getChangedBy());
         values.put("ChangedDate",userBean.getChangedDate());
+        values.put("VerifiedStatus", userBean.getVerifiedStatus());
+        values.put("GSTNumber", userBean.getGSTNumber());
+        values.put("Discount", userBean.getDiscount());
         return values;
     }
 
@@ -191,6 +194,9 @@ public class ItemDAOUser
                     userDetails.setEnterDate(c.getLong(c.getColumnIndex("EnterDate")));
                     userDetails.setChangedBy(c.getInt(c.getColumnIndex("ChangedBy")));
                     userDetails.setChangedDate(c.getLong(c.getColumnIndex("ChangedDate")));
+                    userDetails.setGSTNumber(c.getString(c.getColumnIndex("GSTNumber")));
+                    userDetails.setVerifiedStatus(c.getString(c.getColumnIndex("VerifiedStatus")));
+                    userDetails.setDiscount(c.getFloat(c.getColumnIndex("Discount")));
                     c.moveToNext();
                     i++;
                     userBean.user=userDetails;
@@ -284,6 +290,9 @@ public class ItemDAOUser
                     userDetails.setEnterDate(c.getLong(c.getColumnIndex("EnterDate")));
                     userDetails.setChangedBy(c.getInt(c.getColumnIndex("ChangedBy")));
                     userDetails.setChangedDate(c.getLong(c.getColumnIndex("ChangedDate")));
+                    userDetails.setDiscount(c.getFloat(c.getColumnIndex("Discount")));
+                    userDetails.setVerifiedStatus(c.getString(c.getColumnIndex("VerifiedStatus")));
+                    userDetails.setGSTNumber(c.getString(c.getColumnIndex("GSTNumber")));
                     c.moveToNext();
                     i++;
                     userBean.user=userDetails;
@@ -336,7 +345,7 @@ public class ItemDAOUser
         {
             ShopMaster bean = new ShopMaster();
             SQLiteDatabase db = new DBHELPER(context).getReadableDatabase();
-            Cursor c = db.rawQuery("Select * from ShopMaster where", null);
+            Cursor c = db.rawQuery("Select * from User where", null);
             if (c != null)
             {
                 return c.getLong(c.getColumnIndex("ChangedDate"));

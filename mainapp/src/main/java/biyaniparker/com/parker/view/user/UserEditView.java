@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,10 +31,12 @@ import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 
 public class UserEditView extends AppCompatActivity implements View.OnClickListener, DownloadUtility, CompoundButton.OnCheckedChangeListener {
 
-    EditText edShopName, edPersonName, edContact, edAddress, edCreadit,edUserName, edPassward,edEmail,edRePass;
+    EditText edShopName, edPersonName, edContact, edAddress, edCreadit,edUserName, edPassward,edEmail,edRePass,edGstNumber,edDiscount;
     Button buttonSave, buttonDelete;
     UserShopBean bean;ShopMaster shopMasterbean;
     CheckBox chkShowPass;
+    RadioButton rbVerified,rbNotVerified,rbRejected;
+    RadioGroup radioGroup;
 
     ModuleUser moduleUser;
     RadioButton rdAdmin, rdCustomer;
@@ -63,7 +66,6 @@ public class UserEditView extends AppCompatActivity implements View.OnClickListe
 
 
     private void renderView() {
-
         Intent intent = getIntent();
         int userId = intent.getIntExtra("UserId", 0);
         bean=moduleUser.getUser(userId);
@@ -93,6 +95,22 @@ public class UserEditView extends AppCompatActivity implements View.OnClickListe
         }
         edPassward.setText(bean.user.getPassword());
         edRePass.setText(bean.user.getPassword());
+
+        if (edDiscount.getText().toString().isEmpty()){
+            edDiscount.setText("0");
+        } else {
+            edDiscount.setText(String.valueOf(bean.user.getDiscount()));
+        }
+        edGstNumber.setText(bean.user.getGSTNumber());
+        edDiscount.setText(String.valueOf(bean.user.getDiscount()));
+
+//            if (bean.user.getVerifiedStatus().equalsIgnoreCase("Verified")){
+//                rbVerified.setChecked(true);
+//            } else if (bean.user.getVerifiedStatus().equalsIgnoreCase("Not Verified")){
+//                rbNotVerified.setChecked(true);
+//            } else {
+//                rbRejected.setChecked(true);
+//            }
     }
 
     private void init() {
@@ -110,6 +128,12 @@ public class UserEditView extends AppCompatActivity implements View.OnClickListe
         buttonDelete=(Button)findViewById(R.id.btndelete);
         buttonDelete.setOnClickListener(this);
         buttonSave=(Button)findViewById(R.id.btnsave);
+        radioGroup = findViewById(R.id.rg);
+        edGstNumber = findViewById(R.id.edgstNumber);
+        edDiscount = findViewById(R.id.edDiscount);
+        rbVerified = findViewById(R.id.rbVerified);
+        rbNotVerified = findViewById(R.id.rbNotVerified);
+        rbRejected = findViewById(R.id.rbRejected);
         buttonSave.setOnClickListener(this);
     }
 
@@ -148,7 +172,16 @@ public class UserEditView extends AppCompatActivity implements View.OnClickListe
                         bean.user.setIsActive("true");
                         bean.user.setDeleteStatus("false");
                         bean.user.setClientId(UserUtilities.getClientId(this));
+                        bean.user.setGSTNumber(edGstNumber.getText().toString());
+                        bean.user.setDiscount(Float.parseFloat(edDiscount.getText().toString()));
 
+                        if (rbVerified.isChecked()){
+                            bean.user.setVerifiedStatus("Verified");
+                        } else if (rbNotVerified.isChecked()){
+                            bean.user.setVerifiedStatus("Not Verified");
+                        } else if (rbRejected.isChecked()){
+                            bean.user.setVerifiedStatus("Rejected");
+                        }
 
                         try {
                             moduleUser.updateUser(bean.user,bean.shopdetails);
@@ -214,10 +247,17 @@ public class UserEditView extends AppCompatActivity implements View.OnClickListe
         }
         if(edShopName.getText().toString().equals("")||edPersonName.getText().toString().equals("")||edContact.getText().toString().equals("")
                 ||edAddress.getText().toString().equals("")||edCreadit.getText().toString().equals("")||edUserName.getText().toString().equals("")
-                ||edPassward.getText().toString().equals("")||edEmail.getText().toString().equals(""))
-        {return false;}
+                ||edPassward.getText().toString().equals("")||edEmail.getText().toString().equals("") ||
+                 radioGroup.getCheckedRadioButtonId() == -1
+                || edGstNumber.getText().toString().equals("")
+                || edDiscount.getText().toString().equals(""))
+        {
+            return false;
+        }
+
         else
-        {return true;}
+        {return true;
+        }
     }
 
     @Override

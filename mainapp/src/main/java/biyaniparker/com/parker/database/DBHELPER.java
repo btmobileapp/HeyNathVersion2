@@ -14,7 +14,7 @@ public class DBHELPER extends SQLiteOpenHelper
 
 	String Album="create table Album(AlbumId integer primary key,AlbumName text)";
 	String category="  Create table Category (CategoryId Integer primary key, CategoryCode Text, CategoryName Text, ParentCategoryId Integer, Icon Text, IsLast Text, Remark Text, ClientId Integer, CreatedBy Integer, CreatedDate Integer, ChangedBy Integer, ChangedDate Integer, DeleteStatus Text)";
-	String product=" Create table Product (ProductId Integer primary key, ProductCode Text, ProductName Text, StripCode Text, Details Text, PriceId Integer, CategoryId Integer, IconThumb Text, IconFull Text, IconFull1 Text, ClientId Integer, SequenceNo Integer, CreatedBy Integer, CreatedDate Integer, ChangedBy Integer, ChangedDate Integer, DeleteStatus Text, IsActive text,IsSelfCreated text,IsFromGCM text,Etc1 text,Etc2 text)";
+	String product=" Create table Product (ProductId Integer primary key, ProductCode Text, ProductName Text, StripCode Text, Details Text, PriceId Integer, CategoryId Integer, IconThumb Text, IconFull Text, IconFull1 Text, ClientId Integer, SequenceNo Integer, CreatedBy Integer, CreatedDate Integer, ChangedBy Integer, ChangedDate Integer, DeleteStatus Text, IsActive text,IsSelfCreated text,IsFromGCM text,Etc1 text,Etc2 text,UnitName Text,Remark Text)";
 	String sizeMaster=" Create table SizeMaster(SizeId Integer primary key, SizeName Text, ClientId Integer, SequenceNo Integer, DeleteStatus Text, CreatedBy Integer, CreatedDate Integer, ChangedBy Integer, ChangedDate Integer)";
 	String sizeDetails=" Create table SizeDetails(SizeDetailId Integer primary key, SizeId Integer, CategoryId Integer, DeleteStatus Text)";
 	String user="Create table User(UserId Integer primary key, ShopId Integer, CreatedBy Integer, AccessLavel Integer, RoleName Text, UserType Text, UserName Text, Password Text," +
@@ -22,7 +22,7 @@ public class DBHELPER extends SQLiteOpenHelper
 			"  MobileNo Text, IsActive Text, ClientId Integer, OrgnisationIds Text, EmailId Text, " +
 			"DeleteStatus Text, ExpiryDate Integer, DepartmentIds Text," +
 			" CanCreateUser Text, CanAssignTask Text, GCMID Text, DeviceID Text," +
-			" EnterBy Integer, EnterDate Integer, ChangedBy Integer, ChangedDate Integer)";
+			" EnterBy Integer, EnterDate Integer, ChangedBy Integer, ChangedDate Integer,GSTNumber Text,Discount REAL,VerifiedStatus Text)";
 	String dispatchMaster=" Create table DispatchMaster(DispatchId Integer primary key, DispatchNo Integer, " +
 			"ChallanNo Integer, DispatchDate Integer," +
 			" ChallanDate Integer, DispatchBy Integer, OrderId Integer, " +

@@ -21,6 +21,7 @@ import biyaniparker.com.parker.view.price.PriceListView;
 import biyaniparker.com.parker.view.product.ProductCreateViewNew;
 import biyaniparker.com.parker.view.product.ProductListView;
 import biyaniparker.com.parker.view.size.SizeListView;
+import biyaniparker.com.parker.view.unitmaster.UnitMasterListView;
 import biyaniparker.com.parker.view.user.UserListView;
 
 public class AdminProductMenu extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -41,6 +42,7 @@ public class AdminProductMenu extends AppCompatActivity implements AdapterView.O
         list.add(new MenuBean(R.drawable.facilities,"Size Master"));
       //  list.add(new MenuBean(R.drawable.facilities,"User Master"));
         list.add(new MenuBean(R.drawable.facilities,"Price Master"));
+        list.add(new MenuBean(R.drawable.facilities,"Unit Master"));
        // list.add(new MenuBean(R.drawable.facilities,"Remove Empty Stock"));
 
 
@@ -115,8 +117,13 @@ public class AdminProductMenu extends AppCompatActivity implements AdapterView.O
             intent.putExtra("CategoryId",0);
             startActivity(intent);
         }
-
+        else if(menuVal.equals("Unit Master"))
+        {
+            Intent intent=new Intent(this, biyaniparker.com.parker.view.unitmaster.UnitMasterListView.class);
+            startActivity(intent);
+        }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home)

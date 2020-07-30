@@ -121,9 +121,11 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
 
         CommonUtilities.hideatInItInputBoard(this);
 
-        String url=CommonUtilities.URL+"ProductService.svc/GetProductDetailsForAdmin?ProductId="+bean.getProductId();
-        AsyncUtilities utilities=new AsyncUtilities(this,false,url,null,150,this);
-        utilities.execute();
+      //  String url=CommonUtilities.URL+"ProductService.svc/GetProductDetailsForAdmin?ProductId="+bean.getProductId();
+     //   AsyncUtilities utilities=new AsyncUtilities(this,false,url,null,150,this);
+     //   utilities.execute();
+
+        intitMultipleImages("");
     }
 
     ImageView image1,image2,image3,image4;
@@ -135,11 +137,31 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         image4 = findViewById(R.id.image4);
 
         try {
-            JSONArray  array=new JSONArray(str);
-            final String url1=  array.getJSONObject(0).getString("IconFull2");
-            final String url2=  array.getJSONObject(0).getString("IconFull3");
-            final String url3=  array.getJSONObject(0).getString("IconFull4");
-            final String url4=  array.getJSONObject(0).getString("IconFull5");
+           // JSONArray  array=new JSONArray(str);
+            final String url1= bean.IconFull2; //array.getJSONObject(0).getString("IconFull2");
+            final String url2=  bean.IconFull3;  //array.getJSONObject(0).getString("IconFull3");
+            final String url3= bean.IconFull4;  // array.getJSONObject(0).getString("IconFull4");
+            final String url4=  bean.IconFull5;  //array.getJSONObject(0).getString("IconFull5");
+            try {
+                  if(url1==null ||url1.length()<5)
+                  {
+                      image1.setVisibility(View.GONE);
+                  }
+                if(url2==null ||url2.length()<5)
+                {
+                    image2.setVisibility(View.GONE);
+                }
+                if(url3==null ||url3.length()<5)
+                {
+                    image3.setVisibility(View.GONE);
+                }
+                if(url4==null ||url4.length()<5)
+                {
+                    image4.setVisibility(View.GONE);
+                }
+            }
+            catch (Exception ex)
+            {}
             imageLoader = ImageLoader.getInstance();
             //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
             imageLoader.displayImage(url1,image1, doption, animateFirstListener);
@@ -366,7 +388,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         }
         else if(requestCode==150 && responseCode==200)
         {
-            intitMultipleImages( str);
+            //intitMultipleImages( str);
         }
 
         else if(requestCode==2 && responseCode==200)

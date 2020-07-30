@@ -32,6 +32,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -87,8 +88,9 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
 
             txtproductname.setText(bean.getProductName());
             try {
-                double price= moduleProductDetails.getPriceFromPriceId(bean.getPriceId());
-                txtprice.setText((int)price+" Rs");
+                double price=bean.price ;//moduleProductDetails.getPriceFromPriceId(bean.getPriceId());
+                DecimalFormat df = new DecimalFormat("#.##");
+                txtprice.setText( df.format( price)+" Rs");
             }
             catch (Exception e){ txtprice.setText(" Rs");}
 
@@ -360,7 +362,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         {
               // Toast.makeText(this,""+str,Toast.LENGTH_LONG).show();
                 addSizeView();
-                addStripCodeProducts();
+               // addStripCodeProducts();
         }
         else if(requestCode==150 && responseCode==200)
         {

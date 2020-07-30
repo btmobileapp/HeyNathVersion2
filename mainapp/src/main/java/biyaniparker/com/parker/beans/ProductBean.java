@@ -48,6 +48,14 @@ public class ProductBean
         pWithQnty.setDeleteStatus(deleteStatus);
         pWithQnty.setIsActive(isActive);
 
+        pWithQnty.price=price;
+        pWithQnty.IconFull2=IconFull2;
+        pWithQnty.IconFull3=IconFull3;
+        pWithQnty.IconFull4=IconFull4;
+        pWithQnty.IconFull5=IconFull5;
+        pWithQnty.UnitName=UnitName;
+        pWithQnty.Remark=Remark;
+
         return pWithQnty;
     }
 

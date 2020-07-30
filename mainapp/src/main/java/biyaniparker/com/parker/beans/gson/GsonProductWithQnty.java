@@ -20,6 +20,14 @@ public class GsonProductWithQnty
     public int qnt;
 
 
+    public float price;
+    public String IconFull2;
+    public String IconFull3;
+    public String IconFull4;
+    public String IconFull5;
+    public String UnitName;
+    public  String Remark;
+
 
    public  int  getObjeSize()
    {
@@ -55,6 +63,15 @@ public class GsonProductWithQnty
         pWithQnty.setDeleteStatus(DeleteStatus);
         pWithQnty.setIsActive(IsActive);
         pWithQnty.setQnt(qnt);
+
+        pWithQnty. price=price;
+        pWithQnty. IconFull2=IconFull2;
+        pWithQnty. IconFull3=IconFull3;
+        pWithQnty. IconFull4=IconFull4;
+        pWithQnty. IconFull5=IconFull5;
+        pWithQnty. UnitName=UnitName;
+        pWithQnty. Remark=Remark;
+
 
         return pWithQnty;
     }

@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -103,11 +104,12 @@ public class ProductRandomAdapter extends ArrayAdapter implements OnClickListene
 
 	        	  if(rowItem!=null) {
 					  holder.t1.setText(rowItem.getProductName());
-					  ItemDAOPrice itemDAOPrice=new ItemDAOPrice(context);
+					  //ItemDAOPrice itemDAOPrice=new ItemDAOPrice(context);
 					  try
 					  {
-						  double price = itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
-						  holder.t2.setText("Rs. " + (int) price);
+						  double price =  rowItem.price;     //itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
+						  DecimalFormat df = new DecimalFormat("#.##");
+						  holder.t2.setText("Rs. " +  df.format(price));
 					  }
 					  catch (Exception e){  holder.t2.setText("Rs. ");}
 					  //holder.picture.setImageResource(rowItem.imgrs);

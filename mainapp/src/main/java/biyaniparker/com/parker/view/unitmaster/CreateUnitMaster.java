@@ -28,7 +28,7 @@ public class CreateUnitMaster extends AppCompatActivity implements View.OnClickL
     UnitMasterBean unitMasterBean;
     EditText etUnitName,etUnitType,etRemark;
     Button btnSaveUnitMaster;
-    Context context;
+  //  Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,7 @@ public class CreateUnitMaster extends AppCompatActivity implements View.OnClickL
 
     private boolean validation() {
         if (etUnitName.getText().toString().isEmpty() ||
-                etUnitType.getText().toString().isEmpty() || etRemark.getText().toString().isEmpty()){
+               etRemark.getText().toString().isEmpty()){
             Toast.makeText(getApplicationContext(),"Please enter all required fields",Toast.LENGTH_SHORT).show();
             return false;
         }

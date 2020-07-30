@@ -151,7 +151,17 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
         contentValues.put("ChangedDate", productBean.getChagedDate());
         contentValues.put("DeleteStatus", productBean.getDeleteStatus());
         contentValues.put("IsActive", productBean.getIsActive());
-         AsyncUtilities serverAsync=new AsyncUtilities(context,true, CommonUtilities.URL+"ProductService.svc/UpdateProduct",contentValues.toString(),3,this);
+
+        contentValues.put("Remark",productBean.getRemark());
+        contentValues.put("price", productBean.price);
+        contentValues.put("IconFull2", productBean.IconFull2);
+        contentValues.put("IconFull3", productBean.IconFull3);
+        contentValues.put("IconFull4", productBean.IconFull4);
+        contentValues.put("IconFull5", productBean.IconFull5);
+        contentValues.put("UnitName", productBean.UnitName);
+
+
+        AsyncUtilities serverAsync=new AsyncUtilities(context,true, CommonUtilities.URL+"ProductService.svc/UpdateProduct",contentValues.toString(),3,this);
         serverAsync.execute();
     }
 
@@ -485,6 +495,26 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
             catch (Exception e)
             {
 
+            }
+
+            try
+            {
+                bean.IconFull2=(c.getString("IconFull2"));
+                bean.IconFull3=(c.getString("IconFull3"));
+                bean.IconFull4=(c.getString("IconFull4"));
+                bean.IconFull5=(c.getString("IconFull5"));
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.Remark=(c.getString("Remark"));
+                bean.UnitName=(c.getString("UnitName"));
+                bean.price=Float.parseFloat  (c.getString("price"));
+            }
+            catch (Exception e)
+            {
             }
             return bean;
         }

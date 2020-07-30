@@ -61,7 +61,7 @@ public class ItemDAOProduct
     {
         ArrayList<ProductBean> list=new ArrayList<ProductBean>();
         SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
-        Cursor c= db.rawQuery("SELECT * FROM Product where clientId=" + clientId+" and DeleteStatus='false'", null);
+        Cursor c= db.rawQuery("SELECT * FROM Product where  DeleteStatus='false'", null);
 
        if(c!=null)
        {
@@ -90,8 +90,24 @@ public class ItemDAOProduct
                    bean.setChagedDate(c.getLong(c.getColumnIndex("ChangedDate")));
                    bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
                    bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
-                   bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
-                   bean.setRemark(c.getString(c.getColumnIndex("Remark")));
+
+                   try
+                   {
+                       bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                       bean.setRemark(c.getString(c.getColumnIndex("Remark")));
+                       bean.price=Float.parseFloat( c.getString(c.getColumnIndex("price")));
+                   }
+                   catch (Exception ex)
+                   {}
+                   try
+                   {
+                       bean.IconFull2=(c.getString(c.getColumnIndex("IconFull2")));
+                       bean.IconFull3=(c.getString(c.getColumnIndex("IconFull3")));
+                       bean.IconFull4=(c.getString(c.getColumnIndex("IconFull4")));
+                       bean.IconFull5=(c.getString(c.getColumnIndex("IconFull5")));
+                   }
+                   catch (Exception ex)
+                   {}
                    list.add(bean);
                    c.moveToNext();
                    i++;
@@ -176,6 +192,12 @@ public class ItemDAOProduct
         contentValues.put("IsActive", productBean.getIsActive());
         contentValues.put("UnitName",productBean.getUnitName());
         contentValues.put("Remark",productBean.getRemark());
+        contentValues.put("price",productBean.price+"");
+        contentValues.put("IconFull2",productBean.IconFull2);
+        contentValues.put("IconFull3",productBean.IconFull3);
+        contentValues.put("IconFull4",productBean.IconFull4);
+        contentValues.put("IconFull5",productBean.IconFull5);
+
         long status=db.insert("Product",null,contentValues);
         db.close();
     }
@@ -205,6 +227,16 @@ public class ItemDAOProduct
         contentValues.put("ChangedDate", productBean.getChagedDate());
         contentValues.put("DeleteStatus", productBean.getDeleteStatus());
         contentValues.put("IsActive", productBean.getIsActive());
+
+        contentValues.put("UnitName",productBean.getUnitName());
+        contentValues.put("Remark",productBean.getRemark());
+        contentValues.put("price",productBean.price+"");
+        contentValues.put("IconFull2",productBean.IconFull2);
+        contentValues.put("IconFull3",productBean.IconFull3);
+        contentValues.put("IconFull4",productBean.IconFull4);
+        contentValues.put("IconFull5",productBean.IconFull5);
+
+
         long status=db.update("Product", contentValues, "ProductId=" + productBean.getProductId(), null);
         db.close();
     }
@@ -256,6 +288,24 @@ public class ItemDAOProduct
                     bean.setChagedDate(c.getLong(c.getColumnIndex("ChangedDate")));
                     bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
                     bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
+                    try
+                    {
+                        bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                        bean.setRemark(c.getString(c.getColumnIndex("Remark")));
+                        bean.price=Float.parseFloat( c.getString(c.getColumnIndex("price")));
+                    }
+                    catch (Exception ex)
+                    {}
+                    try
+                    {
+                        bean.IconFull2=(c.getString(c.getColumnIndex("IconFull2")));
+                        bean.IconFull3=(c.getString(c.getColumnIndex("IconFull3")));
+                        bean.IconFull4=(c.getString(c.getColumnIndex("IconFull4")));
+                        bean.IconFull5=(c.getString(c.getColumnIndex("IconFull5")));
+                    }
+                    catch (Exception ex)
+                    {}
+
                     list.add(bean);
                     c.moveToNext();
                     i++;
@@ -302,7 +352,23 @@ public class ItemDAOProduct
                     bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
                     bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
                     bean.setRemark(c.getString(c.getColumnIndex("Remark")));
-
+                    try
+                    {
+                        bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                        bean.setRemark(c.getString(c.getColumnIndex("Remark")));
+                        bean.price=Float.parseFloat( c.getString(c.getColumnIndex("price")));
+                    }
+                    catch (Exception ex)
+                    {}
+                    try
+                    {
+                        bean.IconFull2=(c.getString(c.getColumnIndex("IconFull2")));
+                        bean.IconFull3=(c.getString(c.getColumnIndex("IconFull3")));
+                        bean.IconFull4=(c.getString(c.getColumnIndex("IconFull4")));
+                        bean.IconFull5=(c.getString(c.getColumnIndex("IconFull5")));
+                    }
+                    catch (Exception ex)
+                    {}
                     c.moveToNext();
                     i++;
                 }
@@ -354,6 +420,26 @@ public class ItemDAOProduct
                     bean.setChagedDate(c.getLong(c.getColumnIndex("ChangedDate")));
                     bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
                     bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
+
+                    try
+                    {
+                        bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                        bean.setRemark(c.getString(c.getColumnIndex("Remark")));
+                        bean.price=Float.parseFloat( c.getString(c.getColumnIndex("price")));
+                    }
+                    catch (Exception ex)
+                    {}
+                    try
+                    {
+                        bean.IconFull2=(c.getString(c.getColumnIndex("IconFull2")));
+                        bean.IconFull3=(c.getString(c.getColumnIndex("IconFull3")));
+                        bean.IconFull4=(c.getString(c.getColumnIndex("IconFull4")));
+                        bean.IconFull5=(c.getString(c.getColumnIndex("IconFull5")));
+                    }
+                    catch (Exception ex)
+                    {}
+
+
                     list.add(bean);
                     c.moveToNext();
                     i++;
@@ -402,7 +488,23 @@ public class ItemDAOProduct
                     bean.setChagedDate(c.getLong(c.getColumnIndex("ChangedDate")));
                     bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
                     bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
-
+                    try
+                    {
+                        bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                        bean.setRemark(c.getString(c.getColumnIndex("Remark")));
+                        bean.price=Float.parseFloat( c.getString(c.getColumnIndex("price")));
+                    }
+                    catch (Exception ex)
+                    {}
+                    try
+                    {
+                        bean.IconFull2=(c.getString(c.getColumnIndex("IconFull2")));
+                        bean.IconFull3=(c.getString(c.getColumnIndex("IconFull3")));
+                        bean.IconFull4=(c.getString(c.getColumnIndex("IconFull4")));
+                        bean.IconFull5=(c.getString(c.getColumnIndex("IconFull5")));
+                    }
+                    catch (Exception ex)
+                    {}
 
                     list.add(bean);
                     c.moveToNext();
@@ -450,6 +552,23 @@ public class ItemDAOProduct
                     bean.setChagedDate(c.getLong(c.getColumnIndex("ChangedDate")));
                     bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
                     bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
+                    try
+                    {
+                        bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                        bean.setRemark(c.getString(c.getColumnIndex("Remark")));
+                        bean.price=Float.parseFloat( c.getString(c.getColumnIndex("price")));
+                    }
+                    catch (Exception ex)
+                    {}
+                    try
+                    {
+                        bean.IconFull2=(c.getString(c.getColumnIndex("IconFull2")));
+                        bean.IconFull3=(c.getString(c.getColumnIndex("IconFull3")));
+                        bean.IconFull4=(c.getString(c.getColumnIndex("IconFull4")));
+                        bean.IconFull5=(c.getString(c.getColumnIndex("IconFull5")));
+                    }
+                    catch (Exception ex)
+                    {}
                     list.add(bean);
                     c.moveToNext();
                     i++;
@@ -515,6 +634,23 @@ public class ItemDAOProduct
                     bean.setChagedDate(c.getLong(c.getColumnIndex("ChangedDate")));
                     bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
                     bean.setIsActive(c.getString(c.getColumnIndex("IsActive")));
+                    try
+                    {
+                        bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+                        bean.setRemark(c.getString(c.getColumnIndex("Remark")));
+                        bean.price=Float.parseFloat( c.getString(c.getColumnIndex("price")));
+                    }
+                    catch (Exception ex)
+                    {}
+                    try
+                    {
+                        bean.IconFull2=(c.getString(c.getColumnIndex("IconFull2")));
+                        bean.IconFull3=(c.getString(c.getColumnIndex("IconFull3")));
+                        bean.IconFull4=(c.getString(c.getColumnIndex("IconFull4")));
+                        bean.IconFull5=(c.getString(c.getColumnIndex("IconFull5")));
+                    }
+                    catch (Exception ex)
+                    {}
                     maps.put(bean.getProductId(),bean);
                     c.moveToNext();
                     i++;

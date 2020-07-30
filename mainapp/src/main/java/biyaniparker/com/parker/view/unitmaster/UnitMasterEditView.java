@@ -168,7 +168,7 @@ public class UnitMasterEditView extends AppCompatActivity implements View.OnClic
 
     private boolean validation() {
         if(etUnitName.getText().toString().isEmpty() ||
-                etUnitType.getText().toString().isEmpty() || etRemark.getText().toString().isEmpty()){
+                etRemark.getText().toString().isEmpty()){
             Toast.makeText(getApplicationContext(),"please enter all required fields",Toast.LENGTH_SHORT).show();
             return  false;
         }

@@ -329,14 +329,20 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
                 bean.setIsActive(chkIsActive.isChecked()?"true":"false");
                 bean.setDeleteStatus("false");
                 try {
-                    bean.UnitName=edUnitName.getText().toString();
-                    bean.IconFull2 = (String)image1.getTag();
+
+                    String pPath1= (String) image1.getTag();
+                    bean.IconFull2 = pPath1;
                     bean.IconFull3 = (String)image2.getTag();
                     bean.IconFull4 = (String)image3.getTag();
                     bean.IconFull5 = (String)image4.getTag();
 
                 }
                 catch (Exception ex)
+                {}
+                try {
+                    bean.UnitName=spUnitMaster.getSelectedItem().toString();
+                }
+                catch (Exception es)
                 {}
                 try
                 {

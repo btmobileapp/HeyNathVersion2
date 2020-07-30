@@ -14,6 +14,13 @@ public class GsonProductBean
     public long ChangedBy;
     public String CreatedDate,ChangedDate;
 
+    public float price;
+    public String IconFull2;
+    public String IconFull3;
+    public String IconFull4;
+    public String IconFull5;
+    public String UnitName;
+    public  String Remark;
 
     public ProductBean toProductBean()
     {
@@ -44,6 +51,19 @@ public class GsonProductBean
             bean.changedDate= CommonUtilities.parseDate(ChangedDate);
         }
         catch (Exception e){}
+
+        try
+        {
+            bean. price=price;
+            bean. IconFull2=IconFull2;
+            bean. IconFull3=IconFull3;
+            bean. IconFull4=IconFull4;
+            bean. IconFull5=IconFull5;
+            bean. UnitName=UnitName;
+            bean. Remark=Remark;
+        }
+        catch (Exception ed)
+        {}
         return bean;
     }
 }

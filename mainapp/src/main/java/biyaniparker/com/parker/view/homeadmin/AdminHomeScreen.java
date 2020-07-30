@@ -414,8 +414,13 @@ public class AdminHomeScreen extends AppCompatActivity
     public void finish()
     {
         super.finish();
-        unregisterReceiver(mMessageReceiver);
-        unregisterReceiver(mMessageRefreshReceiver);
+        try
+        {
+            unregisterReceiver(mMessageReceiver);
+            unregisterReceiver(mMessageRefreshReceiver);
+        }
+        catch (Exception ex)
+        {}
 
     }
 

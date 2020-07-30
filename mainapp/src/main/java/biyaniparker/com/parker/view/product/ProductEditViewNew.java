@@ -58,6 +58,7 @@ import biyaniparker.com.parker.bal.ModuleProduct1;
 import biyaniparker.com.parker.beans.CategoryBean;
 import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.UnitMasterBean;
+import biyaniparker.com.parker.utilities.AsyncFileUpload;
 import biyaniparker.com.parker.utilities.BitmapUtilities;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
@@ -84,19 +85,46 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         image3 = findViewById(R.id.image3);
         image4 = findViewById(R.id.image4);
 
-        try {
-            JSONArray  array=new JSONArray(str);
-            final String url1=  array.getJSONObject(0).getString("IconFull2");
-           final String url2=  array.getJSONObject(0).getString("IconFull3");
-           final String url3=  array.getJSONObject(0).getString("IconFull4");
-            final String url4=  array.getJSONObject(0).getString("IconFull5");
+        try
+        {
+           // JSONArray  array=new JSONArray(str);
+            final String url1=  bean.IconFull2;  // array.getJSONObject(0).getString("IconFull2");
+            final String url2= bean.IconFull3; // array.getJSONObject(0).getString("IconFull3");
+            final String url3=  bean.IconFull4;// array.getJSONObject(0).getString("IconFull4");
+            final String url4= bean.IconFull5;//  array.getJSONObject(0).getString("IconFull5");
+
             imageLoader = ImageLoader.getInstance();
             //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
             imageLoader.displayImage(url1,image1, doption, animateFirstListener);
             imageLoader.displayImage(url2,image2, doption, animateFirstListener);
             imageLoader.displayImage(url3,image3, doption, animateFirstListener);
             imageLoader.displayImage(url4,image4, doption, animateFirstListener);
-
+            image1.setTag(url1);  image2.setTag(url2);  image3.setTag(url3);  image4.setTag(url4);
+            image1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPhoto(12);
+                }
+            });
+            image2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPhoto(22);
+                }
+            });
+            image3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPhoto(32);
+                }
+            });
+            image4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPhoto(42);
+                }
+            });
+          /*
             image1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -136,7 +164,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                     intent.putExtra("path",url3);
                     startActivity(intent);
                 }
-            });
+            });*/
 
         }
         catch (Exception ec)
@@ -145,7 +173,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
     EditText edName, edStripCode, edPrice,edRemark;
     CheckBox chkIsActive;
-    Spinner spCategory, spPrice,spUnitMaster;
+    Spinner spCategory, spUnitMaster ;//spPrice
     Button btnSave, btnDelete;
     ImageView img, camera, gallary;
     ModuleProduct1 moduleProduct;
@@ -159,6 +187,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
     private ImageLoader imageLoader;
     int flag=0;
     ArrayList<UnitMasterBean> list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,14 +225,35 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
             }
         });
 
-    spUnitMaster.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spUnitMaster.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
+               // ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
+              //  ArrayList<UnitMasterBean> listUnitMaster = moduleProduct.getUnitMasterList();
+              //  ArrayAdapter arrayAdapter1=new ArrayAdapter(ProductEditViewNew.this,android.R.layout.simple_spinner_dropdown_item,listUnitMaster);
+              //  spUnitMaster.setAdapter(arrayAdapter1);
+
                 ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
-                ArrayList<UnitMasterBean> listUnitMaster = moduleProduct.getUnitMasterList();
-                ArrayAdapter arrayAdapter1=new ArrayAdapter(ProductEditViewNew.this,android.R.layout.simple_spinner_dropdown_item,listUnitMaster);
-                spUnitMaster.setAdapter(arrayAdapter1);
+                ArrayList<UnitMasterBean> list = moduleProduct.getUnitMasterList();
+                // UnitName = list.get(position).getUnitName();
+
+
+                SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+                String response = sharedPreference.getStr("Response");
+
+                try {
+                    JSONArray jsonarray = new JSONArray(response);
+                    for (int i=0;i<jsonarray.length();i++){
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+
+                        if (list.get(position).getUnitId()== jsonobject.getInt("UnitId")){
+                            edRemark.setText(jsonobject.getString("Remark"));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -211,9 +261,9 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
             }
         });
 
-        String url=CommonUtilities.URL+"ProductService.svc/GetProductDetailsForAdmin?ProductId="+bean.getProductId();
-        AsyncUtilities utilities=new AsyncUtilities(this,false,url,null,150,this);
-        utilities.execute();
+     //   String url=CommonUtilities.URL+"ProductService.svc/GetProductDetailsForAdmin?ProductId="+bean.getProductId();
+     //   AsyncUtilities utilities=new AsyncUtilities(this,false,url,null,150,this);
+     //   utilities.execute();
     }
 
     @Override
@@ -244,14 +294,14 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
         edName = (EditText) findViewById(R.id.name);
         edStripCode = (EditText) findViewById(R.id.stripCode);
-        //edPrice = (EditText) findViewById(R.id.price);
+        edPrice = (EditText) findViewById(R.id.edPrice);
         btnSave = (Button) findViewById(R.id.buttonSave);
         btnDelete=(Button)findViewById(R.id.buttonDelete);
         spCategory = (Spinner) findViewById(R.id.spCategory);
         //spCategory.setEnabled(true);
-        spPrice=(Spinner)findViewById(R.id.spinnerPrice);
+       // spPrice=(Spinner)findViewById(R.id.spinnerPrice);
         spUnitMaster = findViewById(R.id.spinnerEditUnit);
-        edRemark = findViewById(R.id.ed_editRemark);
+        edRemark = findViewById(R.id.etEditProductRemark);
         img = (ImageView) findViewById(R.id.img);
 
         img.setOnClickListener(new View.OnClickListener() {
@@ -276,7 +326,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         gallary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickPhoto();
+                pickPhoto(2);
             }
         });
         getSupportActionBar().setTitle("Edit Product");
@@ -294,14 +344,14 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         animateFirstListener=new AnimateFirstDisplayListener();
     }
 
-  int previousCateposition=-1;
-  int previousUnitposition = -1;
+    int previousCateposition=-1;
+    int previousUnitposition = -1;
 
 
     private void renderView() {
 
-        ArrayAdapter priceArray=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,modulePrice.list);
-        spPrice.setAdapter(priceArray);
+       // ArrayAdapter priceArray=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,modulePrice.list);
+       // spPrice.setAdapter(priceArray);
        // spPrice.setOnItemClickListener(this);
 
 
@@ -339,10 +389,10 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 if(modulePrice.list.get(j).getPriceId()==bean.getPriceId())
                 {
                     price=modulePrice.list.get(j).getConsumerPrice();
-                    spPrice.setSelection(j);
+                    //spPrice.setSelection(j);
                 }
         }
-
+        edPrice.setText(bean.price+"");
 
         chkIsActive.setChecked((bean.getIsActive().equals("true")));
         edStripCode.setText(bean.getStripCode());
@@ -359,6 +409,21 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 bean.iconThumb
                 ,
                 img, doption, animateFirstListener);
+
+        ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
+        list= moduleProduct.getUnitMasterList();;
+        ArrayAdapter unitArray=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,list);
+        spUnitMaster.setAdapter(unitArray);
+
+        for(int i=0;i<list.size();i++)
+        {
+            if(bean.UnitName.equalsIgnoreCase(list.get(i).getUnitName()))
+            {
+                previousUnitposition=i;
+                break;
+            }
+        }
+        intitMultipleImages( "");
     }
 
     @Override
@@ -377,6 +442,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                            // Toast.makeText(ProductEditViewNew.this, previousCateposition+"", Toast.LENGTH_SHORT).show();
                             spCategory.setSelection(previousCateposition);
                             spUnitMaster.setSelection(previousUnitposition);
+                            edRemark.setText(bean.Remark);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -403,8 +469,8 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                     bean.setProductName(edName.getText().toString());
                     bean.setStripCode(edStripCode.getText().toString());
                     bean.setDetails("Product Details");
-                    bean.setPriceId(modulePrice.list.get(spPrice.getSelectedItemPosition()).getPriceId());
-                    int index=spPrice.getSelectedItemPosition();
+                    bean.setPriceId(bean.priceId);
+                   // int index=spPrice.getSelectedItemPosition();
                     /*try {
                         bean.setPrice(modulePrice.list.get(spPrice.getSelectedIndex()).getConsumerPrice());
                     }
@@ -439,7 +505,26 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                     bean.setChagedDate(CommonUtilities.getCurrentTime());
                     bean.setIsActive(chkIsActive.isChecked()?"true":"false");
                     bean.setDeleteStatus("false");
-                    try {
+                    try
+                    {
+                        bean.price=Float.parseFloat(edPrice.getText().toString());
+                    }
+                    catch (Exception ex)
+                    {}
+                    try
+                    {
+                        String pPath1= (String) image1.getTag();
+                        bean.IconFull2 = pPath1;
+                        bean.IconFull3 = (String)image2.getTag();
+                        bean.IconFull4 = (String)image3.getTag();
+                        bean.IconFull5 = (String)image4.getTag();
+                    }
+                    catch (Exception ex)
+                    {}
+                    try
+                    {
+                        bean.setUnitName(spUnitMaster.getSelectedItem().toString());
+                        bean.setRemark(edRemark.getText().toString());
                         moduleProduct.updateProduct(bean);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -500,7 +585,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
     }
 
 
-    void pickPhoto()
+    void pickPhoto(int i)
     {
         try
         {
@@ -519,7 +604,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         }
 
         Intent in = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(in, 2);
+        startActivityForResult(in, i);
 
 
 
@@ -676,10 +761,206 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
             }
         }
+        else if(requestCode==12 && resultCode==RESULT_OK) {
+
+            try
+            {
+
+                Uri uri = data.getData();
+                String path = "";
+                try {
+                    path = CommonUtilities.getPath(this, uri);
+                } catch (Exception e) {
+                }
+
+                File file = new File(path);
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
+                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath(), options);
+                image1.setImageBitmap(bitmap);
+
+                AsyncFileUpload uploadUtility=new AsyncFileUpload(this,bitmapFile,CommonUtilities.URL+"ProductService.svc/UploadFile",121,this);
+                uploadUtility.execute();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+        else if(requestCode==22 && resultCode==RESULT_OK) {
+
+            try
+            {
+                // File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
+                Uri uri = data.getData();
+                String path = "";
+                try {
+                    path = CommonUtilities.getPath(this, uri);
+                } catch (Exception e) {
+                }
+
+                File file = new File(path);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
+                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath(), options);
+                image2.setImageBitmap(bitmap);
+
+                AsyncFileUpload uploadUtility=new AsyncFileUpload(this,bitmapFile,CommonUtilities.URL+"ProductService.svc/UploadFile",221,this);
+                uploadUtility.execute();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+        else if(requestCode==32 && resultCode==RESULT_OK) {
+
+            try
+            {
+                //File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
+                Uri uri = data.getData();
+                String path = "";
+                try {
+                    path = CommonUtilities.getPath(this, uri);
+                } catch (Exception e) {
+                }
+
+                File file = new File(path);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
+                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath(), options);
+                image3.setImageBitmap(bitmap);
+
+                AsyncFileUpload uploadUtility=new AsyncFileUpload(this,bitmapFile,CommonUtilities.URL+"ProductService.svc/UploadFile",321,this);
+                uploadUtility.execute();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+        else if(requestCode==42 && resultCode==RESULT_OK) {
+
+            try
+            {
+                // File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
+                Uri uri = data.getData();
+                String path = "";
+                try {
+                    path = CommonUtilities.getPath(this, uri);
+                } catch (Exception e) {
+                }
+
+                File file = new File(path);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
+                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath(), options);
+                image4.setImageBitmap(bitmap);
+
+                AsyncFileUpload uploadUtility=new AsyncFileUpload(this,bitmapFile,CommonUtilities.URL+"ProductService.svc/UploadFile",421,this);
+                uploadUtility.execute();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
     }
 
     @Override
     public void onComplete(String str, int requestCode, int responseCode) {
+
+
+        if(requestCode==121)
+        {
+            if(responseCode==200)
+            {
+                try
+                {
+                    JSONObject j=new JSONObject(str);
+                    String mPath=    j.getString("path");
+                    image1.setTag(mPath);
+                }
+                catch (Exception ex)
+                {}
+            }
+            else
+            {
+                image1.setImageResource(R.drawable.ic_menu_camera);
+            }
+        }
+        else
+        if(requestCode==221)
+        {
+            if(responseCode==200)
+            {
+                try
+                {
+                    JSONObject j=new JSONObject(str);
+                    String mPath=    j.getString("path");
+                    image2.setTag(mPath);
+                }
+                catch (Exception ex)
+                {}
+            }
+            else
+            {
+                image2.setImageResource(R.drawable.ic_menu_camera);
+            }
+        }
+        else   if(requestCode==321)
+        {
+            if(responseCode==200)
+            {
+                try
+                {
+                    JSONObject j=new JSONObject(str);
+                    String mPath=    j.getString("path");
+                    image3.setTag(mPath);
+                }
+                catch (Exception ex)
+                {}
+            }
+            else
+            {
+                image3.setImageResource(R.drawable.ic_menu_camera);
+            }
+        }
+        else   if(requestCode==421)
+        {
+            if(responseCode==200)
+            {
+                try
+                {
+                    JSONObject j=new JSONObject(str);
+                    String mPath=    j.getString("path");
+                    image4.setTag(mPath);
+                }
+                catch (Exception ex)
+                {}
+            }
+            else
+            {
+                image4.setImageResource(R.drawable.ic_menu_camera);
+            }
+        }
+        else
+
+
         if (requestCode == 3 && responseCode == 200 && flag==0)
         {
             Toast.makeText(getApplicationContext(), " Record updated Successfully ..", Toast.LENGTH_LONG).show();
@@ -731,6 +1012,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
             try {
                 JSONArray jsonArray = new JSONArray(str);
                 for (int i=0;i<jsonArray.length();i++){
+                    unitMasterBean = new UnitMasterBean();
                     JSONObject jsonobject = jsonArray.getJSONObject(i);
                     unitMasterBean.setUnitName(jsonobject.getString("UnitName"));
                     list.add(unitMasterBean);
@@ -738,6 +1020,8 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
+            list= moduleProduct.getUnitMasterList();;
             ArrayAdapter unitArray=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,list);
             spUnitMaster.setAdapter(unitArray);
         }

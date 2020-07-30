@@ -32,13 +32,21 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
     ModuleUser moduleUser;
     RadioButton rdAdmin, rdCustomer;
 
+    boolean IsRegistration=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_activity_create_user);
+        try {
+            IsRegistration = getIntent().getExtras().getBoolean("IsRegistration");
+        }catch (Exception ex){}
         init();
         getSupportActionBar().setTitle("Create User");
+        if(IsRegistration)
+        {
+            getSupportActionBar().setTitle("User Registarion");
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         bean=new UserBean();

@@ -552,8 +552,30 @@ public class ModuleProduct implements DownloadUtility{
             }
             catch (Exception e)
             {
-
             }
+
+            try
+            {
+                bean.IconFull2=(c.getString("IconFull2"));
+                bean.IconFull3=(c.getString("IconFull3"));
+                bean.IconFull4=(c.getString("IconFull4"));
+                bean.IconFull5=(c.getString("IconFull5"));
+            }
+            catch (Exception e)
+            {
+            }
+            try
+            {
+                bean.Remark=(c.getString("Remark"));
+                bean.UnitName=(c.getString("UnitName"));
+                bean.price=Float.parseFloat  (c.getString("price"));
+            }
+            catch (Exception e)
+            {
+            }
+
+
+
             return bean;
         }
         catch (Exception e)

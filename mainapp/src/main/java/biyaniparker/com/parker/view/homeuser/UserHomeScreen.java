@@ -35,7 +35,9 @@ import java.util.ArrayList;
 import biyaniparker.com.parker.LaunchActivity;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleCategory;
+import biyaniparker.com.parker.bal.ModuleLogin;
 import biyaniparker.com.parker.bal.ModuleSync;
+import biyaniparker.com.parker.bal.ModuleUser;
 import biyaniparker.com.parker.bal.ModuleUserHomeScreen;
 import biyaniparker.com.parker.beans.RowItem;
 import biyaniparker.com.parker.utilities.CommonUtilities;
@@ -126,6 +128,8 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
        // getSupportActionBar().setSubtitle("The New You");
         getSupportActionBar().setSubtitle(CommonUtilities.Slogan);
         checkSDCardsWrite();
+
+
     }
 
   void inItUI()
@@ -253,7 +257,14 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
-    @Override
+     @Override
+     protected void onResume() {
+         super.onResume();
+         ModuleLogin moduleUser=new ModuleLogin(this);
+         moduleUser.loginInBackground();
+     }
+
+     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);

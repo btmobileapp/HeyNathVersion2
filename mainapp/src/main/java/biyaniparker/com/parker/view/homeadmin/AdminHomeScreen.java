@@ -249,10 +249,11 @@ public class AdminHomeScreen extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.admin_home_screen, menu);
-        getMenuInflater().inflate(R.menu.menuadmindashboard,menu);
+        getMenuInflater().inflate(R.menu.menuadmindashboard1,menu);
         return true;
     }
 

@@ -59,7 +59,7 @@ public class ModuleUser implements  DownloadUtility{
         jsonObject.put("CreatedBy",userBean.getCreatedBy());
         jsonObject.put("CreatedDate",shopMasterbean.getCreatedDate());
         jsonObject.put("DeleteStatus",userBean.getDeleteStatus());
-        jsonObject.put("ClientId",userBean.getClientId());
+        jsonObject.put("ClientId",1);
         jsonObject.put("UserName",userBean.getUserName());
         jsonObject.put("IsActive",userBean.getIsActive());
         jsonObject.put("MobileNo",userBean.getMobileNo());
@@ -372,7 +372,10 @@ public class ModuleUser implements  DownloadUtility{
         userBean.setDeviceID(jsonObject.getString("DeviceID"));
         userBean.setVerifiedStatus(jsonObject.getString("VerifiedStatus"));
         userBean.setGSTNumber(jsonObject.getString("GSTNumber"));
-        userBean.setDiscount(jsonObject.getInt("Discount"));
+        try {
+            userBean.setDiscount((float) jsonObject.getDouble("Discount"));
+        }
+        catch (Exception ex){}
         try {
             userBean.setEnterBy(jsonObject.getInt("EnterBy"));
         }

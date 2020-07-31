@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
     RadioButton rdAdmin, rdCustomer;
 
     boolean IsRegistration=false;
+    LinearLayout linearHead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,17 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
         btnLogIn = (Button) findViewById(R.id.btnlogin);
         buttonSave.setOnClickListener(this);
         btnLogIn.setOnClickListener(this);
+        if(IsRegistration)
+        {
+
+            edCreadit.setText(0+"");
+            edCreadit.setVisibility(View.GONE);
+            linearHead=findViewById(R.id.linearHead);
+            linearHead.setVisibility(View.GONE);
+            rdCustomer.setChecked(true);
+
+
+        }
     }
 
     @Override
@@ -166,6 +179,10 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
+                    if(IsRegistration)
+                    {
+                        startActivity(new Intent(UserCreateView.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    }
                 }
             });
             alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {

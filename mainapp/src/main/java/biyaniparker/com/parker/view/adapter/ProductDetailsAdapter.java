@@ -22,7 +22,8 @@ public class ProductDetailsAdapter extends PagerAdapter {
     Context context;
     ProductAdaperCallBack productAdaperCallBack;
 
-    public ProductDetailsAdapter(List<ProductDetailsBean> list,Context context,ProductAdaperCallBack productAdaperCallBack){
+    public ProductDetailsAdapter(List<ProductDetailsBean> list,Context context,ProductAdaperCallBack productAdaperCallBack)
+    {
         this.productDetailsBeanslist = list;
         this.context = context;
         this.productAdaperCallBack = productAdaperCallBack;
@@ -45,10 +46,12 @@ public class ProductDetailsAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.item,container,false);
 
         ImageView imageView = view.findViewById(R.id.imgProductDetails);
-        if (productDetailsBeanslist.get(position).getImageUrl()!=null){
+        if (productDetailsBeanslist.get(position).getImageUrl()!=null)
+        {
             Picasso.get().load(productDetailsBeanslist.get(position).getImageUrl()).into(imageView);
         }
-        imageView.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
                String imgUrl =  productDetailsBeanslist.get(position).getImageUrl();

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
+import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.login.LoginActivity;
 
@@ -34,6 +35,18 @@ public class ModuleLogin implements DownloadUtility
 
     }
 
+    public  void loginInBackground()
+    {
+
+
+            // requset code ->   1
+            String url=CommonUtilities.URL+"UtilService.svc/getUserDetail?username="+ UserUtilities.getUserName(context)+"&password="+UserUtilities.getUserPassword(context)+"&ClientId=1";
+            AsyncUtilities serverAsync=new AsyncUtilities(context,false, url ,"",11,this);
+            serverAsync.hideDialouge();
+            serverAsync.execute();
+
+    }
+
     @Override
     public void onComplete(String str, int requestCode,int responseCode)
     {
@@ -56,7 +69,13 @@ public class ModuleLogin implements DownloadUtility
                 downloadUtility.onComplete("Server Communication Failed", 1, responseCode);
             }
         }
-
+        if(requestCode==11)
+        {
+            if (responseCode == 200)
+            {
+                parseUserData(str);
+            }
+        }
     }
 
     private boolean parseUserData(String str) {

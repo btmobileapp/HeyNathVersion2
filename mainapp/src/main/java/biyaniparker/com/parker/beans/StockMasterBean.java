@@ -13,7 +13,10 @@ public class StockMasterBean
     public int stockQty;
     public int inBagQty;
     public int clientId;
-    public  String transactionType, remark, deleteStatus ;
+    public  String transactionType;
+    public String remark;
+    public String deleteStatus;
+    public String unitName;
     public long userId, enterDate, enterBy, changedDate, changedBY, orderId;
 
     public int getOutwardQty() {
@@ -152,5 +155,11 @@ public class StockMasterBean
         this.orderId = orderId;
     }
 
+    public String getUnitName() {
+        return unitName;
+    }
 
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
 }

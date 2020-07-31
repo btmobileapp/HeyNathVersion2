@@ -76,6 +76,8 @@ public class ModuleProductDetails implements DownloadUtility {
             json.put("EnterBy",stock.getEnterBy());
             json.put("ChangedBY",stock.getChangedBY());
             json.put("TransactionType",stock.getTransactionType());
+            json.put("UnitName",stock.getUnitName());
+            json.put("Remark",stock.getRemark());
             jsonArray.put(json);
         }
 

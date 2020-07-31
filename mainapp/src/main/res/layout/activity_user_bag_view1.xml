@@ -9,8 +9,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-
-
         android:id="@+id/linearId"
   android:layout_marginBottom="48dp"
         android:layout_height="match_parent"

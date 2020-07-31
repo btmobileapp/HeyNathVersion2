@@ -2,7 +2,10 @@ package biyaniparker.com.parker.view.reports;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -99,8 +102,8 @@ public class PrintOrderSummary
     {
         try
         {
-         //   pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
-            pdffile = new File(Environment.getExternalStorageDirectory() +"/parkerreport","Order_"+master.orderId+".pdf");
+           pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
+           // pdffile = new File(Environment.getExternalStorageDirectory() +"/parkerreport","Order_"+master.orderId+".pdf");
             try {
                 createPdf(pdffile.getAbsolutePath());
             } catch (IOException e) {
@@ -118,7 +121,17 @@ public class PrintOrderSummary
                     alBuilder.setPositiveButton("Open Pdf", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            CommonUtilities.openPdf(context, pdffile.getAbsolutePath());
+                          //  CommonUtilities.openPdf(context, pdffile.getAbsolutePath());
+                            Uri path = Uri.fromFile(pdffile);
+                            Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+                            pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            pdfOpenintent.setDataAndType(path, "application/pdf");
+                            try {
+                                context.startActivity(pdfOpenintent);
+                            }
+                            catch (ActivityNotFoundException e) {
+
+                            }
                         }
                     });
                     alBuilder.setNegativeButton("Cancel",null);

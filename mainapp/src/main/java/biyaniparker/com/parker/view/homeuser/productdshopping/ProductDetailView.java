@@ -1,5 +1,6 @@
 package biyaniparker.com.parker.view.homeuser.productdshopping;
 
+import android.animation.ArgbEvaluator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,16 +12,21 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -31,6 +37,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -43,20 +50,25 @@ import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.bal.ModuleProductDetails;
 import biyaniparker.com.parker.beans.ProductBeanWithQnty;
+import biyaniparker.com.parker.beans.ProductDetailsBean;
 import biyaniparker.com.parker.beans.ProductStockBean;
 import biyaniparker.com.parker.beans.StockMasterBean;
+import biyaniparker.com.parker.beans.UnitMasterBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
+import biyaniparker.com.parker.view.adapter.ProductDetailsAdapter;
+import biyaniparker.com.parker.view.product.ProductCreateViewNew;
 import biyaniparker.com.parker.view.product.ProductEditViewNew;
 import biyaniparker.com.parker.view.product.ProductListView;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
-public class ProductDetailView extends AppCompatActivity implements DownloadUtility, View.OnClickListener {
+public class ProductDetailView extends AppCompatActivity implements DownloadUtility, View.OnClickListener, ProductDetailsAdapter.ProductAdaperCallBack {
 
     TextView txtproductname,txtprice;
-    ImageView image;
+   // ImageView image;
     Button btnAdd;
     HorizontalScrollView horizontal;
     ProductBeanWithQnty bean;
@@ -68,6 +80,17 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
 
     ImageView btnplus;
 
+    ViewPager viewPager;
+    ProductDetailsAdapter adapter;
+    List<ProductDetailsBean> productDetailsBeanList;
+    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+    Integer[] colors = null;
+    LinearLayout sliderDotspanel;
+    private int dotscount;
+    private ImageView[] dots;
+    Spinner spUnitName;
+    EditText etRemark;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -78,7 +101,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         {
              Gson gson = new Gson();
              bean = gson.fromJson(getIntent().getStringExtra("myjson"), ProductBeanWithQnty.class);
-
         }
         catch (Exception e)
         {}
@@ -95,10 +117,88 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             catch (Exception e){ txtprice.setText(" Rs");}
 
             // To Display Image ON Image view
-            imageLoader = ImageLoader.getInstance();
-            //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
-            imageLoader.displayImage(
-                    bean.iconThumb, image, doption, animateFirstListener);
+//            imageLoader = ImageLoader.getInstance();
+//            //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
+//            imageLoader.displayImage(
+//                    bean.iconThumb, image, doption, animateFirstListener);
+
+            productDetailsBeanList = new ArrayList<>();
+
+            if (bean.getIconFull()!=null){
+                productDetailsBeanList.add(new ProductDetailsBean(bean.getIconFull()));
+            }
+            if (bean.IconFull2!=null){
+                productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull2));
+            }
+            if (bean.IconFull3!=null){
+                productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull3));
+            }
+            if (bean.IconFull4!=null){
+                productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull4));
+            }
+            if (bean.IconFull5!=null){
+                productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull5));
+            }
+
+            adapter = new ProductDetailsAdapter(productDetailsBeanList,getApplicationContext(),ProductDetailView.this);
+            viewPager.setAdapter(adapter);
+         //   viewPager.setPadding(130,0,130,0);
+
+            dotscount = adapter.getCount();
+            dots = new ImageView[dotscount];
+
+            for(int i = 0; i < dotscount; i++){
+
+                dots[i] = new ImageView(this);
+                dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                params.setMargins(8, 0, 8, 0);
+
+                sliderDotspanel.addView(dots[i], params);
+            }
+
+            dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+
+            Integer[] colors_temp = {
+                    getResources().getColor(R.color.color1),
+                    getResources().getColor(R.color.color2),
+                    getResources().getColor(R.color.color3),
+                    getResources().getColor(R.color.color4)
+            };
+
+            colors = colors_temp;
+
+            viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    if ((position<adapter.getCount()-1) && position<(colors.length-1)){
+                       viewPager.setBackgroundColor((Integer)argbEvaluator.evaluate(positionOffset,colors[position],colors[position]+1));
+                    }
+                    else {
+                        viewPager.setBackgroundColor(colors[colors.length -1]);
+                    }
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    for(int i = 0; i< dotscount; i++){
+                        dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+                    }
+                    dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+
+            ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
+            ArrayList<UnitMasterBean> listUnitMaster = moduleProduct.getUnitMasterList();
+            ArrayAdapter arrayAdapter1=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,listUnitMaster);
+            spUnitName.setAdapter(arrayAdapter1);
         }
 
         moduleProductDetails.setProductId(bean.getProductId());
@@ -111,7 +211,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             moduleProductDetails.loadFromDb(bean.getStripCode());
             addStripCodeProducts();
         }
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -230,10 +329,14 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         btnAdd.setOnClickListener(this);
         txtproductname=(TextView)findViewById(R.id.txtproductname);
         txtprice=(TextView)findViewById(R.id.txtprice);
-        image=(ImageView)findViewById(R.id.image);
+        //image=(ImageView)findViewById(R.id.image);
         linearSizeMain=(LinearLayout)findViewById(R.id.linearSizeMain);
         horizontal=(HorizontalScrollView)findViewById(R.id.horizontal);
         lhorizontal=(LinearLayout)findViewById(R.id.lhorizontal);
+        viewPager = findViewById(R.id.ViewPager);
+        sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
+        spUnitName = findViewById(R.id.spProductDetailsUnit);
+        etRemark = findViewById(R.id.etProductDetailsRemark);
 
         doption = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.bgpaker)
@@ -257,9 +360,36 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             }
         });
 
+
+        spUnitName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
+                ArrayList<UnitMasterBean> list = moduleProduct.getUnitMasterList();
+                // UnitName = list.get(position).getUnitName();
+
+                SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+                String response = sharedPreference.getStr("Response");
+
+                try {
+                    JSONArray jsonarray = new JSONArray(response);
+                    for (int i=0;i<jsonarray.length();i++){
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+
+                        if (list.get(position).getUnitId()== jsonobject.getInt("UnitId")){
+                            etRemark.setText(jsonobject.getString("Remark"));
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+        });
     }
-
-
 
     //-------------------------Image Code---------------------------
     DisplayImageOptions doption = null;
@@ -301,8 +431,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                     }
                 })*/
                 alertDialog.show();
-
-
             }
         }
         else
@@ -341,9 +469,10 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                 s.setChangedBY(UserUtilities.getUserId(this));
                 s.setEnterBy(UserUtilities.getUserId(this));
                 s.setClientId(UserUtilities.getClientId(this));
+                s.setUnitName(spUnitName.getSelectedItem().toString());
+                s.setRemark(etRemark.getText().toString());
                 stockList.add(s);
             }
-
         }
 
         return true;
@@ -495,4 +624,10 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         startActivity(intent);
     }
 
+    @Override
+    public void getImageUrl(String imgUrl) {
+        Intent intent=new Intent(ProductDetailView.this, ViewProductImage.class);
+        intent.putExtra("path",imgUrl);
+        startActivity(intent);
+    }
 }

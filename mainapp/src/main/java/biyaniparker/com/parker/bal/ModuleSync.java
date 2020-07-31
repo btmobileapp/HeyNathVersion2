@@ -32,6 +32,7 @@ import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.ShopMaster;
 import biyaniparker.com.parker.beans.SizeMaster;
 import biyaniparker.com.parker.beans.TempBean;
+import biyaniparker.com.parker.beans.UnitMasterBean;
 import biyaniparker.com.parker.beans.UserBean;
 import biyaniparker.com.parker.database.ItemDAOCategory;
 import biyaniparker.com.parker.database.ItemDAOPrice;

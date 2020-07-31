@@ -14,6 +14,7 @@ import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 /**
  * Created by bt on 08/22/2016.
@@ -134,6 +135,8 @@ public class ModuleUser implements  DownloadUtility{
             if (responseCode == 200)
             {
 
+                SharedPreference sharedPreference = new SharedPreference(context);
+                sharedPreference.setStr("UserResponse",str);
 
                 if (parseUsers(str)) {
 

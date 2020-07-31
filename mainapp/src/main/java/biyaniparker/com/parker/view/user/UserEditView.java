@@ -17,7 +17,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleUser;
@@ -28,6 +33,7 @@ import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 public class UserEditView extends AppCompatActivity implements View.OnClickListener, DownloadUtility, CompoundButton.OnCheckedChangeListener {
 
@@ -68,7 +74,7 @@ public class UserEditView extends AppCompatActivity implements View.OnClickListe
     private void renderView() {
         Intent intent = getIntent();
         int userId = intent.getIntExtra("UserId", 0);
-        bean=moduleUser.getUser(userId);
+        bean = moduleUser.getUser(userId);
         //shopMasterbean=moduleUser.getShopDetailsByUserId(bean.getShopId());
 
         edShopName.setText(bean.shopdetails.getShopName());
@@ -78,39 +84,48 @@ public class UserEditView extends AppCompatActivity implements View.OnClickListe
         edCreadit.setText(String.valueOf(bean.shopdetails.getCreditLimit()));
         edEmail.setText(bean.user.getEmailId());
         edUserName.setText(bean.user.getUserName());
-        chkShowPass=(CheckBox)findViewById(R.id.chkShowPass);
+        chkShowPass = (CheckBox) findViewById(R.id.chkShowPass);
         chkShowPass.setOnCheckedChangeListener(this);
-        if(bean.user.getUserType().equalsIgnoreCase("Customer"))
-        {
+        if (bean.user.getUserType().equalsIgnoreCase("Customer")) {
             rdCustomer.setChecked(true);
-        }
-        else if( bean.user.getUserType().equalsIgnoreCase("null"))
-        {
+        } else if (bean.user.getUserType().equalsIgnoreCase("null")) {
             rdCustomer.setChecked(false);
             rdAdmin.setChecked(false);
-        }
-        else
-        {
+        } else {
             rdAdmin.setChecked(true);
         }
         edPassward.setText(bean.user.getPassword());
         edRePass.setText(bean.user.getPassword());
 
-        if (edDiscount.getText().toString().isEmpty()){
+        if (edDiscount.getText().toString().isEmpty()) {
             edDiscount.setText("0");
         } else {
             edDiscount.setText(String.valueOf(bean.user.getDiscount()));
         }
-        edGstNumber.setText(bean.user.getGSTNumber());
-        edDiscount.setText(String.valueOf(bean.user.getDiscount()));
 
-//            if (bean.user.getVerifiedStatus().equalsIgnoreCase("Verified")){
-//                rbVerified.setChecked(true);
-//            } else if (bean.user.getVerifiedStatus().equalsIgnoreCase("Not Verified")){
-//                rbNotVerified.setChecked(true);
-//            } else {
-//                rbRejected.setChecked(true);
-//            }
+        SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+        String response = sharedPreference.getStr("UserResponse");
+
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray userDetails = jsonObject.getJSONArray("UserResult");
+            for (int i = 0; i < userDetails.length(); i++) {
+                JSONObject user = userDetails.getJSONObject(i);
+                if (bean.user.userId == user.getInt("UserId")) {
+                    edGstNumber.setText(user.getString("GSTNumber"));
+                    edDiscount.setText((user.getString("Discount")));
+                    if (user.getString("VerifiedStatus").equalsIgnoreCase("Verified")) {
+                        rbVerified.setChecked(true);
+                    } else if (user.getString("VerifiedStatus").equalsIgnoreCase("Not Verified")) {
+                        rbNotVerified.setChecked(true);
+                    } else {
+                        rbRejected.setChecked(true);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void init() {

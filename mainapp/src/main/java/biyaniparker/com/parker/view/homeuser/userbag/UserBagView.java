@@ -116,12 +116,7 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
         getSupportActionBar().setTitle("Bag Items");
 
      //   Log.println(0, "", " Size : " + length);
-
-
-
         registerReceiver(mMessageReceiver, new IntentFilter("CloseMe"));
-
-
     }
 
     public void TimerTick()
@@ -372,7 +367,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                     selectedProducts.add(bean);
                 }
             }
-
 
             try
             {

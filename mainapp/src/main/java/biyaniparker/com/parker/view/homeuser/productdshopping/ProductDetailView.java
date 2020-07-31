@@ -74,12 +74,9 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
     ProductBeanWithQnty bean;
     LinearLayout linearSizeMain,lhorizontal;
     ArrayList<StockMasterBean> stockList=new ArrayList<>();
-
     ModuleProductDetails moduleProductDetails;
     ModuleCategory moduleCategory;
-
     ImageView btnplus;
-
     ViewPager viewPager;
     ProductDetailsAdapter adapter;
     List<ProductDetailsBean> productDetailsBeanList;
@@ -88,8 +85,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
     LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
-    Spinner spUnitName;
-    EditText etRemark;
+    EditText etRemark,etUnitName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -194,11 +190,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
 
                 }
             });
-
-            ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
-            ArrayList<UnitMasterBean> listUnitMaster = moduleProduct.getUnitMasterList();
-            ArrayAdapter arrayAdapter1=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,listUnitMaster);
-            spUnitName.setAdapter(arrayAdapter1);
         }
 
         moduleProductDetails.setProductId(bean.getProductId());
@@ -335,8 +326,11 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         lhorizontal=(LinearLayout)findViewById(R.id.lhorizontal);
         viewPager = findViewById(R.id.ViewPager);
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
-        spUnitName = findViewById(R.id.spProductDetailsUnit);
         etRemark = findViewById(R.id.etProductDetailsRemark);
+        etUnitName = findViewById(R.id.etProductDetailsUnitName);
+
+        etUnitName.setText(bean.getUnitName());
+        etRemark.setText(bean.getRemark());
 
         doption = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.bgpaker)
@@ -357,36 +351,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                 Intent intent=new Intent(ProductDetailView.this,ViewProductImage.class);
                 intent.putExtra("path",bean.getIconThumb());
                 startActivity(intent);
-            }
-        });
-
-
-        spUnitName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
-                ArrayList<UnitMasterBean> list = moduleProduct.getUnitMasterList();
-                // UnitName = list.get(position).getUnitName();
-
-                SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
-                String response = sharedPreference.getStr("Response");
-
-                try {
-                    JSONArray jsonarray = new JSONArray(response);
-                    for (int i=0;i<jsonarray.length();i++){
-                        JSONObject jsonobject = jsonarray.getJSONObject(i);
-
-                        if (list.get(position).getUnitId()== jsonobject.getInt("UnitId")){
-                            etRemark.setText(jsonobject.getString("Remark"));
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
             }
         });
     }
@@ -469,7 +433,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                 s.setChangedBY(UserUtilities.getUserId(this));
                 s.setEnterBy(UserUtilities.getUserId(this));
                 s.setClientId(UserUtilities.getClientId(this));
-                s.setUnitName(spUnitName.getSelectedItem().toString());
+                s.setUnitName(etUnitName.getText().toString());
                 s.setRemark(etRemark.getText().toString());
                 stockList.add(s);
             }

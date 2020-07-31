@@ -30,8 +30,8 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,7 +39,6 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.beans.BagMasterBean;
@@ -47,16 +46,12 @@ import biyaniparker.com.parker.beans.GsonSelectedItem;
 import biyaniparker.com.parker.beans.OrderDetailBean;
 import biyaniparker.com.parker.beans.OrderMasterBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
-
 /**
  * Created by bt18 on 09/21/2016.
  */
 public class PrintOrderSummary
 {
-
     /*
-
-
                 PrintUserOrder order=new PrintUserOrder(context,imageLoader,orderDetails,orderDetailsNew);
                 order.setTotal(((int)total)+"");
                 order.setTotalQnt((bean.getTotalQnty()) + "");
@@ -67,9 +62,6 @@ public class PrintOrderSummary
 
 
      */
-
-
-
     private  File pdffile;
     private final ModuleProduct moduleProduct;
     ModuleCategory moduleCategory;
@@ -102,10 +94,10 @@ public class PrintOrderSummary
     {
         try
         {
-           pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
-           // pdffile = new File(Environment.getExternalStorageDirectory() +"/parkerreport","Order_"+master.orderId+".pdf");
+            pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
+
             try {
-                createPdf(pdffile.getAbsolutePath());
+               createPdf(pdffile.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (DocumentException e) {
@@ -121,17 +113,7 @@ public class PrintOrderSummary
                     alBuilder.setPositiveButton("Open Pdf", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                          //  CommonUtilities.openPdf(context, pdffile.getAbsolutePath());
-                            Uri path = Uri.fromFile(pdffile);
-                            Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
-                            pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            pdfOpenintent.setDataAndType(path, "application/pdf");
-                            try {
-                                context.startActivity(pdfOpenintent);
-                            }
-                            catch (ActivityNotFoundException e) {
-
-                            }
+                            CommonUtilities.openPdf(context, pdffile.getAbsolutePath());
                         }
                     });
                     alBuilder.setNegativeButton("Cancel",null);

@@ -2,14 +2,19 @@ package biyaniparker.com.parker.utilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -17,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import biyaniparker.com.parker.BuildConfig;
 import biyaniparker.com.parker.database.ItemDAOCategory;
 import biyaniparker.com.parker.database.ItemDAODispatch;
 import biyaniparker.com.parker.database.ItemDAOOrder;
@@ -164,6 +170,19 @@ public class CommonUtilities
         return f.format(date);
     }
 
+    public static Uri getFileUri(Context context, String fileName) {
+        File file = getFile(context, fileName);
+        return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file);
+    }
+
+    public static File getFile(Context context, String fileName) {
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return null;
+        }
+
+        File storageDir = context.getExternalFilesDir(null);
+        return new File(storageDir, fileName);
+    }
 
     public  static void  openPdf(Context context,String path)
     {
@@ -181,11 +200,25 @@ public class CommonUtilities
         }
     }
 
+    public  static void  openPdf1(Context context,String path,String directory)
+    {
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/" + directory + "/" + path);
+        Uri path1 = Uri.fromFile(pdfFile);
+        Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+        pdfIntent.setDataAndType(path1, "application/pdf");
+        pdfIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        Intent intent = Intent.createChooser(pdfIntent, "Open File");
+
+        try {
+            context.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(context, "Can't read pdf file", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public static  boolean emailWithAttachement(Context context, String emailaddress,
                                                 String message,String subject,String filepath)
     {
-
-
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         //Intent.Extra_e
         emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[]{ emailaddress});

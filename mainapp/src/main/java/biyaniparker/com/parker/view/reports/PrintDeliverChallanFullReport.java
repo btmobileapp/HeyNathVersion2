@@ -87,8 +87,6 @@ public class PrintDeliverChallanFullReport
 
     public void call()
     {
-
-
         try
         {
             pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "challan_"+master.dispatchId+".pdf");

@@ -1,14 +1,18 @@
 package biyaniparker.com.parker.view.reports;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -68,6 +72,8 @@ public class PrintOrderSummary
     Activity context;
     private File imfo;
     ImageLoader imageLoader;
+    public static final int REQUEST_PERM_WRITE_STORAGE = 102;
+    public static final int REQUEST_PERM_READ_STORAGE = 103;
 
    public  ArrayList<OrderDetailBean> orderDetails;
     public OrderMasterBean master;
@@ -94,26 +100,30 @@ public class PrintOrderSummary
     {
         try
         {
-            pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
+            final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/LetsBegin";
+            File dir = new File(path);
+            if (!dir.exists())
+                dir.mkdirs();
+            final File file = new File(dir, "Order_"+master.orderId+".pdf");
 
-            try {
-               createPdf(pdffile.getAbsolutePath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (DocumentException e) {
-                e.printStackTrace();
-            }
+            //  pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
+                createPdf(String.valueOf(file));
+
             context.runOnUiThread(new Runnable() {
                 @Override
                 public void run()
                 {
                     AlertDialog.Builder alBuilder=new AlertDialog.Builder(context);
                     alBuilder.setTitle("Order Summary");
-                    alBuilder.setMessage("\n\n" + "File Generted In Location " + pdffile.getAbsolutePath() + "\n\n");
+                    alBuilder.setMessage("\n\n" + "File Generted In Location " + file + "\n\n");
                     alBuilder.setPositiveButton("Open Pdf", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            CommonUtilities.openPdf(context, pdffile.getAbsolutePath());
+                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                                ActivityCompat.requestPermissions(context,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERM_READ_STORAGE);
+                            } else {
+                                CommonUtilities.openPdf1(context, file);
+                            }
                         }
                     });
                     alBuilder.setNegativeButton("Cancel",null);
@@ -123,7 +133,8 @@ public class PrintOrderSummary
         }
         catch (Exception e)
         {
-            CommonUtilities.alert(context,e.toString());
+//            CommonUtilities.alert(context,e.toString());
+            Log.e("PDF",""+e.toString());
         }
     }
 

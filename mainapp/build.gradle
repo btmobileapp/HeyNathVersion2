@@ -24,7 +24,6 @@ dependencies {
     implementation files('libs/universal-image-loader-1.8.6-with-sources.jar')
     implementation project(':library-material')
     implementation files('libs/itextg-5.5.8.jar')
-
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0-alpha06'
     implementation 'com.google.code.gson:gson:2.3'

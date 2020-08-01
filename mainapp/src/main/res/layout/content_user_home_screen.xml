@@ -19,7 +19,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-
             android:layout_height="50dp">
 
 
@@ -103,11 +102,20 @@
                 android:background="#f91d1016"
                 android:layout_weight="1"
                 />
-
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnPlaceOrder"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#f9363019"
+            android:text="Place Order"
+            android:textColor="@android:color/white"
+            android:textSize="10dp"
+            android:textStyle="bold" />
     </LinearLayout>
-
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

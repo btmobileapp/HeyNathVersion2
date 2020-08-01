@@ -1,7 +1,9 @@
 package biyaniparker.com.parker.view.homeuser.userorders;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -52,7 +55,8 @@ public class UserOrderDetailView extends AppCompatActivity {
     OrderMasterBean bean;
     ArrayList<OrderDetailBean> orderDetails=new ArrayList<>();
     ArrayList<OrderDetailBean> orderDetailsNew=new ArrayList<>();
-
+    public static final int REQUEST_PERM_WRITE_STORAGE = 102;
+    public static final int REQUEST_PERM_READ_STORAGE = 103;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -182,13 +186,16 @@ public class UserOrderDetailView extends AppCompatActivity {
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PrintOrderSummary p=new PrintOrderSummary(UserOrderDetailView.this,imageLoader);
-                p.orderDetails=orderDetails;
-                p.master=bean;
-                p.call();
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(UserOrderDetailView.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERM_WRITE_STORAGE);
+                } else {
+                    PrintOrderSummary p = new PrintOrderSummary(UserOrderDetailView.this, imageLoader);
+                    p.orderDetails = orderDetails;
+                    p.master = bean;
+                    p.call();
+                }
             }
         });
-
     }
 
 

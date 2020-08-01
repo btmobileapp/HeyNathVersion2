@@ -54,6 +54,7 @@ public class UserListView extends AppCompatActivity implements AdapterView.OnIte
         listView=(ListView)findViewById(R.id.listView);
         moduleUser=new ModuleUser(this);
         moduleUser.getUserList();
+        moduleUser.syncUser();
         if(moduleUser.userList.size()==0)
         {
             moduleUser.syncUser();

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.internal.service.Common;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
@@ -28,6 +29,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import biyaniparker.com.parker.fcm.FcmUtility;
 import biyaniparker.com.parker.services.ProductSyncService;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.UserUtilities;
@@ -142,7 +144,14 @@ public class LaunchActivity extends AppCompatActivity {
         File myDir = new File(root+"/parkerreport" );
         myDir.mkdirs();
 
-
+        try
+        {
+            FcmUtility fcmUtility = new FcmUtility();
+            fcmUtility.callProcedure(this);
+        }
+        catch (Exception ex){
+            CommonUtilities.alert(this,ex.toString());
+        }
 
     }
     Runnable r=new Runnable()

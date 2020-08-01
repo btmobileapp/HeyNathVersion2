@@ -59,7 +59,7 @@ import biyaniparker.com.parker.view.user.PasswordUpdateView;
 public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnItemClickListener,DownloadUtility, NotifyCallback
  {
 
-     Button btnshirt,btntshirt,btnpants,btnaccessories,btn5,btn6,btnPlaceOrder;
+     Button btnshirt,btntshirt,btnpants,btnaccessories,btn5,btn6;
      GridView gridView;
      ListView slider_list;
      ProductRandomAdapter productRandomAdapter;
@@ -168,8 +168,6 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
       btn5=(Button)findViewById(R.id.btn5);
       btn6=(Button)findViewById(R.id.btn6);
-      btnPlaceOrder = findViewById(R.id.btnPlaceOrder);
-
 
       gridView=(GridView)findViewById(R.id.gridView);
 
@@ -179,14 +177,14 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
               btnshirt.setText(items.get(0).getTitle());
               btntshirt.setText(items.get(1).getTitle());
               btnpants.setText(items.get(2).getTitle());
-               btnaccessories.setText(items.get(3).getTitle());
-               btn5.setText(items.get(4).getTitle());
-               btn6.setText(items.get(5).getTitle());
-
-
+              btnaccessories.setText(items.get(3).getTitle());
+              btn5.setText(items.get(4).getTitle());
+              btn6.setText(items.get(5).getTitle());
         }
         catch (Exception e)
-        {}
+        {
+
+        }
       //------------------- In it Button Click Listner with Parente Category------------------------//
       try
       {
@@ -229,29 +227,16 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
               }
           });
-          btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  startActivity(new Intent(UserHomeScreen.this, UserBagView.class));
-              }
-          });
       }
       catch (Exception e)
       {}
-
-
 
       TextView txtShop=(TextView)navigationView.getHeaderView(0).findViewById(R.id.txtshop);
       TextView txtWelcome=(TextView)navigationView.getHeaderView(0). findViewById(R.id.txtwelcome);
 
       txtShop.setText(UserUtilities.getShopName(this));
       txtWelcome.setText("Welcome : "+UserUtilities.getName(this));
-
-
     }
-
-
-
 
     ArrayList<RowItem> items=new ArrayList<>();
     CustomAdapter customAdapter;
@@ -297,16 +282,13 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
         {
             startActivity(new Intent(this, UserBagView.class));
         }
-
-
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-
       //  startActivity(new Intent(this, CategoryListView.class));
-
        if( items.get(position).isLocal)
        {
            if(items.get(position).getTitle().equalsIgnoreCase("Logout"))
@@ -347,9 +329,7 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
             intent.putExtra("CategoryId", categoryId);
             startActivity(intent);
         }
-
         overridePendingTransition(R.animator.pull_in_right, R.animator.push_out_left);
-
     }
 
 
@@ -363,11 +343,7 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
                      //productRandomAdapter.notifyDataSetChanged();
                  }
              }
-
-     }
-
-
-
+        }
 
      void checkSDCardsWrite()
      {

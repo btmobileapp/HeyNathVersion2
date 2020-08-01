@@ -24,6 +24,7 @@ public class AsyncUtilities extends AsyncTask<Void,Void,String>
     ProgressDialog pd;
     ResponseBody responseBody;
     boolean autoCanclable=true;
+    boolean hideDailiuge;
     public void setAutoCancleable(boolean autoCanclable)
     {
          this.autoCanclable=autoCanclable;
@@ -48,7 +49,10 @@ public class AsyncUtilities extends AsyncTask<Void,Void,String>
         pd.setMessage("Loading...");
         pd.setCanceledOnTouchOutside(autoCanclable);
 
-        pd.show();
+        if(!hideDailiuge)
+        {
+            pd.show();
+        }
 
         pd.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -93,9 +97,13 @@ public class AsyncUtilities extends AsyncTask<Void,Void,String>
     protected void onPostExecute(String s)
     {
         super.onPostExecute(s);
-        pd.dismiss();
+        if(pd.isShowing())
+           pd.dismiss();
         objDownloadUtility.onComplete(responseBody.getResponseString(),requestCode,responseBody.responseCode);
     }
 
 
+    public void hideDialouge() {
+        hideDailiuge=true;
+    }
 }

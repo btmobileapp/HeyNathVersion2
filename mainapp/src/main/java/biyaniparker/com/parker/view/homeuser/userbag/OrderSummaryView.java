@@ -209,10 +209,12 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                try {
+                try
+                {
                     moduleBag.placeOrder(grandTotal, gsonSelectedItem);
                    // finish();
-                } catch (JSONException e) {
+                } catch (JSONException e)
+                {
                     e.printStackTrace();
                 }
             }

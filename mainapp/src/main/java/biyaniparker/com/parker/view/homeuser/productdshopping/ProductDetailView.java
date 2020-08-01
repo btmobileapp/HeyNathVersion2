@@ -120,8 +120,8 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
 
             productDetailsBeanList = new ArrayList<>();
 
-            if (bean.getIconFull()!=null){
-                productDetailsBeanList.add(new ProductDetailsBean(bean.getIconFull()));
+            if (bean.getIconThumb()!=null){
+                productDetailsBeanList.add(new ProductDetailsBean(bean.getIconThumb()));
             }
             if (bean.IconFull2!=null){
                 productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull2));

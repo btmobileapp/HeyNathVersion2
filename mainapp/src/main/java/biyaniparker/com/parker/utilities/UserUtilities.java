@@ -25,6 +25,20 @@ public class UserUtilities
         return   0;
 
     }
+    public  static  boolean isVerified(Context context)
+    {
+        SharedPreferences sh=context.getSharedPreferences("UserBean",context.MODE_PRIVATE);
+        try
+        {
+            JSONObject jsonObject=new JSONObject(sh.getString("UserBean","{}"));
+            String VerifiedStatus=  jsonObject.getString("VerifiedStatus");
+            if(VerifiedStatus.equalsIgnoreCase("Verified"))
+                return true;
+        }
+        catch (Exception e){}
+        return   false;
+
+    }
     public  static  void clearUser(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("UserBean",context.MODE_PRIVATE);

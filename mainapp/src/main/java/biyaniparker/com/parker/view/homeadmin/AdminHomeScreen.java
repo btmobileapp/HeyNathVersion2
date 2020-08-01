@@ -48,12 +48,10 @@ import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
+import biyaniparker.com.parker.view.Notice.CreateNoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.OrderAdapter;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchListView;
-import biyaniparker.com.parker.view.homeadmin.orderdispatch.RecentDispatchListView;
-import biyaniparker.com.parker.view.reports.DynamicCategoryReport;
-import biyaniparker.com.parker.view.reports.ReportMenu;
 import biyaniparker.com.parker.view.user.PasswordUpdateView;
 import biyaniparker.com.parker.view.user.UserListView;
 
@@ -109,7 +107,7 @@ public class AdminHomeScreen extends AppCompatActivity
         RowItem item4= new RowItem("Users", R.drawable.ic_user);
         RowItem item5= new RowItem("Change password", R.drawable.ic_changepass);
         RowItem item6= new RowItem("Logout", R.drawable.ic_logout);
-        //RowItem item8= new RowItem("Verify User",R.drawable.verify_user);
+       // RowItem item8= new RowItem("Create Notice",R.drawable.verify_user);
         item1.isLocal=true;
         item2.isLocal=true;
      //   item3.isLocal=true;
@@ -121,6 +119,7 @@ public class AdminHomeScreen extends AppCompatActivity
         RowItem item7= new RowItem("Stock Reports", R.drawable.reportsymbol);
         items.add(item1);
         items.add(item2);
+       // items.add(item8);
 
        // items.add(item3);
         item7.isLocal=true;
@@ -381,11 +380,10 @@ public class AdminHomeScreen extends AppCompatActivity
                 else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
                     startActivity(new Intent(this, UserListView.class));
                 }
-
-            }
-
-
-        //}
+//                else if (items.get(position).getTitle().equalsIgnoreCase("Create Notice"))
+//                startActivity(new Intent(this, CreateNoticeView.class));
+//               }
+        }
 
 
            // OrderMasterBean bean= moduleOrder.orderList.get(position);

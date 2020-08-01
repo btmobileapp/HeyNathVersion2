@@ -184,15 +184,18 @@ public class CommonUtilities
         return new File(storageDir, fileName);
     }
 
-    public  static void  openPdf(Context context,String path)
+    public  static void  openPdf(Context context,String  path)
     {
         try
         {
             File file = new File(path);
+            Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+            intent.setDataAndType(uri, "application/pdf");
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(intent);
+
         }
         catch (Exception e)
         {
@@ -200,19 +203,18 @@ public class CommonUtilities
         }
     }
 
-    public  static void  openPdf1(Context context,String path,String directory)
+    public  static void  openPdf1(Context context,File path)
     {
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/" + directory + "/" + path);
-        Uri path1 = Uri.fromFile(pdfFile);
-        Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-        pdfIntent.setDataAndType(path1, "application/pdf");
-        pdfIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        Intent intent = Intent.createChooser(pdfIntent, "Open File");
-
+        Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", path);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(photoURI, "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         try {
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(context, "Can't read pdf file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
         }
     }
 

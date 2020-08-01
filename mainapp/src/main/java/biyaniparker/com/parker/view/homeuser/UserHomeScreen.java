@@ -59,7 +59,7 @@ import biyaniparker.com.parker.view.user.PasswordUpdateView;
 public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnItemClickListener,DownloadUtility, NotifyCallback
  {
 
-     Button btnshirt,btntshirt,btnpants,btnaccessories,btn5,btn6;
+     Button btnshirt,btntshirt,btnpants,btnaccessories,btn5,btn6,btnPlaceOrder;
      GridView gridView;
      ListView slider_list;
      ProductRandomAdapter productRandomAdapter;
@@ -168,6 +168,8 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
       btn5=(Button)findViewById(R.id.btn5);
       btn6=(Button)findViewById(R.id.btn6);
+      btnPlaceOrder = findViewById(R.id.btnPlaceOrder);
+
 
       gridView=(GridView)findViewById(R.id.gridView);
 
@@ -225,6 +227,12 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
               public void onClick(View v) {
                   onItemClick(null, null, 5, 0);
 
+              }
+          });
+          btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  startActivity(new Intent(UserHomeScreen.this, UserBagView.class));
               }
           });
       }

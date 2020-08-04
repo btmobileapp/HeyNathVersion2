@@ -57,8 +57,6 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
         }
 
         gridView.setOnItemClickListener(this);
-
-
     }
 
     @Override
@@ -66,22 +64,22 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
     {
         if(item.getItemId()==android.R.id.home)
             onBackPressed();
-        if(item.getItemId()==R.id.actionFilter)
-        {
-            Intent intent=new Intent(this,UserProductFilterView.class);
-            intent.putExtra("CategoryId",catId);
-            startActivityForResult(intent, 100);
-        }
+//        if(item.getItemId()==R.id.actionFilter)
+//        {
+//            Intent intent=new Intent(this,UserProductFilterView.class);
+//            intent.putExtra("CategoryId",catId);
+//            startActivityForResult(intent, 100);
+//        }
         return super.onOptionsItemSelected(item);
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menufilter,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//        getMenuInflater().inflate(R.menu.menufilter,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
 
     @Override

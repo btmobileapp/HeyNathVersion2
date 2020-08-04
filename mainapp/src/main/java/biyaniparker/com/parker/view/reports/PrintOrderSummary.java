@@ -217,9 +217,6 @@ public class PrintOrderSummary
     }
 
 
-
-
-
     public void createPdf(String dest) throws IOException, DocumentException
     {
         Document document = new //Document();

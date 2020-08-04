@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearLayoutNotice">
 
@@ -32,26 +31,57 @@
             android:id="@+id/etDescription"
             style="@android:style/Widget.Holo.Light.EditText"
             />
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Select Date"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/etDate"-->
+<!--            android:drawableRight="@android:drawable/ic_menu_add"-->
+<!--            style="@android:style/Widget.Holo.Light.EditText"-->
+<!--            />-->
+</LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/linearLayoutNotice">
+
+        <Button
+            android:id="@+id/btnSelectDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:textColor="@android:color/white"
+            android:background="@drawable/buttonround"
+            android:text="Select Date" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select Date"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:id="@+id/etDate"
-            android:drawableRight="@android:drawable/ic_menu_add"
+            android:gravity="center_horizontal"
             style="@android:style/Widget.Holo.Light.EditText"
             />
-</LinearLayout>
+
+    </LinearLayout>
     <LinearLayout
         android:background="#c0c0c0"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
+        android:layout_below="@+id/ll_date"
         android:layout_height="1dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_margin="15dp"
+        android:layout_below="@+id/ll_date"
         android:orientation="horizontal"
+        android:id="@+id/ll_image"
         android:layout_height="150dp">
 
         <ImageView
@@ -82,33 +112,39 @@
         android:background="#c0c0c0"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
+        android:layout_below="@+id/ll_image"
         android:layout_height="1dp"/>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="5dp"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+<!--    <LinearLayout-->
+<!--        android:background="#c0c0c0"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:layout_height="1dp"/>-->
+<!--    <LinearLayout-->
+<!--        android:layout_below="@+id/ll_image"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:paddingLeft="@dimen/activity_horizontal_margin"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:paddingRight="@dimen/activity_horizontal_margin"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:text="Notice Type"
-            android:textColor="@android:color/black"
-            />
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="-5dp"
-            android:layout_weight="1"
-            android:paddingRight="-5dp"
-            android:id="@+id/spinnerNotice"
-            style="@android:style/Widget.Holo.Light.Spinner"
-            ></Spinner>
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1.5"-->
+<!--            android:text="Notice Type"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            />-->
+<!--        <Spinner-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingEnd="-5dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:paddingRight="-5dp"-->
+<!--            android:id="@+id/spinnerNotice"-->
+<!--            style="@android:style/Widget.Holo.Light.Spinner"-->
+<!--            ></Spinner>-->
+<!--    </LinearLayout>-->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,6 +153,6 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:background="@drawable/buttonround"
-        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
-</LinearLayout>
+</RelativeLayout>

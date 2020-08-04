@@ -1,6 +1,5 @@
 package biyaniparker.com.parker.utilities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,7 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;

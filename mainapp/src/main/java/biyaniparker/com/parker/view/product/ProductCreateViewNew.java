@@ -14,10 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,20 +29,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.util.ArrayList;
-
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.bal.ModulePrice;
@@ -64,10 +55,9 @@ import biyaniparker.com.parker.utilities.ImageQuality;
 import biyaniparker.com.parker.utilities.MultifileUploadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
-import biyaniparker.com.parker.utilities.serverutilities.FileUpload;
+import biyaniparker.com.parker.view.Notice.CreateNoticeView;
 import biyaniparker.com.parker.view.homeadmin.ImageRotateSetting;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
-import biyaniparker.com.parker.view.unitmaster.UnitMasterEditView;
 
 public class ProductCreateViewNew extends AppCompatActivity implements View.OnClickListener, DownloadUtility, MultifileUploadUtility, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
@@ -156,7 +146,6 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
         });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -164,7 +153,6 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
         getMenuInflater().inflate(R.menu.ic_rotate_menu,menu);
         return true;
     }
-
 
     private void init() {
         edPrice=findViewById(R.id.edPrice);
@@ -267,10 +255,9 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
             if (validation()) {
                 for(int i=0;i<viewList.size();i++)
                 {
-
-                      View v1=viewList.get(i);
-                      int SizeId= Integer.parseInt(v1.getTag().toString());
-                     EditText ed=(EditText)  v1.findViewById(R.id.edSizeQty);
+                    View v1=viewList.get(i);
+                    int SizeId= Integer.parseInt(v1.getTag().toString());
+                    EditText ed=(EditText)  v1.findViewById(R.id.edSizeQty);
                     StockMasterBean s=new StockMasterBean();
                     if(ed.getText().toString().equals(""))
                     {
@@ -374,7 +361,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    public void onComplete(String str, int requestCode, int responseCode) {
+    public void onComplete(final String str, int requestCode, int responseCode) {
 
         if(requestCode==121)
         {
@@ -469,6 +456,31 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
                 }
             });
             alertDialog.show();
+
+            alertDialog.setTitle(getString(R.string.app_name));
+            alertDialog.setMessage("Do you Want To add notice?");
+            alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(str);
+                        int ProductId = jsonObject.getInt("ProductId");
+                        Intent intent = new Intent(ProductCreateViewNew.this, CreateNoticeView.class);
+                        intent.putExtra("ProductId",ProductId);
+                        startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    finish();
+                }
+            });
+            alertDialog.show();
+
         }
         else  if(requestCode==10)
         {
@@ -522,7 +534,6 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
         }*/
         Intent in = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(in, i);
-
     }
 
 
@@ -856,8 +867,6 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
         Toast.makeText(getApplicationContext()," Bad request.....",Toast.LENGTH_LONG).show();
         img.setImageResource(android.R.drawable.ic_menu_camera);
     }
-
-
     }
 
 

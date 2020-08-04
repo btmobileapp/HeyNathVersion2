@@ -1,7 +1,6 @@
 package biyaniparker.com.parker.beans;
 
 public class CreateNoticeBean {
-
     public String title;
     public String description;
     public String attachment;
@@ -34,7 +33,7 @@ public class CreateNoticeBean {
         this.attachment = attachment;
     }
 
-    public boolean isDeleteStatus() {
+    public boolean getDeleteStatus() {
         return deleteStatus;
     }
 

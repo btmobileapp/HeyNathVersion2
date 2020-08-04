@@ -3,6 +3,8 @@ package biyaniparker.com.parker.bal;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import biyaniparker.com.parker.beans.CategoryBean;
+import biyaniparker.com.parker.beans.CreateNoticeBean;
 import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.SizeDetailBean;
 import biyaniparker.com.parker.beans.SizeMaster;
@@ -207,10 +210,23 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
             jobjstock.put("TransactionType","inward");
             jobjstock.put("ClientId",UserUtilities.getClientId(context));
             jsonArray.put(jobjstock);
-
         }
-
         AsyncUtilities serverAsync=new AsyncUtilities(context,true, CommonUtilities.URL+"StockService.svc/InsertStockMaster",jsonArray.toString(),4,this);
+        serverAsync.execute();
+    }
+
+    public void createNotice(CreateNoticeBean createNoticeBean) throws JSONException{
+        JSONObject contentValues=new JSONObject();
+
+        contentValues.put("Title",createNoticeBean.getTitle());
+        contentValues.put("Decription",createNoticeBean.getDescription());
+        contentValues.put("Attachment",createNoticeBean.getAttachment());
+        contentValues.put("DeleteStatus",createNoticeBean.getDeleteStatus());
+        contentValues.put("ExpiryDate",createNoticeBean.getExpiryDate());
+      //  contentValues.put("NoticeType",createNoticeBean.getNoticeType());
+        contentValues.put("ProductId",createNoticeBean.getProductId());
+
+        AsyncUtilities serverAsync=new AsyncUtilities(context,true, CommonUtilities.URL+"ProductService.svc/SaveNotice",contentValues.toString(),7,this);
         serverAsync.execute();
     }
 
@@ -252,7 +268,7 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
             {
                 if (parseInsertedProduct(str)) {
 
-                    downloadUtility.onComplete("Success", 2, responseCode);
+                    downloadUtility.onComplete(str, 2, responseCode);
                 } else {
                     downloadUtility.onComplete("Failed", 2, responseCode);
                 }
@@ -335,6 +351,17 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
             }
         }
 
+        if(requestCode==7)
+        {
+            DownloadUtility downloadUtility = (DownloadUtility) context;
+            if (responseCode == 200)
+            {
+                downloadUtility.onComplete("Success", 7, responseCode);
+            } else
+            {
+                downloadUtility.onComplete("Server Communication Failed", 7, responseCode);
+            }
+        }
         //   Capture Photo Code 10
 
         if(requestCode==10)
@@ -460,7 +487,7 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
 
     // to parse product bean from jsonObject
 
-    public ProductBean parseProductBean(String str)
+    public ProductBean  parseProductBean(String str)
     {
         try
         {

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,39 +17,28 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.google.android.material.navigation.NavigationView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import biyaniparker.com.parker.LaunchActivity;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleOrder;
 import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.beans.OrderMasterBean;
 import biyaniparker.com.parker.beans.RowItem;
-import biyaniparker.com.parker.beans.UnitMasterBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
@@ -59,10 +47,8 @@ import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.Notice.CreateNoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.OrderAdapter;
-import biyaniparker.com.parker.view.adapter.masteradapter;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchListView;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
-import biyaniparker.com.parker.view.unitmaster.UnitMasterListView;
 import biyaniparker.com.parker.view.user.PasswordUpdateView;
 import biyaniparker.com.parker.view.user.UserListView;
 
@@ -118,7 +104,7 @@ public class AdminHomeScreen extends AppCompatActivity
         RowItem item4= new RowItem("Users", R.drawable.ic_user);
         RowItem item5= new RowItem("Change password", R.drawable.ic_changepass);
         RowItem item6= new RowItem("Logout", R.drawable.ic_logout);
-       // RowItem item8= new RowItem("Create Notice",R.drawable.verify_user);
+        RowItem item8= new RowItem("Create Notice",R.drawable.verify_user);
         item1.isLocal=true;
         item2.isLocal=true;
      //   item3.isLocal=true;
@@ -127,10 +113,11 @@ public class AdminHomeScreen extends AppCompatActivity
         item4.sectionName="Users And Account";
         item5.isLocal=true;
         item6.isLocal=true;
+        item8.isLocal=true;
         RowItem item7= new RowItem("Stock Reports", R.drawable.reportsymbol);
         items.add(item1);
         items.add(item2);
-       // items.add(item8);
+        items.add(item8);
 
        // items.add(item3);
         item7.isLocal=true;
@@ -389,12 +376,12 @@ public class AdminHomeScreen extends AppCompatActivity
             } else if (items.get(position).getTitle().equalsIgnoreCase("Users")) {
                 startActivity(new Intent(this, UserListView.class));
             }
+            else if (items.get(position).getTitle().equalsIgnoreCase("Create Notice")){
+                startActivity(new Intent(this, CreateNoticeView.class));
+            }
 //                else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
 //                    startActivity(new Intent(this, UserListView.class));
 //                }
-//                else if (items.get(position).getTitle().equalsIgnoreCase("Create Notice"))
-//                startActivity(new Intent(this, CreateNoticeView.class));
-//               }
         }
     }
 

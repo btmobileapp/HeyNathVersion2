@@ -45,6 +45,7 @@ public class NewMessageNotification
      * Notification design guidelines</a> when doing so.
      *
      * @see #cancel(Context)
+     *
      */
     public static void notify(final Context context,
                               final String exampleString, final int number) {
@@ -151,17 +152,25 @@ public class NewMessageNotification
     }
 
     /**
+
      * Cancels any notifications of this type previously shown using
+
      * {@link #notify(Context, String, int)}.
+
      */
     @TargetApi(Build.VERSION_CODES.ECLAIR)
-    public static void cancel(final Context context) {
+    public static void cancel(final Context context)
+    {
         final NotificationManager nm = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR)
+        {
             nm.cancel(NOTIFICATION_TAG, 0);
-        } else {
+        }
+        else
+        {
             nm.cancel(NOTIFICATION_TAG.hashCode());
         }
     }
+
 }

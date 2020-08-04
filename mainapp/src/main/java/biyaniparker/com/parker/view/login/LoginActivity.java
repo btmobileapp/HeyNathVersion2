@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import java.io.File;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleLogin;
+import biyaniparker.com.parker.fcm.FcmUtility;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
@@ -48,6 +49,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtAddress.setText(CommonUtilities.AdminAdress);
         txt.setText(CommonUtilities.AdminContact);
 
+
+        try
+        {
+            FcmUtility fcmUtility = new FcmUtility();
+            fcmUtility.callProcedure(this);
+        }
+        catch (Exception ex){
+            CommonUtilities.alert(this,ex.toString());
+        }
     }
 
     private void inItUi()

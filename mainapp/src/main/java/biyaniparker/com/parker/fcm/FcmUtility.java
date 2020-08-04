@@ -11,6 +11,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -23,6 +24,7 @@ public class FcmUtility
 {
     public void callProcedure(Context context)
     {
+        FirebaseApp.initializeApp(context);
         checkPlayService(context);
         checkAndGenerate(context);
         if(isFcmKeyGenerated(context))
@@ -51,6 +53,7 @@ public class FcmUtility
     }
     public void generateFcmId(final Context  context)
     {
+        FirebaseApp.initializeApp(context);
                 FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
                 {
@@ -133,6 +136,8 @@ public class FcmUtility
     }
 
     private void checkPlayService(Context context) {
+
+        FirebaseApp.initializeApp(context);
         int isGPSAvailable = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
 
       //  Toast.makeText(context,"isGPSAvailable " + isGPSAvailable,Toast.LENGTH_SHORT).show();

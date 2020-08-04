@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "826557727469",
+    "firebase_url": "https://ytdemo-190407.firebaseio.com",
+    "project_id": "ytdemo-190407",
+    "storage_bucket": "ytdemo-190407.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826557727469:android:ad9c3af2228636d7",
+        "android_client_info": {
+          "package_name": "biyaniparker.com.parker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826557727469-c9mbbp8lpick5sbr08ek5jo4ihiq30ib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlXsSNyR_U7l1gHcQpH1f-7u9nWk5q2DQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

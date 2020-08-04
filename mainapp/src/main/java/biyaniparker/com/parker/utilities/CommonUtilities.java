@@ -30,6 +30,8 @@ import biyaniparker.com.parker.database.ItemDAOPrice;
 import biyaniparker.com.parker.database.ItemDAOProduct;
 import biyaniparker.com.parker.database.ItemDAOSizeMaster;
 import biyaniparker.com.parker.database.ItemDAOUser;
+import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 /**
  * Created by bt18 on 08/08/2016.
@@ -64,17 +66,13 @@ public class CommonUtilities
     public static String AdminContact="Ph No. 91 2345 270 100 ";
 
 */
-
-
-
-
-
     public final static String RESPONCE_OK="Success";
-    public static String GodName="|| Shree Babaji Maharaj Namah ||";
-    public static String AdminShop="CHOICE ELECTRIC";
+    public static String GodName="|| Shree ||";
+    public static String AdminShop="Rajashri Industries";
     public static String AdminAdress=" BLOCK NO.433/3C,GAT NO 24/3A, OPP.HOTEL SAPTAGIRI,JAYSINGPUR-416101";
     public static String Slogan="";
     public static String AdminContact="Ph No. (02328)444444 ";
+    public static Context context;
 
     public static long getCurrentTime()
     {
@@ -159,7 +157,6 @@ public class CommonUtilities
     {
         Log.d("perror", str);
     }
-
 
 
     public static String longToDate(long orderDate)

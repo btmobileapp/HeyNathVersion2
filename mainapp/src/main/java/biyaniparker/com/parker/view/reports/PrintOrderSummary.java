@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -77,6 +79,7 @@ public class PrintOrderSummary
 
    public  ArrayList<OrderDetailBean> orderDetails;
     public OrderMasterBean master;
+    Bitmap bitmap;
 
     public PrintOrderSummary(Activity context, ImageLoader imageLoader)
     {
@@ -96,50 +99,52 @@ public class PrintOrderSummary
         moduleCategory=new ModuleCategory(context);
     }
 
-    public void  call()
-    {
-        try
-        {
+    public void  call() {
+        try {
             final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/LetsBegin";
             File dir = new File(path);
             if (!dir.exists())
                 dir.mkdirs();
-            final File file = new File(dir, "Order_"+master.orderId+".pdf");
-
+            final File file = new File(dir, "Order_" + master.orderId + ".pdf");
             //  pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
-                createPdf(String.valueOf(file));
+
+            createPdf(String.valueOf(file));
 
             context.runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
-                    AlertDialog.Builder alBuilder=new AlertDialog.Builder(context);
+                public void run() {
+                    AlertDialog.Builder alBuilder = new AlertDialog.Builder(context);
                     alBuilder.setTitle("Order Summary");
                     alBuilder.setMessage("\n\n" + "File Generted In Location " + file + "\n\n");
                     alBuilder.setPositiveButton("Open Pdf", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-                                ActivityCompat.requestPermissions(context,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERM_READ_STORAGE);
+                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERM_READ_STORAGE);
                             } else {
                                 CommonUtilities.openPdf1(context, file);
                             }
                         }
                     });
-                    alBuilder.setNegativeButton("Cancel",null);
+                    alBuilder.setNegativeButton("Cancel", null);
                     alBuilder.show();
                 }
             });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 //            CommonUtilities.alert(context,e.toString());
-            Log.e("PDF",""+e.toString());
+            Log.e("PDF", "" + e.toString());
         }
     }
 
-    public static PdfPCell createImageCell(String path) throws DocumentException, IOException {
-        Image img = Image.getInstance(path);
+    public static PdfPCell createImageCell(String path)  {
+        Image img = null;
+        try {
+            img = Image.getInstance(path);
+        } catch (BadElementException e) {
+           // e.printStackTrace();
+        } catch (IOException e) {
+           // e.printStackTrace();
+        }
         //   img.scaleToFit(0.1f,0.1f);
 
         // Rectangle two = new Rectangle(5,5);
@@ -193,7 +198,6 @@ public class PrintOrderSummary
 
             try
             {
-
                 Image image = Image.getInstance(imfo.getAbsolutePath());
                 image .scaleToFit(80, 80);
                 //image.set
@@ -207,10 +211,9 @@ public class PrintOrderSummary
         }
         catch (Exception e)
         {
-
             Toast.makeText(context,e.toString(),Toast.LENGTH_LONG).show();
         }
-    }
+      }
     }
 
 
@@ -234,7 +237,7 @@ public class PrintOrderSummary
             writer.setPageEvent(new HeaderFooter());
         }
         catch (Exception e){
-            Toast.makeText(context,"Headr prble"+e.getMessage()+"-"+e.toString(),Toast.LENGTH_LONG).show();
+          //  Toast.makeText(context,"Headr prble"+e.getMessage()+"-"+e.toString(),Toast.LENGTH_LONG).show();
         }
 
 
@@ -300,7 +303,7 @@ public class PrintOrderSummary
         table.addCell("Category");
         table.addCell("Product");
         table.addCell("MRP");
-        table.addCell("Size");
+        table.addCell("Unit");
         table.addCell("Qty");
 
 
@@ -356,7 +359,6 @@ public class PrintOrderSummary
                 table.addCell("");
             }
 
-
                     int cid = moduleProduct.getProductBeanByProductId(orderDetails.get(i).productId).getCategoryId();
                     String CName = moduleCategory.getCategoryName(cid);
                     PdfPCell c = new PdfPCell(new Phrase(CName));
@@ -372,7 +374,6 @@ public class PrintOrderSummary
 
         }
 
-
         table.addCell("Total");
         table.addCell("");
         table.addCell("");
@@ -380,13 +381,7 @@ public class PrintOrderSummary
         table.addCell("");
         table.addCell(totq+"");
 
-
         document.add(table);
-
-
-
-
         document.close();
     }
-
 }

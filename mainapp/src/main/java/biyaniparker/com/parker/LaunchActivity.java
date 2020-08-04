@@ -82,7 +82,6 @@ public class LaunchActivity extends AppCompatActivity {
         {
             if(UserUtilities.getUserId(LaunchActivity.this)==0)
             {
-
                 AlertDialog.Builder app = new AlertDialog.Builder(this);
                 app.setTitle(getString(R.string.app_name));
                 app.setMessage("Check Internet Connection ");
@@ -124,7 +123,6 @@ public class LaunchActivity extends AppCompatActivity {
               //  app.show();
                 h.postDelayed(r, 1000);
             }
-
         }
 
 

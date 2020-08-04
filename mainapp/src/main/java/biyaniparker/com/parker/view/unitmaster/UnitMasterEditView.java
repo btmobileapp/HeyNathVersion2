@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,7 @@ public class UnitMasterEditView extends AppCompatActivity implements View.OnClic
       int unitId;
       Context context;
       int flag = 0;
+      public final static String PREFS_NAME = "appname_prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class UnitMasterEditView extends AppCompatActivity implements View.OnClic
 
     private void init() {
         etUnitName = findViewById(R.id.ed_editUnitName);
-        etUnitType = findViewById(R.id.ed_editUnitType);
+      //  etUnitType = findViewById(R.id.ed_editUnitType);
         etRemark = findViewById(R.id.ed_editRemark);
         btnUpdateUnit = findViewById(R.id.btnUpdateUnit);
         btnDeleteUnit = findViewById(R.id.btnDeleteUnit);
@@ -72,7 +75,7 @@ public class UnitMasterEditView extends AppCompatActivity implements View.OnClic
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                 if (unitId == jsonobject.getInt("UnitId")){
                     etUnitName.setText(jsonobject.getString("UnitName"));
-                    etUnitType.setText(jsonobject.getString("UnitType"));
+                   // etUnitType.setText(jsonobject.getString("UnitType"));
                     etRemark.setText(jsonobject.getString("Remark"));
                 }
             }
@@ -95,7 +98,7 @@ public class UnitMasterEditView extends AppCompatActivity implements View.OnClic
                     unitMasterBean = new UnitMasterBean();
                     unitMasterBean.setUnitId(unitId);
                     unitMasterBean.setUnitName(etUnitName.getText().toString());
-                    unitMasterBean.setUnitType(etUnitType.getText().toString());
+//                    unitMasterBean.setUnitType(etUnitType.getText().toString());
                     unitMasterBean.setRemark(etRemark.getText().toString());
                     unitMasterBean.setDeleteStatus("false");
                     updateUnitmaster(unitMasterBean);
@@ -154,7 +157,7 @@ public class UnitMasterEditView extends AppCompatActivity implements View.OnClic
         try {
             jsonObject.put("UnitId",unitMasterBean.getUnitId());
             jsonObject.put("UnitName",unitMasterBean.getUnitName());
-            jsonObject.put("UnitType",unitMasterBean.getUnitType());
+//            jsonObject.put("UnitType",unitMasterBean.getUnitType());
             jsonObject.put("Remark",unitMasterBean.getRemark());
             jsonObject.put("DeleteStatus",unitMasterBean.getDeleteStatus());
         } catch (JSONException e) {

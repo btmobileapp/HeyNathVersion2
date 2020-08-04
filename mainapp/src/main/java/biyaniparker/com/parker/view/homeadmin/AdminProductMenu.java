@@ -1,5 +1,6 @@
 package biyaniparker.com.parker.view.homeadmin;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -9,11 +10,23 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.MenuBean;
+import biyaniparker.com.parker.beans.UnitMasterBean;
+import biyaniparker.com.parker.utilities.CommonUtilities;
+import biyaniparker.com.parker.utilities.DownloadUtility;
+import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
+import biyaniparker.com.parker.view.adapter.masteradapter;
 import biyaniparker.com.parker.view.refill.DynamicProducts;
 import biyaniparker.com.parker.view.adapter.SubMenuAdapter;
 import biyaniparker.com.parker.view.category.CategoryListView;
@@ -21,6 +34,7 @@ import biyaniparker.com.parker.view.price.PriceListView;
 import biyaniparker.com.parker.view.product.ProductCreateViewNew;
 import biyaniparker.com.parker.view.product.ProductListView;
 import biyaniparker.com.parker.view.size.SizeListView;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 import biyaniparker.com.parker.view.unitmaster.UnitMasterListView;
 import biyaniparker.com.parker.view.user.UserListView;
 
@@ -39,16 +53,11 @@ public class AdminProductMenu extends AppCompatActivity implements AdapterView.O
         list.add(new MenuBean(R.drawable.facilities,"Categorywise Products"));
         //list.add(new MenuBean(R.drawable.facilities,"Manage Stock"));
       //  list.add(new MenuBean(R.drawable.facilities,"Deduct Stock "));
-        list.add(new MenuBean(R.drawable.facilities,"Size Master"));
+//        list.add(new MenuBean(R.drawable.facilities,"Size Master"));
       //  list.add(new MenuBean(R.drawable.facilities,"User Master"));
-        list.add(new MenuBean(R.drawable.facilities,"Price Master"));
+      //  list.add(new MenuBean(R.drawable.facilities,"Price Master"));
         list.add(new MenuBean(R.drawable.facilities,"Unit Master"));
        // list.add(new MenuBean(R.drawable.facilities,"Remove Empty Stock"));
-
-
-
-
-
 
         ListView listView2=(ListView)findViewById(R.id.listView2);
 
@@ -59,8 +68,7 @@ public class AdminProductMenu extends AppCompatActivity implements AdapterView.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-      //  getSupportActionBar().setTitle("a");
-
+        //  getSupportActionBar().setTitle("a");
     }
 
     @Override
@@ -130,5 +138,4 @@ public class AdminProductMenu extends AppCompatActivity implements AdapterView.O
             onBackPressed();
         return super.onOptionsItemSelected(item);
     }
-
 }

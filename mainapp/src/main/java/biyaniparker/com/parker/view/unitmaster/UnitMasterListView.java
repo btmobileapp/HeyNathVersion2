@@ -2,7 +2,9 @@ package biyaniparker.com.parker.view.unitmaster;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +43,7 @@ public class UnitMasterListView extends AppCompatActivity implements DownloadUti
     RecyclerView recyclerView;
     Context context;
     //ArrayList<UnitMasterBean> unitMasterBeanList;
-
+    public final static String PREFS_NAME = "rajashri_prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class UnitMasterListView extends AppCompatActivity implements DownloadUti
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         CommonUtilities.hideatInItInputBoard(this);
-
+        context = getApplicationContext();
        // listView = findViewById(R.id.listViewUserMaster);
         floatingActionButton = findViewById(R.id.fab_User);
         recyclerView = findViewById(R.id.rvUnitMaster);
@@ -68,7 +70,7 @@ public class UnitMasterListView extends AppCompatActivity implements DownloadUti
         getUnitMasterList();
     }
 
-    private void getUnitMasterList() {
+    public void getUnitMasterList() {
         AsyncUtilities serverAsync=new AsyncUtilities(UnitMasterListView.this,false, CommonUtilities.URL+"ProductService.svc/GetUnitMaster","",1,this);
         serverAsync.execute();
     }
@@ -82,7 +84,7 @@ public class UnitMasterListView extends AppCompatActivity implements DownloadUti
                 try {
                     JSONArray jsonarray = new JSONArray(str);
 
-                    SharedPreference sharedPreference = new SharedPreference(UnitMasterListView.this);
+                    SharedPreference sharedPreference = new SharedPreference(this);
                     sharedPreference.setStr("Response",str);
 
                     for (int i = 0; i < jsonarray.length(); i++) {

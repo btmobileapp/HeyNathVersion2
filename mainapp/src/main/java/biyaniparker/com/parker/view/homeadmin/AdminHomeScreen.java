@@ -25,6 +25,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -32,6 +34,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,14 +50,19 @@ import biyaniparker.com.parker.bal.ModuleOrder;
 import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.beans.OrderMasterBean;
 import biyaniparker.com.parker.beans.RowItem;
+import biyaniparker.com.parker.beans.UnitMasterBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
+import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.Notice.CreateNoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.OrderAdapter;
+import biyaniparker.com.parker.view.adapter.masteradapter;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchListView;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
+import biyaniparker.com.parker.view.unitmaster.UnitMasterListView;
 import biyaniparker.com.parker.view.user.PasswordUpdateView;
 import biyaniparker.com.parker.view.user.UserListView;
 
@@ -198,6 +209,13 @@ public class AdminHomeScreen extends AppCompatActivity
        // registerReceiver(mMessageRefreshReceiver,new IntentFilter("RefreshMe"));
 
        // load();
+         getUnitMasterList();
+
+    }
+
+    private void getUnitMasterList() {
+        AsyncUtilities serverAsync=new AsyncUtilities(AdminHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetUnitMaster","",1,this);
+        serverAsync.execute();
     }
 
     private void getDetails(final OrderMasterBean bean)
@@ -341,50 +359,44 @@ public class AdminHomeScreen extends AppCompatActivity
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-    {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-       /* */
+        /* */
 
 
-            if (items.get(position).isLocal)
-            {
-                if (items.get(position).getTitle().equalsIgnoreCase("Logout")) {
-                    AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
-                    alBuilder.setTitle(getString(R.string.app_name));
-                    alBuilder.setMessage("Do you want to Logout this app??");
-                    alBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+        if (items.get(position).isLocal) {
+            if (items.get(position).getTitle().equalsIgnoreCase("Logout")) {
+                AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
+                alBuilder.setTitle(getString(R.string.app_name));
+                alBuilder.setMessage("Do you want to Logout this app??");
+                alBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                            UserUtilities.clearUser(AdminHomeScreen.this);
-                            finish();
-                            startActivity(new Intent(AdminHomeScreen.this, LaunchActivity.class));
-                        }
-                    });
-                    alBuilder.setNegativeButton("No", null);
-                    alBuilder.show();
-                }  //
-                else if (items.get(position).getTitle().equalsIgnoreCase("Change Password")) {
-                    startActivity(new Intent(this, PasswordUpdateView.class));
-                }
-                else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
-                {
-                    startActivity(new Intent(this, AdminProductMenu.class));
-                }
-                else if (items.get(position).getTitle().equalsIgnoreCase("Users"))
-                {
-                    startActivity(new Intent(this, UserListView.class));
-                }
-                else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
-                    startActivity(new Intent(this, UserListView.class));
-                }
+                        UserUtilities.clearUser(AdminHomeScreen.this);
+                        finish();
+                        startActivity(new Intent(AdminHomeScreen.this, LaunchActivity.class));
+                    }
+                });
+                alBuilder.setNegativeButton("No", null);
+                alBuilder.show();
+            }  //
+            else if (items.get(position).getTitle().equalsIgnoreCase("Change Password")) {
+                startActivity(new Intent(this, PasswordUpdateView.class));
+            } else if (items.get(position).getTitle().equalsIgnoreCase("Products")) {
+                startActivity(new Intent(this, AdminProductMenu.class));
+            } else if (items.get(position).getTitle().equalsIgnoreCase("Users")) {
+                startActivity(new Intent(this, UserListView.class));
+            }
+//                else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
+//                    startActivity(new Intent(this, UserListView.class));
+//                }
 //                else if (items.get(position).getTitle().equalsIgnoreCase("Create Notice"))
 //                startActivity(new Intent(this, CreateNoticeView.class));
 //               }
         }
-
+    }
 
            // OrderMasterBean bean= moduleOrder.orderList.get(position);
 
@@ -405,7 +417,16 @@ public class AdminHomeScreen extends AppCompatActivity
         {
 
         }
-
+        if (requestCode==1){
+            if (responseCode == 200){
+                try {
+                    SharedPreference sharedPreference = new SharedPreference(this);
+                    sharedPreference.setStr("Response",str);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 

@@ -179,6 +179,7 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
+                    startActivity(new Intent(UserCreateView.this,UserListView.class));
                     if(IsRegistration)
                     {
                         startActivity(new Intent(UserCreateView.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

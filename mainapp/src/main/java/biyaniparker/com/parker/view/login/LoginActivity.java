@@ -4,31 +4,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import com.google.android.material.textfield.TextInputLayout;
-
 import java.io.File;
-
-import biyaniparker.com.parker.MainActivity;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleLogin;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
-import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
-import biyaniparker.com.parker.view.category.CategoryListView;
-import biyaniparker.com.parker.view.homeadmin.AdminProductMenu;
-import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 import biyaniparker.com.parker.view.user.UserCreateView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener  ,DownloadUtility

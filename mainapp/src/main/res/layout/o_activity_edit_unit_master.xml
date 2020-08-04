@@ -27,15 +27,15 @@
             android:id="@+id/ed_editUnitName"
             style="@android:style/Widget.Holo.Light.EditText"
             />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Unit Type"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:id="@+id/ed_editUnitType"
-            style="@android:style/Widget.Holo.Light.EditText"
-            />
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Unit Type"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/ed_editUnitType"-->
+<!--            style="@android:style/Widget.Holo.Light.EditText"-->
+<!--            />-->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

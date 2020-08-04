@@ -103,7 +103,50 @@
                 android:layout_weight="1"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Accessories1"
+                android:id="@+id/btn7"
+                android:textStyle="bold"
+                android:textSize="10dp"
+                android:textColor="@android:color/white"
+                android:layout_margin="5dp"
+                android:background="#f9363019"
+
+                android:layout_weight="1"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:id="@+id/btn8"
+                android:textStyle="bold"
+                android:textSize="10dp"
+                android:textColor="@android:color/white"
+                android:layout_margin="5dp"
+                android:background="#f92b0d40"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:id="@+id/btn9"
+                android:textStyle="bold"
+                android:textSize="10dp"
+                android:textColor="@android:color/white"
+                android:layout_margin="5dp"
+                android:background="#f91d1016"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
     </LinearLayout>
     <GridView
         android:layout_width="wrap_content"

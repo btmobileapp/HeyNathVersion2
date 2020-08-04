@@ -56,5 +56,4 @@ public class SubMenuAdapter extends ArrayAdapter
 		holder.im.setImageResource(list.get(position).logo);
 		return convertView;
 	}
-
 }

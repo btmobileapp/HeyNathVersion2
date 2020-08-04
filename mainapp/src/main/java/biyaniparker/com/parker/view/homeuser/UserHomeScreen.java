@@ -58,8 +58,7 @@ import biyaniparker.com.parker.view.user.PasswordUpdateView;
 
 public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnItemClickListener,DownloadUtility, NotifyCallback
  {
-
-     Button btnshirt,btntshirt,btnpants,btnaccessories,btn5,btn6;
+     Button btnshirt,btntshirt,btnpants,btnaccessories,btn5,btn6,btn7,btn8,btn9;
      GridView gridView;
      ListView slider_list;
      ProductRandomAdapter productRandomAdapter;
@@ -168,6 +167,10 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
       btn5=(Button)findViewById(R.id.btn5);
       btn6=(Button)findViewById(R.id.btn6);
+      btn7 = findViewById(R.id.btn7);
+      btn8 = findViewById(R.id.btn8);
+      btn9 = findViewById(R.id.btn9);
+
 
       gridView=(GridView)findViewById(R.id.gridView);
 
@@ -180,6 +183,9 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
               btnaccessories.setText(items.get(3).getTitle());
               btn5.setText(items.get(4).getTitle());
               btn6.setText(items.get(5).getTitle());
+              btn7.setText(items.get(6).getTitle());
+              btn8.setText(items.get(7).getTitle());
+              btn9.setText(items.get(8).getTitle());
         }
         catch (Exception e)
         {
@@ -224,6 +230,27 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
               @Override
               public void onClick(View v) {
                   onItemClick(null, null, 5, 0);
+
+              }
+          });
+          btn7.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  onItemClick(null, null, 6, 0);
+
+              }
+          });
+          btn8.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  onItemClick(null, null, 7, 0);
+
+              }
+          });
+          btn9.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  onItemClick(null, null, 8, 0);
 
               }
           });

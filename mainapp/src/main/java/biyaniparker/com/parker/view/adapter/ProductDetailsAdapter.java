@@ -46,7 +46,11 @@ public class ProductDetailsAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.item,container,false);
 
         ImageView imageView = view.findViewById(R.id.imgProductDetails);
-        if (productDetailsBeanslist.get(position).getImageUrl()!=null)
+
+        if (productDetailsBeanslist.get(position).getImageUrl().equalsIgnoreCase("")){
+            imageView.setImageResource(R.drawable.bgpaker);
+        }
+        else
         {
             Picasso.get().load(productDetailsBeanslist.get(position).getImageUrl()).into(imageView);
         }

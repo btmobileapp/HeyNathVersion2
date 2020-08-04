@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="biyaniparker.com.parker" >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -256,7 +257,7 @@
 
         <activity android:name=".view.unitmaster.CreateUnitMaster"
             android:screenOrientation="portrait">
-        </activity>-
+        </activity>
 
         <activity android:name=".view.unitmaster.UnitMasterEditView"
             android:screenOrientation="portrait">

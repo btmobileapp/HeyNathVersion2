@@ -60,6 +60,7 @@ import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 import biyaniparker.com.parker.view.adapter.ProductDetailsAdapter;
+import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 import biyaniparker.com.parker.view.product.ProductCreateViewNew;
 import biyaniparker.com.parker.view.product.ProductEditViewNew;
 import biyaniparker.com.parker.view.product.ProductListView;
@@ -120,20 +121,24 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
 
             productDetailsBeanList = new ArrayList<>();
 
-            if (bean.getIconThumb()!=null){
-                productDetailsBeanList.add(new ProductDetailsBean(bean.getIconThumb()));
-            }
-            if (bean.IconFull2!=null){
-                productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull2));
-            }
-            if (bean.IconFull3!=null){
-                productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull3));
-            }
-            if (bean.IconFull4!=null){
-                productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull4));
-            }
-            if (bean.IconFull5!=null){
-                productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull5));
+            try {
+                if (bean.getIconThumb()!=null){
+                    productDetailsBeanList.add(new ProductDetailsBean(bean.getIconThumb()));
+                }
+                if (bean.IconFull2!=null){
+                    productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull2));
+                }
+                if (bean.IconFull3!=null){
+                    productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull3));
+                }
+                if (bean.IconFull4!=null){
+                    productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull4));
+                }
+                if (bean.IconFull5!=null){
+                    productDetailsBeanList.add(new ProductDetailsBean(bean.IconFull5));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             adapter = new ProductDetailsAdapter(productDetailsBeanList,getApplicationContext(),ProductDetailView.this);
@@ -488,9 +493,11 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         {
             if(str.equals("Success"))
             {
-                Toast.makeText(getApplicationContext(),"Products Succesfully added to bag ",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Products Succesfully added to bag ",Toast.LENGTH_SHORT).show();
                // finish();
-                callRefresh();
+              //  callRefresh();
+                Intent intent = new Intent(this, UserHomeScreen.class);
+                startActivity(intent);
             }
             else if(str.equals("Failed"))
             {
@@ -504,7 +511,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                         callRefresh();
                     }
                 });
-
             }
         }
 

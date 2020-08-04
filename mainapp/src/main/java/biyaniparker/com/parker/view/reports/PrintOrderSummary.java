@@ -206,7 +206,7 @@ public class PrintOrderSummary
                 canvas.addImage(image);
             }
             catch (Exception e){
-                Toast.makeText(context, "Image Exception" + e.toString(), Toast.LENGTH_LONG).show();
+              //  Toast.makeText(context, "Image Exception" + e.toString(), Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception e)

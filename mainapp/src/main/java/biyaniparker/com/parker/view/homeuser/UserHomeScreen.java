@@ -8,11 +8,17 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -22,6 +28,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -29,6 +36,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -45,7 +56,9 @@ import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.NotifyCallback;
 import biyaniparker.com.parker.utilities.UserUtilities;
+import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
+import biyaniparker.com.parker.view.Notice.NoticeListView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.ProductRandomAdapter;
 import biyaniparker.com.parker.view.category.CategoryListView;
@@ -54,6 +67,7 @@ import biyaniparker.com.parker.view.homeuser.productdshopping.DynamicCategories;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ProductDetailView;
 import biyaniparker.com.parker.view.homeuser.userbag.UserBagView;
 import biyaniparker.com.parker.view.homeuser.userorders.OrderListView;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 import biyaniparker.com.parker.view.user.PasswordUpdateView;
 
 public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnItemClickListener,DownloadUtility, NotifyCallback
@@ -65,6 +79,8 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
      NavigationView navigationView;
      //---- Temp-----
      ModuleSync moduleSync;
+     TextView tvTitle,tvDescription;
+     CardView cardView;
 
     ModuleUserHomeScreen moduleUserHomeScreen;
      void callPermission()
@@ -128,10 +144,23 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
         getSupportActionBar().setSubtitle(CommonUtilities.Slogan);
         checkSDCardsWrite();
 
-
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                finish();
+                Intent intent = new Intent(UserHomeScreen.this, NoticeListView.class);
+                startActivity(intent);
+            }
+        });
+        getNoticeList();
     }
 
-  void inItUI()
+     private void getNoticeList() {
+         AsyncUtilities serverAsync=new AsyncUtilities(UserHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetNotice","",2,this);
+         serverAsync.execute();
+     }
+
+     void inItUI()
   {
       items.addAll(moduleUserHomeScreen.getRowItems());
       RowItem bean=new RowItem("Recent Orders",R.drawable.iconorder);
@@ -159,6 +188,8 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
       //  ModuleSync moduleSync=new ModuleSync(this);
 
 
+      tvTitle = findViewById(R.id.title);
+      tvDescription = findViewById(R.id.description);
 
       btnshirt=(Button)findViewById(R.id.btnshirt);
       btntshirt=(Button)findViewById(R.id.btntshirt);
@@ -173,6 +204,7 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
 
       gridView=(GridView)findViewById(R.id.gridView);
+      cardView = findViewById(R.id.cv_notice);
 
       //------------------- In it Button With Parente Category------------------------//
       try
@@ -370,7 +402,85 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
                      //productRandomAdapter.notifyDataSetChanged();
                  }
              }
+             if(requestCode==2)
+             {
+                 if(responseCode==200)
+                 {
+                     try {
+                         SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+                         sharedPreference.setStr("NoticesResponse",str);
+
+                         JSONArray jsonArray = new JSONArray(str);
+                         JSONObject jsonObject = jsonArray.getJSONObject(0);
+                         String title = jsonObject.getString("Title");
+                         tvTitle.setText(title);
+                         String description = jsonObject.getString("Decription");
+//                         tvDescription.setText(description);
+                         tvDescription.setText("Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?\"Hi how r you?");
+                         makeTextViewResizable(tvDescription, 1, "View More", true);
+                     } catch (JSONException e) {
+                         e.printStackTrace();
+                     }
+                 }
+             }
         }
+
+     private static void makeTextViewResizable(final TextView tvDescription, final int maxLine, final String expandText, final boolean viewMore) {
+         if (tvDescription.getTag() == null) {
+             tvDescription.setTag(tvDescription.getText());
+         }
+         ViewTreeObserver vto = tvDescription.getViewTreeObserver();
+         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+             @SuppressWarnings("deprecation")
+             @Override
+             public void onGlobalLayout() {
+                 String text;
+                 int lineEndIndex;
+                 ViewTreeObserver obs = tvDescription.getViewTreeObserver();
+                 obs.removeGlobalOnLayoutListener(this);
+                 if (maxLine == 0) {
+                     lineEndIndex = tvDescription.getLayout().getLineEnd(0);
+                     text = tvDescription.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                 } else if (maxLine > 0 && tvDescription.getLineCount() >= maxLine) {
+                     lineEndIndex = tvDescription.getLayout().getLineEnd(maxLine - 1);
+                     text = tvDescription.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                 } else {
+                     lineEndIndex = tvDescription.getLayout().getLineEnd(tvDescription.getLayout().getLineCount() - 1);
+                     text = tvDescription.getText().subSequence(0, lineEndIndex) + " " + expandText;
+                 }
+                 tvDescription.setText(text);
+                 tvDescription.setMovementMethod(LinkMovementMethod.getInstance());
+                 tvDescription.setText(addClickablePartTextViewResizable(Html.fromHtml(tvDescription.getText().toString()), tvDescription, lineEndIndex, expandText,
+                                 viewMore), TextView.BufferType.SPANNABLE);
+             }
+         });
+     }
+
+     private static SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
+                                                                             final int maxLine, final String spanableText, final boolean viewMore) {
+         String str = strSpanned.toString();
+         SpannableStringBuilder ssb = new SpannableStringBuilder(strSpanned);
+
+         if (str.contains(spanableText)) {
+             ssb.setSpan(new ClickableSpan() {
+
+                 @Override
+                 public void onClick(View widget) {
+                     tv.setLayoutParams(tv.getLayoutParams());
+                     tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
+                     tv.invalidate();
+                     if (viewMore) {
+                         makeTextViewResizable(tv, -1, "View Less", false);
+                     } else {
+                         makeTextViewResizable(tv, 1, "View More", true);
+                     }
+                 }
+             }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length(), 0);
+
+         }
+         return ssb;
+     }
 
      void checkSDCardsWrite()
      {

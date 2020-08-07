@@ -466,7 +466,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                     displayedImages.add(imageUri);
                 }
                 btnplus.setVisibility(View.VISIBLE);
-
             }
         }
     }
@@ -501,7 +500,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             }
             else if(str.equals("Failed"))
             {
-
                 AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
                 alertDialog.setTitle(getString(R.string.app_name));
                 alertDialog.setMessage("Required quantity not available in stock ..Try Again !!");
@@ -523,8 +521,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
     ArrayList<View>  sizeView=new ArrayList<>();
     void addSizeView()
     {
-
-
         sizeView.clear();
         for(int i=0;i<moduleProductDetails.stockList.size();i++)
         {
@@ -545,7 +541,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             }
             linearSizeMain.addView(v);
         }
-
     }
 
 
@@ -578,10 +573,8 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                         startActivity(intent);
                     }
                 });
-
             }
         }
-
     }
 
     void callRefresh()

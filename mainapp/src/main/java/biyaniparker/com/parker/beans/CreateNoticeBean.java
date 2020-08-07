@@ -1,6 +1,7 @@
 package biyaniparker.com.parker.beans;
 
 public class CreateNoticeBean {
+    public int noticeId;
     public String title;
     public String description;
     public String attachment;
@@ -8,6 +9,24 @@ public class CreateNoticeBean {
     public long expiryDate;
     public String noticeType;
     public int productId;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String date;
+
+    public int getNoticeId() {
+        return noticeId;
+    }
+
+    public void setNoticeId(int noticeId) {
+        this.noticeId = noticeId;
+    }
 
     public String getTitle() {
         return title;

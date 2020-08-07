@@ -11,27 +11,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
-        android:visibility="gone"
-        android:id="@+id/textUnitId" />
+        android:id="@+id/tvnoticetitle" />
     <TextView
         android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/black"
-        android:id="@+id/textUnitName" />
-    <TextView
-        android:layout_marginLeft="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:layout_marginTop="7dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:id="@+id/txtUnitType" />
-    <TextView
-        android:layout_marginLeft="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:id="@+id/textRemark" />
-
+        android:id="@+id/tvnoticedescription" />
 </LinearLayout>

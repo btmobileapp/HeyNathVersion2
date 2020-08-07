@@ -221,7 +221,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                     }
                 });
 
-
                 TextView txtCPrice=(TextView)v.findViewById(R.id.txtCPrice);
                 TextView txtTPrice=(TextView)v.findViewById(R.id.txtTPrice);
                 TextView txtName=(TextView)v.findViewById(R.id.txtName);

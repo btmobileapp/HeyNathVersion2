@@ -8,30 +8,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
-
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
-
 import biyaniparker.com.parker.R;
-import biyaniparker.com.parker.bal.ModuleProductDetails;
 import biyaniparker.com.parker.beans.ProductBeanWithQnty;
 
 public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.ViewHolder> {
     public List<ProductBeanWithQnty> newProductList;
     Context context;
     ChangeViewCallBack changeViewCallBack;
+    CallBack callBack;
 
 
-    public  ChangeViewAdapter(Context context,List<ProductBeanWithQnty> list,ChangeViewCallBack ChangeViewCallBack){
+    public  ChangeViewAdapter(Context context,List<ProductBeanWithQnty> list,ChangeViewCallBack ChangeViewCallBack,CallBack callBack){
         this.context = context;
         this.newProductList = list;
         this.changeViewCallBack = ChangeViewCallBack;
+        this.callBack = callBack;
     }
 
     @Override
@@ -83,7 +79,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         return newProductList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView;
         TextView tv1,tv2,tv3,tv4;
         EditText et;
@@ -98,10 +94,22 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
             tv3 = itemView.findViewById(R.id.tvUnitChange);
             tv4 = itemView.findViewById(R.id.tvRemarkChange);
             addToBag = itemView.findViewById(R.id.btnAddtobags);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            callBack.getPosition(position);
+            //changeViewCallBack.getPosition(position);
         }
     }
 
     public interface ChangeViewCallBack{
         void getData(ProductBeanWithQnty productBeanWithQnty, String qty);
+       // void getPosition(int position);
+    }
+    public interface CallBack{
+        void getPosition(int position);
     }
 }

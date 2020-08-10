@@ -113,7 +113,7 @@ public class AdminHomeScreen extends AppCompatActivity
         item4.sectionName="Users And Account";
         item5.isLocal=true;
         item6.isLocal=true;
-       // item8.isLocal=true;
+        item8.isLocal=true;
         RowItem item7= new RowItem("Stock Reports", R.drawable.reportsymbol);
         items.add(item1);
         items.add(item2);

@@ -19,10 +19,12 @@
         android:hint="Title"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
+        android:padding="10dp"
         android:id="@+id/etTitle"
         style="@android:style/Widget.Holo.Light.EditText"
         />
         <EditText
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Description"
@@ -56,15 +58,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:textColor="@android:color/white"
-            android:background="@drawable/buttonround"
-            android:text="Select Date" />
+            android:textColor="@android:color/black"
+            android:padding="10dp"
+            android:text="Select Expiry Date" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:id="@+id/etDate"
+            android:padding="10dp"
             android:gravity="center_horizontal"
             style="@android:style/Widget.Holo.Light.EditText"
             />
@@ -106,8 +109,8 @@
             android:src="@drawable/c"
             android:id="@+id/cameraNotice"
             android:layout_height="50dp" />
-
     </LinearLayout>
+
     <LinearLayout
         android:background="#c0c0c0"
         android:layout_width="match_parent"

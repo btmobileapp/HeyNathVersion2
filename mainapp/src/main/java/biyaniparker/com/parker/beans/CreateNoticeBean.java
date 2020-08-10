@@ -1,5 +1,7 @@
 package biyaniparker.com.parker.beans;
 
+import org.json.JSONObject;
+
 public class CreateNoticeBean {
     public int noticeId;
     public String title;
@@ -9,6 +11,22 @@ public class CreateNoticeBean {
     public long expiryDate;
     public String noticeType;
     public int productId;
+    public String viewMore;
+
+
+    public CreateNoticeBean() {
+    }
+
+    public CreateNoticeBean(CreateNoticeBean createNoticeBean) {
+    }
+
+    public String getViewMore() {
+        return viewMore;
+    }
+
+    public void setViewMore(String viewMore) {
+        this.viewMore = viewMore;
+    }
 
     public String getDate() {
         return date;

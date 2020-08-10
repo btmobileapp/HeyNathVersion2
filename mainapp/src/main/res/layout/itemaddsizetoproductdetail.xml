@@ -7,16 +7,16 @@
         android:orientation="horizontal"
         android:layout_marginTop="5dp"
         android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Size"
-            android:id="@+id/txtSizeName"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_weight="1"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Size"-->
+<!--            android:id="@+id/txtSizeName"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:textStyle="bold"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_weight="1"-->
+<!--            />-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

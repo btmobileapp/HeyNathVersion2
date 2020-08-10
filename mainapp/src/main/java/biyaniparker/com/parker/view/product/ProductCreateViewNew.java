@@ -459,7 +459,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
 
             alertDialog.setTitle(getString(R.string.app_name));
             alertDialog.setMessage("Do you Want To add notice?");
-            alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     try {
@@ -473,10 +473,11 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
                     }
                 }
             });
-            alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
                 @Override
-                public void onCancel(DialogInterface dialog) {
-                    finish();
+                public void onClick(DialogInterface dialog, int which) {
+                    //alertDialog.setCancelable(true);
+                    dialog.cancel();
                 }
             });
             alertDialog.show();

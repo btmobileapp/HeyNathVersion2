@@ -67,7 +67,6 @@ import biyaniparker.com.parker.view.product.ProductListView;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 public class ProductDetailView extends AppCompatActivity implements DownloadUtility, View.OnClickListener, ProductDetailsAdapter.ProductAdaperCallBack {
-
     TextView txtproductname,txtprice;
    // ImageView image;
     Button btnAdd;
@@ -221,6 +220,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
      //   utilities.execute();
 
         intitMultipleImages("");
+        //addSizeView();
     }
 
     ImageView image1,image2,image3,image4;
@@ -443,7 +443,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                 stockList.add(s);
             }
         }
-
         return true;
     }
 
@@ -527,11 +526,11 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             LayoutInflater inflater=(LayoutInflater)  getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v= inflater.inflate(R.layout.itemaddsizetoproductdetail, null);
             v.setTag(i);
-            TextView txtSizeName=(TextView)v.findViewById(R.id.txtSizeName);
+            //TextView txtSizeName=(TextView)v.findViewById(R.id.txtSizeName);
             TextView txtAvaibleQnt=(TextView)v.findViewById(R.id.txtAvaibleQnt);
             txtAvaibleQnt.setVisibility(View.INVISIBLE);
             EditText edOrderQnty=(EditText)v.findViewById(R.id.edOrderQnty);
-            txtSizeName.setText(moduleProductDetails.getSizeNameBySizeId(moduleProductDetails.stockList.get(i).getSizeId()));
+           // txtSizeName.setText(moduleProductDetails.getSizeNameBySizeId(moduleProductDetails.stockList.get(i).getSizeId()));
             txtAvaibleQnt.setText(moduleProductDetails.stockList.get(i).getQnty() + "");
 
             sizeView.add(v);

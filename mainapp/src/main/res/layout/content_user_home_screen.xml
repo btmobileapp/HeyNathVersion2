@@ -12,48 +12,65 @@
     tools:context="biyaniparker.com.parker.view.homeuser.UserHomeScreen"
     tools:showIn="@layout/app_bar_user_home_screen">
 
-    <androidx.cardview.widget.CardView
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/ViewPagerUser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="8dp"
-        android:id="@+id/cv_notice"
-        app:cardCornerRadius="15dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_horizontal"
-                android:text="Imp. Notice -">
-            </TextView>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:id="@+id/title"
-                android:text="Notice Title">
-            </TextView>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="2dp"
-                android:id="@+id/description"
-                android:text="Notice Description">
-            </TextView>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:layout_height="80dp"
+        android:clipToPadding="false"
+        android:foregroundGravity="center_vertical"
+        android:overScrollMode="never">
+    </androidx.viewpager.widget.ViewPager>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/cv_notice"
+        android:id="@+id/SliderDots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ViewPagerUser"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" />
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:elevation="8dp"-->
+<!--        android:id="@+id/cv_notice"-->
+<!--        app:cardCornerRadius="15dp">-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:text="Imp. Notice -">-->
+<!--            </TextView>-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textStyle="bold"-->
+<!--                android:id="@+id/title"-->
+<!--                android:text="Notice Title">-->
+<!--            </TextView>-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:layout_marginTop="2dp"-->
+<!--                android:id="@+id/description"-->
+<!--                android:text="Notice Description">-->
+<!--            </TextView>-->
+<!--        </LinearLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/SliderDots"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content"
@@ -62,7 +79,6 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="50dp">
-
 
             <Button
                 android:layout_width="match_parent"

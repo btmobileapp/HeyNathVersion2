@@ -72,6 +72,8 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
     int totalQuan=0;
     int greatTotalQty=0;
     GsonSelectedItem gsonSelectedItem;
+    BagDetailsBean details;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +156,7 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
                 View subView=inflater.inflate(R.layout.o_activity_two_textviews,null);
                 TextView txtSize=(TextView)subView.findViewById(R.id.txtsize);
                 TextView txtQnty=(TextView)subView.findViewById(R.id.txtsqnty);
-                BagDetailsBean details=masterBean.bagDetails.get(c);
+                details = masterBean.bagDetails.get(c);
                 txtQnty.setText(String.valueOf(details.inBagQnty));
 //                txtSize.setText(details.sizeName);
                 txtSize.setText(details.unitName);
@@ -279,6 +281,7 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
                     finish();
                     Intent intent=new Intent(OrderSummaryView.this, UserOrderDetailView.class);
                     intent.putExtra("OrderId", moduleBag.orderCombine.master.toOrderMaster().getOrderId());
+                   // intent.putExtra("UnitName",details.unitName );
                     startActivity(intent);
                     /*new Thread(new Runnable() {
                         @Override

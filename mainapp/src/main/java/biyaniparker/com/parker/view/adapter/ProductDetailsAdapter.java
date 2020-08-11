@@ -52,7 +52,7 @@ public class ProductDetailsAdapter extends PagerAdapter {
         }
         else
         {
-            Picasso.get().load(productDetailsBeanslist.get(position).getImageUrl()).into(imageView);
+            Picasso.get().load(productDetailsBeanslist.get(position).getImageUrl()).placeholder(R.drawable.bgparker).into(imageView);
         }
         imageView.setOnClickListener(new View.OnClickListener()
         {

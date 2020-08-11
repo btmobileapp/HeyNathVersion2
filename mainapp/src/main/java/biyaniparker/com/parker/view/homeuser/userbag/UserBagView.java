@@ -57,9 +57,6 @@ import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
 import biyaniparker.com.parker.view.user.UserListView;
 
 public class UserBagView extends AppCompatActivity implements DownloadUtility, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
-
-
-
     DisplayImageOptions doption = null;
     private AnimateFirstDisplayListener animateFirstListener;
     private ImageLoader imageLoader;
@@ -83,6 +80,7 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_bag_view1);
         idtimer=(TextView)findViewById(R.id.idtimer);
+        idtimer.setVisibility(View.GONE);
 
         doption = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.bgpaker)
@@ -95,8 +93,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                 .cacheOnDisc(true)
                         //.imageScaleType(10)
                 .build();
-
-
 
         checkAll=(CheckBox)findViewById(R.id.chkAll);
         lmain=(LinearLayout)findViewById(R.id.lmain);
@@ -146,8 +142,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
         }
         catch (Exception e)
         {}
-
-
     }
 
 
@@ -229,6 +223,8 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
 
                     LayoutInflater inflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
                     View lView=inflater.inflate(R.layout.o_activity_two_textviews,null);
+                    txtCPrice=(TextView)lView.findViewById(R.id.txtCPrice);
+                    txtTPrice=(TextView)lView.findViewById(R.id.txtTPrice);
                     TextView txtSizeName=(TextView) lView.findViewById(R.id.txtsize);
                     TextView txtSQnty=(TextView) lView.findViewById(R.id.txtsqnty);
 
@@ -240,9 +236,9 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
 
                 for(int j=0;j<master.bagDetails.size();j++)
                 {
-                    txtCPrice.setText("Price:  "+(int)(double) master.bagDetails.get(j).cPrice+" Rs");
+                    txtCPrice.setText(""+(int)(double) master.bagDetails.get(j).cPrice+" Rs");
                     txtName.setText("Name:  "+master.bagDetails.get(j).productName);
-                    txtTPrice.setText("Total:  " + (int)total+" Rs");
+                    txtTPrice.setText("" + (int)total+" Rs");
                         v.setTag(master.bagDetails.get(j).stockId);
 
                     imageLoader = ImageLoader.getInstance();
@@ -252,7 +248,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                             ,
                             img, doption, animateFirstListener);
                 }
-
                 lmain.addView(v);
                 viewList.add(v);
             }

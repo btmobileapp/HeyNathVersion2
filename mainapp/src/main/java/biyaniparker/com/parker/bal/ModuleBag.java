@@ -114,6 +114,7 @@ public class ModuleBag implements DownloadUtility
                 js.put("OrderQnty",details.inBagQnty);
                 js.put("PriceId",masterBean.priceId);
                 js.put("DeleteStatus","false");
+                js.put("UnitName",details.unitName);
                 jsonArray.put(js);
 
             }

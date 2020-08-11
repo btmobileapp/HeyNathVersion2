@@ -45,10 +45,10 @@ public class DBHELPER extends SQLiteOpenHelper
 
 
 	String orderMaster="Create table OrderMaster (OrderId Integer primary key , OrderDate Integer, UserId Integer, OrderStatus Text, ChangeBy Integer," +
-			" ChangedDate Integer, DeleteStatus Text, TotolAmount Text, Address Text, Name Text, ShopName Text,TotalQnty integer, IsSelfCreated text,IsFromGCM text,Etc1 text,Etc2 text)";
+			" ChangedDate Integer, DeleteStatus Text, TotolAmount Text, Address Text, Name Text, ShopName Text,TotalQnty integer, IsSelfCreated text,IsFromGCM text,Etc1 text,Etc2 text,UnitName Text)";
 
 	String orderDetails=" Create table OrderDetails (OrderDetailId Integer primary key, OrderId Integer, ProductId Integer, SizeId Integer,PriceId Integer,Quantity Integer, DeleteStatus Text, ProductName Text," +
-			"SizeName Text, ConsumerPrice Text, IconThumb Text,DealerPrice Text)";
+			"SizeName Text, ConsumerPrice Text, IconThumb Text,DealerPrice Text,UnitName Text)";
 
 
 

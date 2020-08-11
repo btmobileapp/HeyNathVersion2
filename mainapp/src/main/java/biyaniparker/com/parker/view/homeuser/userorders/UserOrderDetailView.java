@@ -57,6 +57,7 @@ public class UserOrderDetailView extends AppCompatActivity {
     ArrayList<OrderDetailBean> orderDetailsNew=new ArrayList<>();
     public static final int REQUEST_PERM_WRITE_STORAGE = 102;
     public static final int REQUEST_PERM_READ_STORAGE = 103;
+   // String unitName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,6 +87,7 @@ public class UserOrderDetailView extends AppCompatActivity {
 
         Intent intent=getIntent();
         int orderId=intent.getIntExtra("OrderId", 0);
+       // unitName= intent.getStringExtra("UnitName");
         bean=moduleOrder.getOrderBeanById(orderId);
 
 
@@ -168,8 +170,8 @@ public class UserOrderDetailView extends AppCompatActivity {
                     TextView qnty = (TextView) sub.findViewById(R.id.txtsqnty);
 
                     total = total + (orderDetails.get(c).getQuantity() * (Double.parseDouble(orderDetails.get(c).getDealerPrice())));
-//                    size.setText(orderDetails.get(c).getUnitName());
-                    size.setText(orderDetails.get(c).getSizeName());
+                    size.setText(orderDetails.get(c).getUnitName());
+//                    size.setText(orderDetails.get(c).getSizeName());
                     qnty.setText(String.valueOf(orderDetails.get(c).getQuantity()));
                     l.addView(sub);
                 }

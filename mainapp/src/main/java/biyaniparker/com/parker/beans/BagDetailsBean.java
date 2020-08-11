@@ -6,6 +6,6 @@ package biyaniparker.com.parker.beans;
 public class BagDetailsBean
 {
     public int productId, stockId, inBagQnty, selQnty,sizeId;
-    public String productName, sizeName, iconThmub;
+    public String productName, sizeName, iconThmub,unitName;
     public Double cPrice, dPrice;
 }

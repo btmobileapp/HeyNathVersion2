@@ -64,7 +64,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtTPrice"
             android:textColor="@android:color/black"
-
             android:text="Price"/>
 
     </LinearLayout>
@@ -91,7 +90,7 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:layout_weight="2"
-                   android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"/>
 
             <TextView
                 android:layout_width="match_parent"

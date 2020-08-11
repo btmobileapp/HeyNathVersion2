@@ -1,8 +1,7 @@
-package biyaniparker.com.parker.view.Notice;
+package biyaniparker.com.parker.view.notice;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,9 +10,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -24,15 +21,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
-
 import java.io.File;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleProduct1;
@@ -102,7 +95,7 @@ public class CreateNoticeView extends AppCompatActivity implements  DownloadUtil
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                etSelectDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                etSelectDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 //                                String date_selected = String.valueOf(dayOfMonth)+" /"+String.valueOf(monthOfYear+1)+" /"+String.valueOf(year);
 //                                etSelectDate.setText(date_selected);
                             }
@@ -130,7 +123,7 @@ public class CreateNoticeView extends AppCompatActivity implements  DownloadUtil
 
                     try {
                         String dateString = etSelectDate.getText().toString();
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         Date date = sdf.parse(dateString);
                         assert date != null;
                         long startDate = date.getTime();

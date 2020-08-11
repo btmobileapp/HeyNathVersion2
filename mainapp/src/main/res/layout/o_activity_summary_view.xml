@@ -85,14 +85,13 @@
 
                     android:textColor="@android:color/black"
                     android:gravity="center"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txtWithDiscount"
-                    android:textStyle="bold"
-
-                    android:textColor="@android:color/black"
-                    android:gravity="center"/>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:id="@+id/txtWithDiscount"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:gravity="center"/>-->
             </LinearLayout>
 
         <TextView

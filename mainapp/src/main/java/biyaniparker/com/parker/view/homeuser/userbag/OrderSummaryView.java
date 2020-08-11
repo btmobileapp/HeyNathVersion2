@@ -189,8 +189,8 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
 
         }
         grandTotal=  ((double)grandTotal *((100.0-10.0)/100.0));
-        TextView txtWithDiscount=findViewById(R.id.txtWithDiscount);
-        txtWithDiscount.setText("With Discount : "+(int) grandTotal +" Rs");
+       // TextView txtWithDiscount=findViewById(R.id.txtWithDiscount);
+       // txtWithDiscount.setText("With Discount : "+(int) grandTotal +" Rs");
     }
 
     @Override

@@ -271,15 +271,15 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".view.Notice.CreateNoticeView"
+        <activity android:name=".view.notice.CreateNoticeView"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".view.Notice.NoticeListView"
+        <activity android:name=".view.notice.NoticeListView"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".view.Notice.NoticeView"
+        <activity android:name=".view.notice.NoticeView"
             android:screenOrientation="portrait">
         </activity>
 

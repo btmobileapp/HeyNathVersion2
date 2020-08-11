@@ -168,18 +168,14 @@ public class UserOrderDetailView extends AppCompatActivity {
                     TextView qnty = (TextView) sub.findViewById(R.id.txtsqnty);
 
                     total = total + (orderDetails.get(c).getQuantity() * (Double.parseDouble(orderDetails.get(c).getDealerPrice())));
+//                    size.setText(orderDetails.get(c).getUnitName());
                     size.setText(orderDetails.get(c).getSizeName());
                     qnty.setText(String.valueOf(orderDetails.get(c).getQuantity()));
                     l.addView(sub);
                 }
             }
-
-
             tPrice.setText("Total :" + (int)total + " Rs");
-
-
             linear.addView(v);
-
         }
 
 

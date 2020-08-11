@@ -43,7 +43,7 @@
             android:layout_weight="1"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:text="Size"/>
+            android:text="Unit"/>
 
 
         <TextView

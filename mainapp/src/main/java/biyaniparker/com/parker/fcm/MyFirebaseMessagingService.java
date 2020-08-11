@@ -2,7 +2,6 @@ package biyaniparker.com.parker.fcm;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -10,6 +9,11 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONObject;
+
+import biyaniparker.com.parker.utilities.UserUtilities;
+import biyaniparker.com.parker.view.homeadmin.AdminHomeScreen;
+import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 
 import static android.content.ContentValues.TAG;
 
@@ -105,6 +109,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         Log.d("RRR 1", "222");
 
 
+
+        try
+        {
+            msg=msg.replace("msgBody","\"msgBody\"");
+            JSONObject j=new JSONObject(msg);
+            JSONObject  jobj=  j.getJSONObject("msgBody");
+            String title=   jobj.getString("GeneralName");
+
+            String asd = null;
+            NOTIFICATION_ID = jobj.getInt("GeneralId");
+
+            if(UserUtilities.getUserType(this).equalsIgnoreCase("Admin"))
+            {
+                PendingIntent contentIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, new Intent(this, AdminHomeScreen.class)
+                        .putExtra("msg", msg).putExtra("Id", NOTIFICATION_ID).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_CANCEL_CURRENT);
+                NewMessageNotification.notify(this,"Notice :-"+title,""+title,NOTIFICATION_ID,contentIntent);
+
+            }
+            else
+            {
+                PendingIntent contentIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, new Intent(this, UserHomeScreen.class)
+                        .putExtra("msg", msg).putExtra("Id", NOTIFICATION_ID).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_CANCEL_CURRENT);
+                NewMessageNotification.notify(this,"Notice :-"+title,""+title,NOTIFICATION_ID,contentIntent);
+
+            }
+
+        }
+        catch (Exception ex)
+        {}
 
 
     }

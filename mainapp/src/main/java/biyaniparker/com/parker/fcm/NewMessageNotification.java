@@ -2,10 +2,10 @@ package biyaniparker.com.parker.fcm;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,8 +24,7 @@ import biyaniparker.com.parker.R;
  * This class makes heavy use of the {@link NotificationCompat.Builder} helper
  * class to create notifications in a backward-compatible way.
  */
-public class NewMessageNotification
-{
+public class NewMessageNotification {
     /**
      * The unique identifier for this type of notification.
      */
@@ -45,30 +44,46 @@ public class NewMessageNotification
      * Notification design guidelines</a> when doing so.
      *
      * @see #cancel(Context)
-     *
      */
     public static void notify(final Context context,
-                              final String exampleString, final int number) {
+                              final String newtitle,String details, final int number, PendingIntent pintent) {
         final Resources res = context.getResources();
 
         // This image is used as the notification's large icon (thumbnail).
         // TODO: Remove this if your notification has no relevant thumbnail.
-        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.example_picture);
+        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.logo_final);
 
 
-        final String ticker = exampleString;
-        final String title =   exampleString;//"Title";
-        final String text = exampleString;//"Text";
+        final String ticker = newtitle;
+        final String title = newtitle;
+        final String text = details;
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
-                // Set appropriate defaults for the notification light, sound,
-                // and vibration.
-                .setDefaults(Notification.DEFAULT_ALL)
+
+       /* PendingIntent contentIntent = PendingIntent.getActivity(context, number,
+                new Intent(context, activity.getClass()).
+
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                PendingIntent.FLAG_CANCEL_CURRENT);*/
+
+
+        int notifyID = 1;
+        String CHANNEL_ID = "my_channel_01";// The id of the channel.
+        CharSequence name = "BootChannle";// The user-visible name of the channel.
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+
+
+
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID);
+
+        // Set appropriate defaults for the notification light, sound,
+        // and vibration.   .defaults|= Notification.DEFAULT_VIBRATE;
+        builder .setDefaults(Notification.DEFAULT_VIBRATE)
 
                 // Set required fields, including the small icon, the
                 // notification title, and text.
-                .setSmallIcon(R.drawable.n)
+                .setSmallIcon(R.drawable.logo_final)
                 .setContentTitle(title)
                 .setContentText(text)
 
@@ -100,77 +115,68 @@ public class NewMessageNotification
 
                 // Set the pending intent to be initiated when the user touches
                 // the notification.
-                .setContentIntent(
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
+                .setContentIntent(pintent)
 
                 // Show expanded text content on devices running Android 4.1 or
                 // later.
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(text)
                         .setBigContentTitle(title)
-                        .setSummaryText("Dummy summary text"))
+                        .setSummaryText(details))
+                .setAutoCancel(true)
 
-                // Example additional actions for this notification. These will
-                // only show on devices running Android 4.1 or later, so you
-                // should ensure that the activity in this notification's
-                // content intent provides access to the same actions in
-                // another way.
-                .addAction(
-                        R.drawable.ic_action_stat_share,
-                        res.getString(R.string.action_share),
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                Intent.createChooser(new Intent(Intent.ACTION_SEND)
-                                        .setType("text/plain")
-                                        .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
-                .addAction(
-                        R.drawable.ic_action_stat_reply,
-                        res.getString(R.string.action_reply),
-                        null)
+                .setSound(Uri.parse("android.resource://"+context.getPackageName()+"/" + R.raw.textnotifi));
 
-                // Automatically dismiss the notification when it is touched.
-                .setAutoCancel(true);
 
-        notify(context, builder.build());
+        // Example additional actions for this notification. These will
+        // only show on devices running Android 4.1 or later, so you
+        // should ensure that the activity in this notification's
+        // content intent provides access to the same actions in
+        // another way.
+
+
+        //notify(context, builder.build(),number);
+
+
+
+        notify(context, builder.build(),number,CHANNEL_ID,name,importance);
     }
 
     @TargetApi(Build.VERSION_CODES.ECLAIR)
-    private static void notify(final Context context, final Notification notification) {
-        final NotificationManager nm = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
-            nm.notify(NOTIFICATION_TAG, 0, notification);
-        } else {
-            nm.notify(NOTIFICATION_TAG.hashCode(), notification);
-        }
-    }
-
-    /**
-
-     * Cancels any notifications of this type previously shown using
-
-     * {@link #notify(Context, String, int)}.
-
-     */
-    @TargetApi(Build.VERSION_CODES.ECLAIR)
-    public static void cancel(final Context context)
+    private static void notify(final Context context, final Notification notification,int number,String CHANNEL_ID,CharSequence  name,int importance)
     {
         final NotificationManager nm = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR)
         {
-            nm.cancel(NOTIFICATION_TAG, 0);
-        }
-        else
-        {
-            nm.cancel(NOTIFICATION_TAG.hashCode());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            {
+                NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+                // builder.setChannelId(CHANNEL_ID);
+                nm.createNotificationChannel(mChannel);
+            }
+            nm.notify(NOTIFICATION_TAG, number, notification);
+
+        } else {
+            nm.notify(number, notification);
         }
     }
 
+
+
+    /*
+     * Cancels any notifications of this type previously shown using
+     * {@link #notify(Context, String, int,long)}.
+     */
+
+    @TargetApi(Build.VERSION_CODES.ECLAIR)
+    public static void cancel(final Context context) {
+        final NotificationManager nm = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
+            nm.cancel(NOTIFICATION_TAG, 0);
+        } else {
+            nm.cancel(NOTIFICATION_TAG.hashCode());
+        }
+    }
 }

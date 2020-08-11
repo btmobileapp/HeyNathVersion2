@@ -111,7 +111,7 @@ public class FcmUtility
          {
              String deviceId=new DeviceUuidFactory(context).getDeviceUuid().toString();
              String regid=getStringKey(context);
-             String url= CommonUtilities.URL+"Upd_UserMasterForGCMIdAndDeviceId?UserId="+UserUtilities.getUserId(context)+"&GCMId="+regid+"&DeviceId="+deviceId+"&connectionString="+""+"&InstituteId=0";
+             String url= CommonUtilities.URL+"UtilService.svc/Upd_UserMasterForGCMIdAndDeviceId?UserId="+ UserUtilities.getUserId(context)+"&GCMId="+regid+"&DeviceId="+deviceId+"&connectionString="+""+"&InstituteId=0";
              try
              {
                  if (new ConnectServer().sendGet(url).contains("[{\"Result\":\"0\"}]"))

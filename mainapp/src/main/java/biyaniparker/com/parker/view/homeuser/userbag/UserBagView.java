@@ -191,11 +191,11 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                 {
                     try
                     {
-                        bagStartTimeMillis = master.EnterDate;
+                       // bagStartTimeMillis = master.EnterDate;
                        // CommonUtilities.alert(this, DateAndOther.getStringDayfromMillisecond(master.EnterDate));
-                        TimerTick();
+                      //  TimerTick();
 
-                        timer.start();
+                       // timer.start();
                     }
                     catch (Exception e){}
 

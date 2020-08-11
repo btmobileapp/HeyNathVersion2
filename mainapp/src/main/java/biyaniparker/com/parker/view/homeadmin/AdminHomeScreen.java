@@ -44,7 +44,7 @@ import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
-import biyaniparker.com.parker.view.Notice.CreateNoticeView;
+import biyaniparker.com.parker.view.notice.CreateNoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.OrderAdapter;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchListView;

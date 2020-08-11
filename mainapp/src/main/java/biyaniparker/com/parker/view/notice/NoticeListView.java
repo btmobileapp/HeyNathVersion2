@@ -1,4 +1,4 @@
-package biyaniparker.com.parker.view.Notice;
+package biyaniparker.com.parker.view.notice;
 
 import android.content.Intent;
 import android.os.Bundle;

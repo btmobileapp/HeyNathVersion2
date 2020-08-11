@@ -206,7 +206,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             moduleProductDetails.loadFromDb(bean.getStripCode());
             addStripCodeProducts();
         }
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -479,7 +478,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         if(requestCode==1 && responseCode==200)
         {
               // Toast.makeText(this,""+str,Toast.LENGTH_LONG).show();
-                addSizeView();
+               addSizeView();
                // addStripCodeProducts();
         }
         else if(requestCode==150 && responseCode==200)

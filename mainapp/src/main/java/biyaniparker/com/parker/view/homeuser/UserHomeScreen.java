@@ -54,8 +54,8 @@ import biyaniparker.com.parker.utilities.NotifyCallback;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
-import biyaniparker.com.parker.view.Notice.NoticeListView;
-import biyaniparker.com.parker.view.Notice.NoticeView;
+import biyaniparker.com.parker.view.notice.NoticeListView;
+import biyaniparker.com.parker.view.notice.NoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.NoticeAdapter;
 import biyaniparker.com.parker.view.adapter.ProductRandomAdapter;
@@ -466,8 +466,8 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
                      dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
 
                      Integer[] colors_temp = {
-                             getResources().getColor(R.color.color1),
                              getResources().getColor(R.color.color2),
+                             getResources().getColor(R.color.color5),
                              getResources().getColor(R.color.color3),
                              getResources().getColor(R.color.color4)
                      };

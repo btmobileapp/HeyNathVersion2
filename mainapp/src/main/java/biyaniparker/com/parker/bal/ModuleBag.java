@@ -276,6 +276,7 @@ public class ModuleBag implements DownloadUtility
                     dBean.stockId = json.getInt("StockId");
                     dBean.sizeId = json.getInt("SizeId");
                     dBean.iconThmub = json.getString("IconThumb");
+                    dBean.unitName = json.getString("UnitName");
 
                     try
                     {

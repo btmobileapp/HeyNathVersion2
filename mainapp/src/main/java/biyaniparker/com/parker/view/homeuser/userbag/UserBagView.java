@@ -172,10 +172,8 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
     @Override
     public void onComplete(String str, int requestCode, int responseCode)
     {
-
         if(requestCode==1 && responseCode==200)
         {
-
            if(moduleBag.bagMasterList.size()==0)
            {
                AlertDialog.Builder al=new AlertDialog.Builder(this);
@@ -234,7 +232,7 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                     TextView txtSizeName=(TextView) lView.findViewById(R.id.txtsize);
                     TextView txtSQnty=(TextView) lView.findViewById(R.id.txtsqnty);
 
-                    txtSizeName.setText(detailsBean.sizeName);
+                    txtSizeName.setText(detailsBean.unitName);
                     txtSQnty.setText(detailsBean.inBagQnty+"");
                     lnDetail.addView(lView);
                 }
@@ -257,9 +255,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
 
                 lmain.addView(v);
                 viewList.add(v);
-
-
-
             }
         }
 

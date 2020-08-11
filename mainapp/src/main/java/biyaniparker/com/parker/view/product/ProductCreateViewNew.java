@@ -55,7 +55,7 @@ import biyaniparker.com.parker.utilities.ImageQuality;
 import biyaniparker.com.parker.utilities.MultifileUploadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
-import biyaniparker.com.parker.view.Notice.CreateNoticeView;
+import biyaniparker.com.parker.view.notice.CreateNoticeView;
 import biyaniparker.com.parker.view.homeadmin.ImageRotateSetting;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 

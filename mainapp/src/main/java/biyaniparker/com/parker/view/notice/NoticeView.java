@@ -1,21 +1,20 @@
-package biyaniparker.com.parker.view.Notice;
+package biyaniparker.com.parker.view.notice;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import biyaniparker.com.parker.R;
@@ -89,7 +88,8 @@ public class NoticeView extends AppCompatActivity implements DownloadUtility, No
 
                     String longV = v2;
                     long millisecond = Long.parseLong(longV);
-                    String dateString = String.valueOf(DateFormat.format("dd/MM/yyyy", new Date(millisecond)));
+                    String dateString = getDate(millisecond, "dd/MM/yyyy");
+                    //String dateString = String.valueOf(DateFormat.format("dd/MM/yyyy", new Date(millisecond)));
                     createNoticeBean.setDate(dateString);
                     noticeBeanList.add(createNoticeBean);
                 }
@@ -101,7 +101,14 @@ public class NoticeView extends AppCompatActivity implements DownloadUtility, No
         }
     }
 
-        @Override
+    private  static String getDate(long milliSeconds, String dateFormat) {
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
+    }
+
+    @Override
     public void onComplete(String str, int requestCode, int responseCode) {
 
     }

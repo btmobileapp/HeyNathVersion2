@@ -13,7 +13,19 @@ public class OrderMasterBean
 
     public int orderId;
     public long orderDate, changeBy, changedDate, userId;
-    public String orderStatus,  deleteStatus, totolAmount;
+    public String orderStatus;
+    public String deleteStatus;
+    public String totolAmount;
+    public String unitName;
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
+
 
     public String getAddress() {
         return address;

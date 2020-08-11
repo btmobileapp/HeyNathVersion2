@@ -25,7 +25,7 @@ public class GsonOrderDetails
         orderDetailBean.setOrderDetailId(OrderDetailId);
         orderDetailBean.setIconThumb(IconThumb);
         orderDetailBean.setDealerPrice(DealerPrice);
-//        orderDetailBean.setUnitName(UnitName);
+        orderDetailBean.setUnitName(UnitName);
         return orderDetailBean;
     }
 }

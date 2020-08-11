@@ -363,7 +363,8 @@ public class PrintOrderSummary
                     table.addCell(c);
                     table.addCell(orderDetails.get(i).productName + "");
                     table.addCell(orderDetails.get(i).consumerPrice + "");
-                    table.addCell(orderDetails.get(i).sizeName);
+//                    table.addCell(orderDetails.get(i).sizeName);
+                    table.addCell(orderDetails.get(i).unitName);
                     table.addCell(orderDetails.get(i).getQuantity() + "");
 
                totq=totq+orderDetails.get(i).getQuantity();

@@ -57,9 +57,6 @@ import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
 import biyaniparker.com.parker.view.user.UserListView;
 
 public class UserBagView extends AppCompatActivity implements DownloadUtility, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
-
-
-
     DisplayImageOptions doption = null;
     private AnimateFirstDisplayListener animateFirstListener;
     private ImageLoader imageLoader;
@@ -83,6 +80,7 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_bag_view1);
         idtimer=(TextView)findViewById(R.id.idtimer);
+        idtimer.setVisibility(View.GONE);
 
         doption = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.bgpaker)
@@ -95,8 +93,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                 .cacheOnDisc(true)
                         //.imageScaleType(10)
                 .build();
-
-
 
         checkAll=(CheckBox)findViewById(R.id.chkAll);
         lmain=(LinearLayout)findViewById(R.id.lmain);
@@ -146,8 +142,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
         }
         catch (Exception e)
         {}
-
-
     }
 
 
@@ -252,7 +246,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                             ,
                             img, doption, animateFirstListener);
                 }
-
                 lmain.addView(v);
                 viewList.add(v);
             }

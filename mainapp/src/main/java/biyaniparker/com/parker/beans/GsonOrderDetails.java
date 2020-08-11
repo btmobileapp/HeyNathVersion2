@@ -6,7 +6,7 @@ package biyaniparker.com.parker.beans;
 public class GsonOrderDetails
 {
     public int OrderDetailId, OrderId,ProductId, SizeId, PriceId,Quantity;
-        public String DeleteStatus, ProductName, SizeName, ConsumerPrice, IconThumb, DealerPrice;
+        public String DeleteStatus, ProductName, SizeName, ConsumerPrice, IconThumb, DealerPrice,UnitName;
 
 
 
@@ -25,6 +25,7 @@ public class GsonOrderDetails
         orderDetailBean.setOrderDetailId(OrderDetailId);
         orderDetailBean.setIconThumb(IconThumb);
         orderDetailBean.setDealerPrice(DealerPrice);
+//        orderDetailBean.setUnitName(UnitName);
         return orderDetailBean;
     }
 }

@@ -156,7 +156,8 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
                 TextView txtQnty=(TextView)subView.findViewById(R.id.txtsqnty);
                 BagDetailsBean details=masterBean.bagDetails.get(c);
                 txtQnty.setText(String.valueOf(details.inBagQnty));
-                txtSize.setText(details.sizeName);
+//                txtSize.setText(details.sizeName);
+                txtSize.setText(details.unitName);
                 linearSub.addView(subView);
 
                 totalQuan=totalQuan+details.inBagQnty;

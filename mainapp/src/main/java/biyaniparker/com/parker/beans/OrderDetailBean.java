@@ -17,6 +17,16 @@ public class OrderDetailBean
     public int quantity;
     public int priceId;
 
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
+
+    public String unitName;
+
     public int getEnteredQnty() {
         return enteredQnty;
     }

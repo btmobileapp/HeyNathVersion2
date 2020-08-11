@@ -83,12 +83,12 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menufilter,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//        getMenuInflater().inflate(R.menu.menufilter,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
 
     @Override

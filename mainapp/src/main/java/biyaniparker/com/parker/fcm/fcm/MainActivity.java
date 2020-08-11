@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                        // String msg = getString(R.string.msg_subscribed);
                         if (!task.isSuccessful()) {
                         //    msg = getString(R.string.msg_subscribe_failed);
-                            Toast.makeText(biyaniparker.com.parker.fcm.MainActivity.this, "Subscibe Complete", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Subscibe Complete", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            Toast.makeText(biyaniparker.com.parker.fcm.MainActivity.this, "Subscibe Incomplete", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Subscibe Incomplete", Toast.LENGTH_SHORT).show();
                         }
                        // Log.d(TAG, msg);
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // Log and toast
                       //  String msg = getString(R.string.msg_token_fmt, token);
                        // Log.d(TAG, msg);
-                        Toast.makeText(biyaniparker.com.parker.fcm.MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(Intent.ACTION_SEND);
                         i.setType("text/plain");
                         i.putExtra(Intent.EXTRA_TEXT,token);

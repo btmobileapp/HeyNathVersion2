@@ -230,7 +230,6 @@ public class CreateNoticeView extends AppCompatActivity implements  DownloadUtil
                 alerBuilder.setTitle(getString(R.string.app_name));
                 alerBuilder.setMessage("" + e.toString() + "\n\n" + e.getMessage());
                 alerBuilder.show();
-
             }
         }
     }

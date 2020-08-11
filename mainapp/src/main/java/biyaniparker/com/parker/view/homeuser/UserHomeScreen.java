@@ -1,6 +1,7 @@
 package biyaniparker.com.parker.view.homeuser;
 
 import android.Manifest;
+import android.animation.ArgbEvaluator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,37 +29,46 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import biyaniparker.com.parker.LaunchActivity;
 import biyaniparker.com.parker.R;
-import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.bal.ModuleLogin;
 import biyaniparker.com.parker.bal.ModuleSync;
-import biyaniparker.com.parker.bal.ModuleUser;
 import biyaniparker.com.parker.bal.ModuleUserHomeScreen;
+import biyaniparker.com.parker.beans.CreateNoticeBean;
 import biyaniparker.com.parker.beans.RowItem;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.NotifyCallback;
 import biyaniparker.com.parker.utilities.UserUtilities;
+import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
+import biyaniparker.com.parker.view.Notice.NoticeListView;
+import biyaniparker.com.parker.view.Notice.NoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
+import biyaniparker.com.parker.view.adapter.NoticeAdapter;
 import biyaniparker.com.parker.view.adapter.ProductRandomAdapter;
-import biyaniparker.com.parker.view.category.CategoryListView;
 import biyaniparker.com.parker.view.homeuser.dispatch.UserDispatchListView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.DynamicCategories;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ProductDetailView;
+import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
 import biyaniparker.com.parker.view.homeuser.userbag.UserBagView;
 import biyaniparker.com.parker.view.homeuser.userorders.OrderListView;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 import biyaniparker.com.parker.view.user.PasswordUpdateView;
 
-public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnItemClickListener,DownloadUtility, NotifyCallback
+public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnItemClickListener,DownloadUtility, NotifyCallback, NoticeAdapter.ViewMoreCallBack
  {
      Button btnshirt,btntshirt,btnpants,btnaccessories,btn5,btn6,btn7,btn8,btn9;
      GridView gridView;
@@ -65,8 +77,16 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
      NavigationView navigationView;
      //---- Temp-----
      ModuleSync moduleSync;
+     ViewPager viewPager;
+     List<CreateNoticeBean> list;
+     ModuleUserHomeScreen moduleUserHomeScreen;
+     NoticeAdapter adapter;
+     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+     Integer[] colors = null;
+     LinearLayout sliderDotspanel;
+     private int dotscount;
+     private ImageView[] dots;
 
-    ModuleUserHomeScreen moduleUserHomeScreen;
      void callPermission()
      {
          ActivityCompat.requestPermissions(this,
@@ -74,12 +94,11 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
                  ,1947 );
      }
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home_screen);
         callPermission();
-        moduleUserHomeScreen=new ModuleUserHomeScreen(this);
+        moduleUserHomeScreen = new ModuleUserHomeScreen(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -96,7 +115,7 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
       /*  productRandomAdapter=new ProductRandomAdapter(this,1,moduleUserHomeScreen.randomList);
         gridView.setAdapter(productRandomAdapter);*/
 
-        productRandomAdapter=new ProductRandomAdapter(this,1,moduleUserHomeScreen.randomList);
+        productRandomAdapter = new ProductRandomAdapter(this, 1, moduleUserHomeScreen.randomList);
         gridView.setAdapter(productRandomAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -111,27 +130,29 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        if(new ConnectionDetector(this).isConnectingToInternet())
-        {
+        if (new ConnectionDetector(this).isConnectingToInternet()) {
             //moduleUserHomeScreen.loadRandomProduct();
             moduleUserHomeScreen.loadRandomProductWithNotify();
-        }
-        else
-        {
+        } else {
             moduleUserHomeScreen.getOffLineRandomProducts();
-              //  onComplete("",1,200);
+            //  onComplete("",1,200);
         }
 
 
         getSupportActionBar().setTitle(getString(R.string.app_name));
-       // getSupportActionBar().setSubtitle("The New You");
+        // getSupportActionBar().setSubtitle("The New You");
         getSupportActionBar().setSubtitle(CommonUtilities.Slogan);
         checkSDCardsWrite();
 
+        getNoticeList();
 
     }
+     public void getNoticeList() {
+         AsyncUtilities serverAsync=new AsyncUtilities(UserHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetNotice","",2,this);
+         serverAsync.execute();
+     }
 
-  void inItUI()
+     void inItUI()
   {
       items.addAll(moduleUserHomeScreen.getRowItems());
       RowItem bean=new RowItem("Recent Orders",R.drawable.iconorder);
@@ -159,6 +180,8 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
       //  ModuleSync moduleSync=new ModuleSync(this);
 
 
+     // tvTitle = findViewById(R.id.title);
+    //  tvDescription = findViewById(R.id.description);
 
       btnshirt=(Button)findViewById(R.id.btnshirt);
       btntshirt=(Button)findViewById(R.id.btntshirt);
@@ -173,6 +196,10 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
 
       gridView=(GridView)findViewById(R.id.gridView);
+      viewPager= findViewById(R.id.ViewPagerUser);
+      sliderDotspanel = findViewById(R.id.SliderDots);
+
+      //cardView = findViewById(R.id.cv_notice);
 
       //------------------- In it Button With Parente Category------------------------//
       try
@@ -263,7 +290,8 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
       txtShop.setText(UserUtilities.getShopName(this));
       txtWelcome.setText("Welcome : "+UserUtilities.getName(this));
-    }
+     // list = new ArrayList<>();
+  }
 
     ArrayList<RowItem> items=new ArrayList<>();
     CustomAdapter customAdapter;
@@ -363,6 +391,7 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
      @Override
      public void onComplete(String str, int requestCode, int responseCode)
      {
+
              if(requestCode==1)
              {
                  if(responseCode==200)
@@ -370,7 +399,108 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
                      //productRandomAdapter.notifyDataSetChanged();
                  }
              }
-        }
+             if(requestCode==2) {
+                 if (responseCode == 200) {
+                     list = new ArrayList<>();
+                     try {
+                         SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+                         sharedPreference.setStr("NoticesResponse", str);
+
+                         JSONArray jsonArray = new JSONArray(str);
+
+                         CreateNoticeBean createNoticeBean = new CreateNoticeBean();
+                         JSONObject jsonObject = jsonArray.getJSONObject(0);
+                         createNoticeBean.setTitle(jsonObject.getString("Title"));
+                         createNoticeBean.setNoticeId(jsonObject.getInt("NoticeId"));
+                         createNoticeBean.setDescription(jsonObject.getString("Decription"));
+//                         createNoticeBean.setDescription("Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?");
+                         createNoticeBean.setAttachment(jsonObject.getString("Attachment"));
+                         createNoticeBean.setViewMore("View");
+                         list.add(createNoticeBean);
+
+                         JSONObject jsonObject1 = jsonArray.getJSONObject(1);
+
+                         createNoticeBean = new CreateNoticeBean();
+                         createNoticeBean.setTitle(jsonObject1.getString("Title"));
+                         createNoticeBean.setNoticeId(jsonObject1.getInt("NoticeId"));
+                         createNoticeBean.setDescription(jsonObject1.getString("Decription"));
+                         createNoticeBean.setAttachment(jsonObject1.getString("Attachment"));
+                         createNoticeBean.setViewMore("View");
+                             list.add((createNoticeBean));
+
+                         JSONObject jsonObject2 = jsonArray.getJSONObject(2);
+
+                         createNoticeBean = new CreateNoticeBean();
+                         createNoticeBean.setTitle(jsonObject2.getString("Title"));
+                         createNoticeBean.setNoticeId(jsonObject2.getInt("NoticeId"));
+                         createNoticeBean.setDescription(jsonObject2.getString("Decription"));
+                         createNoticeBean.setAttachment(jsonObject2.getString("Attachment"));
+                         createNoticeBean.setViewMore("View");
+                         list.add((createNoticeBean));
+
+                         createNoticeBean = new CreateNoticeBean();
+                         createNoticeBean.setViewMore("View More");
+                         list.add((createNoticeBean));
+
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                     }
+                     adapter = new NoticeAdapter(list,getApplicationContext(),UserHomeScreen.this);
+                     viewPager.setAdapter(adapter);
+
+                     dotscount = adapter.getCount();
+                     dots = new ImageView[dotscount];
+
+                     for(int i = 0; i < dotscount; i++){
+
+                         dots[i] = new ImageView(this);
+                         dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+
+                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                         params.setMargins(8, 0, 8, 0);
+
+                         sliderDotspanel.addView(dots[i], params);
+                     }
+
+                     dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+
+                     Integer[] colors_temp = {
+                             getResources().getColor(R.color.color1),
+                             getResources().getColor(R.color.color2),
+                             getResources().getColor(R.color.color3),
+                             getResources().getColor(R.color.color4)
+                     };
+
+                     colors = colors_temp;
+
+                     viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                         @Override
+                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                             if ((position<adapter.getCount()-1) && position<(colors.length-1)){
+                                 viewPager.setBackgroundColor((Integer)argbEvaluator.evaluate(positionOffset,colors[position],colors[position]+1));
+                             }
+                             else {
+                                 viewPager.setBackgroundColor(colors[colors.length -1]);
+                             }
+                         }
+
+                         @Override
+                         public void onPageSelected(int position) {
+                             for(int i = 0; i< dotscount; i++){
+                                 dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+                             }
+                             dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+                         }
+
+                         @Override
+                         public void onPageScrollStateChanged(int state) {
+
+                         }
+                       });
+                     }
+                  }
+                }
 
      void checkSDCardsWrite()
      {
@@ -434,5 +564,25 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
      public void finish() {
          super.finish();
          moduleUserHomeScreen.stopAsyncWork();
+     }
+
+     @Override
+     public void getViewMore() {
+         Intent intent = new Intent(this,NoticeListView.class);
+         startActivity(intent);
+     }
+
+     @Override
+     public void getPagePosition(int noticeId) {
+         Intent intent = new Intent(this, NoticeView.class);
+         intent.putExtra("noticeId",noticeId);
+         startActivity(intent);
+     }
+
+     @Override
+     public void getImageUrl(String attachment) {
+         Intent intent=new Intent(this, ViewProductImage.class);
+         intent.putExtra("path",attachment);
+         startActivity(intent);
      }
  }

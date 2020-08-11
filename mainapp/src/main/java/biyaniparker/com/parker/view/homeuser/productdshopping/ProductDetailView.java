@@ -67,7 +67,6 @@ import biyaniparker.com.parker.view.product.ProductListView;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 public class ProductDetailView extends AppCompatActivity implements DownloadUtility, View.OnClickListener, ProductDetailsAdapter.ProductAdaperCallBack {
-
     TextView txtproductname,txtprice;
    // ImageView image;
     Button btnAdd;
@@ -221,6 +220,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
      //   utilities.execute();
 
         intitMultipleImages("");
+        //addSizeView();
     }
 
     ImageView image1,image2,image3,image4;
@@ -443,7 +443,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                 stockList.add(s);
             }
         }
-
         return true;
     }
 
@@ -466,7 +465,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                     displayedImages.add(imageUri);
                 }
                 btnplus.setVisibility(View.VISIBLE);
-
             }
         }
     }
@@ -501,7 +499,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             }
             else if(str.equals("Failed"))
             {
-
                 AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
                 alertDialog.setTitle(getString(R.string.app_name));
                 alertDialog.setMessage("Required quantity not available in stock ..Try Again !!");
@@ -523,19 +520,17 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
     ArrayList<View>  sizeView=new ArrayList<>();
     void addSizeView()
     {
-
-
         sizeView.clear();
         for(int i=0;i<moduleProductDetails.stockList.size();i++)
         {
             LayoutInflater inflater=(LayoutInflater)  getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v= inflater.inflate(R.layout.itemaddsizetoproductdetail, null);
             v.setTag(i);
-            TextView txtSizeName=(TextView)v.findViewById(R.id.txtSizeName);
+            //TextView txtSizeName=(TextView)v.findViewById(R.id.txtSizeName);
             TextView txtAvaibleQnt=(TextView)v.findViewById(R.id.txtAvaibleQnt);
             txtAvaibleQnt.setVisibility(View.INVISIBLE);
             EditText edOrderQnty=(EditText)v.findViewById(R.id.edOrderQnty);
-            txtSizeName.setText(moduleProductDetails.getSizeNameBySizeId(moduleProductDetails.stockList.get(i).getSizeId()));
+           // txtSizeName.setText(moduleProductDetails.getSizeNameBySizeId(moduleProductDetails.stockList.get(i).getSizeId()));
             txtAvaibleQnt.setText(moduleProductDetails.stockList.get(i).getQnty() + "");
 
             sizeView.add(v);
@@ -545,7 +540,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             }
             linearSizeMain.addView(v);
         }
-
     }
 
 
@@ -578,10 +572,8 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                         startActivity(intent);
                     }
                 });
-
             }
         }
-
     }
 
     void callRefresh()

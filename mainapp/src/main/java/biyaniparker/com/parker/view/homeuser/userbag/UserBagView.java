@@ -185,7 +185,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                al.show();
            }
 
-
             for(int i=0;i< moduleBag.bagMasterList.size();i++)
             {
               BagMasterBean master= moduleBag.bagMasterList.get(i);
@@ -220,7 +219,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                         startActivity(intent);
                     }
                 });
-
 
                 TextView txtCPrice=(TextView)v.findViewById(R.id.txtCPrice);
                 TextView txtTPrice=(TextView)v.findViewById(R.id.txtTPrice);

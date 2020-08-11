@@ -23,7 +23,6 @@ import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 import biyaniparker.com.parker.view.adapter.ProductRandomAdapter;
 
 public class SearchUserProductsList extends AppCompatActivity implements DownloadUtility, AdapterView.OnItemClickListener, NotifyCallback {
-
     ProductRandomAdapter adapter;
     GridView gridView;
     ModuleUserProduct moduleUserProduct;
@@ -59,6 +58,7 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
         gridView.setOnItemClickListener(this);
     }
 
+    int flag = 0;
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -70,16 +70,25 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
 //            intent.putExtra("CategoryId",catId);
 //            startActivityForResult(intent, 100);
 //        }
-        return super.onOptionsItemSelected(item);
 
+//        if(item.getItemId()==R.id.actionFilter)
+//        {
+//                Intent intent = new Intent(this, ChangeView.class);
+//                intent.putExtra("CategoryId", catId);
+////                Gson gson = new Gson();s
+////                String myJson = gson.toJson(moduleUserProduct.newProductList.get(position));
+////                intent.putExtra("myjson",myJson);
+//                startActivity(intent);
+//        }
+        return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu)
-//    {
-//        getMenuInflater().inflate(R.menu.menufilter,menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menufilter,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
 
     @Override
@@ -154,6 +163,12 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
         super.finish();
         moduleUserProduct.stopAsyncWork();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     @Override
     public void notifyToActivity()
     {

@@ -193,9 +193,8 @@ public class ModuleUser implements  DownloadUtility{
             if (responseCode == 200)
             {
                 try {
-                    JSONArray jsonArray = new JSONArray(str);
-
-                    if (parseUpdatedUser(jsonArray.getJSONObject(0).toString()))
+//                    JSONObject jsonObject = new JSONObject(str);
+                    if (parseUpdatedUser(str))
                     {
                         if(flag==1)  // user not created due to query execution failed
                         {

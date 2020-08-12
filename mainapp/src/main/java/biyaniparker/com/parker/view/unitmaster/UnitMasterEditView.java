@@ -186,9 +186,9 @@ public class UnitMasterEditView extends AppCompatActivity implements View.OnClic
                 if (requestCode==1){
                     if (responseCode == 200){
                         Toast.makeText(getApplicationContext(),"succesfull",Toast.LENGTH_SHORT).show();
-                        finish();
                         Intent intent = new Intent(this,UnitMasterListView.class);
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
                     }

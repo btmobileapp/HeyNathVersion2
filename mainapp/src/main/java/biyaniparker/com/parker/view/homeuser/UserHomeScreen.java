@@ -145,11 +145,110 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
         checkSDCardsWrite();
 
         getNoticeList();
-
     }
+
      public void getNoticeList() {
          AsyncUtilities serverAsync=new AsyncUtilities(UserHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetNotice","",2,this);
          serverAsync.execute();
+     }
+
+     private void getNoticeOnView() {
+         try {
+             SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+             String str = sharedPreference.getStr("NoticesResponse");
+
+             JSONArray jsonArray = new JSONArray(str);
+
+             CreateNoticeBean createNoticeBean = new CreateNoticeBean();
+             JSONObject jsonObject = jsonArray.getJSONObject(0);
+             createNoticeBean.setTitle(jsonObject.getString("Title"));
+             createNoticeBean.setNoticeId(jsonObject.getInt("NoticeId"));
+             createNoticeBean.setDescription(jsonObject.getString("Decription"));
+//                         createNoticeBean.setDescription("Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?");
+             createNoticeBean.setAttachment(jsonObject.getString("Attachment"));
+             createNoticeBean.setViewMore("View");
+             list.add(createNoticeBean);
+
+             JSONObject jsonObject1 = jsonArray.getJSONObject(1);
+
+             createNoticeBean = new CreateNoticeBean();
+             createNoticeBean.setTitle(jsonObject1.getString("Title"));
+             createNoticeBean.setNoticeId(jsonObject1.getInt("NoticeId"));
+             createNoticeBean.setDescription(jsonObject1.getString("Decription"));
+             createNoticeBean.setAttachment(jsonObject1.getString("Attachment"));
+             createNoticeBean.setViewMore("View");
+             list.add((createNoticeBean));
+
+             JSONObject jsonObject2 = jsonArray.getJSONObject(2);
+
+             createNoticeBean = new CreateNoticeBean();
+             createNoticeBean.setTitle(jsonObject2.getString("Title"));
+             createNoticeBean.setNoticeId(jsonObject2.getInt("NoticeId"));
+             createNoticeBean.setDescription(jsonObject2.getString("Decription"));
+             createNoticeBean.setAttachment(jsonObject2.getString("Attachment"));
+             createNoticeBean.setViewMore("View");
+             list.add((createNoticeBean));
+
+             createNoticeBean = new CreateNoticeBean();
+             createNoticeBean.setViewMore("View More");
+             list.add((createNoticeBean));
+
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+         adapter = new NoticeAdapter(list,getApplicationContext(),UserHomeScreen.this);
+         viewPager.setAdapter(adapter);
+
+         dotscount = adapter.getCount();
+         dots = new ImageView[dotscount];
+
+         for(int i = 0; i < dotscount; i++){
+
+             dots[i] = new ImageView(this);
+             dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+
+             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+             params.setMargins(8, 0, 8, 0);
+
+             sliderDotspanel.addView(dots[i], params);
+         }
+
+         dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+
+         Integer[] colors_temp = {
+                 getResources().getColor(R.color.color5),
+                 getResources().getColor(R.color.color2),
+                 getResources().getColor(R.color.color3),
+                 getResources().getColor(R.color.color4)
+         };
+
+         colors = colors_temp;
+
+         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+             @Override
+             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                 if ((position<adapter.getCount()-1) && position<(colors.length-1)){
+                     viewPager.setBackgroundColor((Integer)argbEvaluator.evaluate(positionOffset,colors[position],colors[position]+1));
+                 }
+                 else {
+                     viewPager.setBackgroundColor(colors[colors.length -1]);
+                 }
+             }
+
+             @Override
+             public void onPageSelected(int position) {
+                 for(int i = 0; i< dotscount; i++){
+                     dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+                 }
+                 dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+             }
+
+             @Override
+             public void onPageScrollStateChanged(int state) {
+
+             }
+         });
      }
 
      void inItUI()
@@ -389,118 +488,121 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
 
      @Override
-     public void onComplete(String str, int requestCode, int responseCode)
-     {
+     public void onComplete(String str, int requestCode, int responseCode) {
+         if (requestCode == 1) {
+             if (responseCode == 200) {
+                 //productRandomAdapter.notifyDataSetChanged();
+             }
+         }
+         if (requestCode == 2) {
+             if (responseCode == 200) {
+                 list = new ArrayList<>();
+                 try {
+                     SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+                     sharedPreference.setStr("NoticesResponse", str);
 
-             if(requestCode==1)
-             {
-                 if(responseCode==200)
-                 {
-                     //productRandomAdapter.notifyDataSetChanged();
+                     getNoticeOnView();
+                 } catch (Exception e) {
+                     e.printStackTrace();
                  }
              }
-             if(requestCode==2) {
-                 if (responseCode == 200) {
-                     list = new ArrayList<>();
-                     try {
-                         SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
-                         sharedPreference.setStr("NoticesResponse", str);
 
-                         JSONArray jsonArray = new JSONArray(str);
-
-                         CreateNoticeBean createNoticeBean = new CreateNoticeBean();
-                         JSONObject jsonObject = jsonArray.getJSONObject(0);
-                         createNoticeBean.setTitle(jsonObject.getString("Title"));
-                         createNoticeBean.setNoticeId(jsonObject.getInt("NoticeId"));
-                         createNoticeBean.setDescription(jsonObject.getString("Decription"));
-//                         createNoticeBean.setDescription("Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?");
-                         createNoticeBean.setAttachment(jsonObject.getString("Attachment"));
-                         createNoticeBean.setViewMore("View");
-                         list.add(createNoticeBean);
-
-                         JSONObject jsonObject1 = jsonArray.getJSONObject(1);
-
-                         createNoticeBean = new CreateNoticeBean();
-                         createNoticeBean.setTitle(jsonObject1.getString("Title"));
-                         createNoticeBean.setNoticeId(jsonObject1.getInt("NoticeId"));
-                         createNoticeBean.setDescription(jsonObject1.getString("Decription"));
-                         createNoticeBean.setAttachment(jsonObject1.getString("Attachment"));
-                         createNoticeBean.setViewMore("View");
-                             list.add((createNoticeBean));
-
-                         JSONObject jsonObject2 = jsonArray.getJSONObject(2);
-
-                         createNoticeBean = new CreateNoticeBean();
-                         createNoticeBean.setTitle(jsonObject2.getString("Title"));
-                         createNoticeBean.setNoticeId(jsonObject2.getInt("NoticeId"));
-                         createNoticeBean.setDescription(jsonObject2.getString("Decription"));
-                         createNoticeBean.setAttachment(jsonObject2.getString("Attachment"));
-                         createNoticeBean.setViewMore("View");
-                         list.add((createNoticeBean));
-
-                         createNoticeBean = new CreateNoticeBean();
-                         createNoticeBean.setViewMore("View More");
-                         list.add((createNoticeBean));
-
-                     } catch (Exception e) {
-                         e.printStackTrace();
-                     }
-                     adapter = new NoticeAdapter(list,getApplicationContext(),UserHomeScreen.this);
-                     viewPager.setAdapter(adapter);
-
-                     dotscount = adapter.getCount();
-                     dots = new ImageView[dotscount];
-
-                     for(int i = 0; i < dotscount; i++){
-
-                         dots[i] = new ImageView(this);
-                         dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
-
-                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                         params.setMargins(8, 0, 8, 0);
-
-                         sliderDotspanel.addView(dots[i], params);
-                     }
-
-                     dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
-
-                     Integer[] colors_temp = {
-                             getResources().getColor(R.color.color2),
-                             getResources().getColor(R.color.color5),
-                             getResources().getColor(R.color.color3),
-                             getResources().getColor(R.color.color4)
-                     };
-
-                     colors = colors_temp;
-
-                     viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                         @Override
-                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                             if ((position<adapter.getCount()-1) && position<(colors.length-1)){
-                                 viewPager.setBackgroundColor((Integer)argbEvaluator.evaluate(positionOffset,colors[position],colors[position]+1));
-                             }
-                             else {
-                                 viewPager.setBackgroundColor(colors[colors.length -1]);
-                             }
-                         }
-
-                         @Override
-                         public void onPageSelected(int position) {
-                             for(int i = 0; i< dotscount; i++){
-                                 dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
-                             }
-                             dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
-                         }
-
-                         @Override
-                         public void onPageScrollStateChanged(int state) {
-
-                         }
-                       });
-                     }
-                  }
-                }
+//                         JSONArray jsonArray = new JSONArray(str);
+//
+//                         CreateNoticeBean createNoticeBean = new CreateNoticeBean();
+//                         JSONObject jsonObject = jsonArray.getJSONObject(0);
+//                         createNoticeBean.setTitle(jsonObject.getString("Title"));
+//                         createNoticeBean.setNoticeId(jsonObject.getInt("NoticeId"));
+//                         createNoticeBean.setDescription(jsonObject.getString("Decription"));
+////                         createNoticeBean.setDescription("Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?/Hi how r u?");
+//                         createNoticeBean.setAttachment(jsonObject.getString("Attachment"));
+//                         createNoticeBean.setViewMore("View");
+//                         list.add(createNoticeBean);
+//
+//                         JSONObject jsonObject1 = jsonArray.getJSONObject(1);
+//
+//                         createNoticeBean = new CreateNoticeBean();
+//                         createNoticeBean.setTitle(jsonObject1.getString("Title"));
+//                         createNoticeBean.setNoticeId(jsonObject1.getInt("NoticeId"));
+//                         createNoticeBean.setDescription(jsonObject1.getString("Decription"));
+//                         createNoticeBean.setAttachment(jsonObject1.getString("Attachment"));
+//                         createNoticeBean.setViewMore("View");
+//                             list.add((createNoticeBean));
+//
+//                         JSONObject jsonObject2 = jsonArray.getJSONObject(2);
+//
+//                         createNoticeBean = new CreateNoticeBean();
+//                         createNoticeBean.setTitle(jsonObject2.getString("Title"));
+//                         createNoticeBean.setNoticeId(jsonObject2.getInt("NoticeId"));
+//                         createNoticeBean.setDescription(jsonObject2.getString("Decription"));
+//                         createNoticeBean.setAttachment(jsonObject2.getString("Attachment"));
+//                         createNoticeBean.setViewMore("View");
+//                         list.add((createNoticeBean));
+//
+//                         createNoticeBean = new CreateNoticeBean();
+//                         createNoticeBean.setViewMore("View More");
+//                         list.add((createNoticeBean));
+//
+//                     } catch (Exception e) {
+//                         e.printStackTrace();
+//                     }
+//                     adapter = new NoticeAdapter(list,getApplicationContext(),UserHomeScreen.this);
+//                     viewPager.setAdapter(adapter);
+//
+//                     dotscount = adapter.getCount();
+//                     dots = new ImageView[dotscount];
+//
+//                     for(int i = 0; i < dotscount; i++){
+//
+//                         dots[i] = new ImageView(this);
+//                         dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+//
+//                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//
+//                         params.setMargins(8, 0, 8, 0);
+//
+//                         sliderDotspanel.addView(dots[i], params);
+//                     }
+//
+//                     dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+//
+//                     Integer[] colors_temp = {
+//                             getResources().getColor(R.color.color5),
+//                             getResources().getColor(R.color.color2),
+//                             getResources().getColor(R.color.color3),
+//                             getResources().getColor(R.color.color4)
+//                     };
+//
+//                     colors = colors_temp;
+//
+//                     viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//                         @Override
+//                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                             if ((position<adapter.getCount()-1) && position<(colors.length-1)){
+//                                 viewPager.setBackgroundColor((Integer)argbEvaluator.evaluate(positionOffset,colors[position],colors[position]+1));
+//                             }
+//                             else {
+//                                 viewPager.setBackgroundColor(colors[colors.length -1]);
+//                             }
+//                         }
+//
+//                         @Override
+//                         public void onPageSelected(int position) {
+//                             for(int i = 0; i< dotscount; i++){
+//                                 dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.non_active_dot));
+//                             }
+//                             dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+//                         }
+//
+//                         @Override
+//                         public void onPageScrollStateChanged(int state) {
+//
+//                         }
+//                       });
+//                     }
+//                  }
+         }
+     }
 
      void checkSDCardsWrite()
      {
@@ -568,12 +670,14 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
      @Override
      public void getViewMore() {
+       //  finish();
          Intent intent = new Intent(this,NoticeListView.class);
          startActivity(intent);
      }
 
      @Override
      public void getPagePosition(int noticeId) {
+       //  finish();
          Intent intent = new Intent(this, NoticeView.class);
          intent.putExtra("noticeId",noticeId);
          startActivity(intent);

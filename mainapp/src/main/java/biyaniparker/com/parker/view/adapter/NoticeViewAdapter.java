@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.CreateNoticeBean;
 
@@ -21,13 +17,13 @@ public class NoticeViewAdapter extends PagerAdapter {
     List<CreateNoticeBean> list;
     LayoutInflater layoutInflater;
     Context context;
-     ProductAdaperCallBack productAdaperCallBack;
+    ProductAdaperCallBack productAdaperCallBack;
 
     public NoticeViewAdapter(List<CreateNoticeBean> list,Context context,ProductAdaperCallBack productAdaperCallBack)
     {
         this.list = list;
         this.context = context;
-          this.productAdaperCallBack = productAdaperCallBack;
+        this.productAdaperCallBack = productAdaperCallBack;
     }
 
     @Override
@@ -50,7 +46,7 @@ public class NoticeViewAdapter extends PagerAdapter {
         TextView title,des,date;
         title = view.findViewById(R.id.tvsetTitle);
         des = view.findViewById(R.id.tvsetDes);
-        date = view.findViewById(R.id.tvsetDate);
+       // date = view.findViewById(R.id.tvsetDate);
 
         if (list.get(position).getAttachment().equalsIgnoreCase("")){
             //imageView.setImageResource(R.drawable.bgpaker);
@@ -62,7 +58,7 @@ public class NoticeViewAdapter extends PagerAdapter {
         }
         title.setText(list.get(position).getTitle());
         des.setText(list.get(position).getDescription());
-        date.setText(list.get(position).getDate());
+      //  date.setText(list.get(position).getDate());
 
         imageView.setOnClickListener(new View.OnClickListener()
         {

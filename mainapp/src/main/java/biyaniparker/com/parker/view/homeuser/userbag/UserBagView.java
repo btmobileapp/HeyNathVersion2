@@ -192,7 +192,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                        // timer.start();
                     }
                     catch (Exception e){}
-
                 }
 
                 LayoutInflater mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);

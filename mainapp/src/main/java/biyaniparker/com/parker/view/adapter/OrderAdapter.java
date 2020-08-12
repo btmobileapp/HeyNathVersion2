@@ -55,12 +55,29 @@ public class OrderAdapter extends ArrayAdapter
         viewHolder.txtOrderDate=(TextView)convertView.findViewById(R.id.txtOrderDate);
         viewHolder.txtOrderId=(TextView)convertView.findViewById(R.id.txtOrder);
         viewHolder.txtShop=(TextView)convertView.findViewById(R.id.txtShop);
+        viewHolder.tvStatus=(TextView)convertView.findViewById(R.id.tv_status);
 
         viewHolder.txtShop.setText(orderList.get(position).getShopName());
         viewHolder.txtAddress.setText(orderList.get(position).getAddress());
         viewHolder.txtOrderId.setText("Or No : " + orderList.get(position).getOrderId() + "");
         viewHolder.txtOrderDate.setText(CommonUtilities.longToDate(orderList.get(position).getOrderDate()));
 
+        try
+        {
+            if(orderList.get(position).getOrderStatus().equalsIgnoreCase("inrequest"))
+            {
+                viewHolder.tvStatus.setText("In Request");
+            }
+            if(orderList.get(position).getOrderStatus().equalsIgnoreCase("dispatched"))
+            {
+                viewHolder.tvStatus.setText("Dispactched");
+            }
+            if(orderList.get(position).getOrderStatus().equalsIgnoreCase("deleted"))
+            {
+                viewHolder.tvStatus.setText("Deleted");
+            }
+        }
+        catch (Exception ex){}
         return convertView;
     }
 }

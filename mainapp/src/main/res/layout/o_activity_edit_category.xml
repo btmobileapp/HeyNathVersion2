@@ -98,16 +98,23 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Is Last "
+                android:text="Is First "
                 android:layout_marginLeft="20dp"
-                android:id="@+id/checkBox" />
+                android:id="@+id/checkBox1" />
+
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="is First "
+                android:text="Is Milddle "
+                android:layout_marginLeft="20dp"
+                android:id="@+id/checkBox2" />
 
-                android:layout_marginLeft="80dp"
-                android:id="@+id/checkBox1" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Is Last "
+                android:layout_marginLeft="20dp"
+                android:id="@+id/checkBox" />
         </LinearLayout>
     </LinearLayout>
 

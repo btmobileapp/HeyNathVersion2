@@ -52,8 +52,10 @@ import biyaniparker.com.parker.bal.ModuleProductDetails;
 import biyaniparker.com.parker.beans.ProductBeanWithQnty;
 import biyaniparker.com.parker.beans.ProductDetailsBean;
 import biyaniparker.com.parker.beans.ProductStockBean;
+import biyaniparker.com.parker.beans.SizeMaster;
 import biyaniparker.com.parker.beans.StockMasterBean;
 import biyaniparker.com.parker.beans.UnitMasterBean;
+import biyaniparker.com.parker.database.ItemDAOSizeMaster;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
@@ -517,6 +519,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
 
 
     ArrayList<View>  sizeView=new ArrayList<>();
+
     void addSizeView()
     {
         sizeView.clear();
@@ -541,6 +544,32 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         }
     }
 
+    /*
+    void addSizeView()
+    {
+        sizeView.clear();
+        ItemDAOSizeMaster itemDAOSizeMaster=new ItemDAOSizeMaster(this);
+        ArrayList<SizeMaster>  sList= itemDAOSizeMaster.getAllSize(1);
+        for(int i=0;i<sList.size();i++)
+        {
+            LayoutInflater inflater=(LayoutInflater)  getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v= inflater.inflate(R.layout.itemaddsizetoproductdetail, null);
+            v.setTag(i);
+            //TextView txtSizeName=(TextView)v.findViewById(R.id.txtSizeName);
+            TextView txtAvaibleQnt=(TextView)v.findViewById(R.id.txtAvaibleQnt);
+            txtAvaibleQnt.setVisibility(View.INVISIBLE);
+            EditText edOrderQnty=(EditText)v.findViewById(R.id.edOrderQnty);
+            // txtSizeName.setText(moduleProductDetails.getSizeNameBySizeId(moduleProductDetails.stockList.get(i).getSizeId()));
+            txtAvaibleQnt.setText(1 + "");
+
+            sizeView.add(v);
+            if( moduleProductDetails.stockList.get(i).getQnty()!=0)
+            {
+                edOrderQnty.setText(""+1);
+            }
+            linearSizeMain.addView(v);
+        }
+    }*/
 
     void addStripCodeProducts()
     {

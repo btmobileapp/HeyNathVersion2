@@ -85,6 +85,34 @@ public class ModuleProductDetails implements DownloadUtility {
         asyncUtilities.execute();
     }
 
+    public void addToBag1(ArrayList<StockMasterBean> stockList) throws JSONException
+    {
+
+        // request code => 2 is for calling web service of add to bag
+
+
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<stockList.size();i++)
+        {
+            StockMasterBean stock=new StockMasterBean();
+            stock=stockList.get(i);
+            JSONObject json=new JSONObject();
+            json.put("ProductId",stock.getProductId());
+            json.put("SizeId",stock.getSizeId());
+            json.put("InBagQty",stock.getInBagQty());
+            json.put("ClientId",stock.getClientId());
+            json.put("UserId",stock.getUserId());
+            json.put("EnterBy",stock.getEnterBy());
+            json.put("ChangedBY",stock.getChangedBY());
+            json.put("TransactionType",stock.getTransactionType());
+            json.put("UnitName",stock.getUnitName());
+            json.put("Remark",stock.getRemark());
+            jsonArray.put(json);
+        }
+
+        AsyncUtilities asyncUtilities=new AsyncUtilities(context,true,CommonUtilities.URL+"StockService.svc/InsertStockMasterBag",jsonArray.toString(),4,this);
+        asyncUtilities.execute();
+    }
     //------------------------------------------------------------------------------------------------------------------
 
     //---------------------------------------------------------------------------------------------------------------------

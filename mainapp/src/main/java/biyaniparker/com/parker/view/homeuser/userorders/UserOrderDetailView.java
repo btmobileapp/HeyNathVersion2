@@ -66,9 +66,9 @@ public class UserOrderDetailView extends AppCompatActivity {
         setContentView(R.layout.o_activity_user_order_details);
 
         doption = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.bgpaker)
-                .showImageOnFail(R.drawable.bgpaker)
-                .showStubImage(R.drawable.bgpaker).cacheInMemory(true)
+                .showImageForEmptyUri(R.drawable.bgchoice)
+                .showImageOnFail(R.drawable.bgchoice)
+                .showStubImage(R.drawable.bgchoice).cacheInMemory(true)
                 .cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)) // 100
                         // for
                         // Rounded

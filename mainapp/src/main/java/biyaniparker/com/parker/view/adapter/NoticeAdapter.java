@@ -83,7 +83,7 @@ public class NoticeAdapter extends PagerAdapter {
            // makeTextViewResizable(des,2 , "View More", true);
 
             if (list.get(position).getAttachment().equalsIgnoreCase("") || list.get(position).getAttachment().equalsIgnoreCase(null)) {
-                imageView.setImageResource(R.drawable.bgpaker);
+                imageView.setImageResource(R.drawable.bgchoice);
             } else {
                 Picasso.get().load(list.get(position).getAttachment()).into(imageView);
             }

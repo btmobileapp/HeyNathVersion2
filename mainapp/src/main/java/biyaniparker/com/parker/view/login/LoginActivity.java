@@ -26,11 +26,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button btnLogin,btnRegister;
     EditText edUserId,edPassword;
     ModuleLogin objModuleLogin;
-    TextView txtAddress,txt;
+    TextView txtAddress,txt,txtemail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_choice);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         objModuleLogin=new ModuleLogin(this);
@@ -46,8 +46,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         txtAddress=(TextView)findViewById(R.id.txtAddress);
         txt=(TextView)findViewById(R.id.txt);
+        txtemail = findViewById(R.id.txtemail);
         txtAddress.setText(CommonUtilities.AdminAdress);
         txt.setText(CommonUtilities.AdminContact);
+        txtemail.setText(CommonUtilities.AdminEmail);
 
 
         try

@@ -13,15 +13,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
 import androidx.core.content.FileProvider;
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import biyaniparker.com.parker.BuildConfig;
 import biyaniparker.com.parker.database.ItemDAOCategory;
 import biyaniparker.com.parker.database.ItemDAODispatch;
@@ -30,8 +27,6 @@ import biyaniparker.com.parker.database.ItemDAOPrice;
 import biyaniparker.com.parker.database.ItemDAOProduct;
 import biyaniparker.com.parker.database.ItemDAOSizeMaster;
 import biyaniparker.com.parker.database.ItemDAOUser;
-import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
-import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 /**
  * Created by bt18 on 08/08/2016.
@@ -48,7 +43,7 @@ public class CommonUtilities
        //     "http://testing.biyanitechnologies.com/parkerservices/";
     // public final static String URL= "http://btwebservices.biyanitechnologies.com/sunanda/";
   //  "http://192.168.73.133/parker/";
-   "http://btwebservices.biyanitechnologies.com/dealerapp/";
+   "http://btwebservices.biyanitechnologies.com/dealerchoice/";
     public static int Height=800;
     public static int Width=600;
 
@@ -68,10 +63,11 @@ public class CommonUtilities
 */
     public final static String RESPONCE_OK="Success";
     public static String GodName="|| Shree ||";
-    public static String AdminShop="Rajashri Industries";
-    public static String AdminAdress=" BLOCK NO.433/3C,GAT NO 24/3A, OPP.HOTEL SAPTAGIRI,JAYSINGPUR-416101";
+    public static String AdminShop="Choice Electric";
+    public static String AdminAdress="9th Lane,Subhash Road,Near Bank of India,Jaysingpur-416101.Dist.Kolhapur";
     public static String Slogan="";
-    public static String AdminContact="Ph No. (02328)444444 ";
+    public static String AdminContact="Mob: 9890880026";
+    public static String AdminEmail="Email: choiceelectric14@gmail.com";
     public static Context context;
 
     public static long getCurrentTime()

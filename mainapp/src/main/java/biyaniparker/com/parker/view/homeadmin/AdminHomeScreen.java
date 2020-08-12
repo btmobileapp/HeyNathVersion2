@@ -104,7 +104,7 @@ public class AdminHomeScreen extends AppCompatActivity
         RowItem item4= new RowItem("Users", R.drawable.ic_user);
         RowItem item5= new RowItem("Change password", R.drawable.ic_changepass);
         RowItem item6= new RowItem("Logout", R.drawable.ic_logout);
-        RowItem item8= new RowItem("Create Notice",R.drawable.verify_user);
+       // RowItem item8= new RowItem("Create Notice",R.drawable.verify_user);
         item1.isLocal=true;
         item2.isLocal=true;
      //   item3.isLocal=true;
@@ -113,11 +113,11 @@ public class AdminHomeScreen extends AppCompatActivity
         item4.sectionName="Users And Account";
         item5.isLocal=true;
         item6.isLocal=true;
-        item8.isLocal=true;
+       // item8.isLocal=true;
         RowItem item7= new RowItem("Stock Reports", R.drawable.reportsymbol);
         items.add(item1);
         items.add(item2);
-        items.add(item8);
+       // items.add(item8);
 
        // items.add(item3);
         item7.isLocal=true;
@@ -178,9 +178,9 @@ public class AdminHomeScreen extends AppCompatActivity
 
 
         doption = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.bgpaker)
-                .showImageOnFail(R.drawable.bgpaker)
-                .showStubImage(R.drawable.bgpaker).cacheInMemory(true)
+                .showImageForEmptyUri(R.drawable.bgchoice)
+                .showImageOnFail(R.drawable.bgchoice)
+                .showStubImage(R.drawable.bgchoice).cacheInMemory(true)
                 .cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)) // 100
                         // for
                         // Rounded

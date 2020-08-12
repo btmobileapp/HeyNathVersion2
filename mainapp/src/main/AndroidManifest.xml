@@ -24,7 +24,7 @@
 
     <application
         android:name=".utilities.UILApplication"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/bgchoice"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:usesCleartextTraffic="true"
@@ -286,6 +286,11 @@
         <activity android:name=".view.homeuser.productdshopping.ChangeView"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".view.homeuser.productdshopping.ImageClass"
+            android:screenOrientation="portrait">
+        </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

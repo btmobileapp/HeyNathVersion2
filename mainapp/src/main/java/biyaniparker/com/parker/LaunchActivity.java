@@ -23,12 +23,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-
 import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import biyaniparker.com.parker.fcm.FcmUtility;
 import biyaniparker.com.parker.services.ProductSyncService;
 import biyaniparker.com.parker.utilities.CommonUtilities;
@@ -50,9 +48,9 @@ public class LaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launch);
 
         doption = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.bgpaker)
-                .showImageOnFail(R.drawable.bgpaker)
-                .showStubImage(R.drawable.bgpaker).cacheInMemory(true)
+                .showImageForEmptyUri(R.drawable.bgchoice)
+                .showImageOnFail(R.drawable.bgchoice)
+                .showStubImage(R.drawable.bgchoice).cacheInMemory(true)
                 .cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)) // 100
                         // for
                         // Rounded

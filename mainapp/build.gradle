@@ -35,5 +35,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.firebase:firebase-iid:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:17.3.3'
-    compile 'de.hdodenhof:circleimageview:1.2.1'
+    implementation 'de.hdodenhof:circleimageview:1.2.1'
 }

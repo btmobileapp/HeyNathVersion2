@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <HorizontalScrollView
+        android:id="@+id/hs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <TableLayout
@@ -17,33 +18,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
             android:text="Design" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
             android:text="ProductName" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black"
             android:text="Price" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="Quantity" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="UnitName" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="Remark" />
     </TableRow>
@@ -62,6 +73,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_weight="1"
+            android:textColor="@android:color/black"
             android:text="Suresh Dasari" />
         <TextView
             android:id="@+id/tvPriceChange"
@@ -69,6 +81,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_weight="1"
+            android:textColor="@android:color/black"
             android:text="Hyderabad" />
         <EditText
             android:id="@+id/tvQtyChange"
@@ -76,13 +89,16 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_weight="1"
-            android:text="1" />
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:text="0" />
         <TextView
             android:id="@+id/tvUnitChange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_weight="1"
+            android:textColor="@android:color/black"
             android:text="Hyderabad" />
         <TextView
             android:id="@+id/tvRemarkChange"
@@ -90,14 +106,24 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_weight="1"
+            android:textColor="@android:color/black"
             android:text="Hyderabad" />
     </TableRow>
         <Button
             android:id="@+id/btnAddtobags"
+            android:padding="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/color5"
+            android:background="@drawable/edit_text_border"
             android:text="Add To Bags"/>
     </TableLayout>
     </HorizontalScrollView>
-
+    <LinearLayout
+        android:background="#c0c0c0"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/hs"
+        android:layout_marginTop="20dp"
+        android:layout_height="1dp"/>
 
 </RelativeLayout>
 

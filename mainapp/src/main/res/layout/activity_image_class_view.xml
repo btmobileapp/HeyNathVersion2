@@ -16,5 +16,12 @@
         android:foregroundGravity="center_vertical"
         android:overScrollMode="never">
     </androidx.viewpager.widget.ViewPager>
-
+    <LinearLayout
+        android:id="@+id/SliderDotsImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ViewPagerImage"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" />
 </LinearLayout>

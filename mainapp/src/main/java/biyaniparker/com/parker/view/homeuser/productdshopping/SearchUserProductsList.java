@@ -71,24 +71,22 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
 //            startActivityForResult(intent, 100);
 //        }
 
-//        if(item.getItemId()==R.id.actionFilter)
-//        {
-//                Intent intent = new Intent(this, ChangeView.class);
-//                intent.putExtra("CategoryId", catId);
-////                Gson gson = new Gson();s
-////                String myJson = gson.toJson(moduleUserProduct.newProductList.get(position));
-////                intent.putExtra("myjson",myJson);
-//                startActivity(intent);
-//        }
+        if(item.getItemId()==R.id.actionFilter)
+        {
+            Intent intent = new Intent(this, ChangeView.class);
+            intent.putExtra("CategoryId", catId);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu)
-//    {
-//        getMenuInflater().inflate(R.menu.menufilter,menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menufilter,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
 
     @Override

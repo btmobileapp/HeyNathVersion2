@@ -539,7 +539,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             sizeView.add(v);
             if( moduleProductDetails.stockList.get(i).getQnty()!=0)
             {
-                edOrderQnty.setText(""+1);
+                edOrderQnty.setText(""+0);
             }
             linearSizeMain.addView(v);
         }

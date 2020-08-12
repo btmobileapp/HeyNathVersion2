@@ -52,9 +52,9 @@ public class ProductAdapter extends ArrayAdapter {
         utilities=new BitmapUtilities();
         animateFirstListener=new AnimateFirstDisplayListener();
         doption=new DisplayImageOptions.Builder().
-                showImageForEmptyUri(R.drawable.bgpaker).
-                showImageOnFail(R.drawable.bgpaker).
-                showStubImage(R.drawable.bgpaker).
+                showImageForEmptyUri(R.drawable.bgchoice).
+                showImageOnFail(R.drawable.bgchoice).
+                showStubImage(R.drawable.bgchoice).
                 cacheInMemory(true)
                 .cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)).cacheOnDisc(true).build();
     }

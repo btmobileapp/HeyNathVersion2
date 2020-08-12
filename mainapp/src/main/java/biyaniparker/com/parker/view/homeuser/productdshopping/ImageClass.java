@@ -5,17 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.gson.Gson;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleProductDetails;
 import biyaniparker.com.parker.beans.ProductBeanWithQnty;
@@ -23,7 +18,7 @@ import biyaniparker.com.parker.beans.ProductDetailsBean;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.view.adapter.ProductDetailsAdapter;
 
-public class ImageClass  extends AppCompatActivity implements DownloadUtility,ProductDetailsAdapter.ProductAdaperCallBack {
+public class ImageClass extends AppCompatActivity implements DownloadUtility, ProductDetailsAdapter.ProductAdaperCallBack {
     ModuleProductDetails moduleProductDetails;
     ProductBeanWithQnty bean;
     List<ProductDetailsBean> productDetailsBeanList;
@@ -46,7 +41,7 @@ public class ImageClass  extends AppCompatActivity implements DownloadUtility,Pr
         } catch (Exception e) {
         }
         viewPager = findViewById(R.id.ViewPagerImage);
-        sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
+        sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDotsImage);
 
         if (bean != null) {
             // To Display Image ON Image view
@@ -145,4 +140,3 @@ public class ImageClass  extends AppCompatActivity implements DownloadUtility,Pr
         startActivity(intent);
     }
 }
-///commnt

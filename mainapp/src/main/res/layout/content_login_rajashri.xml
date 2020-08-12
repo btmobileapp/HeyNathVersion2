@@ -11,18 +11,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="biyaniparker.com.parker.view.login.LoginActivity"
-    android:background="@drawable/bgchoice"
-    tools:showIn="@layout/activity_login_choice">
+    android:background="@drawable/rajashri"
+    tools:showIn="@layout/activity_login_rajashri">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="14dp"
-        android:text="One Stop Shop for all your Electrical Needs"
-        android:gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:textColor="@android:color/white"/>
 
     <LinearLayout
         android:id="@+id/limage"
@@ -34,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:layout_gravity="center"
-            android:visibility="invisible"
+             android:visibility="invisible"
             android:src="@drawable/l1"
             />
     </LinearLayout>
@@ -67,8 +58,8 @@
                 android:ems="10"
                 android:id="@+id/edUserId"
                 android:hint="User Id"
-                android:textColorHint="@android:color/black"
-                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/white"
+                android:textColor="@android:color/white"
                 android:layout_centerHorizontal="true" />
 
             <EditText
@@ -78,9 +69,9 @@
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:id="@+id/edPassword"
-                android:textColorHint="@android:color/black"
+                android:textColorHint="@android:color/white"
                 android:hint="Password"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:layout_centerHorizontal="true" />
 
 
@@ -106,23 +97,14 @@
                 />
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="110dp"
-        android:layout_below="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="3"
-        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="1"
+            android:layout_marginTop="50dp"
             android:text="Contact  Us :  9898989595"
+            android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="18dp"
             android:textStyle="bold" />
@@ -131,25 +113,12 @@
             android:id="@+id/txtAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginTop="20dp"
             android:text="Warnanager , Kolhapur ,Maharatra "
             android:gravity="center"
-            android:layout_marginTop="5dp"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
-            android:textSize="15dp"
+            android:textSize="18dp"
             />
-
-        <TextView
-            android:id="@+id/txtemail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="Email  :  9898989595"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="5dp"
-            android:textSize="15dp"/>
     </LinearLayout>
-
 </RelativeLayout>

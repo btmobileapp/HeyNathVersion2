@@ -30,7 +30,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_choice);
+        setContentView(R.layout.activity_login_rajashri);
+        if(getString(R.string.app_name).equalsIgnoreCase("Choice Electric"))
+        {
+            setContentView(R.layout.activity_login_choice);
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         objModuleLogin=new ModuleLogin(this);

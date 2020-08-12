@@ -16,6 +16,8 @@ public class OrderDetailBean
     public int sizeId;
     public int quantity;
     public int priceId;
+    public float price;
+
 
     public String getUnitName() {
         return unitName;

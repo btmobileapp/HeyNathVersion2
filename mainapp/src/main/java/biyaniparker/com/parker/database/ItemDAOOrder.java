@@ -89,6 +89,7 @@ public class ItemDAOOrder
         values.put("DealerPrice",orderDetails.getDealerPrice());
         values.put("IconThumb",orderDetails.getIconThumb());
         values.put("UnitName",orderDetails.getUnitName());
+        values.put("price",orderDetails.price+"");
 
         return values;
     }
@@ -161,6 +162,7 @@ public class ItemDAOOrder
                 bean.setTotolAmount(c.getString(c.getColumnIndex("TotolAmount")));
                 bean.setUserId(c.getLong(c.getColumnIndex("UserId")));
                 bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
+
                 i++;
             }
         }
@@ -196,6 +198,10 @@ public class ItemDAOOrder
                 bean.setDealerPrice(c.getString(c.getColumnIndex("DealerPrice")));
                 bean.setUnitName(c.getString(c.getColumnIndex("UnitName")));
                 //bean.setUserId(c.getInt(c.getColumnIndex("UserId")));
+                try {
+                    bean.price =Float.parseFloat(c.getString(c.getColumnIndex("price")));
+                }
+                catch (Exception ex){}
                 list.add(bean);
                 c.moveToNext();
                 i++;

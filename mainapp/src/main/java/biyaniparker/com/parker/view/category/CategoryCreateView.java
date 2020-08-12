@@ -64,7 +64,7 @@ public class CategoryCreateView extends AppCompatActivity implements View.OnClic
     ModuleCategory moduleCategory;
     int selectedId;
     ImageView img, camera, gallary;
-    CheckBox checkBox,checkBox1;
+    CheckBox checkBox,checkBox1,checkBox2;
 
 
     //
@@ -107,6 +107,7 @@ public class CategoryCreateView extends AppCompatActivity implements View.OnClic
         spCategory=(Spinner)findViewById(R.id.spCategory);
         checkBox=(CheckBox)findViewById(R.id.checkBox);
         checkBox1=findViewById(R.id.checkBox1);
+        checkBox2=findViewById(R.id.checkBox2);
         img=(ImageView)findViewById(R.id.img);
         camera=(ImageView)findViewById(R.id.camera);
         gallary=(ImageView)findViewById(R.id.gallary);
@@ -128,11 +129,32 @@ callCapturePhoto();
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
+                    checkBox2.setChecked(false);
                     spCategory.setVisibility(View.GONE);
                 }
                 else
                 {
                     spCategory.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    checkBox2.setChecked(false);
+                }
+            }
+        });
+        checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                {
+                    spCategory.setVisibility(View.VISIBLE);
+                    checkBox.setChecked(false);
+                    checkBox1.setChecked(false);
                 }
             }
         });
@@ -142,7 +164,8 @@ callCapturePhoto();
     public void onClick(View v) {
         CommonUtilities.hideSoftKeyBord(this);
 
-        if (!new ConnectionDetector(this).isConnectingToInternet()) {
+        if (!new ConnectionDetector(this).isConnectingToInternet())
+        {
             Toast.makeText(this, "Check Internet Connection", Toast.LENGTH_LONG).show();
         }
         else {
@@ -190,11 +213,19 @@ callCapturePhoto();
 
         }
     }
-    private boolean validation() {
+    private boolean validation()
+    {
+        if(checkBox2.isChecked())
+        {
+
+
+        }
+
         if(edCatName.getText().toString().equals(""))
         {return false;}
         else
         {return true;}
+
     }
 
     @Override

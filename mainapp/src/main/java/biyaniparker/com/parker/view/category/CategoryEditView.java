@@ -66,7 +66,7 @@ public class CategoryEditView extends AppCompatActivity implements View.OnClickL
     Spinner spCategory;
     ModuleCategory moduleCategory;
     int selectedId;
-    CheckBox checkBox,checkBox1;
+    CheckBox checkBox,checkBox1,checkBox2;
     CategoryBean bean=new CategoryBean();
     int flag=0;
     @Override
@@ -85,7 +85,7 @@ public class CategoryEditView extends AppCompatActivity implements View.OnClickL
         renderView();
         btnSave.setOnClickListener(this);
 
-        CommonUtilities.hideatInItInputBoard(this);
+      //  CommonUtilities.hideatInItInputBoard(this);
 
     }
 
@@ -104,17 +104,39 @@ public class CategoryEditView extends AppCompatActivity implements View.OnClickL
         spCategory=(Spinner)findViewById(R.id.spCategory);
         checkBox=(CheckBox)findViewById(R.id.checkBox);
         checkBox1=findViewById(R.id.checkBox1);
+        checkBox2=findViewById(R.id.checkBox2);
 
         checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
+                    checkBox2.setChecked(false);
                     spCategory.setVisibility(View.GONE);
                 }
                 else
                 {
                     spCategory.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    checkBox2.setChecked(false);
+                }
+            }
+        });
+        checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                {
+                    spCategory.setVisibility(View.VISIBLE);
+                    checkBox.setChecked(false);
+                    checkBox1.setChecked(false);
                 }
             }
         });
@@ -210,10 +232,19 @@ try {
         checkBox1.setChecked(true);
         spCategory.setVisibility(View.GONE);
     }
-}
-catch (Exception edx)
-{CommonUtilities.alert(this,edx.toString());}
+    else if(!checkBox.isChecked())
+    {
+        checkBox2.setChecked(true);
     }
+    //else if()
+
+   }
+   catch (Exception edx)
+   {
+
+       CommonUtilities.alert(this,edx.toString());
+   }
+  }
 
     @Override
     public void onClick(View v)

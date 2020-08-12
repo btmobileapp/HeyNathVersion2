@@ -202,7 +202,7 @@ public class RecentDispatchDetailView extends AppCompatActivity {
                 }
                 //linear.addView(linear);
             }
-            txtTPrice.setText("Total : " + (totalQnty * Integer.parseInt(detailBean.getConsumerPrice())));
+            txtTPrice.setText("Total : " + (totalQnty * Float.parseFloat(detailBean.getConsumerPrice())));
             mainlinearDetails.addView(convertView);
 
 

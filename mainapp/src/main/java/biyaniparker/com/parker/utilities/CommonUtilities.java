@@ -74,6 +74,8 @@ public class CommonUtilities
     public static String AdminContact="Ph No. (02328)444444 ";
     public static Context context;
 
+
+    public  static  boolean isDispatchEnable=true;
     public static long getCurrentTime()
     {
         Calendar calendar=Calendar.getInstance();

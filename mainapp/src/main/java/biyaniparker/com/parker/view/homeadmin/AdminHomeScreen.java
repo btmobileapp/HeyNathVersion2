@@ -44,6 +44,7 @@ import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
+import biyaniparker.com.parker.view.homeadmin.orderdispatch.RecentDispatchListView;
 import biyaniparker.com.parker.view.notice.CreateNoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.OrderAdapter;
@@ -100,7 +101,8 @@ public class AdminHomeScreen extends AppCompatActivity
        // items.add(item);
         RowItem item1= new RowItem("Orders", R.drawable.iconorder);
         RowItem item2= new RowItem("Products", R.drawable.ic_product);
-        //RowItem item3= new RowItem("Recent Dispatch", R.drawable.ic_dispatch);
+
+        RowItem item3= new RowItem("Recent Dispatch", R.drawable.ic_dispatch);
         RowItem item4= new RowItem("Users", R.drawable.ic_user);
         RowItem item5= new RowItem("Change password", R.drawable.ic_changepass);
         RowItem item6= new RowItem("Logout", R.drawable.ic_logout);
@@ -118,8 +120,12 @@ public class AdminHomeScreen extends AppCompatActivity
         items.add(item1);
         items.add(item2);
         items.add(item8);
+        if(CommonUtilities.isDispatchEnable)
+        {
+            item3.isLocal=true;
+            items.add(item3);
+        }
 
-       // items.add(item3);
         item7.isLocal=true;
        // items.add(item7);
 
@@ -352,8 +358,10 @@ public class AdminHomeScreen extends AppCompatActivity
         /* */
 
 
-        if (items.get(position).isLocal) {
-            if (items.get(position).getTitle().equalsIgnoreCase("Logout")) {
+        if (items.get(position).isLocal)
+        {
+            if (items.get(position).getTitle().equalsIgnoreCase("Logout"))
+            {
                 AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
                 alBuilder.setTitle(getString(R.string.app_name));
                 alBuilder.setMessage("Do you want to Logout this app??");
@@ -369,15 +377,22 @@ public class AdminHomeScreen extends AppCompatActivity
                 alBuilder.setNegativeButton("No", null);
                 alBuilder.show();
             }  //
-            else if (items.get(position).getTitle().equalsIgnoreCase("Change Password")) {
+            else if (items.get(position).getTitle().equalsIgnoreCase("Change Password"))
+            {
                 startActivity(new Intent(this, PasswordUpdateView.class));
-            } else if (items.get(position).getTitle().equalsIgnoreCase("Products")) {
+            } else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
+            {
                 startActivity(new Intent(this, AdminProductMenu.class));
-            } else if (items.get(position).getTitle().equalsIgnoreCase("Users")) {
+            } else if (items.get(position).getTitle().equalsIgnoreCase("Users"))
+            {
                 startActivity(new Intent(this, UserListView.class));
             }
-            else if (items.get(position).getTitle().equalsIgnoreCase("Create Notice")){
+            else if (items.get(position).getTitle().equalsIgnoreCase("Create Notice"))
+            {
                 startActivity(new Intent(this, CreateNoticeView.class));
+            }
+            else if (items.get(position).getTitle().equalsIgnoreCase("Recent Dispatch")){
+                startActivity(new Intent(this, RecentDispatchListView.class));
             }
 //                else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
 //                    startActivity(new Intent(this, UserListView.class));

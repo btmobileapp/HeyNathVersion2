@@ -259,6 +259,14 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
         moduleProduct =new ModuleProduct(this);
 
 
+        if(CommonUtilities.isDispatchEnable)
+        {
+            btnDispatch.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            btnDispatch.setVisibility(View.GONE);
+        }
     }
 
     @Override

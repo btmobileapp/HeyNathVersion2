@@ -138,7 +138,7 @@ public class OrderDetailAdapter extends ArrayAdapter {
 
                 //totalQnty+=orderDetails.get(c).getQuantity();
                 total = total + (orderDetails.get(c).getQuantity() * (Double.parseDouble(orderDetails.get(c).getDealerPrice())));
-                size.setText(orderDetails.get(c).getSizeName());
+                size.setText(orderDetails.get(c).getUnitName());
                 qnty.setText(String.valueOf(orderDetails.get(c).getQuantity()));
                 holder.l.addView(sub);
             }

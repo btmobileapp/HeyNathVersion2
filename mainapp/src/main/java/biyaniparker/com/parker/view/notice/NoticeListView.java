@@ -3,6 +3,7 @@ package biyaniparker.com.parker.view.notice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -45,6 +46,9 @@ public class NoticeListView extends AppCompatActivity implements DownloadUtility
         String res = sharedPreference.getStr("NoticesResponse");
         List<CreateNoticeBean> noticeBeanList = new ArrayList<>();
 
+        if (res.equalsIgnoreCase("") || res.equals(null)){
+            Toast.makeText(getApplicationContext(),"loading....",Toast.LENGTH_SHORT).show();
+        }
         try {
             JSONArray jsonArray = new JSONArray(res);
             for (int i=0;i<jsonArray.length();i++) {
@@ -83,6 +87,7 @@ public class NoticeListView extends AppCompatActivity implements DownloadUtility
 
     @Override
     public void getNoticeId(int noticeId) {
+       // finish();
         Intent intent = new Intent(NoticeListView.this,NoticeView.class);
         intent.putExtra("noticeId",noticeId);
         startActivity(intent);

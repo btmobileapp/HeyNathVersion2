@@ -98,10 +98,15 @@ public class NoticeAdapter extends PagerAdapter {
         }
         view.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                if (list.get(position).equals(3)){
+                    Toast.makeText(context,""+position,Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    viewMoreCallBack.getPagePosition(list.get(position).getNoticeId());
+                }
                 //this will log the page number that was click
                 //Log.i("TAG", "This page was clicked: " + pos);
 //                Toast.makeText(context,"position is"+position,Toast.LENGTH_SHORT).show();
-                viewMoreCallBack.getPagePosition(list.get(position).getNoticeId());
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {

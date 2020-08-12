@@ -497,6 +497,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
               //  callRefresh();
                 Intent intent = new Intent(this, UserHomeScreen.class);
                 startActivity(intent);
+                finish();
             }
             else if(str.equals("Failed"))
             {

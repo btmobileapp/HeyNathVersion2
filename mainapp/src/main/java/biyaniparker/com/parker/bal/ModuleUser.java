@@ -139,8 +139,7 @@ public class ModuleUser implements  DownloadUtility{
                 sharedPreference.setStr("UserResponse",str);
 
                 if (parseUsers(str)) {
-
-                                                                                                                     } else {
+                } else {
                     downloadUtility.onComplete("Failed", 1, responseCode);
                 }
             } else

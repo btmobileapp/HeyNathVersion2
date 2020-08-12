@@ -132,6 +132,7 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
 
         intent.putExtra("myjson",myJson);
         startActivity(intent);
+       // finish();
     }
 
 

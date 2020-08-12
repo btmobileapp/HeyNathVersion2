@@ -22,6 +22,7 @@
             android:text="1"
             android:gravity="center"
             android:id="@+id/txtsqnty"
+            
             />
 
 </LinearLayout>

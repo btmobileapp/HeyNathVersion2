@@ -222,7 +222,7 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                     total=total+(detailsBean.inBagQnty*detailsBean.dPrice);
 
                     LayoutInflater inflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-                    View lView=inflater.inflate(R.layout.o_activity_two_textviews,null);
+                    View lView=inflater.inflate(R.layout.o_activity_4_textviews,null);
                     txtCPrice=(TextView)lView.findViewById(R.id.txtCPrice);
                     txtTPrice=(TextView)lView.findViewById(R.id.txtTPrice);
                     TextView txtSizeName=(TextView) lView.findViewById(R.id.txtsize);
@@ -311,10 +311,8 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
                     selectedProducts.add(bean);
                     for(int k=0;k<bean.bagDetails.size();k++)
                     {
-
                         stokIds.add(bean.bagDetails.get(k).stockId);
                     }
-
                 }
             }
              if(selectedProducts.size()!=0) {

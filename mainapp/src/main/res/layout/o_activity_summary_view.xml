@@ -41,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:text="Unit"/>
@@ -52,6 +53,8 @@
             android:layout_weight="1"
             android:textColor="@android:color/black"
             android:textStyle="bold"
+            android:gravity="center"
+
             android:text="Qnty"/>
 
     </LinearLayout>

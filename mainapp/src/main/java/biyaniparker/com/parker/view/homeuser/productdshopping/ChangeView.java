@@ -1,14 +1,23 @@
 package biyaniparker.com.parker.view.homeuser.productdshopping;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -18,10 +27,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleCategory;
@@ -42,7 +54,7 @@ import biyaniparker.com.parker.view.adapter.ChangeViewAdapter;
 import biyaniparker.com.parker.view.adapter.ProductRandomAdapter;
 import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 
-public class ChangeView extends AppCompatActivity implements DownloadUtility, NotifyCallback, ChangeViewAdapter.ChangeViewCallBack {
+public class ChangeView extends AppCompatActivity implements DownloadUtility, NotifyCallback, ChangeViewAdapter.ChangeViewCallBack, CompoundButton.OnCheckedChangeListener {
     RecyclerView recyclerView;
     ModuleUserProduct moduleUserProduct;
     ModuleCategory moduleCategory;
@@ -52,11 +64,19 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
     ModuleProductDetails moduleProductDetails;
     ArrayList<SizeMaster> list;
 
+    CheckBox checkAll;
+    Button  btnAddToBag;
+    LinearLayout linearLayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_view);
         moduleProductDetails=new ModuleProductDetails(this);
+        checkAll=(CheckBox)findViewById(R.id.chkAll);
+       // linearLayout =(LinearLayout)findViewById(R.id.lmainchange);
+        btnAddToBag = (Button)findViewById(R.id.btnAddtobags);
+//        checkAll.setOnCheckedChangeListener(this);
         recyclerView = findViewById(R.id.recycleview_change);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         Intent intent=getIntent();
@@ -66,7 +86,6 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
         getSupportActionBar().setSubtitle(moduleCategory.getCategoryBeanById(catId).getCategoryName());
         getSupportActionBar().setHomeButtonEnabled(true);
         moduleUserProduct=new ModuleUserProduct(this) ;
-        // gridView = findViewById(R.id.gridView1);
         adapter = new ChangeViewAdapter(this,moduleUserProduct.newProductList,ChangeView.this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
@@ -81,7 +100,41 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
         {
             moduleUserProduct.loadFromDb(catId);
         }
-    }
+//        btnAddToBag.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            if(stockList.isEmpty())
+//            {
+//                Toast.makeText(getApplicationContext()," Please enter stock quantity ..  ",Toast.LENGTH_SHORT).show();
+//            }
+//            else
+//            {
+//                AlertDialog.Builder alertDialog=new AlertDialog.Builder(ChangeView.this);
+//                alertDialog.setTitle(getString(R.string.app_name));
+//                alertDialog.setMessage("Do you want to add these products in bags");
+//                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        try
+//                        {
+//                            moduleProductDetails.addToBag1(stockList);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//                alertDialog.setNegativeButton("No", null);
+//                /*alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                    @Override
+//                    public void onCancel(DialogInterface dialog) {
+//
+//                    }
+//                })*/
+//                alertDialog.show();
+//            }
+//        }
+//    });
+}
 
     @Override
     public void onComplete(String str, int requestCode, int responseCode) {
@@ -150,43 +203,77 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
     }
 
     @Override
-    public void getData(ProductBeanWithQnty productBeanWithQnty,String qty) {
+    public void getData(List<ProductBeanWithQnty> productBeanWithQnty, int position,String qty) {
         CommonUtilities.hideSoftKeyBord(this);
-        stockList.clear();
-        if (Integer.parseInt(qty)==0){
-            Toast.makeText(this,"Please enter valid quantity ...  ",Toast.LENGTH_SHORT).show();
-        }
-        else if(validation(productBeanWithQnty,qty))
+        //stockList.clear();
+//        if (Integer.parseInt(qty)==0){
+//            Toast.makeText(this,"Please enter valid quantity ...  ",Toast.LENGTH_SHORT).show();
+//        }
+         if(validation(productBeanWithQnty,position,qty))
         {
-            if(stockList.isEmpty())
-            {
-                Toast.makeText(getApplicationContext()," Please enter stock quantity ..  ",Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
-                alertDialog.setTitle(getString(R.string.app_name));
-                alertDialog.setMessage("Do you want to add these products in bags");
-                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try
-                        {
-                            moduleProductDetails.addToBag1(stockList);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+//            if(stockList.isEmpty())
+//            {
+//                Toast.makeText(getApplicationContext()," Please enter stock quantity ..  ",Toast.LENGTH_SHORT).show();
+//            }
+//            else
+//            {
+//                AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+//                alertDialog.setTitle(getString(R.string.app_name));
+//                alertDialog.setMessage("Do you want to add these products in bags");
+//                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        try
+//                        {
+//                            moduleProductDetails.addToBag1(stockList);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//                alertDialog.setNegativeButton("No", null);
+//                /*alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                    @Override
+//                    public void onCancel(DialogInterface dialog) {
+//
+//                    }
+//                })*/
+//                alertDialog.show();
+//            }
+            btnAddToBag.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(stockList.isEmpty())
+                    {
+                        Toast.makeText(getApplicationContext()," Please enter stock quantity ..  ",Toast.LENGTH_SHORT).show();
                     }
-                });
-                alertDialog.setNegativeButton("No", null);
+                    else
+                    {
+                        AlertDialog.Builder alertDialog=new AlertDialog.Builder(ChangeView.this);
+                        alertDialog.setTitle(getString(R.string.app_name));
+                        alertDialog.setMessage("Do you want to add these products in bags");
+                        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try
+                                {
+                                    moduleProductDetails.addToBag1(stockList);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        alertDialog.setNegativeButton("No", null);
                 /*alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
 
                     }
                 })*/
-                alertDialog.show();
-            }
+                        alertDialog.show();
+                    }
+                }
+            });
         }
 //        else
 //        {
@@ -203,14 +290,15 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
         startActivity(intent);
     }
 
-    private boolean validation(ProductBeanWithQnty productBeanWithQnty, String qty) {
+    @Override
+    public void getList(ProductBeanWithQnty productBeanWithQnty,String qty) {
         list = new ArrayList<>();
         ItemDAOSizeMaster itemDAOSizeMaster = new ItemDAOSizeMaster(getApplicationContext());
         list = itemDAOSizeMaster.getAllSize(UserUtilities.getClientId(getApplicationContext()));
 
-        for (int i=0;i<list.size();i++){
-            int sizeId = list.get(i).getSizeId();
+        for (int i = 0; i < list.size(); i++) {
             StockMasterBean s = new StockMasterBean();
+            int sizeId = list.get(i).getSizeId();
             s.setProductId(productBeanWithQnty.getProductId());
             s.setInBagQty(Integer.parseInt(qty));
             s.setSizeId(sizeId);
@@ -224,6 +312,69 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
             s.setRemark(productBeanWithQnty.getRemark());
             stockList.add(s);
         }
+        btnAddToBag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stockList.isEmpty())
+                {
+                    Toast.makeText(getApplicationContext()," Please enter stock quantity ..  ",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    AlertDialog.Builder alertDialog=new AlertDialog.Builder(ChangeView.this);
+                    alertDialog.setTitle(getString(R.string.app_name));
+                    alertDialog.setMessage("Do you want to add these products in bags");
+                    alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try
+                            {
+                                moduleProductDetails.addToBag1(stockList);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    alertDialog.setNegativeButton("No", null);
+                /*alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+
+                    }
+                })*/
+                    alertDialog.show();
+                }
+            }
+        });
+    }
+
+
+    private boolean validation(List<ProductBeanWithQnty> productBeanWithQnty,int position,String qty) {
+        list = new ArrayList<>();
+        ItemDAOSizeMaster itemDAOSizeMaster = new ItemDAOSizeMaster(getApplicationContext());
+        list = itemDAOSizeMaster.getAllSize(UserUtilities.getClientId(getApplicationContext()));
+
+        for (int i=0;i<list.size();i++){
+            StockMasterBean s = new StockMasterBean();
+            int sizeId = list.get(i).getSizeId();
+            s.setProductId(productBeanWithQnty.get(position).getProductId());
+            s.setInBagQty(Integer.parseInt(qty));
+            s.setSizeId(sizeId);
+            s.setTransactionType("inbag");
+            s.setDeleteStatus("false");
+            s.setUserId(UserUtilities.getUserId(this));
+            s.setChangedBY(UserUtilities.getUserId(this));
+            s.setEnterBy(UserUtilities.getUserId(this));
+            s.setClientId(UserUtilities.getClientId(this));
+            s.setUnitName(productBeanWithQnty.get(position).getUnitName());
+            s.setRemark(productBeanWithQnty.get(position).getRemark());
+            stockList.add(s);
+        }
         return true;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
     }
 }

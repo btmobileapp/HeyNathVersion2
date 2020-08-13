@@ -62,7 +62,6 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
     private ImageLoader imageLoader;
     ArrayList<BagMasterBean> selectedProducts=new ArrayList<>();
     ImageView img;
-
     CheckBox checkAll;
     Button btnRemove, btnPreview;
     ModuleBag moduleBag;

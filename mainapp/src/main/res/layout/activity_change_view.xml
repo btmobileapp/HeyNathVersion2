@@ -1,21 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <CheckBox-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Select All"-->
+<!--                    android:id="@+id/chkAll"-->
+<!--                    android:layout_weight="2"/>-->
+<!--            </LinearLayout>-->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
+        android:layout_above="@+id/btnAddtobags"
         android:layout_height="match_parent"
         android:id="@+id/recycleview_change"/>
-<!--    <GridView-->
-<!--        android:layout_width="wrap_content"-->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAddtobags"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:background="@drawable/buttonround"
+            android:text="Add To Bags"/>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:id="@+id/linearId"-->
+<!--        android:layout_marginBottom="48dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+
+<!--            <CheckBox-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Select All"-->
+<!--                android:id="@+id/chkAll"-->
+<!--                android:layout_weight="2"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_height="match_parent">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:id="@+id/lmainchange"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_height="match_parent">-->
+<!--            </LinearLayout>-->
+<!--        </ScrollView>-->
+
+<!--    </LinearLayout>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:id="@+id/nnn"-->
+<!--        android:layout_alignParentBottom="true"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/gridView1"-->
-<!--        android:numColumns="3"-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:layout_alignParentStart="true" />-->
+<!--        android:orientation="horizontal">-->
 
-
-</LinearLayout>
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/btnViewSummary"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_margin="3dp"-->
+<!--            android:background="@drawable/buttonround"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:text="Add To Bag"-->
+<!--            />-->
+<!--&lt;!&ndash;        <Button&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/btnRemove"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_margin="3dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:background="@drawable/buttonround"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textColor="@android:color/white"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="Remove Items"/>&ndash;&gt;-->
+<!--    </LinearLayout>-->
+</RelativeLayout>

@@ -346,7 +346,7 @@ public class AdminHomeScreen extends AppCompatActivity
             long toDate=data.getLongExtra("ToDate",0);
             //Toast.makeText(this," : "+custName+" : "+fromDate+" : "+toDate,Toast.LENGTH_SHORT).show();
             moduleOrder.getCustomList(custName,fromDate,toDate);
-           orderAdapter=new OrderAdapter(this,1,moduleOrder.customOrderList) ;
+            orderAdapter=new OrderAdapter(this,1,moduleOrder.customOrderList) ;
             listView.setAdapter(orderAdapter);
         }
     }

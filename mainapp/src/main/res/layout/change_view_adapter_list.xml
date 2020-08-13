@@ -4,10 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:id="@+id/selt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select All"
+                    android:id="@+id/chkAll"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/selt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/chk"
+            android:layout_alignParentTop="true"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtName"
+            android:textColor="@android:color/black"
+            android:text="Name"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearchange">
     <HorizontalScrollView
+        android:layout_below="@+id/ll"
         android:id="@+id/hs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -109,27 +154,41 @@
             android:textColor="@android:color/black"
             android:text="Hyderabad" />
     </TableRow>
-        <Button
-            android:id="@+id/btnAddtobags"
-            android:padding="10dp"
-            android:gravity="center_horizontal"
-            android:textColor="@color/color5"
-            android:background="@drawable/edit_text_border"
-            android:text="Add To Bags"/>
     </TableLayout>
     </HorizontalScrollView>
-    <LinearLayout
-        android:background="#c0c0c0"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/hs"
-        android:layout_marginTop="20dp"
-        android:layout_height="1dp"/>
+    </LinearLayout>
+    </LinearLayout>
+<!--    <Button-->
+<!--        android:layout_below="@+id/hs"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/btnAddtobags"-->
+<!--        android:padding="10dp"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:textColor="@color/color5"-->
+<!--        android:background="@drawable/edit_text_border"-->
+<!--        android:text="Add To Bags"/>-->
+<!--    <Button-->
+<!--        android:width=""-->
+<!--        android:id="@+id/btnAddtobags"-->
+<!--        android:padding="10dp"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:textColor="@color/color5"-->
+<!--        android:background="@drawable/edit_text_border"-->
+<!--        android:text="Add To Bags"/>-->
 
-</RelativeLayout>
+
+<!--        <LinearLayout-->
+<!--            android:background="#c0c0c0"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_height="1dp"/>-->
+<!--    -->
+    </RelativeLayout>
 
 
 
-<!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<LinearLayout-->
 <!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    android:orientation="vertical"-->

@@ -51,7 +51,6 @@ import biyaniparker.com.parker.utilities.NotifyCallback;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 import biyaniparker.com.parker.view.adapter.ChangeViewAdapter;
-import biyaniparker.com.parker.view.adapter.ProductRandomAdapter;
 import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 
 public class ChangeView extends AppCompatActivity implements DownloadUtility, NotifyCallback, ChangeViewAdapter.ChangeViewCallBack, CompoundButton.OnCheckedChangeListener {
@@ -63,7 +62,6 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
     ArrayList<StockMasterBean> stockList=new ArrayList<>();
     ModuleProductDetails moduleProductDetails;
     ArrayList<SizeMaster> list;
-
     CheckBox checkAll;
     Button  btnAddToBag;
     LinearLayout linearLayout;
@@ -78,7 +76,7 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
         btnAddToBag = (Button)findViewById(R.id.btnAddtobags);
 //        checkAll.setOnCheckedChangeListener(this);
         recyclerView = findViewById(R.id.recycleview_change);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(ChangeView.this));
         Intent intent=getIntent();
         moduleCategory=new ModuleCategory(this);
         catId=intent.getIntExtra("CategoryId",0);
@@ -86,8 +84,8 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
         getSupportActionBar().setSubtitle(moduleCategory.getCategoryBeanById(catId).getCategoryName());
         getSupportActionBar().setHomeButtonEnabled(true);
         moduleUserProduct=new ModuleUserProduct(this) ;
-        adapter = new ChangeViewAdapter(this,moduleUserProduct.newProductList,ChangeView.this);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        adapter = new ChangeViewAdapter(ChangeView.this,moduleUserProduct.newProductList,ChangeView.this);
+        recyclerView.addItemDecoration(new DividerItemDecoration(ChangeView.this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
 
         if(new ConnectionDetector(this).isConnectingToInternet())
@@ -153,10 +151,8 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
             if(str.equals("Success"))
             {
                 Toast.makeText(getApplicationContext(),"Products Succesfully added to bag ",Toast.LENGTH_SHORT).show();
-                //finish();
-                //  callRefresh();
-//                Intent intent = new Intent(this, UserHomeScreen.class);
-//                startActivity(intent);
+                Intent intent = new Intent(this, UserHomeScreen.class);
+                startActivity(intent);
             }
             else if(str.equals("Failed"))
             {

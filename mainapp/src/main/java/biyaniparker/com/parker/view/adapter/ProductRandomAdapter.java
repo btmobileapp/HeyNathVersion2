@@ -53,9 +53,9 @@ public class ProductRandomAdapter extends ArrayAdapter implements OnClickListene
 
 
 		doption = new DisplayImageOptions.Builder()
-				.showImageForEmptyUri(R.drawable.bgchoice)
-				.showImageOnFail(R.drawable.bgchoice)
-				.showStubImage(R.drawable.bgchoice).cacheInMemory(true)
+				.showImageForEmptyUri(R.drawable.bgpaker)
+				.showImageOnFail(R.drawable.bgpaker)
+				.showStubImage(R.drawable.bgpaker).cacheInMemory(true)
 				.cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)) // 100
 						// for
 						// Rounded

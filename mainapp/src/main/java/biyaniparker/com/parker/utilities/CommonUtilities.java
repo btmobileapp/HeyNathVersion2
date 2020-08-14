@@ -71,7 +71,8 @@ public class CommonUtilities
     public static Context context;
 
 
-    public  static  boolean isDispatchEnable=true;
+    public  static  boolean isDispatchEnable=false;
+    public  static  boolean isMarkEnable=true;
     public static long getCurrentTime()
     {
         Calendar calendar=Calendar.getInstance();
@@ -144,6 +145,7 @@ public class CommonUtilities
 
     public static void alert(Context context,String str)
     {
+
         AlertDialog.Builder al=new AlertDialog.Builder(context);
         al.setMessage(str);
         al.setPositiveButton("Ok ",null);

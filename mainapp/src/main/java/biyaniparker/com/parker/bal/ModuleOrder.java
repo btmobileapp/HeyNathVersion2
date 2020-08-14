@@ -14,6 +14,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+
+import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.GsonOrder;
 import biyaniparker.com.parker.beans.GsonOrderDetails;
 import biyaniparker.com.parker.beans.GsonOrderMaster;
@@ -147,7 +149,14 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
     {
         ItemDAOOrder itemDAOOrder = new ItemDAOOrder(context);
         orderList.clear();
-        orderList.addAll(itemDAOOrder.getOrders());
+        if(context.getString(R.string.app_name).contains("Choice"))
+        {
+            orderList.addAll(itemDAOOrder.getAllOrders());
+        }
+        else
+            {
+            orderList.addAll(itemDAOOrder.getOrders());
+        }
         //  CommonUtilities.alert(context,orderList.size()+"");
     }
 
@@ -191,7 +200,8 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
     public void getCustomList(String custName, long fromDate, long toDate) {
         ItemDAOOrder itemDAOOrder = new ItemDAOOrder(context);
         customOrderList.clear();
-        customOrderList.addAll(itemDAOOrder.getCustomOrders(custName, fromDate, toDate));
+        customOrderList.addAll(
+                itemDAOOrder.getCustomOrders(custName, fromDate, toDate));
         Collections.reverse(customOrderList);
     }
 

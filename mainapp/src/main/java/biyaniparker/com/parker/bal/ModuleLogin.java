@@ -58,7 +58,19 @@ public class ModuleLogin implements DownloadUtility
             {
                 if (parseUserData(str))
                 {
+                    try {
+                        JSONObject j=new JSONObject(str);
+                        int userid=j.getInt("UserId");
+                        if(userid==-33)
+                        {
+                            downloadUtility.onComplete("LoginNotApproved", 1, responseCode);
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {}
                     downloadUtility.onComplete("LoginSuceess", 1, responseCode);
+
                 }
                 else
                 {

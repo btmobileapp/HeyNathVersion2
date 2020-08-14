@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v)
     {
+        CommonUtilities.hideatInItInputBoard(this);
         if (v.getId()==R.id.btnLogin) {
             CommonUtilities.hideSoftKeyBord(this);
             String userid = edUserId.getText().toString();
@@ -106,7 +107,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onComplete(String str, int requestCode,int responseCode)
     {
         if(responseCode==200) {
-            if (requestCode == 1) {
+            if (requestCode == 1)
+            {
                 if (str.equalsIgnoreCase("LoginSuceess"))
                 {
                     finish();
@@ -123,7 +125,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     {
 
                     }
-                } else if (str.equalsIgnoreCase("LoginFailed")) {
+                }
+                else if (str.equalsIgnoreCase("LoginNotApproved"))
+                {
+                  //  Toast.makeText(this, "Incorrect UserName or Password ", Toast.LENGTH_LONG).show();
+                    CommonUtilities.alert(this,"User not approved yet, Please contact to administrative.");
+                }
+                else if (str.equalsIgnoreCase("LoginFailed"))
+                {
                     Toast.makeText(this, "Incorrect UserName or Password ", Toast.LENGTH_LONG).show();
                 }
             }

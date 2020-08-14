@@ -385,4 +385,36 @@ public class ItemDAOOrder
         db.delete("OrderMaster", null, null);
         db.close();
     }
+
+    public Collection<? extends OrderMasterBean> getAllOrders() {
+        SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
+        Cursor c=db.rawQuery(" Select * from OrderMaster  order by OrderId desc ", null);
+        ArrayList<OrderMasterBean> list=new ArrayList<OrderMasterBean>();
+        if(c!=null)
+        {
+            int i=0;
+            c.moveToFirst();
+            while(i<c.getCount())
+            {
+                OrderMasterBean bean=new OrderMasterBean();
+                bean.setOrderId(c.getInt(c.getColumnIndex("OrderId")));
+                bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
+                bean.setAddress(c.getString(c.getColumnIndex("Address")));
+                bean.setChangeBy(c.getLong(c.getColumnIndex("ChangeBy")));
+                bean.setChangedDate(c.getLong(c.getColumnIndex("ChangedDate")));
+                bean.setName(c.getString(c.getColumnIndex("Name")));
+                bean.setOrderDate(c.getLong(c.getColumnIndex("OrderDate")));
+                bean.setOrderStatus(c.getString(c.getColumnIndex("OrderStatus")));
+                bean.setShopName(c.getString(c.getColumnIndex("ShopName")));
+                bean.setTotolAmount(c.getString(c.getColumnIndex("TotolAmount")));
+                bean.setUserId(c.getLong(c.getColumnIndex("UserId")));
+                bean.setTotalQnty(c.getInt(c.getColumnIndex("TotalQnty")));
+                list.add(bean);
+                c.moveToNext();
+                i++;
+            }
+        }
+        db.close();
+        return list;
+    }
 }

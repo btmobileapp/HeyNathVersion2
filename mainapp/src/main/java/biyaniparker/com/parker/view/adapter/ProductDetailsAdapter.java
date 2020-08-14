@@ -48,7 +48,7 @@ public class ProductDetailsAdapter extends PagerAdapter {
         ImageView imageView = view.findViewById(R.id.imgProductDetails);
 
         if (productDetailsBeanslist.get(position).getImageUrl().equalsIgnoreCase("")){
-            imageView.setImageResource(R.drawable.bgchoice);
+            imageView.setImageResource(R.drawable.bgpaker);
         }
         else
         {

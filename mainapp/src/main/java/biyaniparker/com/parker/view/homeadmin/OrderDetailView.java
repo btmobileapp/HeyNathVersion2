@@ -29,6 +29,7 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -42,9 +43,12 @@ import biyaniparker.com.parker.bal.ModuleOrder;
 import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.beans.OrderDetailBean;
 import biyaniparker.com.parker.beans.OrderMasterBean;
+import biyaniparker.com.parker.database.ItemDAOOrder;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DateAndOther;
 import biyaniparker.com.parker.utilities.DownloadUtility;
+import biyaniparker.com.parker.utilities.UserUtilities;
+import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.adapter.OrderDetailAdapter;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.OrderDispatchView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
@@ -138,6 +142,25 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
 
 
         registerReceiver(mMessageReceiver, new IntentFilter("CloseMe"));
+
+        if(bean.getOrderStatus().equalsIgnoreCase("dispatch") || bean.getOrderStatus().equalsIgnoreCase("delete"))
+        {
+            btnDispatch.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.GONE);
+        }
+
+        if(CommonUtilities.isMarkEnable)
+        {
+            if(bean.getOrderStatus().equalsIgnoreCase("dispatch") || bean.getOrderStatus().equalsIgnoreCase("delete"))
+            {
+
+            }
+            else
+            {
+                btnDispatch.setVisibility(View.VISIBLE);
+                btnDelete.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
 
@@ -267,6 +290,8 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
         {
             btnDispatch.setVisibility(View.GONE);
         }
+
+
     }
 
     @Override
@@ -281,10 +306,42 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
     {
         if(v.getId()==btnDispatch.getId())
         {
-            Toast.makeText(this," Plz wait ...",Toast.LENGTH_LONG).show();
-            Intent intent=new Intent(this, OrderDispatchView.class);
-            intent.putExtra("OrderId",bean.getOrderId());
-            startActivity(intent);
+            if(CommonUtilities.isMarkEnable)
+            {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle(getString(R.string.app_name));
+                alertDialog.setMessage(" Are you sure to dispatch this order ?  ");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try
+                        {
+                            String url=CommonUtilities.URL+  "OrderService.svc/updateorder?UserId="+ UserUtilities.getUserId(OrderDetailView.this) +"&orderid="+bean.orderId+"&status=dispatch";
+                            AsyncUtilities utilities=new AsyncUtilities(OrderDetailView.this,false,url,"",11,OrderDetailView.this);
+                            utilities.execute();
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.show();
+            }
+            else
+            {
+                Toast.makeText(this, " Plz wait ...", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, OrderDispatchView.class);
+                intent.putExtra("OrderId", bean.getOrderId());
+                startActivity(intent);
+            }
         }
         else if(v.getId()==btnDelete.getId())
         {
@@ -320,7 +377,8 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onComplete(String str, int requestCode, int responseCode)
     {
-            if(requestCode==2 && responseCode==200) {
+            if(requestCode==2 && responseCode==200)
+            {
                 if (str.equals("Success")) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                     alertDialog.setTitle(getString(R.string.app_name));
@@ -349,6 +407,23 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
                         }
                     });
                     alertDialog.show();
+                }
+            }
+            if(requestCode==11&& responseCode==200)
+            {
+                try {
+                    JSONObject j=new JSONObject(str);
+                    String status=  j.getString("OrderStatus");
+                    int orderId=j.getInt("OrderId");
+                    ItemDAOOrder itemDAOOrder=new ItemDAOOrder(this);
+                    bean.orderStatus=status;
+                    itemDAOOrder.updateOrderMaster(bean);
+                    finish();
+                    startActivity(new Intent(this,AdminHomeScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                }
+                catch (Exception ex)
+                {
+
                 }
             }
     }

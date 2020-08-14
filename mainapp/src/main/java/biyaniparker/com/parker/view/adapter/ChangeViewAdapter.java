@@ -230,7 +230,8 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                     public void onClick(View v) {
                         //is chkIos checked?
                          {
-                            for (int i = 0; i <viewList.size(); i++) {
+                            for (int i = 0; i <viewList.size(); i++)
+                            {
                                 v = viewList.get(i);
                                 holder.checkBox = v.findViewById(R.id.chk);
                                 holder.et = v.findViewById(R.id.tvQtyChange);

@@ -136,7 +136,7 @@ public class OrderFilterView extends AppCompatActivity implements AdapterView.On
 
 
     @SuppressLint("ValidFragment")
-    public  class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
     {
         int  res;
         DatePickerFragment(int res)

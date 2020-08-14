@@ -68,11 +68,11 @@ public class OrderAdapter extends ArrayAdapter
             {
                 viewHolder.tvStatus.setText("In Request");
             }
-            if(orderList.get(position).getOrderStatus().equalsIgnoreCase("dispatched"))
+            if(orderList.get(position).getOrderStatus().equalsIgnoreCase("dispatch"))
             {
-                viewHolder.tvStatus.setText("Dispactched");
+                viewHolder.tvStatus.setText("Dispatched");
             }
-            if(orderList.get(position).getOrderStatus().equalsIgnoreCase("deleted"))
+            if(orderList.get(position).getOrderStatus().equalsIgnoreCase("delete"))
             {
                 viewHolder.tvStatus.setText("Deleted");
             }

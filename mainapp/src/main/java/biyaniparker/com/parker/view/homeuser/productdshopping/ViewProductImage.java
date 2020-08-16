@@ -40,9 +40,9 @@ public class ViewProductImage extends AppCompatActivity
         touchImag=(TouchImageView)findViewById(R.id.touchImag);
         utilities=new BitmapUtilities();
         doption = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.bgchoice)
-                .showImageOnFail(R.drawable.bgchoice)
-                .showStubImage(R.drawable.bgchoice).cacheInMemory(true)
+                .showImageForEmptyUri(R.drawable.bgpaker1)
+                .showImageOnFail(R.drawable.bgpaker1)
+                .showStubImage(R.drawable.bgpaker1).cacheInMemory(true)
                 .cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)) // 100
                         // for
                         // Rounded

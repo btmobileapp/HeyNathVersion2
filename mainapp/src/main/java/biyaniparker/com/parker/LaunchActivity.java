@@ -30,14 +30,17 @@ import java.util.List;
 import biyaniparker.com.parker.fcm.FcmUtility;
 import biyaniparker.com.parker.services.ProductSyncService;
 import biyaniparker.com.parker.utilities.CommonUtilities;
+import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
+import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 import biyaniparker.com.parker.view.homeadmin.AdminHomeScreen;
 import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 import biyaniparker.com.parker.view.login.LoginActivity;
 import biyaniparker.com.parker.view.login.SyncActivity;
+import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends AppCompatActivity implements DownloadUtility {
 
     Handler h;
     ImageView imageView3;
@@ -48,9 +51,9 @@ public class LaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launch);
 
         doption = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.bgchoice)
-                .showImageOnFail(R.drawable.bgchoice)
-                .showStubImage(R.drawable.bgchoice).cacheInMemory(true)
+                .showImageForEmptyUri(R.drawable.rajashri)
+                .showImageOnFail(R.drawable.rajashri)
+                .showStubImage(R.drawable.rajashri).cacheInMemory(true)
                 .cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)) // 100
                         // for
                         // Rounded
@@ -58,6 +61,9 @@ public class LaunchActivity extends AppCompatActivity {
                 .cacheOnDisc(true)
                         //.imageScaleType(10)
                 .build();
+
+       // getUnitMasterList();
+
         imageView3=(ImageView)findViewById(R.id.imageView3);
         animateFirstListener=new AnimateFirstDisplayListener();
 
@@ -150,6 +156,12 @@ public class LaunchActivity extends AppCompatActivity {
         }
 
     }
+
+    private void getUnitMasterList() {
+        AsyncUtilities serverAsync=new AsyncUtilities(LaunchActivity.this,false, CommonUtilities.URL+"ProductService.svc/GetUnitMaster","",1,this);
+        serverAsync.execute();
+    }
+
     Runnable r=new Runnable()
     {
         @Override
@@ -234,6 +246,20 @@ public class LaunchActivity extends AppCompatActivity {
     DisplayImageOptions doption = null;
     private AnimateFirstDisplayListener animateFirstListener;
     private ImageLoader imageLoader;
+
+    @Override
+    public void onComplete(String str, int requestCode, int responseCode) {
+        if (requestCode==1){
+            if (responseCode == 200){
+                try {
+                    SharedPreference sharedPreference = new SharedPreference(this);
+                    sharedPreference.setStr("Response",str);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     //*************************************************
 
 

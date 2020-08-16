@@ -184,9 +184,9 @@ public class AdminHomeScreen extends AppCompatActivity
 
 
         doption = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.bgpaker)
-                .showImageOnFail(R.drawable.bgpaker)
-                .showStubImage(R.drawable.bgpaker).cacheInMemory(true)
+                .showImageForEmptyUri(R.drawable.bgpaker1)
+                .showImageOnFail(R.drawable.bgpaker1)
+                .showStubImage(R.drawable.bgpaker1).cacheInMemory(true)
                 .cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)) // 100
                         // for
                         // Rounded

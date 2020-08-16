@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login_rajashri);
         if(getString(R.string.app_name).equalsIgnoreCase("Choice Electric"))
         {
-            setContentView(R.layout.activity_login_choice);
+            setContentView(R.layout.activity_login_rajashri);
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtemail = findViewById(R.id.txtemail);
         txtAddress.setText(CommonUtilities.AdminAdress);
         txt.setText(CommonUtilities.AdminContact);
-        txtemail.setText(CommonUtilities.AdminEmail);
+        //txtemail.setText(CommonUtilities.AdminEmail);
 
 
         try

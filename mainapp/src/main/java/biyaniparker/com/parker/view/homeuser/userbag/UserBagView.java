@@ -82,9 +82,9 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
         idtimer.setVisibility(View.GONE);
 
         doption = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.bgchoice)
-                .showImageOnFail(R.drawable.bgchoice)
-                .showStubImage(R.drawable.bgchoice).cacheInMemory(true)
+                .showImageForEmptyUri(R.drawable.bgpaker1)
+                .showImageOnFail(R.drawable.bgpaker1)
+                .showStubImage(R.drawable.bgpaker1).cacheInMemory(true)
                 .cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5)) // 100
                         // for
                         // Rounded

@@ -14,7 +14,7 @@
         android:layout_height="100dp"
         android:paddingTop="20dp"
         android:layout_marginLeft="16dp"
-        android:src="@drawable/bgchoice"
+        android:src="@drawable/rajashri"
         android:id="@+id/imageView" />
 
     <LinearLayout

@@ -162,6 +162,7 @@ public class ModuleProductDetails implements DownloadUtility {
         if (requestCode == 4 &&responseCode == 200)
         {
             DownloadUtility downloadUtility = (DownloadUtility) context;
+
             if (parseBagAddedData(str))
             {
                 downloadUtility.onComplete("Success",requestCode,responseCode);

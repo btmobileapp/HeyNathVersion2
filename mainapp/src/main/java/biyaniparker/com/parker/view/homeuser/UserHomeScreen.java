@@ -144,7 +144,7 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
         getSupportActionBar().setSubtitle(CommonUtilities.Slogan);
         checkSDCardsWrite();
 
-       // getNoticeList();
+        getNoticeList();
     }
 
      public void getNoticeList() {
@@ -289,14 +289,14 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
       btn5=(Button)findViewById(R.id.btn5);
       btn6=(Button)findViewById(R.id.btn6);
-    //  btn7 = findViewById(R.id.btn7);
-    //  btn8 = findViewById(R.id.btn8);
-    //  btn9 = findViewById(R.id.btn9);
+      btn7 = findViewById(R.id.btn7);
+      btn8 = findViewById(R.id.btn8);
+      btn9 = findViewById(R.id.btn9);
 
 
       gridView=(GridView)findViewById(R.id.gridView);
-     // viewPager= findViewById(R.id.ViewPagerUser);
-    //  sliderDotspanel = findViewById(R.id.SliderDots);
+      viewPager= findViewById(R.id.ViewPagerUser);
+      sliderDotspanel = findViewById(R.id.SliderDots);
 
       //cardView = findViewById(R.id.cv_notice);
 
@@ -309,9 +309,9 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
               btnaccessories.setText(items.get(3).getTitle());
               btn5.setText(items.get(4).getTitle());
               btn6.setText(items.get(5).getTitle());
-            //  btn7.setText(items.get(6).getTitle());
-            //  btn8.setText(items.get(7).getTitle());
-            //  btn9.setText(items.get(8).getTitle());
+              btn7.setText(items.get(6).getTitle());
+              btn8.setText(items.get(7).getTitle());
+              btn9.setText(items.get(8).getTitle());
         }
         catch (Exception e)
         {

@@ -20,6 +20,16 @@ public class ProductBean
     public String UnitName;
     public  String Remark;
 
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String quantity;
+
     public ProductBean()
     {
 

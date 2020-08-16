@@ -4,20 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/selt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Select All"
-                    android:id="@+id/chkAll"
-                    android:layout_weight="2"/>
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:id="@+id/selt"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
+<!--                <CheckBox-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Select All"-->
+<!--                    android:id="@+id/chkAll"-->
+<!--                    android:layout_weight="2"/>-->
+<!--            </LinearLayout>-->
     <LinearLayout
-        android:layout_below="@+id/selt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -134,8 +133,9 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_weight="1"
-            android:textColor="@android:color/black"
-            android:text="0" />
+            android:hint="0"
+            android:inputType="number"
+            android:textColor="@android:color/black"/>
         <TextView
             android:id="@+id/tvUnitChange"
             android:layout_width="match_parent"

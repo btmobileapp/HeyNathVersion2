@@ -48,11 +48,11 @@ public class ProductDetailsAdapter extends PagerAdapter {
         ImageView imageView = view.findViewById(R.id.imgProductDetails);
 
         if (productDetailsBeanslist.get(position).getImageUrl().equalsIgnoreCase("")){
-            imageView.setImageResource(R.drawable.bgpaker);
+            imageView.setImageResource(R.drawable.bgpaker1);
         }
         else
         {
-            Picasso.get().load(productDetailsBeanslist.get(position).getImageUrl()).placeholder(R.drawable.bgparker).into(imageView);
+            Picasso.get().load(productDetailsBeanslist.get(position).getImageUrl()).placeholder(R.drawable.bgpaker1).into(imageView);
         }
         imageView.setOnClickListener(new View.OnClickListener()
         {

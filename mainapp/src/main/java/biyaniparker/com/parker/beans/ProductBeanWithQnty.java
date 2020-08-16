@@ -5,6 +5,17 @@ package biyaniparker.com.parker.beans;
  */
 public class ProductBeanWithQnty extends ProductBean
 {
+    public boolean checkValue;
+    public int qnt;
+
+    public boolean getCheckValue() {
+        return checkValue;
+    }
+
+    public void setCheckValue(boolean checkValue) {
+        this.checkValue = checkValue;
+    }
+
     public int getQnt() {
         return qnt;
     }
@@ -12,6 +23,4 @@ public class ProductBeanWithQnty extends ProductBean
     public void setQnt(int qnt) {
         this.qnt = qnt;
     }
-
-    public int qnt;
 }

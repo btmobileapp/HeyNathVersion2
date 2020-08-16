@@ -457,30 +457,30 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
             });
             alertDialog.show();
 
-//            alertDialog.setTitle(getString(R.string.app_name));
-//            alertDialog.setMessage("Do you Want To add notice?");
-//            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(str);
-//                        int ProductId = jsonObject.getInt("ProductId");
-//                        Intent intent = new Intent(ProductCreateViewNew.this, CreateNoticeView.class);
-//                        intent.putExtra("ProductId",ProductId);
-//                        startActivity(intent);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//            alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    //alertDialog.setCancelable(true);
-//                    dialog.cancel();
-//                }
-//            });
-//            alertDialog.show();
+            alertDialog.setTitle(getString(R.string.app_name));
+            alertDialog.setMessage("Do you Want To add notice?");
+            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(str);
+                        int ProductId = jsonObject.getInt("ProductId");
+                        Intent intent = new Intent(ProductCreateViewNew.this, CreateNoticeView.class);
+                        intent.putExtra("ProductId",ProductId);
+                        startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //alertDialog.setCancelable(true);
+                    dialog.cancel();
+                }
+            });
+            alertDialog.show();
 
         }
         else  if(requestCode==10)

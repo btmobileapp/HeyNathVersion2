@@ -54,7 +54,7 @@ public class NoticeViewAdapter extends PagerAdapter {
         }
         else
         {
-            Picasso.get().load(list.get(position).getAttachment()).placeholder(R.drawable.bgparker).into(imageView);
+            Picasso.get().load(list.get(position).getAttachment()).placeholder(R.drawable.bgpaker1).into(imageView);
         }
         title.setText(list.get(position).getTitle());
         des.setText(list.get(position).getDescription());

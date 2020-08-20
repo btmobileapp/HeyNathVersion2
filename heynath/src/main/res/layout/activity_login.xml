@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="50dp"
+    android:background="@drawable/main"
+    tools:context=".LoginActivity">
+
+  <TextView
+      android:text="गीता बाल संस्कार शिवीर\n(जोधपुर)"
+      android:gravity="center"
+      android:textColor="@android:color/white"
+      android:textSize="20dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"></TextView>
+    <EditText
+        android:id="@+id/editText"
+        android:layout_below="@id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:ems="10"
+        android:padding="5dp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:background="@drawable/bground"
+        android:hint="यूज़र आईडी" />
+    <EditText
+        android:layout_below="@id/editText"
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:ems="10"
+        android:padding="5dp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:background="@drawable/bground"
+        android:hint="पासवर्ड" />
+
+    <Button
+        android:id="@+id/btnlogin"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/btnround"
+        android:text="लॉग इन करें"
+        android:textColor="#fff">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnRegistration"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText1"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="11dp"
+        android:background="@drawable/btnround"
+        android:text="रजिस्ट्रीकरण"
+        android:textColor="#fff">
+
+    </Button>
+
+        <ImageView
+        android:id="@+id/imageView"
+        android:layout_marginTop="55dp"
+        android:layout_width="150dp"
+        android:layout_height="240dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/s"
+        />
+</RelativeLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/main"
+    android:padding="30dp"
+    tools:context=".Scheduler">
+<LinearLayout
+    android:layout_margin="10dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="150dp"
+        android:drawableLeft="@drawable/starttop"
+        android:text="अनुसूची" />
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="समय से"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btnFromDate"
+            android:textColor="@android:color/white"
+            android:text="समय चुनें"
+            android:background="@drawable/btnround"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"></Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="समय पर"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btnTODate"
+            android:textColor="@android:color/white"
+            android:text="समय चुनें"
+            android:background="@drawable/btnround"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"></Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="मिनट में समय अंतराल"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+       <EditText
+           android:layout_weight="1"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+       </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/mute"
+            android:layout_marginRight="150dp"
+            android:text="म्यूट / अनम्यूट करें" />
+
+    </LinearLayout>
+
+    <Button
+        android:text="सहेजें"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btnround"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Button>
+</LinearLayout>

@@ -39,7 +39,7 @@ public class AdhayList extends AppCompatActivity {
         menus.add("अधयाय 17");
         menus.add("अधयाय 18");
 
-        ArrayAdapter adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,menus);
+        SubmenuAdapter adapter=new SubmenuAdapter(this,menus);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

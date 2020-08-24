@@ -6,45 +6,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/main"
-    android:padding="23dp"
+    android:padding="30dp"
     tools:context=".Scheduler">
 <LinearLayout
     android:layout_margin="10dp"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
+
+    <Switch
+        android:id="@+id/switch1"
         android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:visibility="gone"
-            android:src="@drawable/starttop"
-            android:layout_width="35dp"
-
-            android:layout_height="35dp"
-            ></ImageView>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:text="नित्य सुचि शूरु"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
-    </LinearLayout>
-   <LinearLayout
-       android:layout_weight="1"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-       <Switch
-           android:id="@+id/switch1"
-
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="" />
-   </LinearLayout>
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="150dp"
+        android:drawableLeft="@drawable/starttop"
+        android:text="अनुसूची" />
 
 </LinearLayout>
     <LinearLayout
@@ -55,9 +32,7 @@
 
         <TextView
             android:text="समय से"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            android:textColor="@android:color/black"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -67,7 +42,7 @@
         <Button
             android:layout_weight="1"
             android:id="@+id/btnFromDate"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:text="समय चुनें"
             android:background="@drawable/btnround"
             android:layout_width="match_parent"
@@ -81,10 +56,8 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="समय तक"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            android:text="समय पर"
+            android:textColor="@android:color/black"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -94,7 +67,7 @@
         <Button
             android:layout_weight="1"
             android:id="@+id/btnTODate"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:text="समय चुनें"
             android:background="@drawable/btnround"
             android:layout_width="match_parent"
@@ -108,10 +81,8 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="समय अंतराल(मिनट में)"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="17dp"
+            android:text="मिनट में समय अंतराल"
+            android:textColor="@android:color/black"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -124,7 +95,7 @@
            android:layout_height="wrap_content">
        </EditText>
     </LinearLayout>
-<!--
+
     <LinearLayout
         android:layout_margin="10dp"
         android:orientation="horizontal"
@@ -140,49 +111,12 @@
             android:layout_marginRight="150dp"
             android:text="म्यूट / अनम्यूट करें" />
 
-
-    </LinearLayout>   -->
-    <LinearLayout
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:visibility="gone"
-            android:src="@drawable/mute"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            ></ImageView>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:text="म्यूट/अनम्यूट करें"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Switch
-            android:id="@+id/switch3"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
     </LinearLayout>
 
-    </LinearLayout>
     <Button
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:text="सहेजें"
+        android:textColor="@android:color/white"
         android:background="@drawable/btnround"
-        android:text="सेव करे"
-        android:textColor="@android:color/black"></Button>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Button>
 </LinearLayout>

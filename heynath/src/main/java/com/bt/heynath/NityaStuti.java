@@ -14,7 +14,7 @@ public class NityaStuti extends AppCompatActivity {
         setContentView(R.layout.activity_nitya_stuti);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Nitya Stuti");
+        getSupportActionBar().setTitle("नित्य सूचि");
 
     }
 

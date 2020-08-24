@@ -51,7 +51,8 @@
 
     <Button
         android:id="@+id/btnlogin"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
+
         android:layout_height="wrap_content"
         android:layout_below="@id/editText1"
         android:layout_alignParentLeft="true"
@@ -60,13 +61,13 @@
         android:layout_marginRight="60dp"
         android:background="@drawable/btnround"
         android:text="लॉग इन करें"
-        android:textColor="#fff">
+        android:textColor="@android:color/black">
 
     </Button>
 
     <Button
         android:id="@+id/btnRegistration"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/editText1"
         android:layout_alignParentRight="true"
@@ -75,7 +76,7 @@
         android:layout_marginRight="11dp"
         android:background="@drawable/btnround"
         android:text="रजिस्ट्रीकरण"
-        android:textColor="#fff">
+        android:textColor="@android:color/black">
 
     </Button>
 

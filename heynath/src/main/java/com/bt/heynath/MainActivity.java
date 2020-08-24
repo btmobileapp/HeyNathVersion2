@@ -27,14 +27,15 @@ public class MainActivity extends AppCompatActivity {
         gv = (GridView) findViewById(R.id.gridview);
         menus.add("नित्य स्तुति");
         menus.add("समयबद्धक");
-        menus.add("परिचय");
+        menus.add("गीता अधयाय");
 
+        /*
         menus.add("अधयाय १");
         menus.add("अधयाय २");
         menus.add("अधयाय ३");
         menus.add("अधयाय ४");
         menus.add("अधयाय ५");
-        menus.add("अधयाय ६");
+        menus.add("अधयाय ६");*/
 
 
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     startActivity(new Intent(MainActivity.this,Scheduler.class));
                 }
-                else if(i==3)
+                else if(i==2)
                 {
                     startActivity(new Intent(MainActivity.this,  AdhayList.class));
                 }

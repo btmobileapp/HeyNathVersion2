@@ -9,19 +9,17 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_marginTop="80dp"
-        android:paddingLeft="15dp"
-        android:drawableLeft="@drawable/start"
-        android:paddingRight="15dp"
-        android:drawableRight="@drawable/start"
+        android:layout_marginTop="50dp"
+
+
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/btnround"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Start" />
+        android:text="शुरू करें" />
 
     <Button
         android:id="@+id/button1"
@@ -30,15 +28,12 @@
         android:layout_below="@id/imageView2"
         android:layout_marginLeft="50dp"
 
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/btnround"
-        android:drawableLeft="@drawable/stop"
-        android:drawableRight="@drawable/stop"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="Stop"
-        android:textColor="@android:color/white"
+
+        android:text="बंद करे"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
     <ImageView
@@ -46,6 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="30dp"
         app:srcCompat="@drawable/shrre4" />
 </RelativeLayout>

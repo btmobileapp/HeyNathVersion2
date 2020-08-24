@@ -15,7 +15,7 @@ public class Scheduler extends AppCompatActivity {
         setContentView(R.layout.activity_scheduler);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Hey Nath Scheduler");
+        getSupportActionBar().setTitle("हे नाथ समयबद्धक");
     }
 
     @Override

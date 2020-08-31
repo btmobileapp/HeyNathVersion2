@@ -4,12 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main"
     tools:context=".PlayAdhay">
-    <VideoView
+
+ <!--   <VideoView
         android:id="@+id/vd"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </VideoView>
+    </VideoView>-->
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/exoplayer_learning_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

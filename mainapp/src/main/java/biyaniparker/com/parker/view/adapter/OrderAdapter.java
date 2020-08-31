@@ -71,6 +71,10 @@ public class OrderAdapter extends ArrayAdapter
             if(orderList.get(position).getOrderStatus().equalsIgnoreCase("dispatch"))
             {
                 viewHolder.tvStatus.setText("Dispatched");
+                if(context.getString(R.string.app_name).contains("Rajashree"))
+                {
+                    viewHolder.tvStatus.setText("Confirm");
+                }
             }
             if(orderList.get(position).getOrderStatus().equalsIgnoreCase("delete"))
             {

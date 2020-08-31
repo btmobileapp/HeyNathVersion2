@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+    android:background="@drawable/rjmain"
+>
+
+    <LinearLayout
+        android:id="@+id/limage"
+
+        android:layout_width="match_parent"
+        android:layout_marginTop="85dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/footer"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/limage"
+        android:paddingRight="20dp"
+        android:paddingTop="0dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/edUserId"
+                android:hint="User Id"
+                android:textColorHint="@android:color/white"
+                android:textColor="@android:color/white"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:id="@+id/edPassword"
+                android:textColorHint="@android:color/white"
+                android:hint="Password"
+                android:textColor="@android:color/white"
+                android:layout_centerHorizontal="true" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnLogin"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="9dp"
+                android:text="LOGIN"
+                android:background="@drawable/buttonround"
+                />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/buttonround"
+                android:text="Register"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Contact  Us :  9898989595"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Warnanager , Kolhapur ,Maharatra "
+            android:gravity="center"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/footer1">
+
+    </ImageView>
+</RelativeLayout>

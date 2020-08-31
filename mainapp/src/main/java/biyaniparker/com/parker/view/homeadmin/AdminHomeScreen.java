@@ -201,13 +201,15 @@ public class AdminHomeScreen extends AppCompatActivity
         registerReceiver(mMessageReceiver,new IntentFilter("LoadPhoto"));
        // registerReceiver(mMessageRefreshReceiver,new IntentFilter("RefreshMe"));
 
+        registerReceiver(mMessageRefreshReceiver,new IntentFilter("RefreshList"));
        // load();
          getUnitMasterList();
 
     }
 
+
     private void getUnitMasterList() {
-        AsyncUtilities serverAsync=new AsyncUtilities(AdminHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetUnitMaster","",1,this);
+        AsyncUtilities serverAsync=new AsyncUtilities(AdminHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetUnitMaster","",278,this);
         serverAsync.execute();
     }
 
@@ -419,9 +421,11 @@ public class AdminHomeScreen extends AppCompatActivity
         {
 
         }
-        if (requestCode==1){
-            if (responseCode == 200){
-                try {
+        if (requestCode==278){
+            if (responseCode == 200)
+            {
+                try
+                {
                     SharedPreference sharedPreference = new SharedPreference(this);
                     sharedPreference.setStr("Response",str);
                 } catch (Exception e) {

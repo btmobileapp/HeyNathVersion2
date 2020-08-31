@@ -66,7 +66,6 @@ public class DynamicCategories extends AppCompatActivity implements AdapterView.
         }
         else if(arrayList.isEmpty())
         {
-
             Pressed=true;
             /*setContentView(R.layout.activity_product_grid_list_for_refill);
             gridView=(GridView)findViewById(R.id.gridView);
@@ -82,7 +81,6 @@ public class DynamicCategories extends AppCompatActivity implements AdapterView.
             Intent i=new Intent(this,SearchUserProductsList.class);
             i.putExtra("CategoryId",catId);
             startActivity(i);
-
 
         }
 

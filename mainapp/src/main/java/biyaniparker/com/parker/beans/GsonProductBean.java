@@ -25,6 +25,7 @@ public class GsonProductBean
     public ProductBean toProductBean()
     {
         ProductBean bean=new ProductBean();
+
         bean.productId=ProductId;
         bean.categoryId=CategoryId;
         bean.clientId=ClientId;

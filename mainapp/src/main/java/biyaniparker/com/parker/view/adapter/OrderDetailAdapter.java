@@ -106,6 +106,7 @@ public class OrderDetailAdapter extends ArrayAdapter {
             holder.tPrice= (TextView) convertView.findViewById(R.id.txtTPrice);
             holder.tStrip= (TextView) convertView.findViewById(R.id.txtStripCode);
             holder.l = (LinearLayout) convertView.findViewById(R.id.linear);
+            holder.tStrip.setVisibility(View.GONE);
             convertView.setTag(holder);
         }
         else

@@ -151,36 +151,40 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
 
     btnAddToBag.setOnClickListener(new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
+        public void onClick(View view)
+        {
             for (int i = 0; i < moduleUserProduct.newProductList.size(); i++) {
                 if (moduleUserProduct.newProductList.get(i).getQuantity() == null) {
 
                 }
                 else {
                     getData(moduleUserProduct.newProductList.get(i), moduleUserProduct.newProductList.get(i).getQuantity());
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangeView.this);
-                    alertDialog.setTitle(getString(R.string.app_name));
-                    alertDialog.setMessage("Do you want to add these products in bags");
-                    alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            try {
-                                moduleProductDetails.addToBag1(stockList);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                 //   alertDialog.setNegativeButton("No", null);
-                    alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    alertDialog.show();
+
                 }
             }
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangeView.this);
+            alertDialog.setTitle(getString(R.string.app_name));
+            alertDialog.setMessage("Do you want to add these products in bags");
+            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        moduleProductDetails.addToBag1(stockList);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            //   alertDialog.setNegativeButton("No", null);
+            alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            alertDialog.show();
+
         }
     });
 }
@@ -203,6 +207,7 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
             {
                 Toast.makeText(getApplicationContext(),"Products Succesfully added to bag ",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, UserHomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
             else if(str.equals("Failed"))

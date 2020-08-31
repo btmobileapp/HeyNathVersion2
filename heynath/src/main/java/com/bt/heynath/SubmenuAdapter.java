@@ -91,7 +91,56 @@ public class SubmenuAdapter extends ArrayAdapter
                 {
                     Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
                 }
-
+				else if((position)==9)
+				{
+					Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
+				}
+		if(  position==10)//list.get(position).equalsIgnoreCase("त्नित्य स्तुति"))
+		{
+			// img.setImageResource(R.drawable.nitya);
+			Picasso.get().load(R.drawable.shree1).transform(new CircleTransform()).into(img);
+		}
+		else if((position)==11)
+		{
+			//img.setImageResource(R.drawable.hand);
+			Picasso.get().load(R.drawable.hand).transform(new CircleTransform()).into(img);
+		}
+		else if((position)==12)
+		{
+			//img.setImageResource(R.drawable.hand1);
+			Picasso.get().load(R.drawable.addhaayy).transform(new CircleTransform()).into(img);
+		}
+		else if((position)==13)
+		{
+			Picasso.get().load(R.drawable.shree2).transform(new CircleTransform()).into(img);
+			//img.setImageResource(R.drawable.shrre4);
+		}
+		else if((position)==14)
+		{
+			//img.setImageResource(R.drawable.shree5);
+			Picasso.get().load(R.drawable.shrre4).transform(new CircleTransform()).into(img);
+		}
+		else if((position)==15)
+		{
+			//img.setImageResource(R.drawable.shree7);
+			Picasso.get().load(R.drawable.shree5).transform(new CircleTransform()).into(img);
+		}
+		else if((position)==16)
+		{
+			Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
+		}
+		else if((position)==17)
+		{
+			Picasso.get().load(R.drawable.shree7).transform(new CircleTransform()).into(img);
+		}
+		else if((position)==8)
+		{
+			Picasso.get().load(R.drawable.shree2).transform(new CircleTransform()).into(img);
+		}
+		else if((position)==8)
+		{
+			Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
+		}
 	            return convertView;  
 	}
 

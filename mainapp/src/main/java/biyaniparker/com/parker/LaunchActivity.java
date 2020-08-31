@@ -44,12 +44,22 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
 
     Handler h;
     ImageView imageView3;
+    ImageView imageView2;
+    public static  String appName;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-
+        if(getString(R.string.app_name).contains("Choice"))
+        {
+        setContentView(R.layout.activity_launch_choice);
+        }
+        if(getString(R.string.app_name).contains("Rajashsree"))
+        {
+            setContentView(R.layout.activity_launch_choice);
+        }
+        imageView2=findViewById(R.id.imageView2);
         doption = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.rajashri)
                 .showImageOnFail(R.drawable.rajashri)
@@ -154,6 +164,11 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
         catch (Exception ex){
             CommonUtilities.alert(this,ex.toString());
         }
+
+        appName=getString(R.string.app_name);
+
+
+        getSupportActionBar().hide();
 
     }
 

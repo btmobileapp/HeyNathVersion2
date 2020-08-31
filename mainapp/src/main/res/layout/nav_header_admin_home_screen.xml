@@ -13,7 +13,7 @@
         android:layout_height="100dp"
         android:paddingTop="20dp"
         android:layout_marginLeft="16dp"
-        android:src="@drawable/rajashri"
+        android:src="@drawable/logo"
         android:id="@+id/imageView" />
 
     <LinearLayout

@@ -259,7 +259,7 @@ public class ItemDAOProduct
 
         ArrayList<ProductBean> list=new ArrayList<ProductBean>();
         SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
-        Cursor c= db.rawQuery("SELECT * FROM Product where clientId=" + UserUtilities.getClientId(context)+" and DeleteStatus='false' and CategoryId="+catid, null);
+        Cursor c= db.rawQuery("SELECT * FROM Product where clientId=" + UserUtilities.getClientId(context)+" and DeleteStatus='false' and CategoryId="+catid+" order by SequenceNo", null);
 
         if(c!=null)
         {

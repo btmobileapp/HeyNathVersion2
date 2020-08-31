@@ -42,8 +42,10 @@ public class CommonUtilities
    // "http://btwebservices.biyanitechnologies.com/parkerservices/";
        //     "http://testing.biyanitechnologies.com/parkerservices/";
     // public final static String URL= "http://btwebservices.biyanitechnologies.com/sunanda/";
-  //  "http://192.168.73.133/parker/";
-   "http://btwebservices.biyanitechnologies.com/dealerapp/";
+    //  "http://192.168.73.133/parker/";
+     "http://btwebservices.biyanitechnologies.com/dealerapp/";
+  //  "http://btwebservices.biyanitechnologies.com/dealerchoice/";
+
     public static int Height=800;
     public static int Width=600;
 
@@ -63,10 +65,14 @@ public class CommonUtilities
 */
     public final static String RESPONCE_OK="Success";
     public static String GodName="|| Shree ||";
-    public static String AdminShop="Rajashri Inustries";
-    public static String AdminAdress="BLOCK NO.433/3C,GAT NO 24/3A, OPP.HOTEL SAPTAGIRI,JAYSINGPUR-416101";
+    public static String AdminShop="Rajashree Industries";
+   // public static String AdminAdress="Jaysingpur Dist Kolhapur, Maharashtra 416101";
+     public static String AdminAdress="3rd Lane,Jaysingpur-416101\n Dist Kolhapur, Maharashtra ";
+            //"BLOCK NO.433/3C,GAT NO 24/3A, OPP.HOTEL SAPTAGIRI,JAYSINGPUR-416101";
     public static String Slogan="";
-    public static String AdminContact="Ph No. (02328)444444 ";
+    public static String AdminContact=   "Ph No. 02322 225 073";
+            //Rajshree "Ph No. 02322 225 073";
+            //"Ph No. (02328)444444 ";
    // public static String AdminEmail="Email: choiceelectric14@gmail.com";
     public static Context context;
 

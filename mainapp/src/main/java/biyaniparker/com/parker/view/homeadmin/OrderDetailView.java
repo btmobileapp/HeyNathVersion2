@@ -52,6 +52,8 @@ import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.adapter.OrderDetailAdapter;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.OrderDispatchView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
+import biyaniparker.com.parker.view.homeuser.userbag.OrderSummaryView;
+import biyaniparker.com.parker.view.homeuser.userorders.UserOrderDetailView;
 
 public class OrderDetailView extends AppCompatActivity implements View.OnClickListener, DownloadUtility {
 
@@ -160,6 +162,12 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
                 btnDispatch.setVisibility(View.VISIBLE);
                 btnDelete.setVisibility(View.VISIBLE);
             }
+        }
+
+
+        if(getString(R.string.app_name).equalsIgnoreCase("Rajashree Industries"))
+        {
+            btnDispatch.setText("Confirm");
         }
 
     }
@@ -411,15 +419,43 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
             }
             if(requestCode==11&& responseCode==200)
             {
-                try {
+                try
+                {
+                    Intent inte=new Intent();
+                    inte.setAction("RefreshList");
+                    sendBroadcast(inte);
+
                     JSONObject j=new JSONObject(str);
                     String status=  j.getString("OrderStatus");
                     int orderId=j.getInt("OrderId");
                     ItemDAOOrder itemDAOOrder=new ItemDAOOrder(this);
                     bean.orderStatus=status;
                     itemDAOOrder.updateOrderMaster(bean);
-                    finish();
-                    startActivity(new Intent(this,AdminHomeScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                    AlertDialog.Builder alert=new AlertDialog.Builder(this);
+                    alert.setTitle("View PDF");
+                    alert.setMessage("Do you want to view pdf report ?");
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            finish();
+                            Intent intent=new Intent(OrderDetailView.this, UserOrderDetailView.class);
+                            intent.putExtra("OrderId", bean.orderId);
+                            // intent.putExtra("UnitName",details.unitName );
+                            startActivity(intent);
+                        }
+                    });
+                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(new Intent(OrderDetailView.this,AdminHomeScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                        }
+                    });
+                    alert.setCancelable(false);
+                    alert.show();
                 }
                 catch (Exception ex)
                 {

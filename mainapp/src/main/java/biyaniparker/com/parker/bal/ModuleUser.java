@@ -2,6 +2,8 @@ package biyaniparker.com.parker.bal;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -158,6 +160,16 @@ public class ModuleUser implements  DownloadUtility{
             {
                 try
                 {
+                    try
+                    {
+                        JSONObject j=new JSONObject( str);
+                        if(j.getInt("UserId")==0)
+                        {
+                            Toast.makeText(context, "Username already exist", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    catch (Exception ex)
+                    {}
                     if (parseInsertedUser(str))
                     {
                         if(flag==1)   // user not created due to query execution failed
@@ -231,6 +243,16 @@ public class ModuleUser implements  DownloadUtility{
                 try
                 {
                    // JSONArray jsonArray=new JSONArray(str);
+                   /* try
+                    {
+                        JSONObject j=new JSONObject( str);
+                        if(j.getInt("UserId")==0)
+                        {
+                            Toast.makeText(context, "Username already exist", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    catch (Exception ex)
+                    {}*/
                     if (parseUserData(str))
                     {
                         downloadUtility.onComplete("Record Saved", 4, responseCode);

@@ -1,12 +1,15 @@
 package com.bt.heynath;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -14,12 +17,12 @@ import java.util.ArrayList;
 public class AdhayList extends AppCompatActivity {
 
     ArrayList<String> menus=new ArrayList<>();
-    ListView listView;
+    GridView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adhay_list);
-        listView=findViewById(R.id.listview);
+        listView=findViewById(R.id.gridview);
         menus.add("अधयाय १");
         menus.add("अधयाय २");
         menus.add("अधयाय ३");
@@ -48,6 +51,21 @@ public class AdhayList extends AppCompatActivity {
             }
         });
 
+        //Intent intent=new Intent();
+       // intent.setAction("com.bt.heynath.Check");
+       // sendBroadcast(intent);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("नित्य सूचि");
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==android.R.id.home)
+        {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

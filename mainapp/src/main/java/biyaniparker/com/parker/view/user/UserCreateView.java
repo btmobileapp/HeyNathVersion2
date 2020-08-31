@@ -92,9 +92,11 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
 
         CommonUtilities.hideSoftKeyBord(this);
-        if (!new ConnectionDetector(this).isConnectingToInternet()) {
+        if (!new ConnectionDetector(this).isConnectingToInternet())
+        {
             Toast.makeText(this, "Check Internet Connection", Toast.LENGTH_LONG).show();
-        }else if (v.getId() == R.id.btnlogin){
+        }else if (v.getId() == R.id.btnlogin)
+        {
             finish();
             Intent intent= new Intent(UserCreateView.this, LoginActivity.class);
             startActivity(intent);
@@ -179,10 +181,14 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
-                    startActivity(new Intent(UserCreateView.this,UserListView.class));
+
                     if(IsRegistration)
                     {
                         startActivity(new Intent(UserCreateView.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    }
+                    else
+                    {
+                        startActivity(new Intent(UserCreateView.this,UserListView.class));
                     }
                 }
             });

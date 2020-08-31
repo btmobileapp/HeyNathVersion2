@@ -21,104 +21,45 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/chk"
-            android:layout_alignParentTop="true"
-            />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtName"
-            android:textColor="@android:color/black"
-            android:text="Name"/>
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearchange">
-    <HorizontalScrollView
-        android:layout_below="@+id/ll"
-        android:id="@+id/hs"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    <TableRow
-        android:padding="5dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/black"
-            android:text="Design" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/black"
-            android:text="ProductName" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_marginLeft="5dp"
-            android:textColor="@android:color/black"
-            android:text="Price" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:text="Quantity" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:text="UnitName" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:text="Remark" />
-    </TableRow>
-    <TableRow
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="#DAE8FC"
         android:padding="5dp">
-        <ImageView
-            android:id="@+id/ivchange"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <LinearLayout
             android:layout_weight="1"
-            android:text="1" />
-        <TextView
-            android:id="@+id/tvProductchange"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
-            android:textColor="@android:color/black"
-            android:text="Suresh Dasari" />
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/chk"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:text="" />
+            <ImageView
+                android:id="@+id/ivchange"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                />
+
+        </LinearLayout>
         <TextView
             android:id="@+id/tvPriceChange"
             android:layout_width="match_parent"
@@ -152,10 +93,26 @@
             android:layout_weight="1"
             android:textColor="@android:color/black"
             android:text="Hyderabad" />
-    </TableRow>
-    </TableLayout>
-    </HorizontalScrollView>
     </LinearLayout>
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtName"
+                android:textColor="@android:color/black"
+                android:text="Name"/>
+
+        </LinearLayout>
     </LinearLayout>
 <!--    <Button-->
 <!--        android:layout_below="@+id/hs"-->

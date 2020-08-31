@@ -65,7 +65,11 @@ public class UserOrderAdapter extends ArrayAdapter
         viewHolder.txtTQnty.setText("Total Qnty :"+orderList.get(position).getTotalQnty());
         viewHolder.txtOStatus.setText("Status : "+orderList.get(position).getOrderStatus().replace("inrequest","In-Request").replace("dispatch","Dispatch"));
 
-
+        if("dispatch".equalsIgnoreCase(orderList.get(position).getOrderStatus())) {
+            if (context.getString(R.string.app_name).contains("Rajashree")) {
+                viewHolder.txtOStatus.setText("Confirm");
+            }
+        }
         return convertView;
     }
 }

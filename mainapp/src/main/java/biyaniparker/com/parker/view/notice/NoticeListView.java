@@ -25,8 +25,8 @@ import biyaniparker.com.parker.view.adapter.NoticeListViewAdapter;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 public class NoticeListView extends AppCompatActivity implements DownloadUtility, NoticeListViewAdapter.NoticeAdapterCallBack {
-    RecyclerView recyclerView;
 
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

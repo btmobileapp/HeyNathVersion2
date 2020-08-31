@@ -149,7 +149,7 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
     {
         ItemDAOOrder itemDAOOrder = new ItemDAOOrder(context);
         orderList.clear();
-        if(context.getString(R.string.app_name).contains("Choice"))
+        if(context.getString(R.string.app_name).contains("Choice")  || true)
         {
             orderList.addAll(itemDAOOrder.getAllOrders());
         }
@@ -160,6 +160,21 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
         //  CommonUtilities.alert(context,orderList.size()+"");
     }
 
+    public void getCustomList(String custName, long fromDate, long toDate) {
+        ItemDAOOrder itemDAOOrder = new ItemDAOOrder(context);
+        customOrderList.clear();
+        if(context.getString(R.string.app_name).contains("Choice")|| true)
+        {
+            customOrderList.addAll(itemDAOOrder.getAllCustomOrders(custName, fromDate, toDate));
+        }
+        else
+        {
+            customOrderList.addAll(itemDAOOrder.getOrders());
+        }
+        //customOrderList.addAll(
+         //       itemDAOOrder.getCustomOrders(custName, fromDate, toDate));
+       // Collections.reverse(customOrderList);
+    }
 
     //------------------------------------------------------ local db manupations --------------------------------------------------
 
@@ -197,13 +212,7 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
     }
 
 
-    public void getCustomList(String custName, long fromDate, long toDate) {
-        ItemDAOOrder itemDAOOrder = new ItemDAOOrder(context);
-        customOrderList.clear();
-        customOrderList.addAll(
-                itemDAOOrder.getCustomOrders(custName, fromDate, toDate));
-        Collections.reverse(customOrderList);
-    }
+
 
     public void getDeleteCustomList(String custName, long fromDate, long toDate)
     {

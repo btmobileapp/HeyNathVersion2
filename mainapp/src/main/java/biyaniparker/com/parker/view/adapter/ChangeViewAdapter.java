@@ -71,7 +71,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
             Picasso.get().load(productBeanWithQnty.getIconThumb()).into(holder.imageView);
             // Picasso.get().load(productBeanWithQnty.get(position).get()).placeholder(R.drawable.bgparker).into(holder.imageView);
         }
-        holder.tv1.setText(productBeanWithQnty.getProductName());
+
         try {
             double price = productBeanWithQnty.price;     //itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
             DecimalFormat df = new DecimalFormat("#.##");
@@ -308,26 +308,49 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         }
         holder.et.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //  holder.tv6.setText(s);
-                if (s.length()!=0){
-                    productBeanWithQnty.setQuantity(String.valueOf(s));
+                if (s.length()!=0)
+                {
+                  productBeanWithQnty.setQuantity(String.valueOf(s));
+
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 if (s.length()!=0){
                     // changeViewCallBack.getData(newProductList, position, String.valueOf(s));
+                    try
+                    {
+                        if( true )//startTime-System.currentTimeMillis()>1000)
+                        {
+                            if (Integer.parseInt(s.toString()) > 0) {
+                                productBeanWithQnty.checkValue = true;
+                                productBeanWithQnty.qnt = Integer.parseInt(s.toString());
+                                notifyDataSetChanged();
+                            } else {
+                                productBeanWithQnty.checkValue = false;
+                                productBeanWithQnty.qnt = 0;
+                                notifyDataSetChanged();
+                            }
+                        }
+                        startTime=System.currentTimeMillis();
+                    }
+                    catch (Exception ex){}
                 }
             }
         });
     }
+
+    long startTime=System.currentTimeMillis();
 
     @Override
     public int getItemCount() {
@@ -346,7 +369,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
         ImageView imageView;
-        TextView tv1,tv2,tv3,tv4,tv5,tv6;
+        TextView tv2,tv3,tv4,tv5,tv6;
         EditText et;
         Button addToBag;
         CheckBox checkBox,cbSelectAll;
@@ -354,7 +377,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.ivchange);
-            tv1 = itemView.findViewById(R.id.tvProductchange);
+
             tv2 = itemView.findViewById(R.id.tvPriceChange);
             et = itemView.findViewById(R.id.tvQtyChange);
             tv3 = itemView.findViewById(R.id.tvUnitChange);

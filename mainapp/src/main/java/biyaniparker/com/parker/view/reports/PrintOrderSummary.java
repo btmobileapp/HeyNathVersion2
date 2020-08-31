@@ -42,9 +42,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import biyaniparker.com.parker.LaunchActivity;
 import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.beans.BagMasterBean;
@@ -91,7 +94,7 @@ public class PrintOrderSummary
 
         try
         {
-            imfo = imageLoader.getDiscCache().get(CommonUtilities.URL+"l1.jpg");
+            imfo = imageLoader.getDiscCache().get(CommonUtilities.URL+"l1.png");
         }
         catch (Exception e){}
 
@@ -105,7 +108,7 @@ public class PrintOrderSummary
             File dir = new File(path);
             if (!dir.exists())
                 dir.mkdirs();
-            final File file = new File(dir, "Order_" + master.orderId + ".pdf");
+            final File file = new File(dir, "Order_" + master.getShopName().replace(" ","_")+"_"+master.orderId + ".pdf");
             //  pdffile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/parkerreport", "Order_"+master.orderId+".pdf");
 
             createPdf(String.valueOf(file));
@@ -176,7 +179,7 @@ public class PrintOrderSummary
                     (rect.getLeft() + rect.getRight()) / 2, rect.getTop(), 0);
 
 
-            Phrase phrase3 = new Phrase(CommonUtilities.AdminShop, FontFactory.getFont(FontFactory.COURIER, 20, Font.BOLD, new BaseColor(1,1,1)));
+            Phrase phrase3 = new Phrase(CommonUtilities.AdminShop, FontFactory.getFont(FontFactory.COURIER_BOLD, 20, Font.BOLD, new BaseColor(1,1,1)));
 
 
             ColumnText.showTextAligned(writer.getDirectContent(),
@@ -263,7 +266,24 @@ public class PrintOrderSummary
                 Element.ALIGN_CENTER, new Phrase("Order Summary"),
                 ((rect.getLeft()+rect.getRight())/2 ) , rect.getTop() - 100, 0);
 
+        String oStatus=master.orderStatus;
 
+        if(oStatus.equalsIgnoreCase("dispatch"))
+        {
+            oStatus="Dispatch";
+            if(LaunchActivity.appName.contains("Rajashree"))
+            {
+                oStatus="Confirm";
+            }
+        }
+        if(oStatus.equalsIgnoreCase("Inrequest"))
+        {
+            oStatus="Pending";
+        }
+        if(oStatus.contains("delete"))
+        {
+            oStatus="Rejected";
+        }
 
         ColumnText.showTextAligned(writer.getDirectContent(),
                 Element.ALIGN_LEFT, new Phrase("Shop Name : "+master.getShopName()),
@@ -276,6 +296,9 @@ public class PrintOrderSummary
         ColumnText.showTextAligned(writer.getDirectContent(),
                 Element.ALIGN_LEFT, new Phrase("Address : "+master.getAddress()),
                 (rect.getLeft() ) , rect.getTop() - 135, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),
+                Element.ALIGN_LEFT, new Phrase("Order Status : "+oStatus),
+                (rect.getLeft() ) , rect.getTop() - 150, 0);
 
         ColumnText.showTextAligned(writer.getDirectContent(),
                 Element.ALIGN_RIGHT, new Phrase("Date : " + CommonUtilities.longToDate(master.getOrderDate())),
@@ -285,8 +308,8 @@ public class PrintOrderSummary
 
 
 
-        PdfPTable table = new PdfPTable(6);
-
+        PdfPTable table = new PdfPTable(7);
+        table.setWidths(new float[] {0.35f, 0.5f, 1,1,0.5f,0.6f,0.4f });
         table.setSpacingBefore(100f);
 
         table.setWidthPercentage(110);
@@ -295,13 +318,29 @@ public class PrintOrderSummary
 
         // first row
 
-
-        table.addCell("Design");
-        table.addCell("Category");
-        table.addCell("Product");
-        table.addCell("MRP");
-        table.addCell("Unit");
-        table.addCell("Qty");
+        PdfPCell cell2 = new PdfPCell(new Phrase("Sr. No."));
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        //c.setHorizontalAlignment();
+        table.addCell(cell2);
+        cell2 = new PdfPCell(new Phrase("Design"));
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        //c.setHorizontalAlignment();
+        table.addCell(cell2);
+        cell2 = new PdfPCell(new Phrase("Category"));
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell2);
+        cell2 = new PdfPCell(new Phrase("Product"));
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell2);
+        cell2 = new PdfPCell(new Phrase("PL Rate"));
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell2);
+        cell2 = new PdfPCell(new Phrase("Unit"));
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell2);
+        cell2 = new PdfPCell(new Phrase("Qty"));
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell2);
 
 
 
@@ -345,10 +384,18 @@ public class PrintOrderSummary
 
         for (int i = 0; i < orderDetails.size(); i++)
         {
+            {
+                PdfPCell c = new PdfPCell(new Phrase((i+1)+""));
+                c.setHorizontalAlignment(Element.ALIGN_CENTER);
+                c.setVerticalAlignment(Element.ALIGN_CENTER);
+                c.setPadding(12);
+                table.addCell(c);
+            }
 
             try {
                 File file = imageLoader.getDiscCache().get(orderDetails.get(i).iconThumb);
                 PdfPCell cell1 = createImageCell(file.getAbsolutePath());
+                cell1.setPadding(2);
                 table.addCell(cell1);
             }
             catch (Exception e)
@@ -359,25 +406,57 @@ public class PrintOrderSummary
                     int cid = moduleProduct.getProductBeanByProductId(orderDetails.get(i).productId).getCategoryId();
                     String CName = moduleCategory.getCategoryName(cid);
                     PdfPCell c = new PdfPCell(new Phrase(CName));
-                    c.setPadding(10);
+                    c.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    c.setVerticalAlignment(Element.ALIGN_CENTER);
+                    c.setPadding(12);
                     table.addCell(c);
-                    table.addCell(orderDetails.get(i).productName + "");
-                    table.addCell(orderDetails.get(i).consumerPrice + "");
+            c = new PdfPCell(new Phrase(orderDetails.get(i).productName + ""));
+            c.setHorizontalAlignment(Element.ALIGN_CENTER);
+            c.setVerticalAlignment(Element.ALIGN_CENTER);
+            c.setPadding(12);
+                    table.addCell(c);
+
+            DecimalFormat df = new DecimalFormat("#.##");
+          //  txtprice.setText( df.format( price)+" Rs");
+            c = new PdfPCell(new Phrase(df.format( (Float.parseFloat(orderDetails.get(i).consumerPrice) *1.0))+ ""));
+            c.setHorizontalAlignment(Element.ALIGN_CENTER);
+            c.setVerticalAlignment(Element.ALIGN_CENTER);
+            c.setPadding(12);
+                    table.addCell( c);
 //                    table.addCell(orderDetails.get(i).sizeName);
-                    table.addCell(orderDetails.get(i).unitName);
-                    table.addCell(orderDetails.get(i).getQuantity() + "");
+            c = new PdfPCell(new Phrase(orderDetails.get(i).unitName+ ""));
+            c.setHorizontalAlignment(Element.ALIGN_CENTER);
+            c.setVerticalAlignment(Element.ALIGN_CENTER);
+            c.setPadding(12);
+                    table.addCell(c);
+            c = new PdfPCell(new Phrase(orderDetails.get(i).getQuantity()+ ""));
+            c.setHorizontalAlignment(Element.ALIGN_CENTER);
+            c.setVerticalAlignment(Element.ALIGN_CENTER);
+            c.setPadding(12);
+                    table.addCell(c);
 
                totq=totq+orderDetails.get(i).getQuantity();
                totp=totp+((int)Float.parseFloat(orderDetails.get(i).getDealerPrice())*orderDetails.get(i).quantity);
 
         }
 
-        table.addCell("Total");
+        PdfPCell c = new PdfPCell(new Phrase("Total"));
+        c.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c.setVerticalAlignment(Element.ALIGN_CENTER);
+
+        table.addCell(c);
         table.addCell("");
         table.addCell("");
-        table.addCell(totp+"");
         table.addCell("");
-        table.addCell(totq+"");
+        c = new PdfPCell(new Phrase(totp+""));
+        c.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c.setVerticalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c);
+        table.addCell("");
+        c = new PdfPCell(new Phrase(totq+""));
+        c.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c.setVerticalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c);
 
         document.add(table);
         document.close();

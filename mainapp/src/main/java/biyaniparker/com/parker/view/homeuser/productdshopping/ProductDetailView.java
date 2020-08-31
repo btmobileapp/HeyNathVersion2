@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -68,7 +69,10 @@ import biyaniparker.com.parker.view.product.ProductEditViewNew;
 import biyaniparker.com.parker.view.product.ProductListView;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
-public class ProductDetailView extends AppCompatActivity implements DownloadUtility, View.OnClickListener, ProductDetailsAdapter.ProductAdaperCallBack {
+public class ProductDetailView
+        extends AppCompatActivity
+  implements DownloadUtility, View.OnClickListener, ProductDetailsAdapter.ProductAdaperCallBack {
+    boolean IsFromCategory=false;
     TextView txtproductname,txtprice;
    // ImageView image;
     Button btnAdd;
@@ -95,6 +99,10 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail_view);
         moduleProductDetails=new ModuleProductDetails(this);
+        try {
+            IsFromCategory=getIntent().getExtras().getBoolean("IsFromCategory");
+        }
+        catch (Exception ex){}
         try
         {
              Gson gson = new Gson();
@@ -105,7 +113,6 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
         inItUi();
         if (bean != null)
         {
-
             txtproductname.setText(bean.getProductName());
             try {
                 double price=bean.price ;//moduleProductDetails.getPriceFromPriceId(bean.getPriceId());
@@ -175,11 +182,15 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    if ((position<adapter.getCount()-1) && position<(colors.length-1)){
-                       viewPager.setBackgroundColor((Integer)argbEvaluator.evaluate(positionOffset,colors[position],colors[position]+1));
+                    if ((position<adapter.getCount()-1) && position<(colors.length-1))
+                    {
+                      // viewPager.setBackgroundColor((Integer)argbEvaluator.evaluate(positionOffset,colors[position],colors[position]+1));
+                        viewPager.setBackgroundColor(Color.WHITE);
                     }
-                    else {
-                        viewPager.setBackgroundColor(colors[colors.length -1]);
+                    else
+                    {
+                       // viewPager.setBackgroundColor(colors[colors.length -1]);
+                        viewPager.setBackgroundColor(Color.WHITE);
                     }
                 }
 
@@ -495,8 +506,10 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
                 Toast.makeText(getApplicationContext(),"Products Succesfully added to bag ",Toast.LENGTH_SHORT).show();
                // finish();
               //  callRefresh();
-                Intent intent = new Intent(this, UserHomeScreen.class);
-                startActivity(intent);
+                if(!IsFromCategory) {
+                    Intent intent = new Intent(this, UserHomeScreen.class);
+                    startActivity(intent);
+                }
                 finish();
             }
             else if(str.equals("Failed"))
@@ -539,7 +552,7 @@ public class ProductDetailView extends AppCompatActivity implements DownloadUtil
             sizeView.add(v);
             if( moduleProductDetails.stockList.get(i).getQnty()!=0)
             {
-                edOrderQnty.setText(""+0);
+                edOrderQnty.setText("");
             }
             linearSizeMain.addView(v);
         }

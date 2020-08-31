@@ -188,12 +188,13 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
     int flag=0;
     ArrayList<UnitMasterBean> list;
 
+    long startTime=0l;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_activity_edit_product);
-
+        startTime=System.currentTimeMillis();
 
         init();
         modulePrice=new ModulePrice(this);
@@ -247,8 +248,11 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                     for (int i=0;i<jsonarray.length();i++){
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
 
-                        if (list.get(position).getUnitId()== jsonobject.getInt("UnitId")){
-                            edRemark.setText(jsonobject.getString("Remark"));
+                        if (list.get(position).getUnitId()== jsonobject.getInt("UnitId"))
+                        {
+                            if(System.currentTimeMillis()-startTime>4000) {
+                                edRemark.setText(jsonobject.getString("Remark"));
+                            }
                         }
                     }
                 } catch (JSONException e) {
@@ -628,7 +632,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
 
                 File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
-
+                file=  CompressImage(file.getAbsolutePath());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
@@ -657,7 +661,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
 
                 Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap, CommonUtilities.Width, CommonUtilities.Height);
-                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                final File bitmapFile =  file; //BitmapUtilities.saveToExtenal(thePic, this);
                 // File bitmapFile1 = BitmapUtilities.saveToExtenal(bitmap, this);
 
                 Bitmap thePic1 = ThumbnailUtils.extractThumbnail(bitmap, 81, 112);
@@ -711,13 +715,13 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 }
 
                 File file = new File(path);
-
+                file=  CompressImage(file.getAbsolutePath());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
 
                 Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap, CommonUtilities.Width, CommonUtilities.Height);
-                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                final File bitmapFile = file;//BitmapUtilities.saveToExtenal(thePic, this);
                 // File bitmapFile1 = BitmapUtilities.saveToExtenal(bitmap, this);
 
 
@@ -771,12 +775,12 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 }
 
                 File file = new File(path);
-
+                file=  CompressImage(file.getAbsolutePath());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
                 Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
-                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                final File bitmapFile = file;//BitmapUtilities.saveToExtenal(thePic, this);
                 bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath(), options);
                 image1.setImageBitmap(bitmap);
 
@@ -801,11 +805,12 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 }
 
                 File file = new File(path);
+                file=  CompressImage(file.getAbsolutePath());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
                 Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
-                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                final File bitmapFile = file;//BitmapUtilities.saveToExtenal(thePic, this);
                 bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath(), options);
                 image2.setImageBitmap(bitmap);
 
@@ -830,11 +835,12 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 }
 
                 File file = new File(path);
+                file=  CompressImage(file.getAbsolutePath());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
                 Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
-                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                final File bitmapFile = file;//BitmapUtilities.saveToExtenal(thePic, this);
                 bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath(), options);
                 image3.setImageBitmap(bitmap);
 
@@ -859,11 +865,12 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 }
 
                 File file = new File(path);
+                file=  CompressImage(file.getAbsolutePath());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
                 Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
-                final File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+                final File bitmapFile =file;// BitmapUtilities.saveToExtenal(thePic, this);
                 bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath(), options);
                 image4.setImageBitmap(bitmap);
 
@@ -1163,6 +1170,35 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         }
 
 
+    }
+
+
+    private File CompressImage(String path) {
+
+        File file = new File(path);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+
+        //int numBytesByRow = bitmap.getRowBytes() * bitmap.getHeight();
+        int file_size = Integer.parseInt(String.valueOf(file.length()/1024));
+        //int numBytesByCount = bitmap.getByteCount();
+
+        if(file_size>(500)) {
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            float constant = ((float) (1000f / (float) width));
+            width =1000;
+            float m = ((float) height) * constant;
+            height = (int) m;
+
+            Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap, width, height);
+            File bitmapFile = BitmapUtilities.saveToExtenal(thePic, this);
+            int file_ = Integer.parseInt(String.valueOf(bitmapFile.length()/1024));
+            return bitmapFile;
+        }
+        return file;
     }
 
 }

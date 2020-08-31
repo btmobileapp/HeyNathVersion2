@@ -101,7 +101,7 @@ public class ProductAdapter extends ArrayAdapter {
         {
            // String str = DateAndOther.convertToDMY(productList.get(position).createdDate);
             Date d=new Date(productList.get(position).createdDate);
-            holder.tv.setText(productList.get(position).productName+"\n"+d.toString()+"\n");//+productList.get(position).createdDate);
+            holder.tv.setText(productList.get(position).productName);//+"\n"+d.toString()+"\n");//+productList.get(position).createdDate);
         }
         catch (Exception ex){}
 

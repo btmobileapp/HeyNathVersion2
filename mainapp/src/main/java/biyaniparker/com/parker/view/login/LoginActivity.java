@@ -2,6 +2,8 @@ package biyaniparker.com.parker.view.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -30,15 +32,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_rajashri);
-        if(getString(R.string.app_name).equalsIgnoreCase("Choice Electric"))
+        String appname=getString(R.string.app_name);
+
+        if(appname.equalsIgnoreCase("Choice Electric"))
+        {
+            setContentView(R.layout.activity_login_choice);
+        }
+        else if(appname.equalsIgnoreCase("Rajashree Industries"))
+        {
+            setContentView(R.layout.content_login_rajashri2);
+        }
+        else
         {
             setContentView(R.layout.activity_login_rajashri);
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
+      //  getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+       // getSupportActionBar().hide();
         objModuleLogin=new ModuleLogin(this);
         inItUi();
+     //   toolbar.setVisibility(View.GONE);
 
         CommonUtilities.hideatInItInputBoard(this);
 
@@ -129,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 else if (str.equalsIgnoreCase("LoginNotApproved"))
                 {
                   //  Toast.makeText(this, "Incorrect UserName or Password ", Toast.LENGTH_LONG).show();
-                    CommonUtilities.alert(this,"User not approved yet, Please contact to administrative.");
+                    CommonUtilities.alert(this,"User not approved yet, Please contact to Rajashree Industries.");
                 }
                 else if (str.equalsIgnoreCase("LoginFailed"))
                 {

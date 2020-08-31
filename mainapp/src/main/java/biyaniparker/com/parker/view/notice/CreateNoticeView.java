@@ -144,8 +144,22 @@ public class CreateNoticeView extends AppCompatActivity implements  DownloadUtil
                 }
             }
         });
+
+        setDefaultDate();
     }
 
+    void setDefaultDate()
+    {
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, 3);
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        int Month = cal.get(Calendar.MONTH);
+        int Year = cal.get(Calendar.YEAR);
+       // Date d=new Date(cal.getTimeInMillis());
+        etSelectDate.setText(dayOfMonth + "/" + (Month) + "/" + Year);
+
+    }
     private void init() {
         etTitle = findViewById(R.id.etTitle);
         etDescription = findViewById(R.id.etDescription);

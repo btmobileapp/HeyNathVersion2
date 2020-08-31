@@ -127,7 +127,7 @@ public class SearchUserProductsList extends AppCompatActivity implements Downloa
         Gson gson = new Gson();
         String myJson = gson.toJson(moduleUserProduct.newProductList.get(position));
        // finish();
-
+        intent.putExtra("IsFromCategory",true);
         intent.putExtra("myjson",myJson);
         startActivity(intent);
        // finish();

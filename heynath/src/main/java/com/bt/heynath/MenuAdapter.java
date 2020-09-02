@@ -62,9 +62,13 @@ public class MenuAdapter extends ArrayAdapter
 				}
 				else if((position)==3)
 				{
-                    Picasso.get().load(R.drawable.shree2).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.auto).transform(new CircleTransform()).into(img);
 					//img.setImageResource(R.drawable.shrre4);
 				}
+				else if(list.get(position).equalsIgnoreCase("अधयाय ४"))
+                {
+                    Picasso.get().load(R.drawable.shree2).transform(new CircleTransform()).into(img);
+                }
 				else if((position)==4)
 				{
 					//img.setImageResource(R.drawable.shree5);

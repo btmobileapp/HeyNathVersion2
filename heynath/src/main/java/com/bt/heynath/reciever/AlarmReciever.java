@@ -50,17 +50,19 @@ public class AlarmReciever extends BroadcastReceiver {
         {
             // setNotice(context);
             Toast.makeText(context, "Alrm On", Toast.LENGTH_SHORT).show();
-            int startHour=AlramUtility.getFromTimeHours(context);
-            int startMinute=AlramUtility.getFromTimeMinute(context);
-            int endHour=AlramUtility.getToTimeHours(context);
-            int endMinute=AlramUtility.getToTimeMinute(context);
+
             Calendar calendar= Calendar.getInstance();
             Calendar startCalendar= Calendar.getInstance();
-            startCalendar.set(Calendar.HOUR_OF_DAY,12);
-            startCalendar.set(Calendar.MINUTE,00);
 
+            startCalendar.set(Calendar.HOUR_OF_DAY,4);
+            startCalendar.set(Calendar.MINUTE,55);
+            Calendar endCalendar= Calendar.getInstance();
 
-           if( calendar.after(startCalendar)) {
+            endCalendar.set(Calendar.HOUR_OF_DAY,5);
+            endCalendar.set(Calendar.MINUTE,10);
+
+           if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
+           {
                if (!AlramUtility.isMute(context) && AlramUtility.isStart(context)) {
                    {
                        NewMessageNotification455.notify(context, "Morning Nitya Stuti", "Details", 1, null);

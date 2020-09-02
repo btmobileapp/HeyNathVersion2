@@ -47,4 +47,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.X.X'
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.X.X'
     implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.X.X'
+
+
+    implementation 'com.github.judemanutd:autostarter:1.0.8'
 }

@@ -1,6 +1,7 @@
 package com.bt.heynath;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import com.judemanutd.autostarter.AutoStartPermissionHelper;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
         menus.add("नित्य स्तुति");
         menus.add("समयबद्धक");
         menus.add("गीता अधयाय");
+        try {
+            boolean isPermissionAvaialbe=  AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)  ;
+            if(isPermissionAvaialbe)
+            {
+                menus.add("ऑटोस्टार्ट की जाँच करें");
+            }
+        }
+        catch (Exception ex){}
 
         /*
         menus.add("अधयाय १");
@@ -56,9 +67,34 @@ public class MainActivity extends AppCompatActivity {
                 {
                     startActivity(new Intent(MainActivity.this,  AdhayList.class));
                 }
+                else if(menus.get(i).equalsIgnoreCase("ऑटोस्टार्ट की जाँच करें"))
+                {
+                   // startActivity(new Intent(MainActivity.this,  AdhayList.class));
+                    openAutoStart();
+                }
             }
         });
+
+
     }
+    void openAutoStart()
+    {
+        try
+        {
+            boolean isPermissionAvaialbe=  AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)  ;
+            AlertDialog.Builder alert=new AlertDialog.Builder(MainActivity.this);
+            alert.setMessage(isPermissionAvaialbe+"");
+            //alert.show();
+            if(isPermissionAvaialbe)
+                AutoStartPermissionHelper.getInstance().getAutoStartPermission(MainActivity.this);
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

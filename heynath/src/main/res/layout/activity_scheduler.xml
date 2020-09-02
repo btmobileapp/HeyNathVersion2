@@ -107,21 +107,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="समय अंतराल(मिनट में)"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="17dp"
+        <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <ImageView android:layout_width="30dp"
+                android:layout_marginTop="7dp"
+                android:src="@drawable/timeinterval"
+                android:layout_height="30dp" />
+            <TextView
+                android:text="समय अंतराल\n(मिनट में)"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        </TextView>
+            </TextView>
+
+
+        </LinearLayout>
 
        <EditText
            android:layout_weight="1"
            android:id="@+id/ed"
            android:inputType="number"
+           android:layout_marginTop="5dp"
+           android:padding="4dp"
+           android:gravity="center"
+           android:layout_gravity="center"
+
+           android:background="@drawable/edit_text_border"
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
        </EditText>

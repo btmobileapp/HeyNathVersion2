@@ -69,6 +69,11 @@ public class AlramUtility
         boolean hh= sh.getBoolean("Start",true);
         return  hh;
     }
-
+    static public boolean isNityaSuchiStart(Context context)
+    {
+        SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
+        boolean hh= sh.getBoolean("NityaSuchi",false);
+        return  hh;
+    }
 
 }

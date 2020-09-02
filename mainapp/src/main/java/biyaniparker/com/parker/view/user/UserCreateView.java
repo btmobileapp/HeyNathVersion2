@@ -20,6 +20,7 @@ import biyaniparker.com.parker.bal.ModuleUser;
 import biyaniparker.com.parker.beans.ShopMaster;
 import biyaniparker.com.parker.beans.UserBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
+import biyaniparker.com.parker.utilities.DeviceUuidFactory;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
@@ -125,6 +126,14 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
                     bean.setClientId(UserUtilities.getClientId(this));
                     bean.setGSTNumber(edGstNo.getText().toString());
 
+                    if(IsRegistration)
+                    {
+                        try {
+                            String deviceId = new DeviceUuidFactory(this).getDeviceUuid().toString();
+                            bean.deviceID =deviceId;
+                        }
+                        catch (Exception ex){}
+                    }
 
                     try {
                         moduleUser.insertUser(bean,shopMasterbean);

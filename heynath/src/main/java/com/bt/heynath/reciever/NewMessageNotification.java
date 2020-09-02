@@ -124,9 +124,9 @@ public class NewMessageNotification {
                         .bigText(text)
                         .setBigContentTitle(title)
                         .setSummaryText(details))
-                .setAutoCancel(true)
+                .setAutoCancel(true);
 
-                .setSound(Uri.parse("android.resource://"+context.getPackageName()+"/" + R.raw.textnotifi));
+              //  .setSound(Uri.parse("android.resource://"+context.getPackageName()+"/" + R.raw.textnotifi));
 
 
         // Example additional actions for this notification. These will

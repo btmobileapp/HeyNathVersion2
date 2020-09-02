@@ -79,13 +79,13 @@ public class AlarmService extends Service {
         /*---------------------   SAtrt Time --------*/
         Calendar calStart = new GregorianCalendar();
         calStart.setTime(new Date());
-        calStart.set(Calendar.HOUR_OF_DAY, 4);
-        calStart.set(Calendar.MINUTE, 55);
+        calStart.set(Calendar.HOUR_OF_DAY, 12);
+        calStart.set(Calendar.MINUTE, 0);
         calStart.set(Calendar.SECOND, 0);
         calStart.set(Calendar.MILLISECOND, 0);
 
-        calStart.set(Calendar.HOUR_OF_DAY, AlramUtility.getFromTimeHours(context));
-        calStart.set(Calendar.MINUTE, AlramUtility.getFromTimeMinute(context));
+         //  calStart.set(Calendar.HOUR_OF_DAY, AlramUtility.getFromTimeHours(context));
+        //  calStart.set(Calendar.MINUTE, AlramUtility.getFromTimeMinute(context));
 
 
         long interval= AlramUtility.getIntervalTime(context);
@@ -111,7 +111,7 @@ public class AlarmService extends Service {
         /*---------------------   SAtrt Time --------*/
         Calendar calStart = new GregorianCalendar();
         calStart.setTime(new Date());
-        calStart.set(Calendar.HOUR_OF_DAY, 5);
+        calStart.set(Calendar.HOUR_OF_DAY, 17);
         calStart.set(Calendar.MINUTE, 0);
         calStart.set(Calendar.SECOND, 0);
         calStart.set(Calendar.MILLISECOND, 0);
@@ -136,6 +136,6 @@ public class AlarmService extends Service {
         super.onStart(intent, startId);
         setPendingIntent(this);
         setPendingIntent455(this);
-        setPendingIntent500(this);
+        //setPendingIntent500(this);
     }
 }

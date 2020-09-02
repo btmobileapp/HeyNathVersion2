@@ -7,6 +7,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import biyaniparker.com.parker.utilities.CommonUtilities;
+import biyaniparker.com.parker.utilities.DeviceUuidFactory;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
@@ -27,9 +28,13 @@ public class ModuleLogin implements DownloadUtility
     // Login function from server
     public void performLogin(String username, String pass)
     {
-
+        String deviceId = "";
+        try {
+            deviceId = new DeviceUuidFactory(context).getDeviceUuid().toString();
+        }
+        catch (Exception ex){}
         // requset code ->   1
-        String url=CommonUtilities.URL+"UtilService.svc/getUserDetail?username="+username+"&password="+pass+"&ClientId=1";
+        String url=CommonUtilities.URL+"UtilService.svc/getUserDetail?username="+username+"&password="+pass+"&ClientId=1&DeviceID="+deviceId;
         AsyncUtilities serverAsync=new AsyncUtilities(context,false, url ,"",1,this);
         serverAsync.execute();
 
@@ -38,9 +43,13 @@ public class ModuleLogin implements DownloadUtility
     public  void loginInBackground()
     {
 
-
+        String deviceId = "";
+        try {
+            deviceId = new DeviceUuidFactory(context).getDeviceUuid().toString();
+        }
+        catch (Exception ex){}
             // requset code ->   1
-            String url=CommonUtilities.URL+"UtilService.svc/getUserDetail?username="+ UserUtilities.getUserName(context)+"&password="+UserUtilities.getUserPassword(context)+"&ClientId=1";
+            String url=CommonUtilities.URL+"UtilService.svc/getUserDetail?username="+ UserUtilities.getUserName(context)+"&password="+UserUtilities.getUserPassword(context)+"&ClientId=1&DeviceID="+deviceId;
             AsyncUtilities serverAsync=new AsyncUtilities(context,false, url ,"",11,this);
             serverAsync.hideDialouge();
             serverAsync.execute();
@@ -51,6 +60,7 @@ public class ModuleLogin implements DownloadUtility
     public void onComplete(String str, int requestCode,int responseCode)
     {
       //  Toast.makeText(context, ""+str, Toast.LENGTH_SHORT).show();
+       // CommonUtilities.alert(context,str);
         if(requestCode==1)
         {
             DownloadUtility downloadUtility = (DownloadUtility) context;
@@ -64,6 +74,16 @@ public class ModuleLogin implements DownloadUtility
                         if(userid==-33)
                         {
                             downloadUtility.onComplete("LoginNotApproved", 1, responseCode);
+                            return;
+                        }
+                        if(userid==-66)
+                        {
+                            downloadUtility.onComplete("AllreadyLogin", 1, responseCode);
+                            return;
+                        }
+                        if(UserUtilities.getDeleteStatus(context))
+                        {
+                            downloadUtility.onComplete("LoginFailed", 1, responseCode);
                             return;
                         }
                     }
@@ -85,7 +105,7 @@ public class ModuleLogin implements DownloadUtility
         {
             if (responseCode == 200)
             {
-                parseUserData(str);
+                parseUserData1(str);
             }
         }
     }
@@ -95,7 +115,29 @@ public class ModuleLogin implements DownloadUtility
         try
         {
             JSONObject jsonObject=new JSONObject(str);
-            if(jsonObject.getInt("UserId")!=0)
+            if( jsonObject.getInt("UserId")!=0)
+            {
+                SharedPreferences sh=context.getSharedPreferences("UserBean",context.MODE_PRIVATE);
+                SharedPreferences.Editor edit=sh.edit();
+                edit. putString("UserBean", str);
+                edit.commit();
+                return true;
+            }
+
+
+        }
+        catch (Exception e)
+        {
+
+        }
+        return false;
+    }
+    private boolean parseUserData1(String str) {
+
+        try
+        {
+            JSONObject jsonObject=new JSONObject(str);
+            if(   true)//jsonObject.getInt("UserId"))
             {
                 SharedPreferences sh=context.getSharedPreferences("UserBean",context.MODE_PRIVATE);
                 SharedPreferences.Editor edit=sh.edit();

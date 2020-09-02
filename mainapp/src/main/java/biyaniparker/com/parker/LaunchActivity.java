@@ -79,7 +79,7 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
 
         imageLoader = ImageLoader.getInstance();
         //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
-        imageLoader.displayImage(CommonUtilities.URL+"l1.jpg"
+        imageLoader.displayImage(CommonUtilities.URL+"l1.png"
 
                 ,
                 imageView3, doption, animateFirstListener);
@@ -170,6 +170,10 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
 
         getSupportActionBar().hide();
 
+        try {
+            new FcmUtility().callProcedure(this);
+        }
+        catch (Exception ex){}
     }
 
     private void getUnitMasterList() {
@@ -184,16 +188,16 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
         {
             SharedPreferences sh=getSharedPreferences("Sync",MODE_PRIVATE);
 
-             if(UserUtilities.getUserId(LaunchActivity.this)==0)
+            if(UserUtilities.getUserId(LaunchActivity.this)<1  || !UserUtilities.isVerified(LaunchActivity.this) ||UserUtilities.getDeleteStatus(LaunchActivity.this))
             {
-                     CommonUtilities.deleteAll(LaunchActivity.this);
+
+                CommonUtilities.deleteAll(LaunchActivity.this);
                 finish();
                 startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
                 overridePendingTransition(R.animator.pull_in_right, R.animator.push_out_left);
             }
             else if(UserUtilities.getUserType(LaunchActivity.this).equalsIgnoreCase("Admin"))
             {
-
                 if(new ConnectionDetector(LaunchActivity.this).isConnectingToInternet())
                 {
                     final Intent intent=new Intent(getApplicationContext(),ProductSyncService.class);

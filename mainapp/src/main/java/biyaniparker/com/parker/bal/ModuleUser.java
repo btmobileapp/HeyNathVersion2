@@ -68,6 +68,12 @@ public class ModuleUser implements  DownloadUtility{
         jsonObject.put("MobileNo",userBean.getMobileNo());
         jsonObject.put("GSTNumber",userBean.getGSTNumber());
 
+        try {
+            if(userBean.deviceID.length()>5)
+            jsonObject.put("DeviceID", userBean.getDeviceID());
+        }
+        catch (Exception ex){}
+
         AsyncUtilities asyncUtilities=new AsyncUtilities(context,true, CommonUtilities.URL+"UtilService.svc/CreateUser",jsonObject.toString(),2,this);
         asyncUtilities.execute();
 
@@ -330,6 +336,7 @@ public class ModuleUser implements  DownloadUtility{
         }catch (Exception e)
         {
             e.printStackTrace();
+            CommonUtilities.alert(context,e.toString());
         }
         return true;
     }
@@ -366,7 +373,10 @@ public class ModuleUser implements  DownloadUtility{
         UserBean userBean = new UserBean();
         userBean.setUserId(jsonObject.getInt("UserId"));
         userBean.setShopId(jsonObject.getLong("ShopId"));
-        userBean.setCreatedBy(jsonObject.getInt("CreatedBy"));
+        try {
+            userBean.setCreatedBy(jsonObject.getInt("CreatedBy"));
+        }
+        catch (Exception ex){}
         try {
             userBean.setAccessLavel(jsonObject.getInt("AccessLavel"));
         } catch (Exception e) {

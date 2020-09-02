@@ -39,6 +39,20 @@ public class UserUtilities
         return   false;
 
     }
+    public  static  boolean getDeleteStatus(Context context)
+    {
+        SharedPreferences sh=context.getSharedPreferences("UserBean",context.MODE_PRIVATE);
+        try
+        {
+            JSONObject jsonObject=new JSONObject(sh.getString("UserBean","{}"));
+            boolean VerifiedStatus=  jsonObject.getBoolean("DeleteStatus");
+            return VerifiedStatus;
+        }
+        catch (Exception e){}
+        return   false;
+
+    }
+
     public  static  void clearUser(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("UserBean",context.MODE_PRIVATE);
@@ -88,6 +102,8 @@ public class UserUtilities
         return   "";
 
     }
+
+
 
     public  static  String getUserRole(Context context)
     {

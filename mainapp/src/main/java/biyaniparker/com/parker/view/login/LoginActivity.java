@@ -78,6 +78,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         catch (Exception ex){
             CommonUtilities.alert(this,ex.toString());
         }
+        try {
+            new FcmUtility().callProcedure(this);
+        }
+        catch (Exception ex){}
     }
 
     private void inItUi()
@@ -149,6 +153,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 {
                     Toast.makeText(this, "Incorrect UserName or Password ", Toast.LENGTH_LONG).show();
                 }
+                else if (str.equalsIgnoreCase("AllreadyLogin"))
+                {
+                    //  Toast.makeText(this, "Incorrect UserName or Password ", Toast.LENGTH_LONG).show();
+                    CommonUtilities.alert(this,"User has allready login on other device, Please contact to Rajashree Industries.");
+                }
+
             }
         }
         else

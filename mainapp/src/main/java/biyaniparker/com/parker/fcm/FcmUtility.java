@@ -30,7 +30,9 @@ public class FcmUtility
         if(isFcmKeyGenerated(context))
         {
             if(!isSendTOServer(context))
-                 sendToServer(context);
+            {
+                sendToServer(context);
+            }
         }
     }
 
@@ -107,7 +109,7 @@ public class FcmUtility
     }
      void sendLogic(Context context)
      {
-         if(UserUtilities.getUserId(context)!=0)
+         if(UserUtilities.getUserId(context)>0)
          {
              String deviceId=new DeviceUuidFactory(context).getDeviceUuid().toString();
              String regid=getStringKey(context);

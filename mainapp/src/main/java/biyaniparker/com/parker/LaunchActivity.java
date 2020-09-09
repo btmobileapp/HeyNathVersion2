@@ -187,8 +187,14 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
         public void run()
         {
             SharedPreferences sh=getSharedPreferences("Sync",MODE_PRIVATE);
-
-            if(UserUtilities.getUserId(LaunchActivity.this)<1  || !UserUtilities.isVerified(LaunchActivity.this) ||UserUtilities.getDeleteStatus(LaunchActivity.this))
+            if(!UserUtilities.isVerified(LaunchActivity.this) ||UserUtilities.getDeleteStatus(LaunchActivity.this))
+            {
+                CommonUtilities.deleteAll(LaunchActivity.this);
+                finish();
+                startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
+                overridePendingTransition(R.animator.pull_in_right, R.animator.push_out_left);
+            }
+            else if(UserUtilities.getUserId(LaunchActivity.this)<1  )
             {
 
                 CommonUtilities.deleteAll(LaunchActivity.this);

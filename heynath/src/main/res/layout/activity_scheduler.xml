@@ -25,24 +25,46 @@
             android:layout_height="35dp"
             ></ImageView>
         <TextView
-
+android:layout_marginTop="10dp"
             android:text="नित्य स्तुति शूरु"
             android:textColor="#FFF"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></TextView>
     </LinearLayout>
    <LinearLayout
        android:layout_weight="1"
+       android:orientation="horizontal"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
-       <Switch
-           android:id="@+id/switch1"
-
+       <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+           android:text="ऑफ  "
+           android:textStyle="bold"
+           android:textColor="#FFFFFF"
+           android:textSize="17dp">
+       </TextView>
+       <Switch
+           android:id="@+id/switch1"
+           android:layout_width="50dp"
+           android:layout_height="50dp"
+           android:scaleX="1.5"
+           android:scaleY="1.5"
            android:text="" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="ऑन "
+               android:layout_marginLeft="10dp"
+               android:textStyle="bold"
+               android:textColor="#FFFFFF"
+               android:textSize="17dp">
+
+           </TextView>
+
    </LinearLayout>
 
 
@@ -57,7 +79,7 @@
             android:text="समय से"
             android:textColor="#FFF"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -84,7 +106,7 @@
             android:text="समय तक"
             android:textColor="#FFF"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -119,7 +141,7 @@
                 android:text="समय अंतराल\n(मिनट में)"
                 android:textColor="#FFF"
                 android:textStyle="bold"
-                android:textSize="17dp"
+                android:textSize="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -133,8 +155,8 @@
            android:layout_weight="1"
            android:id="@+id/ed"
            android:inputType="number"
-           android:layout_marginTop="5dp"
-           android:padding="4dp"
+           android:layout_marginTop="4dp"
+           android:padding="6dp"
            android:gravity="center"
            android:layout_gravity="center"
 
@@ -167,20 +189,22 @@
         android:layout_height="wrap_content">
     <LinearLayout
         android:layout_weight="1"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
 
-            android:src="@drawable/ic_mute"
+            android:id="@+id/ic_MuteRes"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            ></ImageView>
+            android:src="@drawable/ic_mute"></ImageView>
         <TextView
             android:layout_marginLeft="10dp"
-            android:text="म्यूट करें"
+            android:text="अनम्यूट  करें"
             android:textColor="#FFF"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></TextView>
         <!--
@@ -200,10 +224,20 @@
         android:layout_height="wrap_content">
         <Switch
             android:id="@+id/switch2"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:text="" />
+
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:text="म्यूट करें"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
     </LinearLayout>
 
     </LinearLayout>

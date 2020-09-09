@@ -113,7 +113,7 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
         txtShopName.setText(bean.getShopName());
         txtOrderNo.setText("Or.No : " + String.valueOf(bean.getOrderId()));
         txtOrderDate.setText(CommonUtilities.longToDate(bean.getOrderDate()));
-        txtGAmount.setText("Total Amt : " + (int) Double.parseDouble(bean.getTotolAmount()) + " Rs");
+        txtGAmount.setText("Total Amt : " + Double.parseDouble(bean.getTotolAmount()) + " Rs");
 
 
       /*  new Thread(new Runnable() {

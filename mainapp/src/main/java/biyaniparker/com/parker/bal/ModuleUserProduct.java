@@ -51,7 +51,8 @@ public class ModuleUserProduct implements DownloadUtility, ParsingUtilities {
 
     }
 
-    public void getUserProductsWithNotify(int catId) {
+    public void getUserProductsWithNotify(int catId)
+    {
         String url = CommonUtilities.URL + "StockService.svc/getProductsFilter?Clientid=" + UserUtilities.getClientId(context) +
                 "&CategoryId=" + catId + "&MinPrice=" + (-1 + "") + "&MaxPrice=" + (-1 + "") + "&SizeIds=" + "" + "&StripCode=" + "";
         asyncStreamParsingUtilities = new AsyncStreamParsingUtilities(context, false, url, "", 1, this, this);

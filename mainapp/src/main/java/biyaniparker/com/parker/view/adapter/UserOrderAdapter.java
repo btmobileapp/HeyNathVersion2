@@ -60,7 +60,7 @@ public class UserOrderAdapter extends ArrayAdapter
 
 
         viewHolder.txtOrNo.setText("Or No : " +orderList.get(position).getOrderId());
-        viewHolder.txtTAmt.setText("Total  Amt : " +Integer.parseInt(orderList.get(position).getTotolAmount())+" Rs");
+        viewHolder.txtTAmt.setText("Total  Amt : " +Float.parseFloat(orderList.get(position).getTotolAmount())+" Rs");
         viewHolder.txtOrDate.setText(CommonUtilities.longToDate(orderList.get(position).getOrderDate()));
         viewHolder.txtTQnty.setText("Total Qnty :"+orderList.get(position).getTotalQnty());
         viewHolder.txtOStatus.setText("Status : "+orderList.get(position).getOrderStatus().replace("inrequest","In-Request").replace("dispatch","Dispatch"));

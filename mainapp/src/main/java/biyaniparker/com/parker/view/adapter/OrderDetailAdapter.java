@@ -126,7 +126,7 @@ public class OrderDetailAdapter extends ArrayAdapter {
 
 
         holder.pName.setText(orderD.getProductName()+"("+orderD.getProductId()+")");
-        holder.cPrice.setText("" + (int) Double.parseDouble(orderD.getConsumerPrice()) + "  Rs");
+        holder.cPrice.setText("" +  Double.parseDouble(orderD.getConsumerPrice()) + "  Rs");
 
         for(int c=position;c<orderDetails.size();c++)
         {

@@ -183,7 +183,7 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
                 }
 
             }
-            txtGTotal.setText(" Total : "+(int)(double)grandTotal +" Rs");
+            txtGTotal.setText(" Total : "+(double)grandTotal +" Rs");
             TextView txtGTotalQnty=(TextView)findViewById(R.id.txtGTotalQnty);
             txtGTotalQnty.setText("Total Qty : "+greatTotalQty);
 

@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
 
@@ -131,9 +132,19 @@ public class AlarmService extends Service {
         }
     }
 
+    AlarmReciever reciever;
+    void registerBootReciever()
+    {
+        reciever=new AlarmReciever();
+        IntentFilter fliter=    new IntentFilter("com.bt.heynath.Check");
+        fliter.addAction("com.bt.heynath.dailyalarm455");
+        registerReceiver(reciever,fliter);
+    }
     @Override
     public void onStart(final Intent intent, final int startId) {
         super.onStart(intent, startId);
+
+        //registerBootReciever();
         setPendingIntent(this);
         setPendingIntent455(this);
         //setPendingIntent500(this);

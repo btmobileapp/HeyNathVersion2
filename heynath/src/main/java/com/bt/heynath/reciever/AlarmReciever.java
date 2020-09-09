@@ -17,7 +17,7 @@ public class AlarmReciever extends BroadcastReceiver {
     private final String SOMEACTION455 = "com.bt.heynath.dailyalarm455";
     private final String SOMEACTION500 = "com.bt.heynath.dailyalarm500";
     @Override
-    public void onReceive(Context context, Intent intent)
+    public void onReceive(final Context context, Intent intent)
     {
 
         String action = intent.getAction();
@@ -55,10 +55,10 @@ public class AlarmReciever extends BroadcastReceiver {
             Calendar startCalendar= Calendar.getInstance();
 
             startCalendar.set(Calendar.HOUR_OF_DAY,4);
-            startCalendar.set(Calendar.MINUTE,55);
+            startCalendar.set(Calendar.MINUTE,54);
             Calendar endCalendar= Calendar.getInstance();
 
-            endCalendar.set(Calendar.HOUR_OF_DAY,5);
+            endCalendar.set(Calendar.HOUR_OF_DAY,22);
             endCalendar.set(Calendar.MINUTE,10);
 
            if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
@@ -66,7 +66,14 @@ public class AlarmReciever extends BroadcastReceiver {
                if (!AlramUtility.isMute(context) && AlramUtility.isStart(context)) {
                    {
                        NewMessageNotification455.notify(context, "Morning Nitya Stuti", "Details", 1, null);
-                       playDialy455(context);
+                       new Thread(new Runnable()
+                       {
+                           @Override
+                           public void run() {
+                               playDialy455(context);
+                           }
+                       }).start();
+
                    }
                }
            }
@@ -99,9 +106,9 @@ public class AlarmReciever extends BroadcastReceiver {
         }*/
     }
 
-    MediaPlayer mPlayer;
+
     void playDialyAlram(Context context)
-    {
+    {MediaPlayer mPlayer;
         mPlayer = MediaPlayer.create(context, R.raw.textnotifi);//Create MediaPlayer object with MP3 file under res/raw folder
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
@@ -117,6 +124,8 @@ public class AlarmReciever extends BroadcastReceiver {
     }
     void playDialy455(final Context context)
     {
+
+        MediaPlayer mPlayer;
         mPlayer = MediaPlayer.create(context, R.raw.tone455);//Create MediaPlayer object with MP3 file under res/raw folder
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
@@ -132,6 +141,7 @@ public class AlarmReciever extends BroadcastReceiver {
     }
     void playDialy500(Context context)
     {
+        MediaPlayer mPlayer;
         mPlayer = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 

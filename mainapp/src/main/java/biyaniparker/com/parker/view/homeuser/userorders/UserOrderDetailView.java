@@ -97,7 +97,7 @@ public class UserOrderDetailView extends AppCompatActivity {
         txtOrderDate.setText(CommonUtilities.longToDate(bean.getOrderDate()));
         try
         {
-            txtGAmount.setText("Total Amt : " + (int) Double.parseDouble(bean.getTotolAmount())+ " Rs");
+            txtGAmount.setText("Total Amt : " +  Double.parseDouble(bean.getTotolAmount())+ " Rs");
         }
         catch (Exception e)
         {}
@@ -149,7 +149,7 @@ public class UserOrderDetailView extends AppCompatActivity {
 
 
             pName.setText(orderD.getProductName());
-            cPrice.setText("" + (int) Double.parseDouble(orderD.getConsumerPrice()) + ". Rs");
+            cPrice.setText("" +  Double.parseDouble(orderD.getConsumerPrice()) + ". Rs");
 
 
             imageLoader = ImageLoader.getInstance();
@@ -176,7 +176,7 @@ public class UserOrderDetailView extends AppCompatActivity {
                     l.addView(sub);
                 }
             }
-            tPrice.setText("Total :" + (int)total + " Rs");
+            tPrice.setText("Total :" + total + " Rs");
             linear.addView(v);
         }
 

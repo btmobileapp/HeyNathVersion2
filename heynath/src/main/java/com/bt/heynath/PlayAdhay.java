@@ -45,7 +45,7 @@ public class PlayAdhay extends AppCompatActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("नित्य सूचि");
+        getSupportActionBar().setTitle("अधयाय");
 
     }
 

@@ -8,11 +8,14 @@ import android.widget.Toast;
 public class BootReciever extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent)
+    {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
        // throw new UnsupportedOperationException("Not yet implemented");
-        Toast.makeText(context, "Toast Given to Akshay Mangave", Toast.LENGTH_SHORT).show();
+
+        NewMessageNotification.notify(context, intent.getAction(), intent.getAction(), 1, null);
+        Toast.makeText(context, "Alarm Scheduled", Toast.LENGTH_SHORT).show();
         context.startService(new Intent(context, AlarmService.class));
     }
 }

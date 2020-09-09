@@ -56,13 +56,12 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/txtStripCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtStripCode"
                 android:layout_margin="1dp"
                 android:textColor="@android:color/black"
-                android:text="135 Rs"
-                android:textSize="10dp"/>
+                android:textSize="10dp" />
 
 
 

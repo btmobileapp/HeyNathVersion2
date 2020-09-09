@@ -7,18 +7,22 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bt.heynath.reciever.AlarmService;
 import com.bt.heynath.reciever.AlramUtility;
+import com.bt.heynath.reciever.BootReciever;
 
 import java.util.Calendar;
 
@@ -27,6 +31,7 @@ public class Scheduler extends AppCompatActivity {
     Switch switch1,switch2;
     Button btnFromTime,btnToTime,btnSave;
     EditText ed;
+    ImageView ic_MuteRes;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -60,8 +65,37 @@ public class Scheduler extends AppCompatActivity {
             }
         });
         ed=findViewById(R.id.ed);
+        ic_MuteRes=findViewById(R.id.ic_MuteRes);
         init();
+
+        switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                {
+                    ic_MuteRes.setImageResource(R.drawable.ic_mute);
+                }
+                else
+                {
+                    ic_MuteRes.setImageResource(R.drawable.inmute);
+                }
+            }
+        });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+    void setMuteIcon()
+    {
+        if(AlramUtility.isMute(this))
+        {
+
+        }
+    }
+
     void init()
     {
         switch1.setChecked(AlramUtility.isStart(this));
@@ -69,6 +103,14 @@ public class Scheduler extends AppCompatActivity {
         btnFromTime.setText(AlramUtility.getFromTime(this));
         btnToTime.setText(AlramUtility.getToTime(this));
         ed.setText(AlramUtility.getIntervalTimeInMinute(this)+"");
+       if( AlramUtility.isMute(this))
+       {
+           ic_MuteRes.setImageResource(R.drawable.ic_mute);
+       }
+       else
+       {
+           ic_MuteRes.setImageResource(R.drawable.inmute);
+       }
     }
     void save()
     {
@@ -111,7 +153,7 @@ public class Scheduler extends AppCompatActivity {
         alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                registerBootReciever();
                 Intent intent=new Intent();
                 intent.setAction("com.bt.heynath.Check");
                 sendBroadcast(intent);
@@ -120,6 +162,12 @@ public class Scheduler extends AppCompatActivity {
         });
         alert.show();
 
+    }
+    BootReciever reciever;
+    void registerBootReciever()
+    {
+        reciever=new BootReciever();
+        registerReceiver(reciever,new IntentFilter("com.bt.heynath.Check"));
     }
 
     void setTime(final Button btnTime)

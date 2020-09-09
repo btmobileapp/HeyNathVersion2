@@ -9,7 +9,7 @@ import biyaniparker.com.parker.utilities.UserUtilities;
 public class GsonOrderMaster {
     public int OrderId, UserId;
     public String OrderDate, OrderStatus, ChangeBy, ChangedDate, DeleteStatus, Address, Name, ShopName;
-    public long TotolAmount;
+    public float TotolAmount;
 
 
     public OrderMasterBean toOrderMaster()

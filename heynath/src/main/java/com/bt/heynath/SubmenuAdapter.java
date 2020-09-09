@@ -53,7 +53,7 @@ public class SubmenuAdapter extends ArrayAdapter
 		        else if((position)==1)
 		        {
 		         	//img.setImageResource(R.drawable.hand);
-                    Picasso.get().load(R.drawable.hand).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.shree5).transform(new CircleTransform()).into(img);
 		        }
 				else if((position)==2)
 				{
@@ -103,7 +103,7 @@ public class SubmenuAdapter extends ArrayAdapter
 		else if((position)==11)
 		{
 			//img.setImageResource(R.drawable.hand);
-			Picasso.get().load(R.drawable.hand).transform(new CircleTransform()).into(img);
+			Picasso.get().load(R.drawable.shree5).transform(new CircleTransform()).into(img);
 		}
 		else if((position)==12)
 		{

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main"
+    android:padding="5dp"
     tools:context=".NityaStuti">
-
+<LinearLayout
+    android:background="@drawable/edit_text_border"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <Button
         android:id="@+id/button"
-        android:layout_marginTop="50dp"
-
-
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/btnround"
@@ -19,28 +25,63 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="शुरू करें" />
+        android:text="नित्य स्तुति का अलार्म शूरू करे" />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
 
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/shrre4" />
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageView2"
         android:layout_marginLeft="50dp"
-
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/btnround"
 
-        android:text="बंद करे"
+        android:text="नित्य स्तुति का अलार्म बंद करे"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
+</LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView2"
+
+
+
+
+<LinearLayout
+    android:layout_marginTop="20dp"
+    android:background="@drawable/edit_text_border"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
-        android:layout_marginTop="30dp"
-        app:srcCompat="@drawable/shrre4" />
-</RelativeLayout>
+        android:layout_below="@id/button1"
+        android:layout_marginLeft="50dp"
+
+        android:layout_marginRight="50dp"
+        android:background="@drawable/btnround"
+        android:text="ट्यून सुने "
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button2"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/btnround"
+        android:text="नित्य स्तुति सुने "
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+</LinearLayout>
+
+</LinearLayout>

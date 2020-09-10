@@ -63,7 +63,8 @@ public class NityaStuti extends AppCompatActivity {
 
                 editor.commit();
                 AlertDialog.Builder alert=new AlertDialog.Builder(NityaStuti.this);
-                alert.setMessage("नित्या स्तुति शुरू हो चुकी है");
+                alert.setTitle("नहै नाथ की पुकार शुरू हो चुकी है");
+                alert.setMessage("नित्य स्तुति कल सुबह ४.५५ पर शुरू होगी");
                 alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -83,7 +84,7 @@ public class NityaStuti extends AppCompatActivity {
                 editor.commit();
 
                 AlertDialog.Builder alert=new AlertDialog.Builder(NityaStuti.this);
-                alert.setMessage("नित्या स्तुति को रोक दिया गया है");
+                alert.setMessage("नहै नाथ की पुकार को रोक दिया गया है");
                 alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

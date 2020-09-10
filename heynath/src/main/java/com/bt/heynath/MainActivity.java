@@ -27,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("|| श्री हरि: ||");
+        getSupportActionBar().hide();
         gv = (GridView) findViewById(R.id.gridview);
         menus.add("नित्य स्तुति");
-        menus.add("समयबद्धक");
-        menus.add("गीता अधयाय");
+        menus.add("है नाथ की पुकार");
+        menus.add("गीता अध्याय");
         try {
             boolean isPermissionAvaialbe=  AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)  ;
             if(isPermissionAvaialbe)
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
     }

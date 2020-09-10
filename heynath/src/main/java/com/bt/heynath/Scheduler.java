@@ -39,7 +39,8 @@ public class Scheduler extends AppCompatActivity {
         setContentView(R.layout.activity_scheduler);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("हे नाथ समयबद्धक");
+        getSupportActionBar().setTitle("है नाथ की पुकार");
+        getSupportActionBar().setSubtitle("पु. महाराज जी की वाणी में");
         switch1=findViewById(R.id.switch1);
         switch2=findViewById(R.id.switch2);
         btnToTime=findViewById(R.id.btnToTime);

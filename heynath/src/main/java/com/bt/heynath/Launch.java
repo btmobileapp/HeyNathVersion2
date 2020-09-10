@@ -28,5 +28,7 @@ public class Launch extends AppCompatActivity {
                 }
             }
         }).start();
+        getSupportActionBar().setTitle(" || श्री हरि: ||");
+        getSupportActionBar().hide();
     }
 }

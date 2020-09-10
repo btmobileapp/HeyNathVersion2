@@ -243,10 +243,11 @@ android:layout_marginTop="10dp"
     </LinearLayout>
     <Button
         android:layout_marginTop="50dp"
+        android:padding="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btnround"
-        android:text="सेव करे"
+        android:text="भगवान की विस्मृति एक क्षण के लिए भी ना हो इसके लिए क्लिक करे"
         android:id="@+id/btnSave"
         android:textColor="@android:color/black">
     </Button>

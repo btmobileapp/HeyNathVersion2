@@ -93,7 +93,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
-                        android:text="Unit Name"
+                        android:text="Unit  "
+                        android:layout_marginRight="32dp"
+                        android:gravity="right"
                         android:textColor="@android:color/black" />
 
                     <EditText
@@ -101,6 +103,7 @@
                         style="@android:style/Widget.Holo.Light.EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:editable="false" />
 
@@ -116,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:visibility="visible"
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
@@ -123,6 +127,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
                         android:text="Remark"
+                        android:layout_marginRight="15dp"
+                        android:gravity="right"
                         android:textColor="@android:color/black" />
 
                     <EditText
@@ -131,6 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
                         android:editable="false" />
                 </LinearLayout>
 

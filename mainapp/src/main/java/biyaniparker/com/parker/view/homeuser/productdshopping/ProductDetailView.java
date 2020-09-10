@@ -118,6 +118,10 @@ public class ProductDetailView
                 double price=bean.price ;//moduleProductDetails.getPriceFromPriceId(bean.getPriceId());
                 DecimalFormat df = new DecimalFormat("#.##");
                 txtprice.setText( df.format( price)+" Rs");
+                if(getString(R.string.app_name).contains("Rajashree"))
+                {
+                    txtprice.setText("Price List Rate (Rs):-  "+ df.format( price)+"");
+                }
             }
             catch (Exception e){ txtprice.setText(" Rs");}
 

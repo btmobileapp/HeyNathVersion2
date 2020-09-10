@@ -3,8 +3,10 @@ package com.bt.heynath.reciever;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -38,11 +40,15 @@ public class AlarmReciever extends BroadcastReceiver {
             endCalendar.set(Calendar.HOUR_OF_DAY,endHour);
             endCalendar.set(Calendar.MINUTE,endMinute);
 
-            if(!AlramUtility.isMute(context)  && AlramUtility.isStart(context))
+            if(!AlramUtility.isMute(context)  && AlramUtility.isStart(context)  && !isAirplaneModeOn(context)  && !isCallActive(context))
             {
-                if (calendar.after(startCalendar) && calendar.before(endCalendar)) {
-                    NewMessageNotification.notify(context, "Hey Nath Stuti", "Hey Nath Stuti", 1, null);
-                    playDialyAlram(context);
+                if (calendar.after(startCalendar) && calendar.before(endCalendar))
+                {
+                   NewMessageNotification.notify(context, "है नाथ की पुकार", "है नाथ की पुकार", 1, null);
+                    //playDialyAlram(context);
+
+                    Intent intetentService=new Intent(context,PlayStutiService.class);
+                    context.startService(intetentService);
                 }
             }
         }
@@ -63,8 +69,10 @@ public class AlarmReciever extends BroadcastReceiver {
 
            if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
            {
-               if (!AlramUtility.isMute(context) && AlramUtility.isStart(context)) {
+               if (!AlramUtility.isMute(context) && AlramUtility.isStart(context)   && !isAirplaneModeOn(context)  && !isCallActive(context))
+               {
                    {
+                       /*
                        NewMessageNotification455.notify(context, "Morning Nitya Stuti", "Details", 1, null);
                        new Thread(new Runnable()
                        {
@@ -74,6 +82,9 @@ public class AlarmReciever extends BroadcastReceiver {
                            }
                        }).start();
 
+                        */
+                       Intent intetentService=new Intent(context,PlayStutiService.class);
+                       context.startService(intetentService);
                    }
                }
            }
@@ -154,7 +165,9 @@ public class AlarmReciever extends BroadcastReceiver {
         if(!isSilentMode(context))
           mPlayer.start();
     }
-
+    private static boolean isAirplaneModeOn(Context context) {
+        return Settings.System.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+    }
     boolean isSilentMode(Context context)
     {
         AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -180,5 +193,10 @@ public class AlarmReciever extends BroadcastReceiver {
         }
 
         return  false;
+    }
+
+    public boolean isCallActive(Context context){
+        AudioManager manager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        return manager.getMode() == AudioManager.MODE_IN_CALL;
     }
 }

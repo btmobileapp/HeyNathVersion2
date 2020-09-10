@@ -58,7 +58,7 @@ public class SubmenuAdapter extends ArrayAdapter
 				else if((position)==2)
 				{
 					//img.setImageResource(R.drawable.hand1);
-                    Picasso.get().load(R.drawable.addhaayy).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.adhaymain2).transform(new CircleTransform()).into(img);
 				}
 				else if((position)==3)
 				{

@@ -134,7 +134,8 @@ public class ImageClass extends AppCompatActivity implements DownloadUtility, Pr
     }
 
     @Override
-    public void getImageUrl(String imgUrl) {
+    public void getImageUrl(String imgUrl)
+    {
         Intent intent=new Intent(ImageClass.this, ViewProductImage.class);
         intent.putExtra("path",imgUrl);
         startActivity(intent);

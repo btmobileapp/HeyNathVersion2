@@ -32,7 +32,7 @@
         android:layout_height="180dp"
 
         android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/pukar" />
+        app:srcCompat="@drawable/shrre4" />
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
 
         android:layout_marginRight="50dp"
         android:background="@drawable/btnround"
-        android:text="ट्यून सुने "
+        android:text="नित्य स्तुति सुने - भाग १ "
         android:textColor="@android:color/black"
         android:textStyle="bold" />
     <Button
@@ -79,7 +79,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/btnround"
-        android:text="नित्य स्तुति सुने "
+        android:text="नित्य स्तुति सुने - भाग २"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 </LinearLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class NityaStuti extends AppCompatActivity {
 
                 editor.commit();
                 AlertDialog.Builder alert=new AlertDialog.Builder(NityaStuti.this);
-                alert.setTitle("नहै नाथ की पुकार शुरू हो चुकी है");
+               // alert.setTitle("नित्य स्तुति शुरू हो चुकी है");
                 alert.setMessage("नित्य स्तुति कल सुबह ४.५५ पर शुरू होगी");
                 alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
                     @Override
@@ -84,7 +85,7 @@ public class NityaStuti extends AppCompatActivity {
                 editor.commit();
 
                 AlertDialog.Builder alert=new AlertDialog.Builder(NityaStuti.this);
-                alert.setMessage("नहै नाथ की पुकार को रोक दिया गया है");
+                alert.setMessage("नित्य स्तुति को रोक दिया गया है");
                 alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -108,7 +109,8 @@ public class NityaStuti extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playNormal1();
+             //   playNormal1();
+                startActivity(new Intent(NityaStuti. this,PlayAudio2.class));
             }
         });
 
@@ -127,6 +129,7 @@ public class NityaStuti extends AppCompatActivity {
 
     void playTune()
     {
+        /*
         simpleExoPlayerView_Video=new SimpleExoPlayerView(this);
 
         AlertDialog.Builder alert=new AlertDialog.Builder(this);
@@ -135,7 +138,8 @@ public class NityaStuti extends AppCompatActivity {
         //alert.show();
         //initializePlayer();
        // getAudioFile();
-        playNormal();
+        playNormal();*/
+        startActivity(new Intent(this,PlayAudio1.class));
 
     }
     /*

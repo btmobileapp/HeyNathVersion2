@@ -2,6 +2,7 @@ package com.bt.heynath;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,17 +44,19 @@ public class SubmenuAdapter extends ArrayAdapter
 	            convertView = mInflater.inflate(R.layout.item_submenu, null);
 	            TextView t1=(TextView)convertView.findViewById(R.id.textView1);
 	            t1.setText(""+list.get(position));
+        Typeface tf=Typeface.createFromAsset(context. getAssets(), "Roboto-Light.ttf");
+        t1.setTypeface(tf);
 		        ImageView img=convertView.findViewById(R.id.picture);
 
 	            if(  position==0)//list.get(position).equalsIgnoreCase("त्नित्य स्तुति"))
 				{
 					// img.setImageResource(R.drawable.nitya);
-                     Picasso.get().load(R.drawable.shree1).transform(new CircleTransform()).into(img);
+                     Picasso.get().load(R.drawable.shree5).transform(new CircleTransform()).into(img);
 				}
 		        else if((position)==1)
 		        {
 		         	//img.setImageResource(R.drawable.hand);
-                    Picasso.get().load(R.drawable.shree5).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.shree1).transform(new CircleTransform()).into(img);
 		        }
 				else if((position)==2)
 				{

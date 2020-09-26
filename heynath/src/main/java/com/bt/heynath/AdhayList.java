@@ -56,7 +56,7 @@ public class AdhayList extends AppCompatActivity {
        // sendBroadcast(intent);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("अधयाय");
+        getSupportActionBar().setTitle("अध्याय");
 
 
 

@@ -3,20 +3,26 @@ package com.bt.heynath;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -32,6 +38,7 @@ public class Scheduler extends AppCompatActivity {
     Button btnFromTime,btnToTime,btnSave;
     EditText ed;
     ImageView ic_MuteRes;
+    TextView txtFrom;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -82,6 +89,26 @@ public class Scheduler extends AppCompatActivity {
                 }
             }
         });
+
+        txtFrom=findViewById(R.id.txtFrom);
+        TextView txt1=findViewById(R.id.txt1);
+        TextView txt2=findViewById(R.id.txt2);
+        TextView txt3=findViewById(R.id.txt3);
+        TextView txtTo=findViewById(R.id.txtTo);
+        TextView txt4=findViewById(R.id.txt4);
+        TextView txt5=findViewById(R.id.txt5);
+        TextView txt6=findViewById(R.id.txt6);
+
+
+        Typeface tf=Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
+        txtFrom.setTypeface(tf);
+        txtTo.setTypeface(tf);
+        txt1.setTypeface(tf);
+        txt1.setTypeface(tf);txt2.setTypeface(tf);txt3.setTypeface(tf);txt4.setTypeface(tf);txt5.setTypeface(tf);
+        txt6.setTypeface(tf);
+
+        hideatInItInputBoard(this);
+        hideSoftKeyBord(this);
     }
 
     @Override
@@ -148,8 +175,8 @@ public class Scheduler extends AppCompatActivity {
         editor.commit();
 
         AlertDialog.Builder alert=new AlertDialog.Builder(this);
-        alert.setTitle("हे नाथ समयबद्धक");
-        alert.setMessage("नित्य स्तुति अनुसूची सफल हुई");
+        alert.setTitle("है नाथ की पुकार");
+        alert.setMessage("है नाथ की पुकार की अनुसूची सफल हुई");
         alert.setCancelable(false);
         alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
             @Override
@@ -195,5 +222,24 @@ public class Scheduler extends AppCompatActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public static void hideatInItInputBoard(Activity context) {
+        context.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    public static void hideSoftKeyBord(Activity context) {
+        InputMethodManager inputManager = (InputMethodManager)
+                context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View v = context.getCurrentFocus();
+        if (v == null)
+            return;
+
+
+        inputManager.hideSoftInputFromWindow(v.getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }

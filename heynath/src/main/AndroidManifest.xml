@@ -18,10 +18,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".PrathnaImportant"></activity>
+        <activity android:name=".NityaStustiSubmenu" />
+        <activity
+            android:name=".PlayAudio1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlayAudio2"
+            android:screenOrientation="portrait" />
+
         <service
             android:name=".reciever.PlayMorningStuti"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
             android:name=".reciever.PlayStutiService"
             android:enabled="true"
@@ -74,8 +83,12 @@
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".shreemukhi.ShreeMukhiSubmenu"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Launch"
             android:screenOrientation="portrait">

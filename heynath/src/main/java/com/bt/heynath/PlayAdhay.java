@@ -41,12 +41,12 @@ public class PlayAdhay extends AppCompatActivity {
       //  videoView.start();
         simpleExoPlayerView_Video = findViewById(R.id.exoplayer_learning_video);
         //simpleExoPlayerView=simpleExoPlayerView_Video;
-        getVideoFile("http://btwebservices.biyanitechnologies.com/dealerapp/rm.mp4");
+
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("अधयाय");
-
+        getSupportActionBar().setTitle("अध्याय");
+        getVideoFile("http://btwebservices.biyanitechnologies.com/dealerapp/rm.mp4");
     }
 
     @Override

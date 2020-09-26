@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/linerar"
+    tools:context=".CameraExampleActivity">
+    <Button
+        android:id="@+id/buttonClick"
+        android:text="Click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    tools:context=".Launch">
+    </Button>
 
-    <ImageView
-    android:layout_width="match_parent"
-    android:src="@drawable/vlaunch1"
-    android:layout_height="match_parent">
-
-</ImageView>
 </LinearLayout>

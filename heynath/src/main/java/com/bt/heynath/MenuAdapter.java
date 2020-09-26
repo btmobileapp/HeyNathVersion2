@@ -2,6 +2,7 @@ package com.bt.heynath;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,17 +44,20 @@ public class MenuAdapter extends ArrayAdapter
 	            convertView = mInflater.inflate(R.layout.item_menu, null);
 	            TextView t1=(TextView)convertView.findViewById(R.id.textView1);
 	            t1.setText(""+list.get(position));
+                Typeface tf=Typeface.createFromAsset(context. getAssets(), "Roboto-Light.ttf");
+                t1.setTypeface(tf);
+
 		        ImageView img=convertView.findViewById(R.id.picture);
 
 	            if(  position==0)//list.get(position).equalsIgnoreCase("त्नित्य स्तुति"))
 				{
 					// img.setImageResource(R.drawable.nitya);
-                     Picasso.get().load(R.drawable.shree1).transform(new CircleTransform()).into(img);
+                     Picasso.get().load(R.drawable.krish9).transform(new CircleTransform()).into(img);
 				}
 		        else if((position)==1)
 		        {
 		         	//img.setImageResource(R.drawable.hand);
-                    Picasso.get().load(R.drawable.hand).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.hand3).transform(new CircleTransform()).into(img);
 		        }
 				else if((position)==2)
 				{
@@ -62,7 +66,7 @@ public class MenuAdapter extends ArrayAdapter
 				}
 				else if((position)==3)
 				{
-                    Picasso.get().load(R.drawable.auto).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.shree7).transform(new CircleTransform()).into(img);
 					//img.setImageResource(R.drawable.shrre4);
 				}
 				else if(list.get(position).equalsIgnoreCase("अधयाय ४"))
@@ -72,7 +76,7 @@ public class MenuAdapter extends ArrayAdapter
 				else if((position)==4)
 				{
 					//img.setImageResource(R.drawable.shree5);
-                    Picasso.get().load(R.drawable.shrre4).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.hand).transform(new CircleTransform()).into(img);
 				}
 				else if((position)==5)
 				{
@@ -91,11 +95,26 @@ public class MenuAdapter extends ArrayAdapter
 				{
                     Picasso.get().load(R.drawable.shree2).transform(new CircleTransform()).into(img);
 				}
-                else if((position)==8)
+                else if((position)==9)
                 {
-                    Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.shree1).transform(new CircleTransform()).into(img);
                 }
-
+                else if((position)==10)
+                {
+                    Picasso.get().load(R.drawable.shrre4).transform(new CircleTransform()).into(img);
+                }
+                else if((position)==11)
+                {
+                    Picasso.get().load(R.drawable.shree5).transform(new CircleTransform()).into(img);
+                }
+                else if((position)==12)
+                {
+                    Picasso.get().load(R.drawable.shree7).transform(new CircleTransform()).into(img);
+                }
+                else if((position)==13)
+                {
+                    Picasso.get().load(R.drawable.shree2).transform(new CircleTransform()).into(img);
+                }
 	            return convertView;  
 	}
 

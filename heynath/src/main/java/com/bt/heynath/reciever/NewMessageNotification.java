@@ -52,7 +52,7 @@ public class NewMessageNotification {
 
         // This image is used as the notification's large icon (thumbnail).
         // TODO: Remove this if your notification has no relevant thumbnail.
-        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.addhaayy);
+        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.pukar);
 
 
         final String ticker = newtitle;
@@ -84,7 +84,7 @@ public class NewMessageNotification {
 
                 // Set required fields, including the small icon, the
                 // notification title, and text.
-                .setSmallIcon(R.drawable.addhaayy)
+                .setSmallIcon(R.drawable.pukar)
                 .setContentTitle(title)
                 .setContentText(text)
 

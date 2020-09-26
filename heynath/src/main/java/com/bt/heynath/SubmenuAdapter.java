@@ -80,7 +80,7 @@ public class SubmenuAdapter extends ArrayAdapter
 				}
 				else if((position)==6)
 				{
-                    Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.krish9).transform(new CircleTransform()).into(img);
 				}
 				else if((position)==7)
 				{
@@ -96,7 +96,7 @@ public class SubmenuAdapter extends ArrayAdapter
                 }
 				else if((position)==9)
 				{
-					Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
+					Picasso.get().load(R.drawable.krish9).transform(new CircleTransform()).into(img);
 				}
 		if(  position==10)//list.get(position).equalsIgnoreCase("त्नित्य स्तुति"))
 		{
@@ -130,7 +130,7 @@ public class SubmenuAdapter extends ArrayAdapter
 		}
 		else if((position)==16)
 		{
-			Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
+			Picasso.get().load(R.drawable.krish9).transform(new CircleTransform()).into(img);
 		}
 		else if((position)==17)
 		{
@@ -142,7 +142,7 @@ public class SubmenuAdapter extends ArrayAdapter
 		}
 		else if((position)==8)
 		{
-			Picasso.get().load(R.drawable.shree6).transform(new CircleTransform()).into(img);
+			Picasso.get().load(R.drawable.krish9).transform(new CircleTransform()).into(img);
 		}
 	            return convertView;  
 	}

@@ -57,7 +57,7 @@ public class MenuAdapter extends ArrayAdapter
 		        else if((position)==1)
 		        {
 		         	//img.setImageResource(R.drawable.hand);
-                    Picasso.get().load(R.drawable.hand3).transform(new CircleTransform()).into(img);
+                    Picasso.get().load(R.drawable.pukar).transform(new CircleTransform()).into(img);
 		        }
 				else if((position)==2)
 				{

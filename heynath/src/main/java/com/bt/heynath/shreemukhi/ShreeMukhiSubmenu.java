@@ -42,7 +42,7 @@ public class ShreeMukhiSubmenu extends AppCompatActivity implements AdapterView.
         menus.add("गजल गीता");
         menus.add("विष्णु सहस्रनाम");
         menus.add("गीता सार");
-        menus.add(" महापुरुषो के विचार गीताजी के बारे में");
+        menus.add("महापुरुषो के विचार गीताजी के बारे में");
         menus.add("साधक संजीवनी एक प्रासादिक जी ग्रंथ ");
         SubmenuAdapter adapter=new SubmenuAdapter(this,menus);
         listview.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,menus));
@@ -60,14 +60,35 @@ public class ShreeMukhiSubmenu extends AppCompatActivity implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        if(i==0)
+        {
+            ViewDetails.menu="Mahima";
+            startActivity(new Intent(this, ViewDetails.class));
+        }
+        if(i==1)
+        {
+            ViewDetails.menu="18 Names";
+            startActivity(new Intent(this, ViewDetails.class));
+        }
+        if(i==2)
+        {
+            ViewDetails.menu="5 Shlok";
+            startActivity(new Intent(this, ViewDetails.class));
+        }
         if(i==4)
         {    //!s6Kwjzw
              startActivity(new Intent(this, AdhayList.class));
         }
-        if(i==1)
+        if(i==5)
+        {    //!s6Kwjzw
+            GajalActivity.menu="Gajal";
+            startActivity(new Intent(this, GajalActivity.class));
+        }
+        if(i==7)
         {
-            // startActivity(new Intent(this, NityaStuti.class));
-
+            GajalActivity.menu="Sar";
+            startActivity(new Intent(this, GajalActivity.class));
         }
     }
 }

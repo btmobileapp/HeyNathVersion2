@@ -69,7 +69,7 @@ public class NityaStuti extends AppCompatActivity {
                 alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
+                       // finish();
                     }
                 });
                 alert.show();
@@ -89,7 +89,7 @@ public class NityaStuti extends AppCompatActivity {
                 alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
+                       // finish();
                     }
                 });
                 alert.show();

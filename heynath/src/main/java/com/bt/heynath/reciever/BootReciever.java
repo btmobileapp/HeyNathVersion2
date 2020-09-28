@@ -5,7 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-public class BootReciever extends BroadcastReceiver {
+public class BootReciever extends BroadcastReceiver
+{
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -14,7 +15,7 @@ public class BootReciever extends BroadcastReceiver {
         // an Intent broadcast.
        // throw new UnsupportedOperationException("Not yet implemented");
 
-        NewMessageNotification.notify(context, intent.getAction(), intent.getAction(), 1, null);
+     //   NewMessageNotification.notify(context, intent.getAction(), intent.getAction(), 1, null);
         Toast.makeText(context, "Alarm Scheduled", Toast.LENGTH_SHORT).show();
         context.startService(new Intent(context, AlarmService.class));
     }

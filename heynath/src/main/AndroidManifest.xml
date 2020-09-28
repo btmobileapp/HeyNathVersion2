@@ -18,8 +18,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PrathnaImportant"></activity>
-        <activity android:name=".NityaStustiSubmenu" />
+        <activity
+            android:name=".Viewpdf"
+            android:label="@string/title_activity_viewpdf"
+          ></activity>
+        <activity
+            android:name=".shreemukhi.GajalActivity"
+            android:label="@string/title_activity_gajal"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shreemukhi.ViewDetails"
+            android:label="@string/title_activity_view_details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PrathnaImportant"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NityaStustiSubmenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NathKiPukarSubmenu"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PlayAudio1"
             android:screenOrientation="portrait" />
@@ -90,8 +109,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Launch"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".Launch1"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

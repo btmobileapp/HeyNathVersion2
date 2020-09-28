@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(i==1)
                 {
-                    startActivity(new Intent(MainActivity.this,Scheduler.class));
+                    startActivity(new Intent(MainActivity.this,NathKiPukarSubmenu.class));
                 }
                 else if(i==2)
                 {

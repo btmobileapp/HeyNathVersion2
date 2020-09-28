@@ -19,16 +19,29 @@
             android:layout_alignParentTop="true"
             android:layout_height="match_parent"
             >
-
-            <TextView
-                android:id="@+id/txt"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Some Text Her"
-                android:textSize="25sp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/shree1"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp">
+
+                </ImageView>
+                <TextView
+                    android:id="@+id/txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Some Text Her"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
 
 
     </RelativeLayout>

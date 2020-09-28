@@ -175,7 +175,7 @@ public class Scheduler extends AppCompatActivity {
         editor.commit();
 
         AlertDialog.Builder alert=new AlertDialog.Builder(this);
-        alert.setTitle("है नाथ की पुकार");
+      //  alert.setTitle("है नाथ की पुकार");
         alert.setMessage("है नाथ की पुकार की अनुसूची सफल हुई");
         alert.setCancelable(false);
         alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {

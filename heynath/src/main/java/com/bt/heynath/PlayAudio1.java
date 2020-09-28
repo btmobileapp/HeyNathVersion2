@@ -46,12 +46,12 @@ public class PlayAudio1 extends AppCompatActivity {
         setContentView(R.layout.activity_play_audio1);
         txt=findViewById(R.id.txt);
        // txt.setText("");
-        txt.setText("ट्यून सुने ");
+        txt.setText("नित्य स्तुति सुने - भाग १");
 
       //  simpleExoPlayerView_Video = findViewById(R.id.playerView);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("ट्यून सुने ");
+        getSupportActionBar().setTitle("नित्य स्तुति सुने - भाग १ ");
        // getVideoFile("http://btwebservices.biyanitechnologies.com/dealerapp/rm.mp4");
        // initializePlayer();
         playNormal();

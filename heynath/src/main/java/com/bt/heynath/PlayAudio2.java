@@ -25,12 +25,12 @@ public class PlayAudio2 extends AppCompatActivity {
         setContentView(R.layout.activity_play_audio1);
         txt=findViewById(R.id.txt);
        // txt.setText("");
-        txt.setText("नित्य स्तुति सुने ");
+        txt.setText("नित्य स्तुति सुने - भाग २ ");
 
       //  simpleExoPlayerView_Video = findViewById(R.id.playerView);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("नित्य स्तुति सुने ");
+        getSupportActionBar().setTitle("ननित्य स्तुति सुने - भाग २ ");
        // getVideoFile("http://btwebservices.biyanitechnologies.com/dealerapp/rm.mp4");
        // initializePlayer();
         playNormal();

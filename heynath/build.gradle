@@ -50,4 +50,5 @@ dependencies {
 
 
     implementation 'com.github.judemanutd:autostarter:1.0.8'
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }

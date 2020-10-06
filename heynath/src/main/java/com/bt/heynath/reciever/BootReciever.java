@@ -15,7 +15,7 @@ public class BootReciever extends BroadcastReceiver
         // an Intent broadcast.
        // throw new UnsupportedOperationException("Not yet implemented");
 
-     //   NewMessageNotification.notify(context, intent.getAction(), intent.getAction(), 1, null);
+        NewMessageNotification.notify(context, intent.getAction(), intent.getAction(), 1, null);
         Toast.makeText(context, "Alarm Scheduled", Toast.LENGTH_SHORT).show();
         context.startService(new Intent(context, AlarmService.class));
     }

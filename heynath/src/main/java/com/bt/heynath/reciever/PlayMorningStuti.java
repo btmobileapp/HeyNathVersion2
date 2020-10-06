@@ -30,7 +30,7 @@ public class PlayMorningStuti extends Service {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 //  performOnEnd();
-                /// playDialy500(context);
+                playDialy500(PlayMorningStuti.this);
             }
 
         });
@@ -38,7 +38,10 @@ public class PlayMorningStuti extends Service {
     }
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(!isSilentMode(this))
-           player.start();
+        {
+            NewMessageNotification.notify(this, "त्य स्तुति - भाग १", "त्य स्तुति  - भाग १", 1, null);
+            player.start();
+        }
         return 1;
     }
 
@@ -82,7 +85,10 @@ public class PlayMorningStuti extends Service {
 
         });
         if(!isSilentMode(context))
+        {
+            NewMessageNotification.notify(this, "त्य स्तुति - भाग २", "त्य स्तुति  - भाग २", 1, null);
             player.start();
+        }
     }
 
     boolean isSilentMode(Context context)

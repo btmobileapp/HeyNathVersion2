@@ -54,6 +54,7 @@
             android:name=".reciever.PlayStutiService"
             android:enabled="true"
             android:exported="true" />
+
         <service
             android:name=".reciever.AlarmService"
             android:enabled="true"
@@ -63,6 +64,10 @@
             android:name=".reciever.AlarmReciever"
             android:enabled="true"
             android:exported="true" />
+
+
+
+
         <receiver
             android:name=".reciever.BootReciever"
             android:enabled="true"

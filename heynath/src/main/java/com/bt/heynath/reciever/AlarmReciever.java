@@ -21,6 +21,7 @@ public class AlarmReciever extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent)
     {
+        NewMessageNotification.notify(context,"Aralm Rec", intent.getAction(), 2, null);
 
         String action = intent.getAction();
         if (SOMEACTION.equals(action))
@@ -40,7 +41,7 @@ public class AlarmReciever extends BroadcastReceiver {
             endCalendar.set(Calendar.HOUR_OF_DAY,endHour);
             endCalendar.set(Calendar.MINUTE,endMinute);
 
-            if(!AlramUtility.isMute(context)  && AlramUtility.isStart(context)  && !isAirplaneModeOn(context)  && !isCallActive(context))
+            if(!AlramUtility.isMute(context)  && AlramUtility.isStart(context)  && !isAirplaneModeOn(context)  && !isCallActive(context)  && !isSilentMode(context))
             {
                 if (calendar.after(startCalendar) && calendar.before(endCalendar))
                 {
@@ -69,10 +70,12 @@ public class AlarmReciever extends BroadcastReceiver {
 
            if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
            {
-               if (!AlramUtility.isMute(context) && AlramUtility.isStart(context)   && !isAirplaneModeOn(context)  && !isCallActive(context))
+               NewMessageNotification.notify(context,"Pre Schedule 455", "Pre Schedule 455", 2, null);
+
+               if ( !AlramUtility.isMute(context) && AlramUtility.isStart(context)   && !isAirplaneModeOn(context)  && !isCallActive(context))
                {
                    {
-                       /*
+                             /*
                        NewMessageNotification455.notify(context, "Morning Nitya Stuti", "Details", 1, null);
                        new Thread(new Runnable()
                        {
@@ -83,9 +86,16 @@ public class AlarmReciever extends BroadcastReceiver {
                        }).start();
 
                         */
-                       Intent intetentService=new Intent(context,PlayStutiService.class);
+                       NewMessageNotification.notify(context,"455 service call", "455 service call", 2, null);
+
+                       Intent intetentService=new Intent(context,PlayMorningStuti.class);
                        context.startService(intetentService);
                    }
+               }
+               else
+               {
+                   NewMessageNotification.notify(context,"455 Condition Fail", "455 Condition Fail", 2, null);
+
                }
            }
 

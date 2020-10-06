@@ -332,7 +332,12 @@ public class PrintOrderSummary
         cell2 = new PdfPCell(new Phrase("Product"));
         cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell2);
-        cell2 = new PdfPCell(new Phrase("PL Rate"));
+        String rateName="Rs.";
+        if(LaunchActivity.appName.contains("Rajashree"))
+        {
+            rateName="PL Rate";
+        }
+        cell2 = new PdfPCell(new Phrase(rateName));
         cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell2);
         cell2 = new PdfPCell(new Phrase("Unit"));

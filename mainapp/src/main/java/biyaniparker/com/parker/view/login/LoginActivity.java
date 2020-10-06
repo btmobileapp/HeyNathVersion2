@@ -37,6 +37,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(appname.equalsIgnoreCase("Choice Electric"))
         {
             setContentView(R.layout.activity_login_choice);
+            Toolbar t=findViewById(R.id.toolbar);
+            setSupportActionBar(t);
+            getSupportActionBar().hide();
         }
         else if(appname.equalsIgnoreCase("Rajashree Industries"))
         {
@@ -147,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 else if (str.equalsIgnoreCase("LoginNotApproved"))
                 {
                   //  Toast.makeText(this, "Incorrect UserName or Password ", Toast.LENGTH_LONG).show();
-                    CommonUtilities.alert(this,"User not approved yet, Please contact to Rajashree Industries.");
+                    CommonUtilities.alert(this,"User not approved yet, Please contact to "+getString(R.string.app_name)+".");
                 }
                 else if (str.equalsIgnoreCase("LoginFailed"))
                 {
@@ -156,7 +159,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 else if (str.equalsIgnoreCase("AllreadyLogin"))
                 {
                     //  Toast.makeText(this, "Incorrect UserName or Password ", Toast.LENGTH_LONG).show();
-                    CommonUtilities.alert(this,"User has allready login on other device, Please contact to Rajashree Industries.");
+                    CommonUtilities.alert(this,"User has allready login on other device, Please contact to "+getString(R.string.app_name)+".");
                 }
 
             }

@@ -61,7 +61,7 @@ public class UserDeletedOrderAdapter extends ArrayAdapter
 
 
         viewHolder.txtOrNo.setText("Or No : " +orderList.get(position).getOrderId());
-        viewHolder.txtTAmt.setText("Total  Amt : " +Integer.parseInt(orderList.get(position).getTotolAmount())+" Rs");
+        viewHolder.txtTAmt.setText("Total  Amt : " +Float.parseFloat(orderList.get(position).getTotolAmount())+" Rs");
         viewHolder.txtOrDate.setText(CommonUtilities.longToDate(orderList.get(position).getOrderDate()));
         viewHolder.txtTQnty.setText("Total Qnty :"+orderList.get(position).getTotalQnty());
         viewHolder.txtShopName.setText(""+orderList.get(position).getShopName());

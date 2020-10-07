@@ -8,35 +8,52 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class AlarmService extends Service {
-    public AlarmService() {
+public class JobAlarmService extends JobIntentService {
+    public JobAlarmService() {
     }
-
+    public static void enqueueWork(Context context, Intent intent) {
+        enqueueWork(context, JobAlarmService.class, 20, intent);
+        NewMessageNotification.notify(context,"Job Scheduled", "Job Scheduled", 1, null);
+    }
+    /*
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
         //throw new UnsupportedOperationException("Not yet implemented");
         try {
-            setPendingIntent(this);
-            setPendingIntent455(this);
+          //  setPendingIntent(this);
+         //   setPendingIntent455(this);
         }
         catch (Exception ex)
         {
             NewMessageNotification.notify(this, ex.toString(), ex.toString(), 1, null);
         }
         return null;
-    }
+    }*/
 
+    @Override
+    protected void onHandleWork(@NonNull Intent intent) {
+        try {
+            setPendingIntent(this);
+        }
+        catch (Exception ex)
+        {}
+        setPendingIntent455(this);
+    }
 
 
     void setPendingIntent(Context context)
     {
-        NewMessageNotification.notify(context,"set Pending", "set 455", 2, null);
+        NewMessageNotification.notify(context,"set Pending", "set Pending", 2, null);
         Intent intent = new Intent(context, AlarmReciever.class);
         intent.setAction("com.bt.heynath.dailyalarm");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
@@ -79,35 +96,41 @@ public class AlarmService extends Service {
 
     void setPendingIntent455(Context context)
     {
-        NewMessageNotification.notify(context,"set 455", "set 455", 2, null);
+        NewMessageNotification.notify(context,"set 455", "set 455", 3, null);
 
-        Intent intent = new Intent(context, AlarmReciever.class);
-        intent.setAction("com.bt.heynath.dailyalarm455");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        /*---------------------   SAtrt Time --------*/
-        Calendar calStart = new GregorianCalendar();
-        calStart.setTime(new Date());
-        calStart.set(Calendar.HOUR_OF_DAY, 4);
-        calStart.set(Calendar.MINUTE, 55);
-        calStart.set(Calendar.SECOND, 0);
-        calStart.set(Calendar.MILLISECOND, 0);
-
-         //  calStart.set(Calendar.HOUR_OF_DAY, AlramUtility.getFromTimeHours(context));
-        //  calStart.set(Calendar.MINUTE, AlramUtility.getFromTimeMinute(context));
-
-
-        long interval= AlramUtility.getIntervalTime(context);
-        AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarm.cancel(pendingIntent);
-        if(Build.VERSION.SDK_INT<19)
+        try
         {
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            Intent intent = new Intent(context, AlarmReciever.class);
+            intent.setAction("com.bt.heynath.dailyalarm455");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+                    1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+            /*---------------------   SAtrt Time --------*/
+            Calendar calStart = new GregorianCalendar();
+            calStart.setTime(new Date());
+            calStart.set(Calendar.HOUR_OF_DAY, 4);
+            calStart.set(Calendar.MINUTE, 55);
+            calStart.set(Calendar.SECOND, 0);
+            calStart.set(Calendar.MILLISECOND, 0);
+
+            //  calStart.set(Calendar.HOUR_OF_DAY, AlramUtility.getFromTimeHours(context));
+            //  calStart.set(Calendar.MINUTE, AlramUtility.getFromTimeMinute(context));
+
+
+            long interval = AlramUtility.getIntervalTime(context);
+            AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarm.cancel(pendingIntent);
+            if (Build.VERSION.SDK_INT < 19) {
+                alarm.setRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            } else {
+                alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            }
+            NewMessageNotification.notify(context,"set 455- Alarm Set", "set 455- Alarm Set", 4, null);
         }
-        else
+        catch (Exception ex)
         {
-            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
+            Log.d("Heynath","Alarm Reciver:-"+ex.toString());
+
         }
     }
     void setPendingIntent500(Context context)
@@ -149,6 +172,8 @@ public class AlarmService extends Service {
         fliter.addAction("com.bt.heynath.dailyalarm455");
         registerReceiver(reciever,fliter);
     }
+
+    /*
     @Override
     public void onStart(final Intent intent, final int startId) {
         super.onStart(intent, startId);
@@ -157,5 +182,5 @@ public class AlarmService extends Service {
         setPendingIntent(this);
         setPendingIntent455(this);
         //setPendingIntent500(this);
-    }
+    }*/
 }

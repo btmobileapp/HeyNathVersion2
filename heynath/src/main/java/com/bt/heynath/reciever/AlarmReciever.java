@@ -88,8 +88,10 @@ public class AlarmReciever extends BroadcastReceiver {
                         */
                        NewMessageNotification.notify(context,"455 service call", "455 service call", 2, null);
 
+                      // Intent intetentService=new Intent(context,PlayMorningStuti.class);
+                       //context.startService(intetentService);
                        Intent intetentService=new Intent(context,PlayMorningStuti.class);
-                       context.startService(intetentService);
+                       JobPlayMorningStuti.enqueueWork(context, intetentService);
                    }
                }
                else

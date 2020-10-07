@@ -20,7 +20,7 @@ public class JobPlayMorningStuti extends JobIntentService {
 
 
     public static void enqueueWork(Context context, Intent intent) {
-        enqueueWork(context, JobAlarmService.class, 1, intent);
+        enqueueWork(context, JobPlayMorningStuti.class, 1, intent);
         NewMessageNotification.notify(context,"Job Scheduled- Morning", "Job Scheduled- Morning", 11, null);
     }
 
@@ -57,6 +57,7 @@ public class JobPlayMorningStuti extends JobIntentService {
             });
             NewMessageNotification.notify(this, "त्य स्तुति - भाग १", "त्य स्तुति  - भाग १", 1, null);
             player.start();
+            Log.d("Heynath","Player Started");
         }
     }
 

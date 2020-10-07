@@ -90,7 +90,7 @@ public class AlarmReciever extends BroadcastReceiver {
 
                       // Intent intetentService=new Intent(context,PlayMorningStuti.class);
                        //context.startService(intetentService);
-                       Intent intetentService=new Intent(context,PlayMorningStuti.class);
+                       Intent intetentService=new Intent(context,JobPlayMorningStuti.class);
                        JobPlayMorningStuti.enqueueWork(context, intetentService);
                    }
                }

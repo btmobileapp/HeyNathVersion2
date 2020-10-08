@@ -5,18 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
+import com.bt.heynath.PlayAudio1;
 import com.bt.heynath.R;
 
 public class JobPlayMorningStuti extends JobIntentService {
     public JobPlayMorningStuti() {
     }
-    MediaPlayer player;
+
 
 
     public static void enqueueWork(Context context, Intent intent) {
@@ -33,31 +35,71 @@ public class JobPlayMorningStuti extends JobIntentService {
     }
     @Override
     public void onDestroy() {
-        player.stop();
-        player.release();
+       // player.stop();
+       // player.release();
     }
 
-    @Override
-    protected void onHandleWork(@NonNull Intent intent) {
-        NewMessageNotification.notify(JobPlayMorningStuti.this,"Morning-Work Started", "Morning-Work Started", 12, null);
-
-        if(!isSilentMode(this))
-        {
+    void startPalying()
+    {
+        try {
+            MediaPlayer player;
             player = MediaPlayer.create(this, R.raw.tone455);
             player.setLooping(false); // Set looping
-            player.setVolume(100,100);
+            player.setVolume(100, 100);
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     //  performOnEnd();
-                    playDialy500(JobPlayMorningStuti.this);
+                    //playDialy500(JobPlayMorningStuti.this);
                 }
 
             });
-            NewMessageNotification.notify(this, "त्य स्तुति - भाग १", "त्य स्तुति  - भाग १", 1, null);
             player.start();
-            Log.d("Heynath","Player Started");
+            Log.d("Heynath","Player Start Method called");
+        }
+        catch (Exception ex)
+        {
+            Log.d("Heynath","Thread-Player "+ex.toString());
+        }
+    }
+    @Override
+    protected void onHandleWork(@NonNull Intent intent) {
+       // NewMessageNotification.notify(JobPlayMorningStuti.this,"Morning-Work Started", "Morning-Work Started", 12, null);
+
+        if(!isSilentMode(this))
+        {
+
+
+            NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
+            try
+            {
+               // player.prepare();
+             //   player.start();
+               // Log.d("Heynath","Player Started");
+
+
+              /*  new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        startPalying();
+                    }
+                }).start();*/
+               // startPalying();
+
+
+              startActivity(new Intent(this, PlayAudio1.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+              //  startPalying();
+                Log.d("Heynath","Start Activity");
+            }
+            catch (Exception ex )
+            {
+
+               Log.d("Heynath","Player Errorr:-"+ex.toString());
+               NewMessageNotification.notify(this, "Player Error"+ex.toString(), "Player Error"+ex.toString(), 25, null);
+
+            }
+
         }
     }
 
@@ -67,7 +109,7 @@ public class JobPlayMorningStuti extends JobIntentService {
     }
 
 
-
+/*
     void playDialy500(Context context)
     {
         //MediaPlayer mPlayer;
@@ -86,7 +128,7 @@ public class JobPlayMorningStuti extends JobIntentService {
             player.start();
         }
     }
-
+*/
     boolean isSilentMode(Context context)
     {
         AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);

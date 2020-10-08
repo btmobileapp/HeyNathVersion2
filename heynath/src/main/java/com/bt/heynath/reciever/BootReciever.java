@@ -25,7 +25,7 @@ public class BootReciever extends BroadcastReceiver
         {}
         Log.d("Heynath",intent.getAction());
         try {
-            NewMessageNotification.notify(context, intent.getAction(), intent.getAction(), 1, null);
+           // NewMessageNotification.notify(context, intent.getAction(), intent.getAction(), 1, null);
             Toast.makeText(context, "Alarm Scheduled", Toast.LENGTH_SHORT).show();
          //   context.startService(new Intent(context, AlarmService.class));
 

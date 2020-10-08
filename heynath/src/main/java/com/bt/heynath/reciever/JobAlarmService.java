@@ -22,7 +22,7 @@ public class JobAlarmService extends JobIntentService {
     }
     public static void enqueueWork(Context context, Intent intent) {
         enqueueWork(context, JobAlarmService.class, 20, intent);
-        NewMessageNotification.notify(context,"Job Scheduled", "Job Scheduled", 1, null);
+      //  NewMessageNotification.notify(context,"Job Scheduled", "Job Scheduled", 1, null);
     }
     /*
     @Override
@@ -53,7 +53,7 @@ public class JobAlarmService extends JobIntentService {
 
     void setPendingIntent(Context context)
     {
-        NewMessageNotification.notify(context,"set Pending", "set Pending", 2, null);
+       // NewMessageNotification.notify(context,"set Pending", "set Pending", 2, null);
         Intent intent = new Intent(context, AlarmReciever.class);
         intent.setAction("com.bt.heynath.dailyalarm");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
@@ -96,7 +96,7 @@ public class JobAlarmService extends JobIntentService {
 
     void setPendingIntent455(Context context)
     {
-        NewMessageNotification.notify(context,"set 455", "set 455", 3, null);
+      //  NewMessageNotification.notify(context,"set 455", "set 455", 3, null);
 
         try
         {
@@ -125,7 +125,7 @@ public class JobAlarmService extends JobIntentService {
             } else {
                 alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             }
-            NewMessageNotification.notify(context,"set 455- Alarm Set", "set 455- Alarm Set", 4, null);
+          //  NewMessageNotification.notify(context,"set 455- Alarm Set", "set 455- Alarm Set", 4, null);
         }
         catch (Exception ex)
         {

@@ -45,11 +45,19 @@ public class AlarmReciever extends BroadcastReceiver {
             {
                 if (calendar.after(startCalendar) && calendar.before(endCalendar))
                 {
-                   NewMessageNotification.notify(context, "है नाथ की पुकार", "है नाथ की पुकार", 1, null);
-                    //playDialyAlram(context);
+                    NewMessageNotification.notify(context, "है नाथ की पुकार", "है नाथ की पुकार", 1, null);
+                    //  playDialyAlram(context);
 
-                    Intent intetentService=new Intent(context,PlayStutiService.class);
-                    context.startService(intetentService);
+                    try
+                    {
+                        Intent intetentService = new Intent(context, PlayStutiService.class);
+                        context.startService(intetentService);
+                    }
+                    catch (Exception ex)
+                    {
+                        Intent intetentService=new Intent(context,JobPlayStutiService.class);
+                        JobPlayStutiService.enqueueWork(context, intetentService);
+                    }
                 }
             }
         }
@@ -65,12 +73,12 @@ public class AlarmReciever extends BroadcastReceiver {
             startCalendar.set(Calendar.MINUTE,54);
             Calendar endCalendar= Calendar.getInstance();
 
-            endCalendar.set(Calendar.HOUR_OF_DAY,22);
+            endCalendar.set(Calendar.HOUR_OF_DAY,6);
             endCalendar.set(Calendar.MINUTE,10);
 
            if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
            {
-               NewMessageNotification.notify(context,"Pre Schedule 455", "Pre Schedule 455", 2, null);
+             //  NewMessageNotification.notify(context,"Pre Schedule 455", "Pre Schedule 455", 7, null);
 
                if ( !AlramUtility.isMute(context) && AlramUtility.isStart(context)   && !isAirplaneModeOn(context)  && !isCallActive(context))
                {
@@ -86,17 +94,24 @@ public class AlarmReciever extends BroadcastReceiver {
                        }).start();
 
                         */
-                       NewMessageNotification.notify(context,"455 service call", "455 service call", 2, null);
+                   //    NewMessageNotification.notify(context,"455 service call", "455 service call", 2, null);
 
-                      // Intent intetentService=new Intent(context,PlayMorningStuti.class);
-                       //context.startService(intetentService);
-                       Intent intetentService=new Intent(context,JobPlayMorningStuti.class);
-                       JobPlayMorningStuti.enqueueWork(context, intetentService);
+                       try
+                       {
+                            Intent intetentService=new Intent(context,PlayMorningStuti.class);
+                            context.startService(intetentService);
+                       }
+                       catch (Exception ex)
+                       {
+                           Intent intetentService=new Intent(context,JobPlayMorningStuti.class);
+                           JobPlayMorningStuti.enqueueWork(context, intetentService);
+                       }
+
                    }
                }
                else
                {
-                   NewMessageNotification.notify(context,"455 Condition Fail", "455 Condition Fail", 2, null);
+                  // NewMessageNotification.notify(context,"455 Condition Fail", "455 Condition Fail", 2, null);
 
                }
            }
@@ -131,7 +146,8 @@ public class AlarmReciever extends BroadcastReceiver {
 
 
     void playDialyAlram(Context context)
-    {MediaPlayer mPlayer;
+    {
+        MediaPlayer mPlayer;
         mPlayer = MediaPlayer.create(context, R.raw.textnotifi);//Create MediaPlayer object with MP3 file under res/raw folder
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 

@@ -57,5 +57,17 @@ public class Launch1 extends AppCompatActivity {
         }).start();
         getSupportActionBar().setTitle(" || श्री हरि: ||");
         getSupportActionBar().hide();
+
+        registerBootReciever();
+        Intent intent=new Intent();
+        intent.setAction("com.bt.heynath.Check");
+        sendBroadcast(intent);
+    }
+
+    BootReciever reciever;
+    void registerBootReciever()
+    {
+        reciever=new BootReciever();
+        registerReceiver(reciever,new IntentFilter("com.bt.heynath.Check"));
     }
 }

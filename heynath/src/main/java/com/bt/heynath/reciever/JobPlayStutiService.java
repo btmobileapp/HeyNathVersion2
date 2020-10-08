@@ -6,63 +6,52 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
 import com.bt.heynath.R;
 
-public class PlayMorningStuti extends Service {
-    public PlayMorningStuti() {
+public class JobPlayStutiService extends JobIntentService {
+    public JobPlayStutiService() {
     }
-    private static final String TAG = null;
-    MediaPlayer player;
-    public IBinder onBind(Intent arg0) {
 
-        return null;
+    public static void enqueueWork(Context context, Intent intetentService) {
+        enqueueWork(context, JobPlayStutiService.class, 56, intetentService);
+        NewMessageNotification.notify(context,"Job Scheduled- Morning", "Job Scheduled- Morning", 11, null);
     }
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        player = MediaPlayer.create(this, R.raw.tone455);
+
+
+    void playMusic()
+    {
+        MediaPlayer player;
+        player = MediaPlayer.create(this, R.raw.textnotifi);
         player.setLooping(false); // Set looping
         player.setVolume(100,100);
+
         player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             @Override
             public void onCompletion(MediaPlayer mp) {
                 //  performOnEnd();
-                playDialy500(PlayMorningStuti.this);
+                // playDialy500(context);
+
+                //play500(PlayStutiService.this);
             }
 
         });
-
-    }
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if(!isSilentMode(this))
-        {
-            NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
-            player.start();
-        }
-        return 1;
+        player.start();
     }
 
-    public void onStart(Intent intent, int startId) {
-        // TO DO
-    }
-    public IBinder onUnBind(Intent arg0) {
-        // TO DO Auto-generated method
-        return null;
-    }
+    private static final String TAG = null;
 
-    public void onStop() {
 
-    }
-    public void onPause() {
 
-    }
     @Override
-    public void onDestroy() {
-        player.stop();
-        player.release();
+    protected void onHandleWork(@NonNull Intent intent) {
+        playMusic();
     }
 
     @Override
@@ -70,13 +59,11 @@ public class PlayMorningStuti extends Service {
 
     }
 
-
-
-    void playDialy500(Context context)
+    void play500(Context context)
     {
-        //MediaPlayer mPlayer;
-        player = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
-        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        MediaPlayer mPlayer;
+        mPlayer = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
+        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -85,12 +72,14 @@ public class PlayMorningStuti extends Service {
 
         });
         if(!isSilentMode(context))
-        {
-            NewMessageNotification.notify(this, "नित्य स्तुति - भाग २", "नित्य स्तुति  - भाग २", 1, null);
-            player.start();
-        }
+            mPlayer.start();
+
     }
 
+
+    private static boolean isAirplaneModeOn(Context context) {
+        return Settings.System.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+    }
     boolean isSilentMode(Context context)
     {
         AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -117,4 +106,10 @@ public class PlayMorningStuti extends Service {
 
         return  false;
     }
+
+    public boolean isCallActive(Context context){
+        AudioManager manager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        return manager.getMode() == AudioManager.MODE_IN_CALL;
+    }
+
 }

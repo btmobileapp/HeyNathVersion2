@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -91,7 +93,12 @@ public class PlayAudio1 extends AppCompatActivity {
         //videoView.setMe
         videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" +
                 R.raw.tone455));
-
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                startActivity(new Intent(PlayAudio1.this,PlayAudio2.class));
+            }
+        });
         videoView.start();
         new Thread(new Runnable() {
             @Override

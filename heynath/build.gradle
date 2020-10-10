@@ -6,6 +6,7 @@ android {
 
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.bt.heynath"
         minSdkVersion 15
         targetSdkVersion 30
@@ -13,7 +14,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
+
 
     buildTypes {
         release {
@@ -51,4 +59,33 @@ dependencies {
 
     implementation 'com.github.judemanutd:autostarter:1.0.8'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+
+
+
+    def work_version = "2.4.0"
+
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
+
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+
+    // optional - RxJava2 support
+    implementation "androidx.work:work-rxjava2:$work_version"
+
+    // optional - GCMNetworkManager support
+    implementation "androidx.work:work-gcm:$work_version"
+
+    // optional - Test helpers
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+
+    implementation 'android.arch.lifecycle:extensions:1.1.0'
+    implementation 'android.arch.lifecycle:compiler:1.1.0'
+
+    implementation 'androidx.multidex:multidex:2.0.0'
+    annotationProcessor 'com.google.auto.value:auto-value:1.1'
+
+    implementation 'com.google.guava:guava:27.0.1-android'
+
 }

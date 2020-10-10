@@ -20,13 +20,13 @@ public class JobPlayStutiService extends JobIntentService {
 
     public static void enqueueWork(Context context, Intent intetentService) {
         enqueueWork(context, JobPlayStutiService.class, 56, intetentService);
-        NewMessageNotification.notify(context,"Job Scheduled- Morning", "Job Scheduled- Morning", 11, null);
+      //  NewMessageNotification.notify(context,"Job Scheduled- Morning", "Job Scheduled- Morning", 11, null);
     }
 
-
+   public static   MediaPlayer player;
     void playMusic()
     {
-        MediaPlayer player;
+
         player = MediaPlayer.create(this, R.raw.textnotifi);
         player.setLooping(false); // Set looping
         player.setVolume(100,100);
@@ -43,6 +43,8 @@ public class JobPlayStutiService extends JobIntentService {
 
         });
         player.start();
+        NewMessageNotification.notify(this, "है नाथ की पुकार", "है नाथ की पुकार", 1, null);
+
     }
 
     private static final String TAG = null;
@@ -51,7 +53,8 @@ public class JobPlayStutiService extends JobIntentService {
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
-        playMusic();
+        if ( !AlramUtility.isMute(this) && AlramUtility.isStart(this)   )
+                 playMusic();
     }
 
     @Override

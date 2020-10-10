@@ -18,7 +18,7 @@ public class PlayStutiService extends Service {
 
 
     private static final String TAG = null;
-    MediaPlayer player;
+    public static MediaPlayer player;
     public IBinder onBind(Intent arg0) {
 
         return null;
@@ -44,7 +44,13 @@ public class PlayStutiService extends Service {
 
     }
     public int onStartCommand(Intent intent, int flags, int startId) {
-        player.start();
+
+        if ( !AlramUtility.isMute(this) && AlramUtility.isStart(this)   )
+        {
+                player.start();
+
+            NewMessageNotification.notify(this, "है नाथ की पुकार", "है नाथ की पुकार", 1, null);
+        }
         return 1;
     }
 

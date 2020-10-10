@@ -23,7 +23,7 @@ public class JobPlayMorningStuti extends JobIntentService {
 
     public static void enqueueWork(Context context, Intent intent) {
         enqueueWork(context, JobPlayMorningStuti.class, 1, intent);
-        NewMessageNotification.notify(context,"Job Scheduled- Morning", "Job Scheduled- Morning", 11, null);
+       // NewMessageNotification.notify(context,"Job Scheduled- Morning", "Job Scheduled- Morning", 11, null);
     }
 
 
@@ -38,11 +38,11 @@ public class JobPlayMorningStuti extends JobIntentService {
        // player.stop();
        // player.release();
     }
-
+    public static   MediaPlayer player;
     void startPalying()
     {
         try {
-            MediaPlayer player;
+
             player = MediaPlayer.create(this, R.raw.tone455);
             player.setLooping(false); // Set looping
             player.setVolume(100, 100);
@@ -88,8 +88,8 @@ public class JobPlayMorningStuti extends JobIntentService {
                // startPalying();
 
 
-              startActivity(new Intent(this, PlayAudio1.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-              //  startPalying();
+             // startActivity(new Intent(this, PlayAudio1.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+              startPalying();
                 Log.d("Heynath","Start Activity");
             }
             catch (Exception ex )

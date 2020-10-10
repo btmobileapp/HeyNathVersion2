@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bt.heynath.PlayAudio1;
 import com.bt.heynath.R;
 
 import java.util.Calendar;
@@ -21,7 +22,7 @@ public class AlarmReciever extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent)
     {
-        NewMessageNotification.notify(context,"Aralm Rec", intent.getAction(), 2, null);
+      //   NewMessageNotification.notify(context,"Aralm Rec", intent.getAction(), 2, null);
 
         String action = intent.getAction();
         if (SOMEACTION.equals(action))
@@ -45,13 +46,13 @@ public class AlarmReciever extends BroadcastReceiver {
             {
                 if (calendar.after(startCalendar) && calendar.before(endCalendar))
                 {
-                    NewMessageNotification.notify(context, "है नाथ की पुकार", "है नाथ की पुकार", 1, null);
-                    //  playDialyAlram(context);
+                         //  playDialyAlram(context);
 
                     try
                     {
-                        Intent intetentService = new Intent(context, PlayStutiService.class);
-                        context.startService(intetentService);
+                       Intent intetentService = new Intent(context, PlayStutiService.class);
+                       context.startService(intetentService);
+                      //  context. startActivity(new Intent(context, PlayAudio1.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
                     catch (Exception ex)
                     {
@@ -100,6 +101,8 @@ public class AlarmReciever extends BroadcastReceiver {
                        {
                             Intent intetentService=new Intent(context,PlayMorningStuti.class);
                             context.startService(intetentService);
+                          /// context. startActivity(new Intent(context, PlayAudio1.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
                        }
                        catch (Exception ex)
                        {

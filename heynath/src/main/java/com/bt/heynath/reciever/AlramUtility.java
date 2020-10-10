@@ -9,7 +9,7 @@ public class AlramUtility
    static public long getIntervalTime(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
-        int intVal=  sh.getInt("TimeInteval",30);
+        int intVal=  sh.getInt("TimeInteval",15);
 
         return  (intVal*60000);
     }

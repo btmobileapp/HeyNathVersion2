@@ -14,7 +14,7 @@ public class PlayMorningStuti extends Service {
     public PlayMorningStuti() {
     }
     private static final String TAG = null;
-    MediaPlayer player;
+   public static MediaPlayer player;
     public IBinder onBind(Intent arg0) {
 
         return null;

@@ -30,7 +30,7 @@ public class PlayAudio2 extends AppCompatActivity {
       //  simpleExoPlayerView_Video = findViewById(R.id.playerView);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("ननित्य स्तुति सुने - भाग २ ");
+        getSupportActionBar().setTitle("नित्य स्तुति सुने - भाग २ ");
        // getVideoFile("http://btwebservices.biyanitechnologies.com/dealerapp/rm.mp4");
        // initializePlayer();
         playNormal();

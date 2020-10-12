@@ -15,13 +15,14 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.bt.heynath.MainActivity;
+import com.bt.heynath.scheduler.MyMorningWorker;
 import com.bt.heynath.scheduler.MyWorker;
 
 public class BootReciever extends BroadcastReceiver
 {
 
     private PeriodicWorkRequest periodicWorkRequest;
-
+    private PeriodicWorkRequest periodicMorningWorkRequest;
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -54,6 +55,12 @@ public class BootReciever extends BroadcastReceiver
                     long interval = AlramUtility.getIntervalTime(context);
                     PeriodicWorkRequest unused = BootReciever.this.periodicWorkRequest = (PeriodicWorkRequest) new PeriodicWorkRequest.Builder((Class<? extends ListenableWorker>) MyWorker.class, (long) interval, TimeUnit.MILLISECONDS).build();
                     WorkManager.getInstance().enqueueUniquePeriodicWork("My Work", ExistingPeriodicWorkPolicy.KEEP, BootReciever.this.periodicWorkRequest);
+                }
+                if( AlramUtility.isNityaSuchiStart(context))
+                {
+
+                    PeriodicWorkRequest unused1 = BootReciever.this.periodicMorningWorkRequest = (PeriodicWorkRequest) new PeriodicWorkRequest.Builder((Class<? extends ListenableWorker>) MyMorningWorker.class, 1000*60*15,  TimeUnit.MILLISECONDS).build();
+                    WorkManager.getInstance().enqueueUniquePeriodicWork("My Morning Work", ExistingPeriodicWorkPolicy.KEEP, BootReciever.this.periodicMorningWorkRequest);
                 }
                 Intent mIntent = new Intent(context, JobAlarmService.class);
                 JobAlarmService.enqueueWork(context, mIntent);

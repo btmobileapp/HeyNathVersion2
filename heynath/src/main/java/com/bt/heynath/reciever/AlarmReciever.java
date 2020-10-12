@@ -77,7 +77,7 @@ public class AlarmReciever extends BroadcastReceiver {
             endCalendar.set(Calendar.HOUR_OF_DAY,6);
             endCalendar.set(Calendar.MINUTE,10);
 
-           if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
+           if(   AlramUtility.isToPlay())//calendar.after(startCalendar)  && calendar.before(endCalendar)  )
            {
              //  NewMessageNotification.notify(context,"Pre Schedule 455", "Pre Schedule 455", 7, null);
 
@@ -95,7 +95,7 @@ public class AlarmReciever extends BroadcastReceiver {
                        }).start();
 
                         */
-                   //    NewMessageNotification.notify(context,"455 service call", "455 service call", 2, null);
+                        //    NewMessageNotification.notify(context,"455 service call", "455 service call", 2, null);
 
                        try
                        {

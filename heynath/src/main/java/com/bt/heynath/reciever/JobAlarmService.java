@@ -42,7 +42,8 @@ public class JobAlarmService extends JobIntentService {
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
-        try {
+        try
+        {
           //  setPendingIntent(this);
         }
         catch (Exception ex)

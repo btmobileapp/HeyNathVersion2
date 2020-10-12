@@ -39,10 +39,11 @@ public class JobPlayMorningStuti extends JobIntentService {
        // player.release();
     }
     public static   MediaPlayer player;
+    Handler handler=new Handler();
     void startPalying()
     {
         try {
-
+            firstRunnable=0;
             player = MediaPlayer.create(this, R.raw.tone455);
             player.setLooping(false); // Set looping
             player.setVolume(100, 100);
@@ -56,6 +57,22 @@ public class JobPlayMorningStuti extends JobIntentService {
 
             });
             player.start();
+
+            firstRunnable=0;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        Thread.sleep(2000);
+                        playerRunnable.run();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+
             Log.d("Heynath","Player Start Method called");
         }
         catch (Exception ex)
@@ -67,9 +84,9 @@ public class JobPlayMorningStuti extends JobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
        // NewMessageNotification.notify(JobPlayMorningStuti.this,"Morning-Work Started", "Morning-Work Started", 12, null);
 
-        if(!isSilentMode(this))
+        if(!isSilentMode(this) && AlramUtility.isToPlay() )
         {
-
+            AlramUtility.updateMorningTime();
 
             NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
             try
@@ -109,18 +126,21 @@ public class JobPlayMorningStuti extends JobIntentService {
     }
     void play500(Context context)
     {
-        MediaPlayer mPlayer;
-        mPlayer = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
-        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        player = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             @Override
             public void onCompletion(MediaPlayer mp) {
                 //  performOnEnd();
+
             }
 
         });
         if(!isSilentMode(context))
-            mPlayer.start();
+        {
+            player.start();
+        }
 
     }
 
@@ -170,4 +190,25 @@ public class JobPlayMorningStuti extends JobIntentService {
 
         return  false;
     }
+
+   public static int firstRunnable=0;
+    Runnable playerRunnable=new Runnable()
+    {
+        @Override
+        public void run() {
+            try
+            {
+                firstRunnable++;
+                if(firstRunnable<1200  && JobPlayMorningStuti.player!=null)
+                    handler.postDelayed(playerRunnable,1000);
+                int val= JobPlayMorningStuti.player.getCurrentPosition();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+    };
+
 }

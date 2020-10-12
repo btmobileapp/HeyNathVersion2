@@ -45,9 +45,10 @@ public class PlayStutiService extends Service {
     }
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        if ( !AlramUtility.isMute(this) && AlramUtility.isStart(this)   )
+        if ( !AlramUtility.isMute(this) && AlramUtility.isStart(this)  && AlramUtility.isToPlay() )
         {
-                player.start();
+            AlramUtility.updateMorningTime();
+            player.start();
 
             NewMessageNotification.notify(this, "है नाथ की पुकार", "है नाथ की पुकार", 1, null);
         }

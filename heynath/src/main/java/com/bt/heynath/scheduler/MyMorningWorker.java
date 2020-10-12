@@ -7,7 +7,6 @@ import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.work.ListenableWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -17,11 +16,12 @@ import com.bt.heynath.reciever.NewMessageNotification;
 
 import java.util.Calendar;
 
-public class MyWorker extends Worker
+public class MyMorningWorker extends Worker
 {
+
    public static MediaPlayer mediaPlayer;
 
-    public MyWorker(@NonNull Context context, @NonNull WorkerParameters workerParams)
+    public MyMorningWorker(@NonNull Context context, @NonNull WorkerParameters workerParams)
     {
         super(context, workerParams);
 
@@ -31,23 +31,27 @@ public class MyWorker extends Worker
     @Override
     public Result doWork()
     {
-        if(!AlramUtility.isMute(getApplicationContext())  && AlramUtility.isStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
+        if(!AlramUtility.isMute(getApplicationContext())  && AlramUtility.isNityaSuchiStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
         {
-            NewMessageNotification.notify(getApplicationContext(), "है नाथ की पुकार-", "है नाथ की पुकार-", 1, null);
-
-            int startHour=AlramUtility.getFromTimeHours(getApplicationContext());
-            int startMinute=AlramUtility.getFromTimeMinute(getApplicationContext());
-            int endHour=AlramUtility.getToTimeHours(getApplicationContext());
-            int endMinute=AlramUtility.getToTimeMinute(getApplicationContext());
+            NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
             Calendar calendar= Calendar.getInstance();
+
+            int startHour=4;
+            int startMinute=55;
+            int endHour=15;
+            int endMinute=55;
+
             Calendar startCalendar= Calendar.getInstance();
             startCalendar.set(Calendar.HOUR_OF_DAY,startHour);
             startCalendar.set(Calendar.MINUTE,startMinute);
+
             Calendar endCalendar= Calendar.getInstance();
             endCalendar.set(Calendar.HOUR_OF_DAY,endHour);
             endCalendar.set(Calendar.MINUTE,endMinute);
-            if (calendar.after(startCalendar) && calendar.before(endCalendar))
+
+            if ( AlramUtility.isToPlay() )
             {
+                AlramUtility.updateMorningTime();
                 playAudio();
             }
         }
@@ -58,16 +62,46 @@ public class MyWorker extends Worker
     {
         try
         {
-            this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.textnotifi);
+            NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
+
+            this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tone455);
             if (!this.mediaPlayer.isPlaying())
             {
                 this.mediaPlayer.start();
                 this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp)
                     {
-                        MyWorker.this.mediaPlayer.reset();
-                        MyWorker.this.mediaPlayer.release();
-                        MyWorker.this.mediaPlayer = null;
+                        playAudio1();
+                        /*
+                        MyMorningWorker.this.mediaPlayer.reset();
+                        MyMorningWorker.this.mediaPlayer.release();
+                        MyMorningWorker.this.mediaPlayer = null;*/
+                    }
+                });
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+    private void playAudio1()
+    {
+        try
+        {
+            NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग २-", "नित्य स्तुति - भाग २-", 1, null);
+
+            this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tone500);
+            if (!this.mediaPlayer.isPlaying())
+            {
+                this.mediaPlayer.start();
+                this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp)
+                    {
+
+                        MyMorningWorker.this.mediaPlayer.reset();
+                        MyMorningWorker.this.mediaPlayer.release();
+                        MyMorningWorker.this.mediaPlayer = null;
                     }
                 });
             }
@@ -79,7 +113,6 @@ public class MyWorker extends Worker
 
 
     }
-
 
 
 

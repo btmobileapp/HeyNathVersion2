@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -35,12 +36,32 @@ public class PlayMorningStuti extends Service {
 
         });
 
+
+
     }
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(!isSilentMode(this))
         {
             NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
-            player.start();
+
+           if( AlramUtility.isToPlay())
+           {
+               player.start();
+               AlramUtility.updateMorningTime();
+               firstRunnable=0;
+
+               new Thread(new Runnable() {
+                   @Override
+                   public void run() {
+                       try {
+                           Thread.sleep(2000);
+                           playerRunnable.run();
+                       } catch (InterruptedException e) {
+                           e.printStackTrace();
+                       }
+                   }
+               }).start();
+           }
         }
         return 1;
     }
@@ -61,8 +82,8 @@ public class PlayMorningStuti extends Service {
     }
     @Override
     public void onDestroy() {
-        player.stop();
-        player.release();
+      //  player.stop();
+       // player.release();
     }
 
     @Override
@@ -118,4 +139,26 @@ public class PlayMorningStuti extends Service {
 
         return  false;
     }
+
+
+    Handler handler=new Handler();
+    public static int firstRunnable=0;
+    Runnable playerRunnable=new Runnable()
+    {
+        @Override
+        public void run() {
+            try
+            {
+                firstRunnable++;
+                if(firstRunnable<1200  && PlayMorningStuti.player!=null)
+                    handler.postDelayed(playerRunnable,1000);
+                int val= PlayMorningStuti.player.getCurrentPosition();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+    };
 }

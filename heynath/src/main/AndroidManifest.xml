@@ -29,6 +29,10 @@
             android:label="@string/title_activity_viewpdf"
           ></activity>
         <activity
+            android:name=".pdf.Viewpdf1"
+            android:label="@string/title_activity_viewpdf"
+            ></activity>
+        <activity
             android:name=".shreemukhi.GajalActivity"
             android:label="@string/title_activity_gajal"
             android:screenOrientation="portrait" />

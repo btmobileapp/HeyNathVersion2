@@ -17,10 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -30,13 +32,14 @@ import com.bt.heynath.reciever.AlarmService;
 import com.bt.heynath.reciever.AlramUtility;
 import com.bt.heynath.reciever.BootReciever;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Scheduler extends AppCompatActivity {
 
     Switch switch1,switch2;
     Button btnFromTime,btnToTime,btnSave;
-    EditText ed;
+    Spinner ed;
     ImageView ic_MuteRes;
     TextView txtFrom;
     @Override
@@ -74,7 +77,7 @@ public class Scheduler extends AppCompatActivity {
         });
         ed=findViewById(R.id.ed);
         ic_MuteRes=findViewById(R.id.ic_MuteRes);
-        init();
+
 
         switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -109,11 +112,46 @@ public class Scheduler extends AppCompatActivity {
 
         hideatInItInputBoard(this);
         hideSoftKeyBord(this);
+
+        minuteList.add("15 Min.");
+        minuteList.add("30 Min.");
+        minuteList.add("45 Min.");
+        minuteList.add("1 Hour.");
+        minuteList.add("2 Hour.");
+        minuteList.add("3 Hour.");
+        minuteList.add("4 Hour.");
+
+        ArrayAdapter adapter=new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,minuteList);
+        ed.setAdapter(adapter);
+        init();
     }
 
+    ArrayList<String>  minuteList=new ArrayList<>();
     @Override
     protected void onResume() {
         super.onResume();
+
+        try {
+            long min= AlramUtility.getIntervalTimeInMinute(this);
+            if(min==15)
+                ed.setSelection(0);
+            if(min==30)
+                ed.setSelection(1);
+            if(min==45)
+                ed.setSelection(2);
+            if(min==60)
+                ed.setSelection(3);
+            if(min==120 )
+                ed.setSelection(4);
+            if(min==180)
+                ed.setSelection(5);
+            if(min==240)
+                ed.setSelection(6);
+
+        }
+        catch (Exception ex)
+        {}
+
 
     }
     void setMuteIcon()
@@ -130,7 +168,7 @@ public class Scheduler extends AppCompatActivity {
         switch2.setChecked(AlramUtility.isMute(this));
         btnFromTime.setText(AlramUtility.getFromTime(this));
         btnToTime.setText(AlramUtility.getToTime(this));
-        ed.setText(AlramUtility.getIntervalTimeInMinute(this)+"");
+       // ed.setText(AlramUtility.getIntervalTimeInMinute(this)+"");
        if( AlramUtility.isMute(this))
        {
            ic_MuteRes.setImageResource(R.drawable.ic_mute);
@@ -143,12 +181,7 @@ public class Scheduler extends AppCompatActivity {
     void save()
     {
         int Minute=0;
-         if(ed.getText().toString().trim().equalsIgnoreCase(""))
-         {
-             Toast.makeText(this,
-                     "कृपया समय अंतराल भरें", Toast.LENGTH_SHORT).show();
-             return;
-         }
+
          if(btnFromTime.getText().toString().equalsIgnoreCase("समय चुनें"))
          {
 
@@ -163,8 +196,21 @@ public class Scheduler extends AppCompatActivity {
                     "कृपया समय तक भरें", Toast.LENGTH_SHORT).show();
             return;
         }
-        Minute=Integer.parseInt(ed.getText().toString());
-
+        Minute=15;
+        if(ed.getSelectedItemPosition()==0)
+            Minute=15;
+        if(ed.getSelectedItemPosition()==1)
+            Minute=30;
+        if(ed.getSelectedItemPosition()==2)
+            Minute=45;
+        if(ed.getSelectedItemPosition()==3)
+            Minute=60;
+        if(ed.getSelectedItemPosition()==4)
+            Minute=120;
+        if(ed.getSelectedItemPosition()==5)
+            Minute=180;
+        if(ed.getSelectedItemPosition()==6)
+            Minute=240;
         SharedPreferences sh=getSharedPreferences("Scheduler",MODE_PRIVATE);
         SharedPreferences.Editor editor= sh.edit();
         editor.putInt("TimeInteval",Minute);

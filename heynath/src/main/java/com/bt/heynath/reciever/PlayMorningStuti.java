@@ -75,8 +75,8 @@ public class PlayMorningStuti extends Service {
     void playDialy500(Context context)
     {
         //MediaPlayer mPlayer;
-        player = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
-        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+         this.  player = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
+          player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -89,6 +89,7 @@ public class PlayMorningStuti extends Service {
             NewMessageNotification.notify(this, "नित्य स्तुति - भाग २", "नित्य स्तुति  - भाग २", 1, null);
             player.start();
         }
+
     }
 
     boolean isSilentMode(Context context)

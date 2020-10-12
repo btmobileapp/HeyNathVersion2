@@ -51,7 +51,7 @@ public class JobPlayMorningStuti extends JobIntentService {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     //  performOnEnd();
-                    //playDialy500(JobPlayMorningStuti.this);
+                    play500(JobPlayMorningStuti.this);
                 }
 
             });
@@ -107,7 +107,22 @@ public class JobPlayMorningStuti extends JobIntentService {
     public void onLowMemory() {
 
     }
+    void play500(Context context)
+    {
+        MediaPlayer mPlayer;
+        mPlayer = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
+        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                //  performOnEnd();
+            }
+
+        });
+        if(!isSilentMode(context))
+            mPlayer.start();
+
+    }
 
 /*
     void playDialy500(Context context)

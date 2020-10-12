@@ -167,6 +167,7 @@
 
         </LinearLayout>
 
+        <!--
        <EditText
            android:layout_weight="1"
            android:id="@+id/ed"
@@ -179,7 +180,15 @@
            android:background="@drawable/edit_text_border"
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
-       </EditText>
+       </EditText>-->
+
+        <Spinner
+            android:layout_weight="1"
+            android:id="@+id/ed"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+        </Spinner>
     </LinearLayout>
 <!--
     <LinearLayout

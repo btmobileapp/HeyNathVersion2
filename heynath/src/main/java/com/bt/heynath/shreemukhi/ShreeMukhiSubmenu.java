@@ -16,6 +16,8 @@ import com.bt.heynath.NityaStuti;
 import com.bt.heynath.PrathnaImportant;
 import com.bt.heynath.R;
 import com.bt.heynath.SubmenuAdapter;
+import com.bt.heynath.Viewpdf;
+import com.bt.heynath.pdf.Viewpdf1;
 
 import java.util.ArrayList;
 
@@ -63,18 +65,34 @@ public class ShreeMukhiSubmenu extends AppCompatActivity implements AdapterView.
 
         if(i==0)
         {
+            /*
             ViewDetails.menu="Mahima";
             startActivity(new Intent(this, ViewDetails.class));
+            */
+
+            Viewpdf1.title=menus.get(i);
+            Viewpdf1.no=8;
+            startActivity(new Intent(this, Viewpdf1.class));
         }
         if(i==1)
         {
+            /*
             ViewDetails.menu="18 Names";
             startActivity(new Intent(this, ViewDetails.class));
+            */
+            Viewpdf1.title=menus.get(i);
+            Viewpdf1.no=11;
+            startActivity(new Intent(this, Viewpdf1.class));
         }
         if(i==2)
         {
+            /*
             ViewDetails.menu="5 Shlok";
             startActivity(new Intent(this, ViewDetails.class));
+            */
+            Viewpdf1.title=menus.get(i);
+            Viewpdf1.no=12;
+            startActivity(new Intent(this, Viewpdf1.class));
         }
         if(i==4)
         {    //!s6Kwjzw

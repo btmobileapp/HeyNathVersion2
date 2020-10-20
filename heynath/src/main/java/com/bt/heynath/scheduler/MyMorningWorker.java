@@ -38,8 +38,8 @@ public class MyMorningWorker extends Worker
 
             int startHour=4;
             int startMinute=55;
-            int endHour=15;
-            int endMinute=55;
+            int endHour=6;
+            int endMinute=00;
 
             Calendar startCalendar= Calendar.getInstance();
             startCalendar.set(Calendar.HOUR_OF_DAY,startHour);

@@ -2,6 +2,10 @@ package com.bt.heynath;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.ListenableWorker;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,9 +35,11 @@ import android.widget.Toast;
 import com.bt.heynath.reciever.AlarmService;
 import com.bt.heynath.reciever.AlramUtility;
 import com.bt.heynath.reciever.BootReciever;
+import com.bt.heynath.scheduler.MyWorker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class Scheduler extends AppCompatActivity {
 
@@ -42,6 +48,8 @@ public class Scheduler extends AppCompatActivity {
     Spinner ed;
     ImageView ic_MuteRes;
     TextView txtFrom;
+    private PeriodicWorkRequest periodicWorkRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -227,6 +235,8 @@ public class Scheduler extends AppCompatActivity {
         alert.setPositiveButton("ठीक है", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                schedulePeriodicWork();
                 registerBootReciever();
                 Intent intent=new Intent();
                 intent.setAction("com.bt.heynath.Check");
@@ -287,5 +297,15 @@ public class Scheduler extends AppCompatActivity {
 
         inputManager.hideSoftInputFromWindow(v.getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+
+
+    void schedulePeriodicWork()
+    {
+        long interval = AlramUtility.getIntervalTime(this);
+        PeriodicWorkRequest unused = this.periodicWorkRequest = (PeriodicWorkRequest) new PeriodicWorkRequest.Builder((Class<? extends ListenableWorker>) MyWorker.class, (long) interval, TimeUnit.MILLISECONDS).build();
+        WorkManager.getInstance().enqueueUniquePeriodicWork("My Work", ExistingPeriodicWorkPolicy.REPLACE, this.periodicWorkRequest);
+
     }
 }

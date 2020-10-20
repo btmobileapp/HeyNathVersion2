@@ -14,6 +14,7 @@ import java.util.List;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.UserBean;
 import biyaniparker.com.parker.beans.UserShopBean;
+import biyaniparker.com.parker.utilities.CommonUtilities;
 
 /**
  * Created by bt on 08/24/2016.
@@ -31,7 +32,7 @@ public class UserAdapter extends ArrayAdapter
 
     class ViewHolder
     {
-        TextView name, shopName,txtCityy;
+        TextView name, shopName,txtCityy,txtLastSeen;
     }
 
     @Override
@@ -52,14 +53,23 @@ public class UserAdapter extends ArrayAdapter
         viewHolder.name=(TextView)convertView.findViewById(R.id.textName);
         viewHolder.shopName=(TextView)convertView.findViewById(R.id.textShopName);
         viewHolder.txtCityy=(TextView)convertView.findViewById(R.id.txtCityy);
+        viewHolder.txtLastSeen=convertView.findViewById(R.id.txtLastSeen);
 
 
         viewHolder.shopName.setText(arrayList.get(position).shopdetails.getShopName());
         viewHolder.name.setText(arrayList.get(position).user.getName());
         viewHolder.txtCityy.setText(arrayList.get(position).shopdetails.getAddress());
-
-
-
+        try
+        {
+            long ld= CommonUtilities.parseDate(arrayList.get(position).user.getDepartmentIds());
+            String dd= CommonUtilities.longToDateTime(ld);
+            viewHolder.txtLastSeen.setText("Last Seen: "+dd);
+            if( viewHolder.txtLastSeen.getText().toString().contains("1970"))
+            {
+                viewHolder.txtLastSeen.setText("Last Seen:-");
+            }
+        }
+        catch (Exception rc){}
         return convertView;
     }
 }

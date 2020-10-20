@@ -95,6 +95,8 @@ public class CreateNoticeView extends AppCompatActivity implements  DownloadUtil
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
+                                if(monthOfYear==0)
+                                    monthOfYear=1;
                                 etSelectDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 //                                String date_selected = String.valueOf(dayOfMonth)+" /"+String.valueOf(monthOfYear+1)+" /"+String.valueOf(year);
 //                                etSelectDate.setText(date_selected);
@@ -157,6 +159,8 @@ public class CreateNoticeView extends AppCompatActivity implements  DownloadUtil
         int Month = cal.get(Calendar.MONTH);
         int Year = cal.get(Calendar.YEAR);
        // Date d=new Date(cal.getTimeInMillis());
+        if(Month==0)
+            Month=1;
         etSelectDate.setText(dayOfMonth + "/" + (Month) + "/" + Year);
 
     }

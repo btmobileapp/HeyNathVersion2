@@ -5,16 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
     android:background="@drawable/rjmain"
 >
 
     <LinearLayout
         android:id="@+id/limage"
-
         android:layout_width="match_parent"
         android:layout_marginTop="85dp"
         android:layout_height="wrap_content">

@@ -43,9 +43,9 @@ public class CommonUtilities
        //     "http://testing.biyanitechnologies.com/parkerservices/";
     // public final static String URL= "http://btwebservices.biyanitechnologies.com/sunanda/";
     //  "http://192.168.73.133/parker/";
-    // "http://btwebservices.biyanitechnologies.com/dealerapp/";
+     "http://btwebservices.biyanitechnologies.com/dealerapp/";
 
-     "http://btwebservices.biyanitechnologies.com/dealerchoice/";
+     //"http://btwebservices.biyanitechnologies.com/dealerchoice/";
 
     public static int Height=800;
     public static int Width=600;
@@ -173,7 +173,13 @@ public class CommonUtilities
         SimpleDateFormat f=new SimpleDateFormat("dd/MM/yyyy");
         return f.format(date);
     }
+    public static String longToDateTime(long orderDate)
+    {
+        Date date=new Date(orderDate);
 
+        SimpleDateFormat f=new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+        return f.format(date);
+    }
     public static Uri getFileUri(Context context, String fileName) {
         File file = getFile(context, fileName);
         return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file);

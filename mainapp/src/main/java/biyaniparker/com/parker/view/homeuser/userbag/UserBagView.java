@@ -234,9 +234,9 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
 
                 for(int j=0;j<master.bagDetails.size();j++)
                 {
-                    txtCPrice.setText(""+(double) master.bagDetails.get(j).cPrice+" Rs");
+                    txtCPrice.setText("₹ "+(double) master.bagDetails.get(j).cPrice+"");
                     txtName.setText("Name:  "+master.bagDetails.get(j).productName);
-                    txtTPrice.setText("" + total+" Rs");
+                    txtTPrice.setText("₹ " + total+"");
                         v.setTag(master.bagDetails.get(j).stockId);
 
                     imageLoader = ImageLoader.getInstance();

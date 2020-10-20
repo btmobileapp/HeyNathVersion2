@@ -117,13 +117,13 @@ public class ProductDetailView
             try {
                 double price=bean.price ;//moduleProductDetails.getPriceFromPriceId(bean.getPriceId());
                 DecimalFormat df = new DecimalFormat("#.##");
-                txtprice.setText( df.format( price)+" Rs");
+                txtprice.setText("₹ "+ df.format( price));
                 if(getString(R.string.app_name).contains("Rajashree"))
                 {
-                    txtprice.setText("Price List Rate (Rs):-  "+ df.format( price)+"");
+                    txtprice.setText("Price List Rate (₹):-  "+ df.format( price)+"");
                 }
             }
-            catch (Exception e){ txtprice.setText(" Rs");}
+            catch (Exception e){ txtprice.setText(" ₹");}
 
             // To Display Image ON Image view
 //            imageLoader = ImageLoader.getInstance();

@@ -55,9 +55,9 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
         {
            setContentView(R.layout.activity_launch_choice);
         }
-        if(getString(R.string.app_name).contains("Rajashsree"))
+        if(getString(R.string.app_name).contains("Rajashree"))
         {
-            setContentView(R.layout.activity_launch_choice);
+            setContentView(R.layout.activity_launch_rajshree);
         }
         imageView2=findViewById(R.id.imageView2);
         doption = new DisplayImageOptions.Builder()

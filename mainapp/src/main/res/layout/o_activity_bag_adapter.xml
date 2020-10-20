@@ -69,22 +69,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Price"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"
-                        android:layout_weight="2"
-                        android:layout_marginTop="5dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Total"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"
-                        android:layout_weight="2"
-                        android:layout_marginTop="5dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:text="Unit"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
@@ -101,6 +85,23 @@
                         android:id="@+id/txtsqnty"
                         android:layout_weight="2"
                         android:text="Qnty "/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:layout_weight="2"
+                        android:layout_marginTop="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:layout_weight="2"
+                        android:layout_marginTop="5dp"/>
+
 
 
                 </LinearLayout>

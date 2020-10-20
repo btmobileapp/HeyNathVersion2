@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -99,6 +100,16 @@ public class PlayAudio1 extends AppCompatActivity {
                 startActivity(new Intent(PlayAudio1.this,PlayAudio2.class));
             }
         });
+
+        try {
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+
+                }
+            });
+        }
+        catch (Exception ex){}
         videoView.start();
         new Thread(new Runnable() {
             @Override

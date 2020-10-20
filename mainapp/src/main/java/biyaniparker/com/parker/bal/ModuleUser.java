@@ -426,6 +426,11 @@ public class ModuleUser implements  DownloadUtility{
             userBean.setChangedDate(jsonObject.getLong("ChangedDate"));
         }
         catch (Exception e){}
+        try {
+            userBean.setDepartmentIds(jsonObject.getString("LastSeen"));
+        }
+        catch (Exception ex)
+        {}
         return userBean;
     }
 

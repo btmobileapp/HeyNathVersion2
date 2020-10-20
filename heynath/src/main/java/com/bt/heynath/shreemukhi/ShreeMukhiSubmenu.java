@@ -94,6 +94,36 @@ public class ShreeMukhiSubmenu extends AppCompatActivity implements AdapterView.
             Viewpdf1.no=12;
             startActivity(new Intent(this, Viewpdf1.class));
         }
+        if(i==3)
+        {
+            /*
+            ViewDetails.menu="5 Shlok";
+            startActivity(new Intent(this, ViewDetails.class));
+            */
+            Viewpdf1.title=menus.get(i);
+            Viewpdf1.no=100;
+            startActivity(new Intent(this, Viewpdf1.class));
+        }
+        if(i==9)
+        {
+            /*
+            ViewDetails.menu="5 Shlok";
+            startActivity(new Intent(this, ViewDetails.class));
+            */
+            Viewpdf1.title=menus.get(i);
+            Viewpdf1.no=101;
+            startActivity(new Intent(this, Viewpdf1.class));
+        }
+        if(i==8)
+        {
+            /*
+            ViewDetails.menu="5 Shlok";
+            startActivity(new Intent(this, ViewDetails.class));
+            */
+            Viewpdf1.title=menus.get(i);
+            Viewpdf1.no=102;
+            startActivity(new Intent(this, Viewpdf1.class));
+        }
         if(i==4)
         {    //!s6Kwjzw
              startActivity(new Intent(this, AdhayList.class));

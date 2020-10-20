@@ -6,6 +6,22 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/txtsize" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:text="1"
+        android:gravity="center"
+        android:id="@+id/txtsqnty"             />
+
+    <TextView
         android:layout_weight="1"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -23,23 +39,6 @@
         android:id="@+id/txtTPrice"
         android:textColor="@android:color/black"
         android:text="Price"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/txtsize" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:text="1"
-        android:gravity="center"
-        android:id="@+id/txtsqnty"             />
-
 
 
 

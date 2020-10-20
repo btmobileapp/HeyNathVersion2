@@ -104,7 +104,8 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
         }
         else {
             if (validation()) {
-                if (edPassward.getText().toString().equals(edRePass.getText().toString())) {
+                if (edPassward.getText().toString().equals(edRePass.getText().toString()))
+                {
                     shopMasterbean.setShopName(edShopName.getText().toString());
                     bean.setName(edPersonName.getText().toString());
                     bean.setContactNo(edContact.getText().toString());

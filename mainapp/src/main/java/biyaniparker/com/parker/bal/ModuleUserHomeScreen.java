@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.service.Common;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -26,6 +27,7 @@ import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.NotifyCallback;
 import biyaniparker.com.parker.utilities.ParsingUtilities;
+import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncStreamParsingUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 
@@ -75,7 +77,7 @@ public class ModuleUserHomeScreen implements DownloadUtility, ParsingUtilities
 
     public void loadRandomProductWithNotify()
     {
-        asyncStreamParsingUtilities =new AsyncStreamParsingUtilities(context,false, CommonUtilities.URL+"StockService.svc/getRandomProduct?ClientId="+1,"",1,this,this);
+        asyncStreamParsingUtilities =new AsyncStreamParsingUtilities(context,false, CommonUtilities.URL+"StockService.svc/getRandomProduct?ClientId="+1+"&UserId="+ UserUtilities.getUserId(context),"",1,this,this);
         asyncStreamParsingUtilities.setAutoCancelable(false);
         asyncStreamParsingUtilities.setProgressDialoaugeVisibility(true);
         asyncStreamParsingUtilities.setHidePdAfterConnection(true);

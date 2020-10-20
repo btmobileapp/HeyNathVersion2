@@ -1,5 +1,6 @@
 package com.bt.heynath.shreemukhi;
 
+import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -154,16 +155,18 @@ public class GajalActivity extends AppCompatActivity {
     public void finish() {
         super.finish();
         try {
-
             player.stop();
         }
         catch (Exception ex)
         {}
     }
 
-
+    ProgressDialog pd;
     private void getVideoFile(String uploadFile)
     {
+        pd=new ProgressDialog(this);
+        pd.setTitle("कृपया वीडियो लोड करने की प्रतीक्षा करें");
+        pd.show();
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory audioTrackSelectionFactory =
                 new AdaptiveTrackSelection.Factory(bandwidthMeter);
@@ -186,6 +189,27 @@ public class GajalActivity extends AppCompatActivity {
         // Prepare the player with the source.
         player.prepare(audioSource);
         player.setPlayWhenReady(true);
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(pd.isShowing())
+                                pd.dismiss();
+
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
 }

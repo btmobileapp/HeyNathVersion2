@@ -53,7 +53,10 @@ import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 import biyaniparker.com.parker.view.adapter.ChangeViewAdapter;
 import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 
-public class ChangeView extends AppCompatActivity implements DownloadUtility, NotifyCallback, ChangeViewAdapter.ChangeViewCallBack, CompoundButton.OnCheckedChangeListener {
+public class ChangeView extends AppCompatActivity implements DownloadUtility, NotifyCallback, ChangeViewAdapter.ChangeViewCallBack, CompoundButton.OnCheckedChangeListener
+{
+
+
     RecyclerView recyclerView;
     ModuleUserProduct moduleUserProduct;
     ModuleCategory moduleCategory;
@@ -64,6 +67,7 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
     ArrayList<SizeMaster> list;
     CheckBox checkAll;
     Button  btnAddToBag;
+
     AlertDialog.Builder alertDialog;
 
     @Override
@@ -89,11 +93,14 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
         recyclerView.setAdapter(adapter);
         // recyclerView.getAdapter().getItemCount();
 
-        if (new ConnectionDetector(this).isConnectingToInternet()) {
+        if (new ConnectionDetector(this).isConnectingToInternet())
+        {
             //moduleUserProduct.loadFromDb(catId);
             // moduleUserProduct.getUserProducts(catId);
             moduleUserProduct.getUserProductsWithNotify(catId);
-        } else {
+        }
+        else{
+
             moduleUserProduct.loadFromDb(catId);
         }
 
@@ -169,9 +176,11 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
             alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    try {
+                    try
+                    {
                         moduleProductDetails.addToBag1(stockList);
-                    } catch (JSONException e) {
+                    } catch (JSONException e)
+                    {
                         e.printStackTrace();
                     }
                 }
@@ -371,4 +380,6 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
     }
+
+
 }

@@ -171,7 +171,7 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
                 {
                     grandTotal=grandTotal+total;
                     //txtPrice.setText((int)total+" Rs");
-                    txtPrice.setText(details.cPrice+" Rs");
+                    txtPrice.setText("₹ "+details.cPrice+"");
                     txtPName.setText(details.productName);
                     txtCName.setText(CName);
                     imageLoader = ImageLoader.getInstance();
@@ -183,7 +183,7 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
                 }
 
             }
-            txtGTotal.setText(" Total : "+(double)grandTotal +" Rs");
+            txtGTotal.setText(" Total : ₹ "+(double)grandTotal +"");
             TextView txtGTotalQnty=(TextView)findViewById(R.id.txtGTotalQnty);
             txtGTotalQnty.setText("Total Qty : "+greatTotalQty);
 

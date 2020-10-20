@@ -62,6 +62,15 @@ public class Viewpdf1 extends AppCompatActivity {
         if(no==42) {
             pdfView.fromAsset("filename.pdf").load();
         }
+        if(no==100) {
+            pdfView.fromAsset("geeta_uch.pdf").load();
+        }
+        if(no==101) {
+            pdfView.fromAsset("sadhak.pdf").load();
+        }
+        if(no==102) {
+            pdfView.fromAsset("meta_human.pdf").load();
+        }
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -109,9 +109,9 @@ public class ProductRandomAdapter extends ArrayAdapter implements OnClickListene
 					  {
 						  double price =  rowItem.price;     //itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
 						  DecimalFormat df = new DecimalFormat("#.##");
-						  holder.t2.setText("Rs. " +  df.format(price));
+						  holder.t2.setText("₹. " +  df.format(price));
 					  }
-					  catch (Exception e){  holder.t2.setText("Rs. ");}
+					  catch (Exception e){  holder.t2.setText("₹. ");}
 					  //holder.picture.setImageResource(rowItem.imgrs);
 
 					  imageLoader = ImageLoader.getInstance();

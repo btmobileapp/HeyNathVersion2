@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
+        android:padding="5dp"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/linearLayoutNotice">
 
@@ -71,6 +72,7 @@
             android:layout_weight="0.8"
             android:id="@+id/etDate"
             android:padding="10dp"
+            android:layout_margin="2dp"
             android:gravity="center_horizontal"
             style="@android:style/Widget.Holo.Light.EditText"
             />

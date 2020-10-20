@@ -296,10 +296,18 @@ public class PrintOrderSummary
         ColumnText.showTextAligned(writer.getDirectContent(),
                 Element.ALIGN_LEFT, new Phrase("Address : "+master.getAddress()),
                 (rect.getLeft() ) , rect.getTop() - 135, 0);
-        ColumnText.showTextAligned(writer.getDirectContent(),
-                Element.ALIGN_LEFT, new Phrase("Order Status : "+oStatus),
-                (rect.getLeft() ) , rect.getTop() - 150, 0);
-
+        if(LaunchActivity.appName.contains("Raja"))
+        {
+            ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_LEFT, new Phrase(""),
+                    (rect.getLeft()), rect.getTop() - 150, 0);
+        }
+        else
+        {
+            ColumnText.showTextAligned(writer.getDirectContent(),
+                    Element.ALIGN_LEFT, new Phrase("Order Status : " + oStatus),
+                    (rect.getLeft()), rect.getTop() - 150, 0);
+        }
         ColumnText.showTextAligned(writer.getDirectContent(),
                 Element.ALIGN_RIGHT, new Phrase("Date : " + CommonUtilities.longToDate(master.getOrderDate())),
                 (rect.getRight() - 50), rect.getTop() - 135, 0);
@@ -484,10 +492,10 @@ public class PrintOrderSummary
         c = new PdfPCell(new Phrase(totq+""));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         c.setVerticalAlignment(Element.ALIGN_CENTER);
+        table.addCell("");
         table.addCell(c);
         table.addCell("");
-        table.addCell("");
-        c = new PdfPCell(new Phrase(totp+""));
+        c = new PdfPCell(new Phrase("₹."+totp+""));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         c.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(c);

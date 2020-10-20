@@ -92,7 +92,8 @@ public class ProductDetailView
     private int dotscount;
     private ImageView[] dots;
     EditText etRemark,etUnitName;
-
+    //₹
+    LinearLayout linearRemark;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -121,6 +122,10 @@ public class ProductDetailView
                 if(getString(R.string.app_name).contains("Rajashree"))
                 {
                     txtprice.setText("Price List Rate (₹):-  "+ df.format( price)+"");
+                     try {
+                         linearRemark.setVisibility(View.GONE);
+                     }
+                     catch (Exception ex){}
                 }
             }
             catch (Exception e){ txtprice.setText(" ₹");}
@@ -349,7 +354,7 @@ public class ProductDetailView
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
         etRemark = findViewById(R.id.etProductDetailsRemark);
         etUnitName = findViewById(R.id.etProductDetailsUnitName);
-
+        linearRemark=findViewById(R.id.linearRemark);
         etUnitName.setText(bean.getUnitName());
         etRemark.setText(bean.getRemark());
 
@@ -456,6 +461,7 @@ public class ProductDetailView
                 s.setClientId(UserUtilities.getClientId(this));
                 s.setUnitName(etUnitName.getText().toString());
                 s.setRemark(etRemark.getText().toString());
+
                 stockList.add(s);
             }
         }

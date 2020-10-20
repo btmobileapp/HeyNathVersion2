@@ -75,9 +75,9 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         try {
             double price = productBeanWithQnty.price;     //itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
             DecimalFormat df = new DecimalFormat("#.##");
-            holder.tv2.setText("Rs. " + df.format(price));
+            holder.tv2.setText("₹. " + df.format(price));
         } catch (Exception e) {
-            holder.tv2.setText("Rs. ");
+            holder.tv2.setText("₹. ");
         }
         // holder.tv2.setText(Integer.toString(productBeanWithQnty.getPriceId()));
         holder.tv3.setText(productBeanWithQnty.getUnitName());

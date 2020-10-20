@@ -148,7 +148,7 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
     }
 
      public void getNoticeList() {
-         AsyncUtilities serverAsync=new AsyncUtilities(UserHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetNotice","",2,this);
+         AsyncUtilities serverAsync=new AsyncUtilities(UserHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetNotice?UserId="+UserUtilities.getUserId(this),"",2,this);
          serverAsync.execute();
      }
 

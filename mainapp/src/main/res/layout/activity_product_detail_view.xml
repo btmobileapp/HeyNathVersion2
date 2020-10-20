@@ -120,6 +120,7 @@
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:visibility="visible"
+                    android:id="@+id/linearRemark"
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView

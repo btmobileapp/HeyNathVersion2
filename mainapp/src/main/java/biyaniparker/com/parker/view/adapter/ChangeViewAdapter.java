@@ -1,8 +1,11 @@
 package biyaniparker.com.parker.view.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -62,15 +65,18 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
 //        } else {
 //            holder.cbSelectAll.setVisibility(View.VISIBLE);
 //        }
-        if (newProductList.size() == 1) {
-            holder.cbSelectAll.setVisibility(View.GONE);
+        try {
+            if (newProductList.size() == 1) {
+                holder.cbSelectAll.setVisibility(View.GONE);
+            }
+            if (productBeanWithQnty.getIconThumb() == "") {
+                holder.imageView.setImageResource(R.drawable.bgchoice);
+            } else {
+                Picasso.get().load(productBeanWithQnty.getIconThumb()).into(holder.imageView);
+                // Picasso.get().load(productBeanWithQnty.get(position).get()).placeholder(R.drawable.bgparker).into(holder.imageView);
+            }
         }
-        if (productBeanWithQnty.getIconThumb() == "") {
-            holder.imageView.setImageResource(R.drawable.bgchoice);
-        } else {
-            Picasso.get().load(productBeanWithQnty.getIconThumb()).into(holder.imageView);
-            // Picasso.get().load(productBeanWithQnty.get(position).get()).placeholder(R.drawable.bgparker).into(holder.imageView);
-        }
+        catch (Exception ex){}
 
         try {
             double price = productBeanWithQnty.price;     //itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
@@ -99,6 +105,43 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
             holder.checkBox.setChecked(true);
 
         holder.et.setText(productBeanWithQnty.getQuantity());
+        holder.et.setTag(productBeanWithQnty);
+        holder.et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+
+                AlertDialog.Builder alert=new AlertDialog.Builder(context);
+                alert.setTitle("Enter Order Quantity");
+                LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View mView=inflater.inflate(R.layout.dialogue_order_qty,null);
+                final EditText editText=mView.findViewById(R.id.editText);
+
+                alert.setView(mView);
+                alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String q=  editText.getText().toString();
+                        if(q.length()>0)
+                        {
+                            try
+                            {
+                                int qty = Integer.parseInt(q);
+                                if(qty>0) {
+                                    ProductBeanWithQnty obj = (ProductBeanWithQnty) v.getTag();
+                                    obj.quantity = qty + "";
+                                    obj.checkValue = true;
+                                    notifyDataSetChanged();
+                                }
+                            }
+                            catch (Exception ex){}
+                        }
+                    }
+                });
+                alert.setNegativeButton("Cancel",null);
+                alert.show();
+
+            }
+        });
 
         // newProductList.add(productBeanWithQnty);
 
@@ -306,6 +349,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         if (holder.checkBox.isChecked()){
             changeViewCallBack.getOneCheckBox();
         }
+        /*
         holder.et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
@@ -347,7 +391,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                     catch (Exception ex){}
                 }
             }
-        });
+        });*/
     }
 
     long startTime=System.currentTimeMillis();
@@ -370,7 +414,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder  {
         ImageView imageView;
         TextView tv2,tv3,tv4,tv5,tv6;
-        EditText et;
+        TextView et;
         Button addToBag;
         CheckBox checkBox,cbSelectAll;
 

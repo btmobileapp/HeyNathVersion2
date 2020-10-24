@@ -12,22 +12,48 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
+            android:orientation="horizontal"
             android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_weight="8"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/chk"
-                android:layout_alignParentTop="true"
-                />
+                >
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/chk"
+                    android:layout_alignParentTop="true"
+                    />
+            </LinearLayout>
+
 
             <TextView
+                android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtName"
                 android:textColor="@android:color/black"
                 android:text="Name"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_weight="8"
+                android:layout_height="wrap_content"
+                >
+            <ImageView
+                android:id="@+id/imgDelete"
+                android:layout_weight="1"
+                android:src="@drawable/ic_deletel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </ImageView>
+            </LinearLayout>
         </LinearLayout>
 
 
@@ -101,6 +127,8 @@
                         android:textStyle="bold"
                         android:layout_weight="2"
                         android:layout_marginTop="5dp"/>
+
+
 
 
 

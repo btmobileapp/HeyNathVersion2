@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:paddingLeft="3dp"
     android:layout_height="wrap_content">
 
 <!--            <LinearLayout-->
@@ -68,14 +69,18 @@
             android:layout_weight="1"
             android:textColor="@android:color/black"
             android:text="Hyderabad" />
-        <EditText
+        <TextView
             android:id="@+id/tvQtyChange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_weight="1"
             android:hint="0"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:inputType="number"
+            android:background="@drawable/bground"
             android:textColor="@android:color/black"/>
         <TextView
             android:id="@+id/tvUnitChange"

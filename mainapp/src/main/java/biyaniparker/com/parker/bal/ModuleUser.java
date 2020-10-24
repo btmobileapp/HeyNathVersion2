@@ -68,9 +68,10 @@ public class ModuleUser implements  DownloadUtility{
         jsonObject.put("MobileNo",userBean.getMobileNo());
         jsonObject.put("GSTNumber",userBean.getGSTNumber());
 
-        try {
+        try
+        {
             if(userBean.deviceID.length()>5)
-            jsonObject.put("DeviceID", userBean.getDeviceID());
+              jsonObject.put("DeviceID", userBean.getDeviceID());
         }
         catch (Exception ex){}
 

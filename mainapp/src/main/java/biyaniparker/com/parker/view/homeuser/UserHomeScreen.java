@@ -54,6 +54,7 @@ import biyaniparker.com.parker.utilities.NotifyCallback;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
+import biyaniparker.com.parker.view.homeuser.productdshopping.ChangeView;
 import biyaniparker.com.parker.view.notice.NoticeListView;
 import biyaniparker.com.parker.view.notice.NoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
@@ -478,10 +479,24 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
        }
         else
         {
-            int categoryId = moduleUserHomeScreen.parentList.get(position).getCategoryId();
-            Intent intent = new Intent(this, DynamicCategories.class);
-            intent.putExtra("CategoryId", categoryId);
-            startActivity(intent);
+            if(LaunchActivity.appName.equalsIgnoreCase("Choice Electric"))
+            {
+                /*
+                int categoryId = moduleUserHomeScreen.parentList.get(position).getCategoryId();
+                Intent intent = new Intent(this, ChangeView.class);
+                intent.putExtra("CategoryId", categoryId);
+                startActivity(intent);*/
+                int categoryId = moduleUserHomeScreen.parentList.get(position).getCategoryId();
+                Intent intent = new Intent(this, DynamicCategories.class);
+                intent.putExtra("CategoryId", categoryId);
+                startActivity(intent);
+            }
+            else {
+                int categoryId = moduleUserHomeScreen.parentList.get(position).getCategoryId();
+                Intent intent = new Intent(this, DynamicCategories.class);
+                intent.putExtra("CategoryId", categoryId);
+                startActivity(intent);
+            }
         }
         overridePendingTransition(R.animator.pull_in_right, R.animator.push_out_left);
     }

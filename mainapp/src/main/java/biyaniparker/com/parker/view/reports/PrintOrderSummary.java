@@ -28,6 +28,7 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -364,11 +365,6 @@ public class PrintOrderSummary
         }
         else
         {
-
-
-            cell2 = new PdfPCell(new Phrase(rateName));
-            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell2);
             cell2 = new PdfPCell(new Phrase("Unit"));
             cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell2);
@@ -376,6 +372,17 @@ public class PrintOrderSummary
             cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell2);
 
+           // rateName="PL Rate";
+
+            cell2 = new PdfPCell(new Phrase(rateName));
+            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell2);
+
+            rateName="Sub Total";
+
+            cell2 = new PdfPCell(new Phrase(rateName));
+            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell2);
 
         }
 
@@ -420,11 +427,7 @@ public class PrintOrderSummary
             DecimalFormat df = new DecimalFormat("#.##");
           //  txtprice.setText( df.format( price)+" Rs");
             if(!LaunchActivity.appName.contains("Rajashree")) {
-                c = new PdfPCell(new Phrase(df.format((Float.parseFloat(orderDetails.get(i).consumerPrice) * 1.0)) + ""));
-                c.setHorizontalAlignment(Element.ALIGN_CENTER);
-                c.setVerticalAlignment(Element.ALIGN_CENTER);
-                c.setPadding(12);
-                table.addCell(c);
+
 //                    table.addCell(orderDetails.get(i).sizeName);
                 c = new PdfPCell(new Phrase(orderDetails.get(i).unitName + ""));
                 c.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -439,6 +442,22 @@ public class PrintOrderSummary
 
                 totq = totq + orderDetails.get(i).getQuantity();
                 totp = totp + ((int) Float.parseFloat(orderDetails.get(i).getDealerPrice()) * orderDetails.get(i).quantity);
+
+                c = new PdfPCell(new Phrase(df.format((Float.parseFloat(orderDetails.get(i).consumerPrice) * 1.0)) + ""));
+                c.setHorizontalAlignment(Element.ALIGN_CENTER);
+                c.setVerticalAlignment(Element.ALIGN_CENTER);
+                c.setPadding(12);
+                table.addCell(c);
+
+
+                c = new PdfPCell(new Phrase(
+                        df.format((Float.parseFloat(orderDetails.get(i).consumerPrice) * 1.0
+                                * orderDetails.get(i).getQuantity()
+                        )) + ""));
+                c.setHorizontalAlignment(Element.ALIGN_CENTER);
+                c.setVerticalAlignment(Element.ALIGN_CENTER);
+                c.setPadding(12);
+                table.addCell(c);
             }
             else
             {
@@ -495,7 +514,11 @@ public class PrintOrderSummary
         table.addCell("");
         table.addCell(c);
         table.addCell("");
-        c = new PdfPCell(new Phrase("₹."+totp+""));
+
+        Font f1 =
+                FontFactory.getFont("resources/fonts/PlayfairDisplay-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
+
+        c = new PdfPCell(new Phrase("Rs. "+totp+"",f1));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         c.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(c);

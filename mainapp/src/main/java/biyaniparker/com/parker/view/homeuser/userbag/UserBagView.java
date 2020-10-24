@@ -178,7 +178,7 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
 
             for(int i=0;i< moduleBag.bagMasterList.size();i++)
             {
-              BagMasterBean master= moduleBag.bagMasterList.get(i);
+              final BagMasterBean master= moduleBag.bagMasterList.get(i);
 
                 if(i==0)
                 {
@@ -195,6 +195,36 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
 
                 LayoutInflater mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
                 View v= mInflater.inflate(R.layout.o_activity_bag_adapter,null);
+                ImageView imgDelete =v.findViewById(R.id.imgDelete);
+                imgDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserBagView.this);
+                        alertDialog.setTitle(getString(R.string.app_name));
+                        alertDialog.setMessage("Do you want to remove these products from bags ?");
+                        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+
+                                    final ArrayList<Integer> stokIds=new ArrayList<>();
+                                    for(int k=0;k<master.bagDetails.size();k++)
+                                    {
+                                        stokIds.add(master.bagDetails.get(k).stockId);
+                                    }
+                                   moduleBag.removeItems(stokIds);
+                                   // selectedProducts.clear();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        alertDialog.setNegativeButton("No", null);
+                        alertDialog.show();
+                    }
+                });
                 LinearLayout lnDetail=(LinearLayout)  v.findViewById(R.id.linear);
                 CheckBox chk=(CheckBox)v.findViewById(R.id.chk);
                 final int clicked=i;

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import biyaniparker.com.parker.LaunchActivity;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.bal.ModuleProduct;
@@ -77,10 +78,19 @@ public class DynamicCategories extends AppCompatActivity implements AdapterView.
             gridView.setAdapter(productGridAdapter);
             gridView.setOnItemClickListener(this);*/
 
-            finish();
-            Intent i=new Intent(this,SearchUserProductsList.class);
-            i.putExtra("CategoryId",catId);
-            startActivity(i);
+            if(LaunchActivity.appName.equalsIgnoreCase("Choice Electric"))
+            {
+                finish();
+                Intent i = new Intent(this, ChangeView.class);
+                i.putExtra("CategoryId", catId);
+                startActivity(i);
+            }
+            else {
+                finish();
+                Intent i = new Intent(this, SearchUserProductsList.class);
+                i.putExtra("CategoryId", catId);
+                startActivity(i);
+            }
 
         }
 

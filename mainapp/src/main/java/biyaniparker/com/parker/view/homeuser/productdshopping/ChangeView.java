@@ -57,63 +57,63 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
 {
 
 
-    RecyclerView recyclerView;
-    ModuleUserProduct moduleUserProduct;
-    ModuleCategory moduleCategory;
-    int catId;
-    ChangeViewAdapter adapter;
-    ArrayList<StockMasterBean> stockList=new ArrayList<>();
-    ModuleProductDetails moduleProductDetails;
-    ArrayList<SizeMaster> list;
-    CheckBox checkAll;
-    Button  btnAddToBag;
+  RecyclerView recyclerView;
+  ModuleUserProduct moduleUserProduct;
+  ModuleCategory moduleCategory;
+  int catId;
+  ChangeViewAdapter adapter;
+  ArrayList<StockMasterBean> stockList=new ArrayList<>();
+  ModuleProductDetails moduleProductDetails;
+  ArrayList<SizeMaster> list;
+  CheckBox checkAll;
+  Button  btnAddToBag;
 
-    AlertDialog.Builder alertDialog;
+  AlertDialog.Builder alertDialog;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_view);
-        moduleProductDetails = new ModuleProductDetails(this);
-        checkAll = (CheckBox) findViewById(R.id.chkAll);
-        // linearLayout =(LinearLayout)findViewById(R.id.lmainchange);
-        btnAddToBag = (Button) findViewById(R.id.btnAddtobags);
-        // checkAll.setOnCheckedChangeListener(this);
-        recyclerView = findViewById(R.id.recycleview_change);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ChangeView.this));
-        Intent intent = getIntent();
-        moduleCategory = new ModuleCategory(this);
-        catId = intent.getIntExtra("CategoryId", 0);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setSubtitle(moduleCategory.getCategoryBeanById(catId).getCategoryName());
-        getSupportActionBar().setHomeButtonEnabled(true);
-        moduleUserProduct = new ModuleUserProduct(this);
-        adapter = new ChangeViewAdapter(ChangeView.this, moduleUserProduct.newProductList, ChangeView.this);
-        recyclerView.addItemDecoration(new DividerItemDecoration(ChangeView.this, LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(adapter);
-        // recyclerView.getAdapter().getItemCount();
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_change_view);
+    moduleProductDetails = new ModuleProductDetails(this);
+    checkAll = (CheckBox) findViewById(R.id.chkAll);
+    // linearLayout =(LinearLayout)findViewById(R.id.lmainchange);
+    btnAddToBag = (Button) findViewById(R.id.btnAddtobags);
+    // checkAll.setOnCheckedChangeListener(this);
+    recyclerView = findViewById(R.id.recycleview_change);
+    recyclerView.setLayoutManager(new LinearLayoutManager(ChangeView.this));
+    Intent intent = getIntent();
+    moduleCategory = new ModuleCategory(this);
+    catId = intent.getIntExtra("CategoryId", 0);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setSubtitle(moduleCategory.getCategoryBeanById(catId).getCategoryName());
+    getSupportActionBar().setHomeButtonEnabled(true);
+    moduleUserProduct = new ModuleUserProduct(this);
+    adapter = new ChangeViewAdapter(ChangeView.this, moduleUserProduct.newProductList, ChangeView.this);
+    recyclerView.addItemDecoration(new DividerItemDecoration(ChangeView.this, LinearLayoutManager.VERTICAL));
+    recyclerView.setAdapter(adapter);
+    // recyclerView.getAdapter().getItemCount();
 
-        if (new ConnectionDetector(this).isConnectingToInternet())
-        {
-            //moduleUserProduct.loadFromDb(catId);
-            // moduleUserProduct.getUserProducts(catId);
-            moduleUserProduct.getUserProductsWithNotify(catId);
+    if (new ConnectionDetector(this).isConnectingToInternet())
+    {
+      //moduleUserProduct.loadFromDb(catId);
+      // moduleUserProduct.getUserProducts(catId);
+      moduleUserProduct.getUserProductsWithNotify(catId);
+    }
+    else{
+
+      moduleUserProduct.loadFromDb(catId);
+    }
+
+    checkAll.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (checkAll.isChecked()) {
+          adapter.selectAll();
+        } else {
+          adapter.unselectAll();
         }
-        else{
-
-            moduleUserProduct.loadFromDb(catId);
-        }
-
-        checkAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkAll.isChecked()) {
-                    adapter.selectAll();
-                } else {
-                    adapter.unselectAll();
-                }
-            }
-        });
+      }
+    });
 
 
 //        btnAddToBag.setOnClickListener(new View.OnClickListener() {
@@ -157,229 +157,232 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
 //    }
 
     btnAddToBag.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view)
-        {
-            for (int i = 0; i < moduleUserProduct.newProductList.size(); i++) {
-                if (moduleUserProduct.newProductList.get(i).getQuantity() == null) {
+      @Override
+      public void onClick(View view)
+      {
+        for (int i = 0; i < moduleUserProduct.newProductList.size(); i++) {
+          if (moduleUserProduct.newProductList.get(i).getQuantity() == null) {
 
-                }
-                else {
-                    getData(moduleUserProduct.newProductList.get(i), moduleUserProduct.newProductList.get(i).getQuantity());
-
-                }
-            }
-
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangeView.this);
-            alertDialog.setTitle(getString(R.string.app_name));
-            alertDialog.setMessage("Do you want to add these products in bags");
-            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    try
-                    {
-                        moduleProductDetails.addToBag1(stockList);
-                    } catch (JSONException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            //   alertDialog.setNegativeButton("No", null);
-            alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
-
-        }
-    });
-}
-
-    @Override
-    public void onComplete(String str, int requestCode, int responseCode) {
-        if(requestCode==2&&responseCode==200)
-        {
-            try
-            {
-                adapter.notifyDataSetChanged();
-            }
-            catch (Exception e)
-            {
-            }
-        }
-        else if(requestCode==4 && responseCode==200)
-        {
-            if(str.equals("Success"))
-            {
-                Toast.makeText(getApplicationContext(),"Products Succesfully added to bag ",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, UserHomeScreen.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-            else if(str.equals("Failed"))
-            {
-                AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
-                alertDialog.setTitle(getString(R.string.app_name));
-                alertDialog.setMessage("Required quantity not available in stock ..Try Again !!");
-                alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //callRefresh();
-                    }
-                });
-            }
-        }
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        if(item.getItemId()==android.R.id.home)
-            onBackPressed();
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        moduleUserProduct.stopAsyncWork();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void notifyToActivity() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
-            }
-        });
-        int size=  moduleUserProduct.newProductList.size();
-    }
-
-    public void getData(ProductBeanWithQnty productBeanWithQnty,String qty) {
-        CommonUtilities.hideSoftKeyBord(this);
-
-         if(validation(productBeanWithQnty,qty)) {
+          }
+          else {
+            getData(moduleUserProduct.newProductList.get(i), moduleUserProduct.newProductList.get(i).getQuantity());
 
           }
         }
 
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangeView.this);
+        alertDialog.setTitle(getString(R.string.app_name));
+        alertDialog.setMessage("Do you want to add these products in bags");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            try
+            {
+              moduleProductDetails.addToBag1(stockList);
+            } catch (JSONException e)
+            {
+              e.printStackTrace();
+            }
+          }
+        });
+        //   alertDialog.setNegativeButton("No", null);
+        alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            dialog.cancel();
+          }
+        });
 
-    @Override
-    public void getPosition(int adapterPosition) {
-        Intent intent=new Intent(ChangeView.this, ImageClass.class);
-        Gson gson = new Gson();
-        String myJson = gson.toJson(moduleUserProduct.newProductList.get(adapterPosition));
-        intent.putExtra("myjson",myJson);
-        startActivity(intent);
+        alertDialog.show();
+
+
+
+      }
+    });
+  }
+
+  @Override
+  public void onComplete(String str, int requestCode, int responseCode) {
+    if(requestCode==2&&responseCode==200)
+    {
+      try
+      {
+        adapter.notifyDataSetChanged();
+      }
+      catch (Exception e)
+      {
+      }
     }
+    else if(requestCode==4 && responseCode==200)
+    {
+      if(str.equals("Success"))
+      {
+        Toast.makeText(getApplicationContext(),"Products Succesfully added to bag ",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, UserHomeScreen.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+      }
+      else if(str.equals("Failed"))
+      {
+        AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+        alertDialog.setTitle(getString(R.string.app_name));
+        alertDialog.setMessage("Required quantity not available in stock ..Try Again !!");
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            //callRefresh();
+          }
+        });
+      }
+    }
+  }
 
-    @Override
-    public void getList(ProductBeanWithQnty productBeanWithQnty,String qty) {
-        list = new ArrayList<>();
-        ItemDAOSizeMaster itemDAOSizeMaster = new ItemDAOSizeMaster(getApplicationContext());
-        list = itemDAOSizeMaster.getAllSize(UserUtilities.getClientId(getApplicationContext()));
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    if(item.getItemId()==android.R.id.home)
+      onBackPressed();
+    return super.onOptionsItemSelected(item);
+  }
 
-        for (int i = 0; i < list.size(); i++) {
-            StockMasterBean s = new StockMasterBean();
-            int sizeId = list.get(i).getSizeId();
-            s.setProductId(productBeanWithQnty.getProductId());
-            s.setInBagQty(Integer.parseInt(qty));
-            s.setSizeId(sizeId);
-            s.setTransactionType("inbag");
-            s.setDeleteStatus("false");
-            s.setUserId(UserUtilities.getUserId(this));
-            s.setChangedBY(UserUtilities.getUserId(this));
-            s.setEnterBy(UserUtilities.getUserId(this));
-            s.setClientId(UserUtilities.getClientId(this));
-            s.setUnitName(productBeanWithQnty.getUnitName());
-            s.setRemark(productBeanWithQnty.getRemark());
-            stockList.add(s);
+  @Override
+  public void finish() {
+    super.finish();
+    moduleUserProduct.stopAsyncWork();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+  }
+
+  @Override
+  public void notifyToActivity() {
+    runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        adapter.notifyDataSetChanged();
+      }
+    });
+    int size=  moduleUserProduct.newProductList.size();
+  }
+
+  public void getData(ProductBeanWithQnty productBeanWithQnty,String qty) {
+    CommonUtilities.hideSoftKeyBord(this);
+
+    if(validation(productBeanWithQnty,qty)) {
+
+    }
+  }
+
+
+  @Override
+  public void getPosition(int adapterPosition) {
+    Intent intent=new Intent(ChangeView.this, ImageClass.class);
+    Gson gson = new Gson();
+    String myJson = gson.toJson(moduleUserProduct.newProductList.get(adapterPosition));
+    intent.putExtra("myjson",myJson);
+    startActivity(intent);
+  }
+
+  @Override
+  public void getList(ProductBeanWithQnty productBeanWithQnty,String qty) {
+    list = new ArrayList<>();
+    ItemDAOSizeMaster itemDAOSizeMaster = new ItemDAOSizeMaster(getApplicationContext());
+    list = itemDAOSizeMaster.getAllSize(UserUtilities.getClientId(getApplicationContext()));
+
+    for (int i = 0; i < list.size(); i++) {
+      StockMasterBean s = new StockMasterBean();
+      int sizeId = list.get(i).getSizeId();
+      s.setProductId(productBeanWithQnty.getProductId());
+      s.setInBagQty(Integer.parseInt(qty));
+      s.setSizeId(sizeId);
+      s.setTransactionType("inbag");
+      s.setDeleteStatus("false");
+      s.setUserId(UserUtilities.getUserId(this));
+      s.setChangedBY(UserUtilities.getUserId(this));
+      s.setEnterBy(UserUtilities.getUserId(this));
+      s.setClientId(UserUtilities.getClientId(this));
+      s.setUnitName(productBeanWithQnty.getUnitName());
+      s.setRemark(productBeanWithQnty.getRemark());
+      stockList.add(s);
+    }
+    btnAddToBag.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if(stockList.isEmpty())
+        {
+          Toast.makeText(getApplicationContext()," Please enter stock quantity ..  ",Toast.LENGTH_SHORT).show();
         }
-        btnAddToBag.setOnClickListener(new View.OnClickListener() {
+        else
+        {
+          AlertDialog.Builder alertDialog=new AlertDialog.Builder(ChangeView.this);
+          alertDialog.setTitle(getString(R.string.app_name));
+          alertDialog.setMessage("Do you want to add these products in bags");
+          alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(stockList.isEmpty())
-                {
-                    Toast.makeText(getApplicationContext()," Please enter stock quantity ..  ",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    AlertDialog.Builder alertDialog=new AlertDialog.Builder(ChangeView.this);
-                    alertDialog.setTitle(getString(R.string.app_name));
-                    alertDialog.setMessage("Do you want to add these products in bags");
-                    alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            try
-                            {
-                                moduleProductDetails.addToBag1(stockList);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    alertDialog.setNegativeButton("No", null);
+            public void onClick(DialogInterface dialog, int which) {
+              try
+              {
+                moduleProductDetails.addToBag1(stockList);
+              } catch (JSONException e) {
+                e.printStackTrace();
+              }
+            }
+          });
+          alertDialog.setNegativeButton("No", null);
                 /*alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
 
                     }
                 })*/
-                    alertDialog.show();
-                }
-            }
-        });
-    }
-
-    @Override
-    public boolean getCheckBoxes() {
-        {
+          alertDialog.show();
         }
-        return false;
+      }
+    });
+  }
+
+  @Override
+  public boolean getCheckBoxes() {
+    {
     }
+    return false;
+  }
 
-    @Override
-    public boolean getOneCheckBox() {
-        return false;
+  @Override
+  public boolean getOneCheckBox() {
+    return false;
+  }
+
+
+  private boolean validation(ProductBeanWithQnty productBeanWithQnty,String qty) {
+    list = new ArrayList<>();
+    ItemDAOSizeMaster itemDAOSizeMaster = new ItemDAOSizeMaster(getApplicationContext());
+    list = itemDAOSizeMaster.getAllSize(UserUtilities.getClientId(getApplicationContext()));
+
+    for (int i=0;i<list.size();i++){
+      StockMasterBean s = new StockMasterBean();
+      int sizeId = list.get(i).getSizeId();
+      s.setProductId(productBeanWithQnty.getProductId());
+      s.setInBagQty(Integer.parseInt(qty));
+      s.setSizeId(sizeId);
+      s.setTransactionType("inbag");
+      s.setDeleteStatus("false");
+      s.setUserId(UserUtilities.getUserId(this));
+      s.setChangedBY(UserUtilities.getUserId(this));
+      s.setEnterBy(UserUtilities.getUserId(this));
+      s.setClientId(UserUtilities.getClientId(this));
+      s.setUnitName(productBeanWithQnty.getUnitName());
+      s.setRemark(productBeanWithQnty.getRemark());
+      stockList.add(s);
     }
+    return true;
+  }
 
+  @Override
+  public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-    private boolean validation(ProductBeanWithQnty productBeanWithQnty,String qty) {
-        list = new ArrayList<>();
-        ItemDAOSizeMaster itemDAOSizeMaster = new ItemDAOSizeMaster(getApplicationContext());
-        list = itemDAOSizeMaster.getAllSize(UserUtilities.getClientId(getApplicationContext()));
-
-        for (int i=0;i<list.size();i++){
-            StockMasterBean s = new StockMasterBean();
-            int sizeId = list.get(i).getSizeId();
-            s.setProductId(productBeanWithQnty.getProductId());
-            s.setInBagQty(Integer.parseInt(qty));
-            s.setSizeId(sizeId);
-            s.setTransactionType("inbag");
-            s.setDeleteStatus("false");
-            s.setUserId(UserUtilities.getUserId(this));
-            s.setChangedBY(UserUtilities.getUserId(this));
-            s.setEnterBy(UserUtilities.getUserId(this));
-            s.setClientId(UserUtilities.getClientId(this));
-            s.setUnitName(productBeanWithQnty.getUnitName());
-            s.setRemark(productBeanWithQnty.getRemark());
-            stockList.add(s);
-        }
-        return true;
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-    }
+  }
 
 
 }

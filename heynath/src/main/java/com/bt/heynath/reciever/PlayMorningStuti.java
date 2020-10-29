@@ -42,10 +42,11 @@ public class PlayMorningStuti extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(!isSilentMode(this))
         {
-            NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
 
            if( AlramUtility.isToPlay())
            {
+               NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
+
                player.start();
                AlramUtility.updateMorningTime();
                firstRunnable=0;

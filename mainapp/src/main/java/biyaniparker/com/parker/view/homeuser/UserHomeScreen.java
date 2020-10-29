@@ -47,6 +47,7 @@ import biyaniparker.com.parker.bal.ModuleSync;
 import biyaniparker.com.parker.bal.ModuleUserHomeScreen;
 import biyaniparker.com.parker.beans.CreateNoticeBean;
 import biyaniparker.com.parker.beans.RowItem;
+import biyaniparker.com.parker.fcm.FcmUtility;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
@@ -146,6 +147,15 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
         checkSDCardsWrite();
 
         getNoticeList();
+
+        try
+        {
+            FcmUtility fcmUtility = new FcmUtility();
+            fcmUtility.callProcedure(this);
+        }
+        catch (Exception ex){
+            CommonUtilities.alert(this,ex.toString());
+        }
     }
 
      public void getNoticeList() {

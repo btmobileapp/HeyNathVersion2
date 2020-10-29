@@ -36,7 +36,7 @@ public class AlarmService extends Service {
 
     void setPendingIntent(Context context)
     {
-        NewMessageNotification.notify(context,"set Pending", "set 455", 2, null);
+     //   NewMessageNotification.notify(context,"set Pending", "set 455", 2, null);
         Intent intent = new Intent(context, AlarmReciever.class);
         intent.setAction("com.bt.heynath.dailyalarm");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
@@ -79,7 +79,7 @@ public class AlarmService extends Service {
 
     void setPendingIntent455(Context context)
     {
-        NewMessageNotification.notify(context,"set 455", "set 455", 2, null);
+      //  NewMessageNotification.notify(context,"set 455", "set 455", 2, null);
 
         Intent intent = new Intent(context, AlarmReciever.class);
         intent.setAction("com.bt.heynath.dailyalarm455");

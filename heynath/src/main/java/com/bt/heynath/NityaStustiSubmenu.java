@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.bt.heynath.pdf.Viewpdf1;
+
 import java.util.ArrayList;
 
 public class NityaStustiSubmenu extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -47,7 +49,11 @@ public class NityaStustiSubmenu extends AppCompatActivity implements AdapterView
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         if(i==0)
         {
-            startActivity(new Intent(this, PrathnaImportant.class));
+           // startActivity(new Intent(this, PrathnaImportant.class));
+            Viewpdf1.title=menus.get(i);
+            Viewpdf1.no=786;
+            startActivity(new Intent(this, Viewpdf1.class));
+           // startActivity(new Intent(this, Viewpdf.class));
         }
         if(i==1)
         {

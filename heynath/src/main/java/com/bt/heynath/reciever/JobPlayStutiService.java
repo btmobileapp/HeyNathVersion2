@@ -87,7 +87,8 @@ public class JobPlayStutiService extends JobIntentService {
     {
         AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        switch (am.getRingerMode()) {
+        switch (am.getRingerMode())
+        {
             case AudioManager.RINGER_MODE_SILENT:
             {
                 Log.i("MyApp", "Silent mode");

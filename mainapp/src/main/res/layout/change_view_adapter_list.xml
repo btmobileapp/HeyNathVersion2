@@ -21,7 +21,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtName"
+                android:textColor="@android:color/black"
+                android:text="Name"/>
+
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +55,7 @@
         android:background="#DAE8FC"
         android:padding="5dp">
         <LinearLayout
-            android:layout_weight="1"
+            android:layout_weight="1.11"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -105,20 +118,7 @@
     </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/txtName"
-                android:textColor="@android:color/black"
-                android:text="Name"/>
-
-        </LinearLayout>
     </LinearLayout>
 <!--    <Button-->
 <!--        android:layout_below="@+id/hs"-->

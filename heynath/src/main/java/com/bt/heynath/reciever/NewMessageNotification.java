@@ -52,7 +52,22 @@ public class NewMessageNotification {
 
         // This image is used as the notification's large icon (thumbnail).
         // TODO: Remove this if your notification has no relevant thumbnail.
-        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.pukar);
+        final Bitmap picture ;
+       //
+        if(  newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १-")
+           || newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १")
+           )
+        {
+            picture=     BitmapFactory.decodeResource(res, R.drawable.shree1);
+        }
+        else  if(newtitle.equalsIgnoreCase("है नाथ की पुकार-") || newtitle.equalsIgnoreCase("है नाथ की पुकार")   )
+        {
+            picture=     BitmapFactory.decodeResource(res, R.drawable.pukar);
+        }
+        else
+        {
+            picture=     BitmapFactory.decodeResource(res, R.drawable.shree1);
+        }
 
 
         final String ticker = newtitle;

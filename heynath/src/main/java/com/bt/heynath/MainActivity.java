@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
           menus.add("नित्य स्तुति");
           menus.add("है नाथ की पुकार");
-          menus.add("भगवान के मुख की वाणी श्रीमद्भगवद् गीता");
+          menus.add("भगवान के श्रीमुखकी वाणी श्रीमद्भगवद् गीता");
          // menus.add("गीता अध्याय");
 
 
@@ -130,6 +132,45 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        findViewById(R.id.dots).setOnClickListener(new View.OnClickListener()
+          {
+            @Override
+            public void onClick(View view) {
+                try
+                {
+                    alertMenu();
+               }
+                catch (Exception ex){}
+          }
+              });
+
+    }
+    void alertMenu()
+    {
+        ArrayList<String> mList=new ArrayList<>();
+        mList.add("लॉग इन करें");
+        boolean isPermissionAvaialbe=  AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)  ;
+        if(isPermissionAvaialbe)
+        {
+            mList.add("ऑटो स्टार्ट");
+        }
+        AlertDialog.Builder alBuilder=new AlertDialog.Builder(this);
+        alBuilder.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mList), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                if(i==0)
+                {
+                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                }
+                else
+                {
+                    openAutoStart();
+                }
+                dialogInterface.cancel();
+            }
+        });
+        alBuilder.show();
     }
     void openAutoStart()
     {
@@ -150,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         try {
@@ -168,6 +210,8 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
+     */
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -19,7 +19,7 @@ public class AlramUtility
         startCalendar.set(Calendar.MINUTE,54);
         Calendar endCalendar= Calendar.getInstance();
 
-        endCalendar.set(Calendar.HOUR_OF_DAY,5);
+        endCalendar.set(Calendar.HOUR_OF_DAY,23);
         endCalendar.set(Calendar.MINUTE,45);
 
         if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )

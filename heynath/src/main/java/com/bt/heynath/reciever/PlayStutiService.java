@@ -93,7 +93,9 @@ public class PlayStutiService extends Service {
 
         });
         if(!isSilentMode(context))
+        {
             mPlayer.start();
+        }
 
     }
 

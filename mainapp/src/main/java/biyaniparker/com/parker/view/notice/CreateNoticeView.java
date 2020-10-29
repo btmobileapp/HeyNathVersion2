@@ -148,6 +148,17 @@ public class CreateNoticeView extends AppCompatActivity implements  DownloadUtil
         });
 
         setDefaultDate();
+
+        try {
+           String title= getIntent().getExtras().getString("Title");
+            String desc= getIntent().getExtras().getString("Description");
+            etTitle.setText(title);
+            etDescription.setText(desc);
+
+
+        }
+        catch (Exception ex)
+        {}
     }
 
     void setDefaultDate()

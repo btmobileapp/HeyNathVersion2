@@ -32,12 +32,12 @@ public class ShreeMukhiSubmenu extends AppCompatActivity implements AdapterView.
         listview=findViewById(R.id.listview);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("भगवान् के श्रीमुखी वाणी श्रीमद्भगिद्गीता");
+        getSupportActionBar().setTitle("भगवान के श्रीमुखकी वाणी श्रीमद्भगवद् गीता");
 //
         menus.add("गीता जी की महिमा");
         menus.add("गीता जी के १८ नाम");
 
-        menus.add("नित्य पठनिय पांच श्लोक");
+        menus.add("नित्य पठनीय पांच श्लोक");
         menus.add("गीताजी के उच्चारण की विधि");
         menus.add("संपूर्ण गीता जी का सरल विधि से पठन पाठन");
 

@@ -33,7 +33,6 @@ public class MyMorningWorker extends Worker
     {
         if(!AlramUtility.isMute(getApplicationContext())  && AlramUtility.isNityaSuchiStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
         {
-            NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
             Calendar calendar= Calendar.getInstance();
 
             int startHour=4;
@@ -51,6 +50,7 @@ public class MyMorningWorker extends Worker
 
             if ( AlramUtility.isToPlay() )
             {
+                NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
                 AlramUtility.updateMorningTime();
                 playAudio();
             }

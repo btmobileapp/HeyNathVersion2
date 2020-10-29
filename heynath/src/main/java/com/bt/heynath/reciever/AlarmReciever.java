@@ -84,18 +84,6 @@ public class AlarmReciever extends BroadcastReceiver {
                if ( !AlramUtility.isMute(context) && AlramUtility.isStart(context)   && !isAirplaneModeOn(context)  && !isCallActive(context))
                {
                    {
-                             /*
-                       NewMessageNotification455.notify(context, "Morning Nitya Stuti", "Details", 1, null);
-                       new Thread(new Runnable()
-                       {
-                           @Override
-                           public void run() {
-                               playDialy455(context);
-                           }
-                       }).start();
-
-                        */
-                        //    NewMessageNotification.notify(context,"455 service call", "455 service call", 2, null);
 
                        try
                        {

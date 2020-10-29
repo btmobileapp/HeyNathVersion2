@@ -43,9 +43,9 @@ public class CommonUtilities
        //     "http://testing.biyanitechnologies.com/parkerservices/";
     // public final static String URL= "http://btwebservices.biyanitechnologies.com/sunanda/";
     //  "http://192.168.73.133/parker/";
-    // "http://btwebservices.biyanitechnologies.com/dealerapp/";
+     "http://btwebservices.biyanitechnologies.com/dealerapp/";
 
-     "http://btwebservices.biyanitechnologies.com/dealerchoice/";
+    // "http://btwebservices.biyanitechnologies.com/dealerchoice/";
 
     public static int Height=800;
     public static int Width=600;
@@ -66,10 +66,10 @@ public class CommonUtilities
 */
     public final static String RESPONCE_OK="Success";
     public static String GodName="|| Shree ||";
-    public static String AdminShop="Choice Electric";
-          //  "Rajashree Industries";
-    public static String AdminAdress="Jaysingpur Dist Kolhapur, Maharashtra 416101";
-   //  public static String AdminAdress="3rd Lane,Jaysingpur-416101\n Dist Kolhapur, Maharashtra ";
+    public static String AdminShop=//"Choice Electric";
+            "Rajashree Industries";
+    //public static String AdminAdress=//"Jaysingpur Dist Kolhapur, Maharashtra 416101";  //choice
+     public static String AdminAdress="3rd Lane,Jaysingpur-416101\n Dist Kolhapur, Maharashtra ";//Rajshree
 
     public static String Slogan="";
     public static String AdminContact=   "Ph No. 02322 225 073";
@@ -221,9 +221,12 @@ public class CommonUtilities
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        try {
+        try
+        {
             context.startActivity(intent);
-        } catch (ActivityNotFoundException e) {
+        }
+        catch (ActivityNotFoundException e)
+        {
             Toast.makeText(context, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
         }
     }

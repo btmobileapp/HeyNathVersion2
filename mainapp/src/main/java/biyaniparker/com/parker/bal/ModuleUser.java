@@ -21,7 +21,8 @@ import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 /**
  * Created by bt on 08/22/2016.
  */
-public class ModuleUser implements  DownloadUtility{
+public class ModuleUser implements  DownloadUtility
+{
     Context context;
    public ArrayList<UserShopBean> userList=new ArrayList<UserShopBean>();
     int flag=0;    // is for cheking wether recieved response is proper or  not
@@ -222,7 +223,7 @@ public class ModuleUser implements  DownloadUtility{
                         }
                         else
                         {
-                            downloadUtility.onComplete("Record Saved", 3, responseCode);
+                            downloadUtility.onComplete(str, 3, responseCode);
                         }
 
                     } else {
@@ -429,6 +430,11 @@ public class ModuleUser implements  DownloadUtility{
         catch (Exception e){}
         try {
             userBean.setDepartmentIds(jsonObject.getString("LastSeen"));
+            if(userBean.getDepartmentIds().length()>4)
+            {
+                userBean.setEnterDate ( CommonUtilities.parseDate(jsonObject.getString("LastSeen")));
+                        //userBean.setEnterDate(jsonObject.getLong("EnterDate"));
+            }
         }
         catch (Exception ex)
         {}
@@ -493,9 +499,11 @@ public class ModuleUser implements  DownloadUtility{
         userList.clear();
         try
         {
-          ArrayList<UserShopBean> list=itemDAOUser.getAllUsers(UserUtilities.getClientId(context));
+            ArrayList<UserShopBean> list=itemDAOUser.getNotVerifiedUsers(UserUtilities.getClientId(context));
+            list.addAll(itemDAOUser.getVerifiedUsers(UserUtilities.getClientId(context)));
+                  //itemDAOUser.getAllUsers(UserUtilities.getClientId(context));
             if(list!=null && list.size()!=0)
-            userList.addAll(list);
+                 userList.addAll(list);
         }
         catch (Exception e)
         {

@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_weight="2"
+                android:layout_weight="2.6"
                 android:orientation="vertical">
 
 
@@ -96,6 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Unit"
+                        android:gravity="center"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         android:layout_weight="2"
@@ -108,6 +109,7 @@
                         android:layout_marginLeft="0dp"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
+                        android:gravity="center"
                         android:id="@+id/txtsqnty"
                         android:layout_weight="2"
                         android:text="Qnty "/>
@@ -115,6 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Price"
+                        android:gravity="center"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         android:layout_weight="2"
@@ -123,6 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Total"
+                        android:gravity="center"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         android:layout_weight="2"

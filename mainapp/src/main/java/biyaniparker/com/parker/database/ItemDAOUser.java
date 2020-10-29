@@ -211,6 +211,202 @@ public class ItemDAOUser
 
     }
 
+    public ArrayList<UserShopBean> getNotVerifiedUsers(int clientId) {
+        ArrayList<UserShopBean> allUsersList=new ArrayList<UserShopBean>();
+        SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
+        Cursor c=db.rawQuery("Select * from User where ClientId="+clientId+" and DeleteStatus='false' and VerifiedStatus='Not Verified' order by EnterDate desc ",null);
+
+        if(c!=null)
+        {
+            if(c.moveToFirst())
+            {
+                int i=0;
+                while(i<c.getCount())
+                {
+                    UserBean userDetails=new UserBean();
+                    ShopMaster shopMaster=new ShopMaster();
+
+                    UserShopBean userBean=new UserShopBean();
+                    try {
+                        userDetails.setUserId(c.getInt(c.getColumnIndex("UserId")));
+                    }catch ( Exception e){}
+                    try {
+                        userDetails.setShopId(c.getLong(c.getColumnIndex("ShopId")));
+                    }catch ( Exception e){}
+
+                    try {
+                        Cursor query=db.rawQuery("Select * from ShopMaster where ShopId="+userDetails.getShopId(),null);
+                        if(query!=null)
+                        {
+
+
+                            query.moveToFirst();
+                            if (query.getCount() > 0)
+                            {
+                                try {
+                                    shopMaster.setShopName(query.getString(query.getColumnIndex("ShopName")));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                shopMaster.setShopId(query.getLong(query.getColumnIndex("ShopId")));
+                                shopMaster.setAddress(query.getString(query.getColumnIndex("Address")));
+                                shopMaster.setCreditLimit(query.getDouble(query.getColumnIndex("CreditLimit")));
+                                shopMaster.setDeleteStatus(query.getString(query.getColumnIndex("DeleteStatus")));
+                                shopMaster.setChangedBy(query.getLong(query.getColumnIndex("ChangedBy")));
+                                shopMaster.setChangedDate(query.getLong(query.getColumnIndex("ChangedDate")));
+                                shopMaster.setCreatedBy(query.getLong(query.getColumnIndex("CreatedBy")));
+                                shopMaster.setCreatedDate(query.getLong(query.getColumnIndex("CreatedDate")));
+                            }
+                        }
+                        query.close();
+
+                    }catch (Exception e)
+                    {
+
+                    }
+
+                    userDetails.setCreatedBy(c.getInt(c.getColumnIndex("CreatedBy")));
+                    userDetails.setAccessLavel(c.getInt(c.getColumnIndex("AccessLavel")));
+                    userDetails.setRoleName(c.getString(c.getColumnIndex("RoleName")));
+                    userDetails.setUserType(c.getString(c.getColumnIndex("UserType")));
+                    userDetails.setUserName(c.getString(c.getColumnIndex("UserName")));
+                    userDetails.setPassword(c.getString(c.getColumnIndex("Password")));
+                    userDetails.setOldPassword(c.getString(c.getColumnIndex("OldPassword")));
+
+                    userDetails.setName(c.getString(c.getColumnIndex("Name")));
+                    userDetails.setEmailId(c.getString(c.getColumnIndex("EmailId")));
+                    userDetails.setContactNo(c.getString(c.getColumnIndex("ContactNo")));
+                    userDetails.setMobileNo(c.getString(c.getColumnIndex("MobileNo")));
+                    userDetails.setIsActive(c.getString(c.getColumnIndex("IsActive")));
+                    userDetails.setClientId(c.getInt(c.getColumnIndex("ClientId")));
+                    userDetails.setOrgnisationIds(c.getString(c.getColumnIndex("OrgnisationIds")));
+                    userDetails.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
+                    userDetails.setExpiryDate(c.getLong(c.getColumnIndex("ExpiryDate")));
+                    userDetails.setDepartmentIds(c.getString(c.getColumnIndex("DepartmentIds")));
+                    userDetails.setCanCreateUser(c.getString(c.getColumnIndex("CanCreateUser")));
+                    userDetails.setCanAssignTask(c.getString(c.getColumnIndex("CanAssignTask")));
+                    userDetails.setgCMID(c.getString(c.getColumnIndex("GCMID")));
+                    userDetails.setDeviceID(c.getString(c.getColumnIndex("DeviceID")));
+                    userDetails.setEnterBy(c.getInt(c.getColumnIndex("EnterBy")));
+                    userDetails.setEnterDate(c.getLong(c.getColumnIndex("EnterDate")));
+                    userDetails.setChangedBy(c.getInt(c.getColumnIndex("ChangedBy")));
+                    userDetails.setChangedDate(c.getLong(c.getColumnIndex("ChangedDate")));
+                    userDetails.setGSTNumber(c.getString(c.getColumnIndex("GSTNumber")));
+                    userDetails.setVerifiedStatus(c.getString(c.getColumnIndex("VerifiedStatus")));
+                    userDetails.setDiscount(c.getFloat(c.getColumnIndex("Discount")));
+                    c.moveToNext();
+                    i++;
+                    userBean.user=userDetails;
+                    userBean.shopdetails=shopMaster;
+                    allUsersList.add(userBean);
+
+                }
+            }
+        }
+        db.close();
+        return allUsersList;
+
+    }
+
+    public ArrayList<UserShopBean> getVerifiedUsers(int clientId) {
+        ArrayList<UserShopBean> allUsersList=new ArrayList<UserShopBean>();
+        SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
+        Cursor c=db.rawQuery("Select * from User where ClientId="+clientId+" and DeleteStatus='false' and VerifiedStatus='Verified' order by EnterDate desc ",null);
+
+        if(c!=null)
+        {
+            if(c.moveToFirst())
+            {
+                int i=0;
+                while(i<c.getCount())
+                {
+                    UserBean userDetails=new UserBean();
+                    ShopMaster shopMaster=new ShopMaster();
+
+                    UserShopBean userBean=new UserShopBean();
+                    try {
+                        userDetails.setUserId(c.getInt(c.getColumnIndex("UserId")));
+                    }catch ( Exception e){}
+                    try {
+                        userDetails.setShopId(c.getLong(c.getColumnIndex("ShopId")));
+                    }catch ( Exception e){}
+
+                    try {
+                        Cursor query=db.rawQuery("Select * from ShopMaster where ShopId="+userDetails.getShopId(),null);
+                        if(query!=null)
+                        {
+
+
+                            query.moveToFirst();
+                            if (query.getCount() > 0)
+                            {
+                                try {
+                                    shopMaster.setShopName(query.getString(query.getColumnIndex("ShopName")));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                shopMaster.setShopId(query.getLong(query.getColumnIndex("ShopId")));
+                                shopMaster.setAddress(query.getString(query.getColumnIndex("Address")));
+                                shopMaster.setCreditLimit(query.getDouble(query.getColumnIndex("CreditLimit")));
+                                shopMaster.setDeleteStatus(query.getString(query.getColumnIndex("DeleteStatus")));
+                                shopMaster.setChangedBy(query.getLong(query.getColumnIndex("ChangedBy")));
+                                shopMaster.setChangedDate(query.getLong(query.getColumnIndex("ChangedDate")));
+                                shopMaster.setCreatedBy(query.getLong(query.getColumnIndex("CreatedBy")));
+                                shopMaster.setCreatedDate(query.getLong(query.getColumnIndex("CreatedDate")));
+                            }
+                        }
+                        query.close();
+
+                    }catch (Exception e)
+                    {
+
+                    }
+
+                    userDetails.setCreatedBy(c.getInt(c.getColumnIndex("CreatedBy")));
+                    userDetails.setAccessLavel(c.getInt(c.getColumnIndex("AccessLavel")));
+                    userDetails.setRoleName(c.getString(c.getColumnIndex("RoleName")));
+                    userDetails.setUserType(c.getString(c.getColumnIndex("UserType")));
+                    userDetails.setUserName(c.getString(c.getColumnIndex("UserName")));
+                    userDetails.setPassword(c.getString(c.getColumnIndex("Password")));
+                    userDetails.setOldPassword(c.getString(c.getColumnIndex("OldPassword")));
+
+                    userDetails.setName(c.getString(c.getColumnIndex("Name")));
+                    userDetails.setEmailId(c.getString(c.getColumnIndex("EmailId")));
+                    userDetails.setContactNo(c.getString(c.getColumnIndex("ContactNo")));
+                    userDetails.setMobileNo(c.getString(c.getColumnIndex("MobileNo")));
+                    userDetails.setIsActive(c.getString(c.getColumnIndex("IsActive")));
+                    userDetails.setClientId(c.getInt(c.getColumnIndex("ClientId")));
+                    userDetails.setOrgnisationIds(c.getString(c.getColumnIndex("OrgnisationIds")));
+                    userDetails.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
+                    userDetails.setExpiryDate(c.getLong(c.getColumnIndex("ExpiryDate")));
+                    userDetails.setDepartmentIds(c.getString(c.getColumnIndex("DepartmentIds")));
+                    userDetails.setCanCreateUser(c.getString(c.getColumnIndex("CanCreateUser")));
+                    userDetails.setCanAssignTask(c.getString(c.getColumnIndex("CanAssignTask")));
+                    userDetails.setgCMID(c.getString(c.getColumnIndex("GCMID")));
+                    userDetails.setDeviceID(c.getString(c.getColumnIndex("DeviceID")));
+                    userDetails.setEnterBy(c.getInt(c.getColumnIndex("EnterBy")));
+                    userDetails.setEnterDate(c.getLong(c.getColumnIndex("EnterDate")));
+                    userDetails.setChangedBy(c.getInt(c.getColumnIndex("ChangedBy")));
+                    userDetails.setChangedDate(c.getLong(c.getColumnIndex("ChangedDate")));
+                    userDetails.setGSTNumber(c.getString(c.getColumnIndex("GSTNumber")));
+                    userDetails.setVerifiedStatus(c.getString(c.getColumnIndex("VerifiedStatus")));
+                    userDetails.setDiscount(c.getFloat(c.getColumnIndex("Discount")));
+                    c.moveToNext();
+                    i++;
+                    userBean.user=userDetails;
+                    userBean.shopdetails=shopMaster;
+                    allUsersList.add(userBean);
+
+                }
+            }
+        }
+        db.close();
+        return allUsersList;
+
+    }
+
     public UserShopBean getUserByUserId(int userId) {
 
 

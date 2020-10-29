@@ -39,16 +39,19 @@ import biyaniparker.com.parker.bal.ModuleOrder;
 import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.beans.OrderMasterBean;
 import biyaniparker.com.parker.beans.RowItem;
+import biyaniparker.com.parker.fcm.FcmUtility;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.RecentDispatchListView;
+import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 import biyaniparker.com.parker.view.notice.CreateNoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.OrderAdapter;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchListView;
+import biyaniparker.com.parker.view.notice.NoticeListView;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 import biyaniparker.com.parker.view.user.PasswordUpdateView;
 import biyaniparker.com.parker.view.user.UserListView;
@@ -103,6 +106,7 @@ public class AdminHomeScreen extends AppCompatActivity
         RowItem item2= new RowItem("Products", R.drawable.ic_product);
 
         RowItem item3= new RowItem("Recent Dispatch", R.drawable.ic_dispatch);
+        RowItem item34= new RowItem("Notice", R.drawable.ic_dispatch);
         RowItem item4= new RowItem("Users", R.drawable.ic_user);
         RowItem item5= new RowItem("Change password", R.drawable.ic_changepass);
         RowItem item6= new RowItem("Logout", R.drawable.ic_logout);
@@ -120,6 +124,8 @@ public class AdminHomeScreen extends AppCompatActivity
         items.add(item1);
         items.add(item2);
         items.add(item8);
+        items.add(item34);
+        item34.isLocal=true;
         if(CommonUtilities.isDispatchEnable)
         {
             item3.isLocal=true;
@@ -204,6 +210,21 @@ public class AdminHomeScreen extends AppCompatActivity
         registerReceiver(mMessageRefreshReceiver,new IntentFilter("RefreshList"));
        // load();
          getUnitMasterList();
+
+
+        AsyncUtilities serverAsync=new AsyncUtilities(AdminHomeScreen.this,false, CommonUtilities.URL+"ProductService.svc/GetNotice?UserId="+UserUtilities.getUserId(this),"",922,this);
+        serverAsync.hideDialouge();
+        serverAsync.execute();
+
+
+        try
+        {
+            FcmUtility fcmUtility = new FcmUtility();
+            fcmUtility.callProcedure(this);
+        }
+        catch (Exception ex){
+            CommonUtilities.alert(this,ex.toString());
+        }
 
     }
 
@@ -379,6 +400,11 @@ public class AdminHomeScreen extends AppCompatActivity
                 alBuilder.setNegativeButton("No", null);
                 alBuilder.show();
             }  //
+            else if (items.get(position).getTitle().equalsIgnoreCase("Notice"))
+            {
+                Intent intent = new Intent(this, NoticeListView.class);
+                startActivity(intent);
+            }
             else if (items.get(position).getTitle().equalsIgnoreCase("Change Password"))
             {
                 startActivity(new Intent(this, PasswordUpdateView.class));
@@ -420,6 +446,11 @@ public class AdminHomeScreen extends AppCompatActivity
         else if( responseCode == 20 && requestCode == 200)
         {
 
+        }
+        else if( responseCode == 200 && requestCode == 922)
+        {
+            SharedPreference sharedPreference = new SharedPreference(getApplicationContext());
+            sharedPreference.setStr("NoticesResponse", str);
         }
         if (requestCode==278){
             if (responseCode == 200)

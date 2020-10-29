@@ -3,6 +3,7 @@ package biyaniparker.com.parker.view.user;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.internal.service.Common;
+
+import org.json.JSONObject;
+
+import biyaniparker.com.parker.LaunchActivity;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleUser;
 import biyaniparker.com.parker.beans.ShopMaster;
@@ -178,7 +184,7 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onComplete(String str, int requestCode, int responseCode)
+    public void onComplete(final String str, int requestCode, int responseCode)
     {
         if(requestCode==2 && responseCode==200)
         {
@@ -202,6 +208,13 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
                     }
                 }
             });
+          /*  alertDialog.setNegativeButton("Send Message", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    sendMessage(str);
+                    finish();
+                }
+            });*/
             alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
@@ -219,5 +232,23 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(getApplicationContext()," Bad request.....",Toast.LENGTH_LONG).show();
         }
 
+    }
+    void sendMessage(String str)
+    {
+        try {
+            JSONObject jsonObject=new JSONObject(str);
+            JSONObject shopDetails=jsonObject.getJSONObject("ShopResult");
+            JSONObject userDetails=jsonObject.getJSONObject("UserResult");
+
+            UserBean user = moduleUser.parseUserBean(userDetails.toString());
+
+
+            Uri uri = Uri.parse("smsto:"+user.getMobileNo());
+            Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+            intent.putExtra("sms_body", "User verification is done on "+ LaunchActivity.appName +".Login with your crenditial.\nUsername:- "+user.getUserName()+"\nPassword:- "+user.getPassword());
+            startActivity(intent);
+        }
+        catch (Exception ex)
+        {}
     }
 }

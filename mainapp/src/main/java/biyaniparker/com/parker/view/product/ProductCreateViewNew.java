@@ -467,6 +467,8 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
                         int ProductId = jsonObject.getInt("ProductId");
                         Intent intent = new Intent(ProductCreateViewNew.this, CreateNoticeView.class);
                         intent.putExtra("ProductId",ProductId);
+                        intent.putExtra("Title","New Product Added");
+                        intent.putExtra("Description",jsonObject.getString("ProductName"));
                         startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -823,7 +825,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
             TextView txtAvaibleQnt=(TextView)v.findViewById(R.id.txtAvaibleQnt);
             txtAvaibleQnt.setVisibility(View.INVISIBLE);
             EditText edQty=(EditText)v.findViewById(R.id.edSizeQty);
-            edQty.setText("100000");
+            edQty.setText("1000000");
             v.setTag((moduleProduct.sizeMasters.get(i).getSizeId()));
             //txtName.setTag(i);
             txtName.setText(moduleProduct.sizeMasters.get(i).getSizeName());

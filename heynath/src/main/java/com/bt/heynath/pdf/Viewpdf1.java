@@ -24,7 +24,7 @@ public class Viewpdf1 extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(title);
-        getSupportActionBar().setSubtitle(title);
+        //getSupportActionBar().setSubtitle(title);
 
         if(no==2) {
             pdfView.fromAsset("filename.pdf").load();
@@ -70,6 +70,9 @@ public class Viewpdf1 extends AppCompatActivity {
         }
         if(no==102) {
             pdfView.fromAsset("meta_human.pdf").load();
+        }
+        if(no==786) {
+            pdfView.fromAsset("imp.pdf").load();
         }
     }
     @Override

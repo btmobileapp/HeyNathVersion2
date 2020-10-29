@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -78,7 +79,8 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         }
         catch (Exception ex){}
 
-        try {
+        try
+        {
             double price = productBeanWithQnty.price;     //itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
             DecimalFormat df = new DecimalFormat("#.##");
             holder.tv2.setText("₹. " + df.format(price));
@@ -117,6 +119,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                 final EditText editText=mView.findViewById(R.id.editText);
 
                 alert.setView(mView);
+
                 alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -132,6 +135,13 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                                     obj.checkValue = true;
                                     notifyDataSetChanged();
                                 }
+                                else
+                                {
+                                    ProductBeanWithQnty obj = (ProductBeanWithQnty) v.getTag();
+                                    obj.quantity = qty + "";
+                                    obj.checkValue = false;
+                                    notifyDataSetChanged();
+                                }
                             }
                             catch (Exception ex){}
                         }
@@ -139,6 +149,19 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                 });
                 alert.setNegativeButton("Cancel",null);
                 alert.show();
+                editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        editText.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                InputMethodManager inputMethodManager= (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                            }
+                        });
+                    }
+                });
+                editText.requestFocus();
 
             }
         });

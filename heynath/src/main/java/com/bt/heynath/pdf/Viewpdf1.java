@@ -9,7 +9,8 @@ import com.github.barteksc.pdfviewer.PDFView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Viewpdf1 extends AppCompatActivity {
+public class Viewpdf1 extends AppCompatActivity
+{
 
     public static String title;
     public  static  int no=0;
@@ -36,15 +37,17 @@ public class Viewpdf1 extends AppCompatActivity {
             pdfView.fromAsset("filename.pdf").load();
         }
         if(no==8) {
-            pdfView.fromAsset("f8.pdf").load();
+            pdfView.fromAsset("mahima.pdf").load();
         }
         if(no==11) {
-            pdfView.fromAsset("f11.pdf").load();
+            pdfView.fromAsset("nam.pdf").load();
         }
-        if(no==12) {
+        if(no==12)
+        {
             pdfView.fromAsset("f12.pdf").load();
         }
-        if(no==16) {
+        if(no==16)
+        {
             pdfView.fromAsset("filename.pdf").load();
         }
         if(no==34) {
@@ -63,7 +66,7 @@ public class Viewpdf1 extends AppCompatActivity {
             pdfView.fromAsset("filename.pdf").load();
         }
         if(no==100) {
-            pdfView.fromAsset("geeta_uch.pdf").load();
+            pdfView.fromAsset("ucharan.pdf").load();
         }
         if(no==101) {
             pdfView.fromAsset("sadhak.pdf").load();

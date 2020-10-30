@@ -1,6 +1,8 @@
 package com.bt.heynath.scheduler;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.provider.Settings;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.bt.heynath.MainActivity;
 import com.bt.heynath.R;
 import com.bt.heynath.reciever.AlramUtility;
 import com.bt.heynath.reciever.NewMessageNotification;
@@ -50,7 +53,11 @@ public class MyMorningWorker extends Worker
 
             if ( AlramUtility.isToPlay() )
             {
-                NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
+                PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
+                        new Intent(getApplicationContext(), MainActivity.class).
+                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+                NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, contentIntent);
                 AlramUtility.updateMorningTime();
                 playAudio();
             }
@@ -62,7 +69,12 @@ public class MyMorningWorker extends Worker
     {
         try
         {
-            NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
+            PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
+                    new Intent(getApplicationContext(), MainActivity.class).
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+
+            NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, contentIntent);
 
             this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tone455);
             if (!this.mediaPlayer.isPlaying())

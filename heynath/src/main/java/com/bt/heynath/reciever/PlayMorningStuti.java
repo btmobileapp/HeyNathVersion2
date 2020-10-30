@@ -1,5 +1,6 @@
 package com.bt.heynath.reciever;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.bt.heynath.MainActivity;
 import com.bt.heynath.R;
 
 public class PlayMorningStuti extends Service {
@@ -45,7 +47,11 @@ public class PlayMorningStuti extends Service {
 
            if( AlramUtility.isToPlay())
            {
-               NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
+               PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
+                       new Intent(getApplicationContext(), MainActivity.class).
+                               addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                       PendingIntent.FLAG_CANCEL_CURRENT);
+               NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, contentIntent);
 
                player.start();
                AlramUtility.updateMorningTime();
@@ -108,7 +114,11 @@ public class PlayMorningStuti extends Service {
         });
         if(!isSilentMode(context))
         {
-            NewMessageNotification.notify(this, "नित्य स्तुति - भाग २", "नित्य स्तुति  - भाग २", 1, null);
+            PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
+                    new Intent(getApplicationContext(), MainActivity.class).
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+            NewMessageNotification.notify(this, "नित्य स्तुति - भाग २", "नित्य स्तुति  - भाग २", 1, contentIntent);
             player.start();
         }
 

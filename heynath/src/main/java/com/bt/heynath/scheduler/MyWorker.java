@@ -1,6 +1,8 @@
 package com.bt.heynath.scheduler;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.provider.Settings;
@@ -11,6 +13,7 @@ import androidx.work.ListenableWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.bt.heynath.MainActivity;
 import com.bt.heynath.R;
 import com.bt.heynath.reciever.AlramUtility;
 import com.bt.heynath.reciever.NewMessageNotification;
@@ -33,7 +36,13 @@ public class MyWorker extends Worker
     {
         if(!AlramUtility.isMute(getApplicationContext())  && AlramUtility.isStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
         {
-            NewMessageNotification.notify(getApplicationContext(), "है नाथ की पुकार-", "है नाथ की पुकार-", 1, null);
+
+            PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
+                    new Intent(getApplicationContext(), MainActivity.class).
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+
+            NewMessageNotification.notify(getApplicationContext(), "है नाथ की पुकार-", "है नाथ की पुकार-", 1, contentIntent);
 
             int startHour=AlramUtility.getFromTimeHours(getApplicationContext());
             int startMinute=AlramUtility.getFromTimeMinute(getApplicationContext());

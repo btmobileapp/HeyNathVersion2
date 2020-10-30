@@ -1,5 +1,6 @@
 package com.bt.heynath.reciever;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
+import com.bt.heynath.MainActivity;
 import com.bt.heynath.R;
 
 public class JobPlayStutiService extends JobIntentService {
@@ -43,7 +45,11 @@ public class JobPlayStutiService extends JobIntentService {
 
         });
         player.start();
-        NewMessageNotification.notify(this, "है नाथ की पुकार", "है नाथ की पुकार", 1, null);
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
+                new Intent(getApplicationContext(), MainActivity.class).
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        NewMessageNotification.notify(this, "है नाथ की पुकार", "है नाथ की पुकार", 1, contentIntent);
 
     }
 

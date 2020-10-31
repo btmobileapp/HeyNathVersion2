@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import java.io.File;
+import java.net.URI;
+
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleLogin;
 import biyaniparker.com.parker.fcm.FcmUtility;
@@ -85,6 +88,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             new FcmUtility().callProcedure(this);
         }
         catch (Exception ex){}
+
+
+        try {
+          findViewById(R.id.txtWebAddress).setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.rajashreeindustries.com/tryp.php"));
+                  startActivity(intent);
+              }
+          });
+        }
+        catch (Exception ex)
+        {}
     }
 
     private void inItUi()

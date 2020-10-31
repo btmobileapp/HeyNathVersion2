@@ -56,7 +56,7 @@ public class GajalActivity extends AppCompatActivity {
         txt=findViewById(R.id.txt);
         Typeface tf=Typeface.createFromAsset(this. getAssets(), "Roboto-Light.ttf");
         txt.setTypeface(tf);
-        txt.setText("गीता के बारहवें अध्याय के एलोक से 8 तक के भावों पर गजल गीता नामक यह कविता पूज्य सेठजी\n" +
+        txt.setText("\t\tगीता के बारहवें अध्याय के एलोक से 8 तक के भावों पर गजल गीता नामक यह कविता पूज्य सेठजी\n" +
                 "जयदयालजी गोयंका द्वारा रचित है ।रात्रि में सोते समय इसका पाठ करने से विशेष लाभ होगा, वे ऐसा\n" +
                 "बताया करते थे।\n" +
                 "\n" +
@@ -109,7 +109,7 @@ public class GajalActivity extends AppCompatActivity {
         {
             getSupportActionBar().setTitle("गीता सार");
             getVideoFile("http://btwebservices.biyanitechnologies.com/g1/GeetaApp/sar.mp4");
-            txt.setText(". सांसारिक मोहके कारण ही मनुष्य 'मैं क्\u200Dया करूँ और क्या नहीं करूँ इस दुविधा\n" +
+            txt.setText("\t\tसांसारिक मोहके कारण ही मनुष्य 'मैं क्\u200Dया करूँ और क्या नहीं करूँ इस दुविधा\n" +
                     "में फँसकर कर्तव्यच्युत हो जाता है। अत: मोह या सुखासक्ति के वशीभूत नहीं होना\n" +
                     "चाहिए |\n" +
                     "2. शरीर नाशवान्\u200C हैं और उसे जानने वाला शरीरी अविनाशी है- इस विवेक को महत्व\n" +

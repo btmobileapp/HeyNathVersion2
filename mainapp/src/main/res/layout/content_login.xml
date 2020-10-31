@@ -18,10 +18,11 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textStyle="bold"
+      android:visibility="gone"
       android:textSize="14dp"
       android:text="One Stop Shop for all your Electrical Needs"
       android:gravity="center_horizontal"
-      android:layout_margin="10dp"
+      android:layout_margin="2dp"
       android:textColor="@android:color/white"/>
 
   <LinearLayout
@@ -53,7 +54,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_height="wrap_content">
@@ -133,7 +134,8 @@
         android:layout_weight="1"
         android:text="Purtiwadi, Jaysingpur, Maharashtra 416101"
         android:gravity="center"
-
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/black"
@@ -149,6 +151,19 @@
         android:visibility="gone"
         android:text="Email  :  9898989595"
         android:textColor="@android:color/white"
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/txtDevelop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+
+        android:text="Developed By : Biyani Technologies"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:layout_marginTop="5dp"
         android:textSize="15dp"/>
   </LinearLayout>

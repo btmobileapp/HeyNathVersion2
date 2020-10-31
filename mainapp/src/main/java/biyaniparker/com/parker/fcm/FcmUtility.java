@@ -85,7 +85,6 @@ public class FcmUtility
          String gid = prefgcm.getString("fcmid", "no");
         return  gid;
     }
-
     public   boolean isSendTOServer(Context context)
     {
         SharedPreferences prefgcm = context.getSharedPreferences(
@@ -108,8 +107,8 @@ public class FcmUtility
         t.start();
 
     }
-     void sendLogic(Context context)
-     {
+    void sendLogic(Context context)
+    {
          if(UserUtilities.getUserId(context)>0)
          {
              String deviceId=new DeviceUuidFactory(context).getDeviceUuid().toString();
@@ -173,4 +172,5 @@ public class FcmUtility
                 break;
         }
     }
+
 }

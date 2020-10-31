@@ -54,7 +54,7 @@ public class PlayMorningStuti extends Service {
                NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, contentIntent);
 
                player.start();
-               AlramUtility.updateMorningTime();
+               AlramUtility.updateMorningTime(getApplicationContext());
                firstRunnable=0;
 
                new Thread(new Runnable() {

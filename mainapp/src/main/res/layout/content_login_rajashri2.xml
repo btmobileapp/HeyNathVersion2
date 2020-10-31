@@ -113,6 +113,33 @@
             android:textColor="@android:color/white"
             android:textSize="15dp"
             />
+
+        <TextView
+
+            android:id="@+id/txtWebAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="www.rajashreeindustries.com"
+            android:gravity="center"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Developed By : Biyani Technologies"
+            android:gravity="center"
+            android:textColorHint="@android:color/white"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            />
+
     </LinearLayout>
 
     <ImageView

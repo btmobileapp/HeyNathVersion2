@@ -22,7 +22,7 @@ import java.util.Calendar;
 public class MyMorningWorker extends Worker
 {
 
-   public static MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
 
     public MyMorningWorker(@NonNull Context context, @NonNull WorkerParameters workerParams)
     {
@@ -34,6 +34,14 @@ public class MyMorningWorker extends Worker
     @Override
     public Result doWork()
     {
+        if(AlramUtility.lastPalytime==null)
+        {
+            try {
+                AlramUtility.loadLastTime(getApplicationContext());
+            }
+            catch (Exception ex)
+            {}
+        }
         if(!AlramUtility.isMute(getApplicationContext())  && AlramUtility.isNityaSuchiStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
         {
             Calendar calendar= Calendar.getInstance();
@@ -58,7 +66,7 @@ public class MyMorningWorker extends Worker
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
                         PendingIntent.FLAG_CANCEL_CURRENT);
                 NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, contentIntent);
-                AlramUtility.updateMorningTime();
+                AlramUtility.updateMorningTime(getApplicationContext());
                 playAudio();
             }
         }

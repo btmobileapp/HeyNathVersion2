@@ -86,7 +86,7 @@ public class JobPlayMorningStuti extends JobIntentService {
 
         if(!isSilentMode(this) && AlramUtility.isToPlay() )
         {
-            AlramUtility.updateMorningTime();
+            AlramUtility.updateMorningTime(getApplicationContext());
 
             NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
             try

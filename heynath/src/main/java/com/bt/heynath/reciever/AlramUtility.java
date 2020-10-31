@@ -9,8 +9,20 @@ public class AlramUtility
 {
 
     public static Calendar lastPalytime=null;
+    public   static void loadLastTime(Context context)
+    {
+         SharedPreferences sh=context.getSharedPreferences("lastPalytime",context.MODE_PRIVATE);
+         long l= sh.getLong("lastPalytime",0l);
+         if(lastPalytime==null  && l>0 )
+         {
+             Calendar c=Calendar.getInstance();
+             c.setTimeInMillis(l);
+             lastPalytime= c;
+         }
+    }
     public static  boolean isToPlay ()
     {
+
 
         Calendar calendar= Calendar.getInstance();
         Calendar startCalendar= Calendar.getInstance();
@@ -46,9 +58,12 @@ public class AlramUtility
 
         return false;
     }
-    public static void   updateMorningTime()
+    public static void   updateMorningTime(Context context )
     {
         lastPalytime=Calendar.getInstance();
+        SharedPreferences sh=context.getSharedPreferences("lastPalytime",context.MODE_PRIVATE);
+        sh.edit().putLong("lastPalytime",lastPalytime.getTimeInMillis()).commit();
+
     }
    static public long getIntervalTime(Context context)
     {

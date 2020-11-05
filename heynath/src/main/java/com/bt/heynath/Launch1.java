@@ -66,6 +66,7 @@ public class Launch1 extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         registerBootReciever();
+
         Intent intent=new Intent();
         intent.setAction("com.bt.heynath.Check");
         sendBroadcast(intent);

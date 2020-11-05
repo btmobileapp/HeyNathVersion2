@@ -3,6 +3,10 @@ package com.bt.heynath;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.ListenableWorker;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +21,8 @@ import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bt.heynath.reciever.BootReciever;
+import com.bt.heynath.scheduler.MyMorningWorker;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -38,10 +44,13 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.concurrent.TimeUnit;
+
 public class NityaStuti extends AppCompatActivity {
 
     Button button,button1,button2,button3;
     private SimpleExoPlayer player;
+    private PeriodicWorkRequest periodicMorningWorkRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +79,9 @@ public class NityaStuti extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                        // finish();
+                        //PeriodicWorkRequest unused1 = NityaStuti.this.periodicMorningWorkRequest = (PeriodicWorkRequest) new PeriodicWorkRequest.Builder((Class<? extends ListenableWorker>) MyMorningWorker.class, 1000*60*15,  TimeUnit.MILLISECONDS).build();
+                       // WorkManager.getInstance().enqueueUniquePeriodicWork("My Morning Work", ExistingPeriodicWorkPolicy.KEEP, NityaStuti.this.periodicMorningWorkRequest);
+
                     }
                 });
                 alert.show();

@@ -122,6 +122,15 @@ public class ProductRandomAdapter extends ArrayAdapter implements OnClickListene
 							  holder.picture, doption, animateFirstListener);
 				  }
 
+	        	  try
+				  {
+					  if(  rowItem.iconThumb ==null || rowItem.iconThumb.length()<6)
+					  {
+						//  holder.picture.setVisibility(View.GONE);
+					  }
+				  }
+	        	  catch (Exception wz)
+				  {}
 
 		return convertView;
 	}

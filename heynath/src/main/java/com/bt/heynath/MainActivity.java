@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
           menus.add("नित्य स्तुति");
           menus.add("है नाथ की पुकार");
           menus.add("भगवान के श्रीमुखकी वाणी श्रीमद्भगवद् गीता");
+      //  menus.add("Play");
+      //  menus.add("Pause");
          // menus.add("गीता अध्याय");
 
 
@@ -122,6 +124,18 @@ public class MainActivity extends AppCompatActivity {
                 {
                   //  startActivity(new Intent(MainActivity.this,  AdhayList.class));
                    startActivity(new Intent(MainActivity.this,  ShreeMukhiSubmenu.class));
+                }
+                else if(i==3)
+                {
+                 //   filter.addAction("Pause Stuti");
+                //    filter.addAction("Play Stuti");
+                   Intent intent=new Intent("Play Stuti");
+                   sendBroadcast(intent);
+                }
+                else if(i==4)
+                {
+                    Intent intent=new Intent("Pause Stuti");
+                    sendBroadcast(intent);
                 }
                 else if(menus.get(i).equalsIgnoreCase("ऑटोस्टार्ट की जाँच करें"))
                 {

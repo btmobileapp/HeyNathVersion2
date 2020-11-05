@@ -70,9 +70,13 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
             if (newProductList.size() == 1) {
                 holder.cbSelectAll.setVisibility(View.GONE);
             }
-            if (productBeanWithQnty.getIconThumb() == "") {
+            if (productBeanWithQnty.getIconThumb() == "")
+            {
                 holder.imageView.setImageResource(R.drawable.bgchoice);
-            } else {
+                holder.imageView.setVisibility(View.GONE);
+            }
+            else
+            {
                 Picasso.get().load(productBeanWithQnty.getIconThumb()).into(holder.imageView);
                 // Picasso.get().load(productBeanWithQnty.get(position).get()).placeholder(R.drawable.bgparker).into(holder.imageView);
             }

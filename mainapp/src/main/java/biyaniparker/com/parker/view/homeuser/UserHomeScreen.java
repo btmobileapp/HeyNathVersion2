@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.Menu;
@@ -132,7 +133,8 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        if (new ConnectionDetector(this).isConnectingToInternet()) {
+        if (new ConnectionDetector(this).isConnectingToInternet())
+        {
             //moduleUserHomeScreen.loadRandomProduct();
             moduleUserHomeScreen.loadRandomProductWithNotify();
         } else {
@@ -262,9 +264,11 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
          });
      }
 
+     int actualItem=0;
      void inItUI()
-  {
+     {
       items.addAll(moduleUserHomeScreen.getRowItems());
+      actualItem=items.size();
       RowItem bean=new RowItem("Recent Orders",R.drawable.iconorder);
       bean.isLocal=true;
       RowItem bean1=new RowItem("Logout",R.drawable.ic_logout);
@@ -394,6 +398,56 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
       }
       catch (Exception e)
       {}
+      if(actualItem>9)
+      {
+          LayoutInflater inflater=getLayoutInflater();
+          int extendedSize=actualItem-9;
+          LinearLayout linearLayout=findViewById(R.id.linearLayout);
+          for(int i=0;i<=extendedSize;i=i+3)
+          {
+              View v=inflater.inflate(R.layout.ite_button,null);
+              linearLayout.addView(v);
+              Button bt1=v.findViewById(R.id.bt1);
+              Button bt2=v.findViewById(R.id.bt2);
+              Button bt3=v.findViewById(R.id.bt3);
+              try {
+                  bt1.setText(items.get(i+9).getTitle());
+                  bt1.setTag(i+9);
+                  bt1.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          int val= Integer.parseInt( v.getTag().toString());
+                          onItemClick(null, null, val , 0);
+                      }
+                  });
+              }catch (Exception ex){
+                  bt1.setVisibility(View.GONE);
+              }
+              try {
+                  bt2.setText(items.get(i+9+1).getTitle());
+                  bt2.setTag(i+9+1);
+                  bt2.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          int val= Integer.parseInt( v.getTag().toString());
+                          onItemClick(null, null, val , 0);
+                      }
+                  });
+              }catch (Exception ex){bt2.setVisibility(View.GONE);}
+              try {
+                  bt3.setText(items.get(i+9+2).getTitle());
+                  bt3.setTag(i+9+2);
+                  bt3.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          int val= Integer.parseInt( v.getTag().toString());
+                          onItemClick(null, null, val , 0);
+                      }
+                  });
+              }catch (Exception ex){bt3.setVisibility(View.GONE);}
+
+          }
+      }
 
       TextView txtShop=(TextView)navigationView.getHeaderView(0).findViewById(R.id.txtshop);
       TextView txtWelcome=(TextView)navigationView.getHeaderView(0). findViewById(R.id.txtwelcome);

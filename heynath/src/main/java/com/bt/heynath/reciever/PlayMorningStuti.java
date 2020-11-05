@@ -2,19 +2,24 @@ package com.bt.heynath.reciever;
 
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
 import com.bt.heynath.MainActivity;
+import com.bt.heynath.MorningStutiWithUiBinber;
 import com.bt.heynath.R;
 
 public class PlayMorningStuti extends Service {
-    public PlayMorningStuti() {
+    public PlayMorningStuti()
+    {
     }
     private static final String TAG = null;
    public static MediaPlayer player;
@@ -33,7 +38,7 @@ public class PlayMorningStuti extends Service {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 //  performOnEnd();
-                playDialy500(PlayMorningStuti.this);
+              //  playDialy500(PlayMorningStuti.this);
             }
 
         });
@@ -48,13 +53,20 @@ public class PlayMorningStuti extends Service {
            if( AlramUtility.isToPlay())
            {
                PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
-                       new Intent(getApplicationContext(), MainActivity.class).
+                       new Intent(getApplicationContext(), MorningStutiWithUiBinber.class).
                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
                        PendingIntent.FLAG_CANCEL_CURRENT);
                NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, contentIntent);
 
                player.start();
+
+               IntentFilter filter=  new IntentFilter();
+               filter.addAction("Pause Stuti");
+               filter.addAction("Play Stuti");
+               registerReceiver(receiver,filter);
                AlramUtility.updateMorningTime(getApplicationContext());
+
+
                firstRunnable=0;
 
                new Thread(new Runnable() {
@@ -103,7 +115,14 @@ public class PlayMorningStuti extends Service {
     void playDialy500(Context context)
     {
         //MediaPlayer mPlayer;
-         this.  player = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
+      //   this.  player = MediaPlayer.create(context, R.raw.tone500);//Create MediaPlayer object with MP3 file under res/raw folder
+        String  RES_PREFIX = "android.resource://com.bt.heynath/";
+       // player.setDataSource(getApplicationContext(),
+       //         Uri.parse(RES_PREFIX + R.raw.tone500));
+        try {
+            player.setDataSource(context,  Uri.parse(RES_PREFIX + R.raw.tone500));
+        }
+        catch (Exception ex){}
           player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             @Override
@@ -115,7 +134,7 @@ public class PlayMorningStuti extends Service {
         if(!isSilentMode(context))
         {
             PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
-                    new Intent(getApplicationContext(), MainActivity.class).
+                    new Intent(getApplicationContext(), MorningStutiWithUiBinber.class).
                             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
                     PendingIntent.FLAG_CANCEL_CURRENT);
             NewMessageNotification.notify(this, "नित्य स्तुति - भाग २", "नित्य स्तुति  - भाग २", 1, contentIntent);
@@ -169,6 +188,29 @@ public class PlayMorningStuti extends Service {
             catch (Exception ex)
             {
 
+            }
+        }
+    };
+
+
+    BroadcastReceiver receiver =new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equalsIgnoreCase("Pause Stuti"))
+            {
+                if(player!=null) {
+                    if (player.isPlaying()) {
+                        player.pause();
+                    }
+                }
+            }
+            if(intent.getAction().equalsIgnoreCase("Play Stuti"))
+            {
+                if(player!=null) {
+                    if (!player.isPlaying()) {
+                        player.start();
+                    }
+                }
             }
         }
     };

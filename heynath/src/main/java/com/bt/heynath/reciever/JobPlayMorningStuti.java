@@ -1,5 +1,6 @@
 package com.bt.heynath.reciever;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
+import com.bt.heynath.MorningStutiWithUiBinber;
 import com.bt.heynath.PlayAudio1;
 import com.bt.heynath.R;
 
@@ -52,7 +54,7 @@ public class JobPlayMorningStuti extends JobIntentService {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     //  performOnEnd();
-                    play500(JobPlayMorningStuti.this);
+                   // play500(JobPlayMorningStuti.this);
                 }
 
             });
@@ -87,8 +89,11 @@ public class JobPlayMorningStuti extends JobIntentService {
         if(!isSilentMode(this) && AlramUtility.isToPlay() )
         {
             AlramUtility.updateMorningTime(getApplicationContext());
-
-            NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, null);
+            PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
+                    new Intent(getApplicationContext(), MorningStutiWithUiBinber.class).
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+            NewMessageNotification.notify(this, "नित्य स्तुति - भाग १", "नित्य स्तुति  - भाग १", 1, contentIntent);
             try
             {
                // player.prepare();

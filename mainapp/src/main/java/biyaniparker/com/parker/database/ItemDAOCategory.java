@@ -597,7 +597,7 @@ public class ItemDAOCategory
     {
         ArrayList<CategoryBean> list=new ArrayList<CategoryBean>();
         SQLiteDatabase db=new DBHELPER(context).getWritableDatabase();
-        Cursor c=   db.rawQuery("SELECT * FROM Category where  DeleteStatus='false' and parentCategoryId=0", null);
+        Cursor c=   db.rawQuery("SELECT * FROM Category where  DeleteStatus='false' and parentCategoryId=0 order by CategoryName", null);
         if(c!=null)
         {
             if(c.moveToFirst())

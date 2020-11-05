@@ -1,8 +1,10 @@
 package com.bt.heynath.scheduler;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.provider.Settings;
@@ -13,6 +15,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.bt.heynath.MainActivity;
+import com.bt.heynath.MorningStutiWithUiBinber;
 import com.bt.heynath.R;
 import com.bt.heynath.reciever.AlramUtility;
 import com.bt.heynath.reciever.NewMessageNotification;
@@ -24,10 +27,11 @@ public class MyMorningWorker extends Worker
 
     public static MediaPlayer mediaPlayer;
 
+    Context context;
     public MyMorningWorker(@NonNull Context context, @NonNull WorkerParameters workerParams)
     {
         super(context, workerParams);
-
+        this.context=context;
     }
 
     @NonNull
@@ -61,18 +65,43 @@ public class MyMorningWorker extends Worker
 
             if ( AlramUtility.isToPlay() )
             {
-                PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
-                        new Intent(getApplicationContext(), MainActivity.class).
+                /*
+                PendingIntent contentIntent = PendingIntent.getActivity(context, 1,
+                        new Intent(getApplicationContext(), MorningStutiWithUiBinber.class).
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
-                        PendingIntent.FLAG_CANCEL_CURRENT);
-                NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, contentIntent);
+                        PendingIntent.FLAG_CANCEL_CURRENT);*/
+
+                NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
+
                 AlramUtility.updateMorningTime(getApplicationContext());
+
                 playAudio();
             }
         }
         return Result.success();
     }
 
+    BroadcastReceiver receiver =new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+             if(intent.getAction().equalsIgnoreCase("Pause Stuti"))
+             {
+                 if(mediaPlayer!=null) {
+                     if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.pause();
+                     }
+                 }
+             }
+            if(intent.getAction().equalsIgnoreCase("Play Stuti"))
+            {
+                if(mediaPlayer!=null) {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.start();
+                    }
+                }
+            }
+        }
+    };
     private void playAudio()
     {
         try
@@ -85,13 +114,18 @@ public class MyMorningWorker extends Worker
             NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, contentIntent);
 
             this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tone455);
+
             if (!this.mediaPlayer.isPlaying())
             {
+                IntentFilter filter=  new IntentFilter();
+                filter.addAction("Pause Stuti");
+                filter.addAction("Play Stuti");
+                context.registerReceiver(receiver,filter);
                 this.mediaPlayer.start();
                 this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp)
                     {
-                        playAudio1();
+                       // playAudio1();
                         /*
                         MyMorningWorker.this.mediaPlayer.reset();
                         MyMorningWorker.this.mediaPlayer.release();

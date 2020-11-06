@@ -67,9 +67,12 @@ public class Launch1 extends AppCompatActivity {
 
         registerBootReciever();
 
+
         Intent intent=new Intent();
         intent.setAction("com.bt.heynath.Check");
         sendBroadcast(intent);
+
+
     }
 
     BootReciever reciever;

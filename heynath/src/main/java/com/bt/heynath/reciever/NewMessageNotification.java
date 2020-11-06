@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +49,20 @@ public class NewMessageNotification {
      */
     public static void notify(final Context context,
                               final String newtitle,String details, final int number, PendingIntent pintent) {
+         //-----------------------------------------------------------------------------
+        //Action Methods Intents ----
+       //   1.-----------
+        Intent pauseIntent = new Intent();
+        pauseIntent.setAction("Pause Stuti");
+        PendingIntent pausePendingIntent =
+                PendingIntent.getBroadcast(context, 0, pauseIntent, 0);
+              //------------------------//
+        //   2.-----------
+        Intent playIntent = new Intent();
+        playIntent.setAction("Play Stuti");
+        PendingIntent playPendingIntent =
+                PendingIntent.getBroadcast(context, 0, playIntent, 0);
+         //----------------------------------------------------------------------
         final Resources res = context.getResources();
 
         // This image is used as the notification's large icon (thumbnail).
@@ -100,8 +115,7 @@ public class NewMessageNotification {
                 // Set required fields, including the small icon, the
                 // notification title, and text.
                 .setSmallIcon(R.drawable.pukar)
-                .setContentTitle(title)
-                .setContentText(text)
+
 
                 // All fields below this line are optional.
 
@@ -131,15 +145,27 @@ public class NewMessageNotification {
 
                 // Set the pending intent to be initiated when the user touches
                 // the notification.
-                .setContentIntent(pintent)
+                .setContentIntent(pintent);
 
                 // Show expanded text content on devices running Android 4.1 or
                 // later.
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(text)
-                        .setBigContentTitle(title)
-                        .setSummaryText(details))
-                .setAutoCancel(true);
+        if(  newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १-")
+                || newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १")
+        ) {
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText("नित्य स्तुति")
+                    .setBigContentTitle("नित्य स्तुति")
+                    .setSummaryText(""))
+                    .setAutoCancel(true);
+        }
+        else
+        {
+            builder.setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(text)
+                    .setBigContentTitle(title)
+                    .setSummaryText(details))
+                    .setAutoCancel(true);
+        }
 
               //  .setSound(Uri.parse("android.resource://"+context.getPackageName()+"/" + R.raw.textnotifi));
 
@@ -149,12 +175,29 @@ public class NewMessageNotification {
         // should ensure that the activity in this notification's
         // content intent provides access to the same actions in
         // another way.
-
-
+        if(  newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १-")
+                || newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १")
+        ) {
+            builder .setContentTitle("नित्य स्तुति");
+            builder  .setContentText("नित्य स्तुति");
+        }
+        else
+        {
+            builder  .setContentTitle(title)
+                    .setContentText(text);
+        }
         //notify(context, builder.build(),number);
+        if(  newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १-")
+                || newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १")
+        )
+        {
+            builder.addAction(R.drawable.pause, "रोके",
+                    pausePendingIntent);
+            builder.addAction(R.drawable.play, "शुरू करे",
+                    playPendingIntent);
 
 
-
+        }
         notify(context, builder.build(),number,CHANNEL_ID,name,importance);
     }
 

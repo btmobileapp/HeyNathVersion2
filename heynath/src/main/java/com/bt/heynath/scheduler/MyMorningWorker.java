@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -19,6 +20,7 @@ import com.bt.heynath.MorningStutiWithUiBinber;
 import com.bt.heynath.R;
 import com.bt.heynath.reciever.AlramUtility;
 import com.bt.heynath.reciever.NewMessageNotification;
+import com.bt.heynath.reciever.PlayMorningStuti;
 
 import java.util.Calendar;
 
@@ -65,11 +67,11 @@ public class MyMorningWorker extends Worker
 
             if ( AlramUtility.isToPlay() )
             {
-                /*
+
                 PendingIntent contentIntent = PendingIntent.getActivity(context, 1,
                         new Intent(getApplicationContext(), MorningStutiWithUiBinber.class).
-                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
-                        PendingIntent.FLAG_CANCEL_CURRENT);*/
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK ),
+                        PendingIntent.FLAG_CANCEL_CURRENT);
 
                 NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
 
@@ -95,7 +97,7 @@ public class MyMorningWorker extends Worker
             if(intent.getAction().equalsIgnoreCase("Play Stuti"))
             {
                 if(mediaPlayer!=null) {
-                    if (mediaPlayer.isPlaying()) {
+                    if (!mediaPlayer.isPlaying()) {
                         mediaPlayer.start();
                     }
                 }
@@ -132,6 +134,21 @@ public class MyMorningWorker extends Worker
                         MyMorningWorker.this.mediaPlayer = null;*/
                     }
                 });
+                init();
+                try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(2000);
+                                playerRunnable.run();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
+                catch (Exception ex){}
             }
         } catch (Exception e)
         {
@@ -204,4 +221,33 @@ public class MyMorningWorker extends Worker
         AudioManager manager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         return manager.getMode() == AudioManager.MODE_IN_CALL;
     }
+
+    void init()
+    {
+        handler=new Handler();
+        playerRunnable  =new Runnable()
+        {
+          @Override
+          public void run() {
+            try
+            {
+                firstRunnable++;
+                if(firstRunnable<1200  && PlayMorningStuti.player!=null)
+                    handler.postDelayed(playerRunnable,1000);
+                   // int val= PlayMorningStuti.player.getCurrentPosition();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+    };
+    }
+
+
+
+    Handler handler;
+    public static int firstRunnable=0;
+    Runnable playerRunnable;
 }

@@ -2,6 +2,7 @@ package com.bt.heynath;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -75,6 +76,13 @@ public class MorningStutiWithUiBinber extends AppCompatActivity {
             imgPlayer.setImageResource(R.drawable.pause);
             player.start();
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        //Handle intent here...
     }
 
 }

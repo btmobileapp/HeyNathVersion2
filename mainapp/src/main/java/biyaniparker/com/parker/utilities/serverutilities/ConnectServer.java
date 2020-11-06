@@ -226,8 +226,8 @@ public class ConnectServer
 
 
 
-
-	public Bitmap getBitmap(String Url) throws Exception {
+	public Bitmap getBitmap(String Url) throws Exception
+	{
 		URL url1 = null;
 		url1 = new URL(Url);
 		BitmapFactory.Options bfo = new BitmapFactory.Options();
@@ -236,15 +236,6 @@ public class ConnectServer
 		return BitmapFactory.decodeStream(url1.openConnection()
 				.getInputStream(), null, bfo);
 	}
-
-
-
-
-
-
-
-
-
 
 
 

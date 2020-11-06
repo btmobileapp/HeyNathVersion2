@@ -79,8 +79,8 @@ public class NityaStuti extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                        // finish();
-                        //PeriodicWorkRequest unused1 = NityaStuti.this.periodicMorningWorkRequest = (PeriodicWorkRequest) new PeriodicWorkRequest.Builder((Class<? extends ListenableWorker>) MyMorningWorker.class, 1000*60*15,  TimeUnit.MILLISECONDS).build();
-                       // WorkManager.getInstance().enqueueUniquePeriodicWork("My Morning Work", ExistingPeriodicWorkPolicy.KEEP, NityaStuti.this.periodicMorningWorkRequest);
+                      //  PeriodicWorkRequest unused1 = NityaStuti.this.periodicMorningWorkRequest = (PeriodicWorkRequest) new PeriodicWorkRequest.Builder((Class<? extends ListenableWorker>) MyMorningWorker.class, 1000*60*15,  TimeUnit.MILLISECONDS).build();
+                      //  WorkManager.getInstance().enqueueUniquePeriodicWork("My Morning Work", ExistingPeriodicWorkPolicy.KEEP, NityaStuti.this.periodicMorningWorkRequest);
 
                     }
                 });

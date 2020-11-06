@@ -25,8 +25,8 @@ import com.judemanutd.autostarter.AutoStartPermissionHelper;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity
+{
 
     private GridView gv;
 
@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
           menus.add("नित्य स्तुति");
           menus.add("है नाथ की पुकार");
           menus.add("भगवान के श्रीमुखकी वाणी श्रीमद्भगवद् गीता");
-      //  menus.add("Play");
-      //  menus.add("Pause");
-         // menus.add("गीता अध्याय");
+       // menus.add("Play");
+       // menus.add("Pause");
+       // menus.add("गीता अध्याय");
 
 
         try

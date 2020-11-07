@@ -157,6 +157,7 @@ public class NewMessageNotification {
                     .setBigContentTitle("नित्य स्तुति")
                     .setSummaryText(""))
                     .setAutoCancel(true);
+
         }
         else
         {
@@ -198,6 +199,15 @@ public class NewMessageNotification {
 
 
         }
+        try
+        {
+            Intent deleteIntent = new Intent();
+            deleteIntent.setAction("Delete Stuti");
+            PendingIntent deletePendingIntent =
+                    PendingIntent.getBroadcast(context, number, deleteIntent, 0);
+            builder.setDeleteIntent(deletePendingIntent);
+        }
+        catch (Exception ex){}
         notify(context, builder.build(),number,CHANNEL_ID,name,importance);
     }
 

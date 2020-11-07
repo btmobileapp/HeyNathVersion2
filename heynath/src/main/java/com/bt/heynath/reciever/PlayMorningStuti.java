@@ -63,6 +63,7 @@ public class PlayMorningStuti extends Service {
                IntentFilter filter=  new IntentFilter();
                filter.addAction("Pause Stuti");
                filter.addAction("Play Stuti");
+               filter.addAction("Delete Stuti");
                registerReceiver(receiver,filter);
                AlramUtility.updateMorningTime(getApplicationContext());
 
@@ -212,6 +213,15 @@ public class PlayMorningStuti extends Service {
                     }
                 }
             }
+            if(intent.getAction().equalsIgnoreCase("Delete Stuti"))
+            {
+                if(player!=null) {
+                    try {
+                        player.stop();
+                    }catch (Exception ex){}
+                }
+            }
+
         }
     };
 }

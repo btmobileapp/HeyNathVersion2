@@ -65,6 +65,7 @@ public class JobPlayMorningStuti extends JobIntentService {
                 IntentFilter filter = new IntentFilter();
                 filter.addAction("Pause Stuti");
                 filter.addAction("Play Stuti");
+                filter.addAction("Delete Stuti");
                 registerReceiver(receiver, filter);
             }
             catch (Exception ex)
@@ -244,6 +245,15 @@ public class JobPlayMorningStuti extends JobIntentService {
                     if (!player.isPlaying()) {
                         player.start();
                     }
+                }
+            }
+
+            if(intent.getAction().equalsIgnoreCase("Delete Stuti"))
+            {
+                if(player!=null) {
+                    try {
+                        player.stop();
+                    }catch (Exception ex){}
                 }
             }
         }

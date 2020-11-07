@@ -62,6 +62,8 @@ public class AlarmService extends Service {
         long interval= AlramUtility.getIntervalTime(context);
         AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarm.cancel(pendingIntent);
+
+
         if(Build.VERSION.SDK_INT<19)
         {
             alarm.setRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(),interval/* AlarmManager.INTERVAL_DAY*/, pendingIntent);
@@ -70,6 +72,8 @@ public class AlarmService extends Service {
         {
             alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), interval/*AlarmManager.INTERVAL_DAY*/, pendingIntent);
         }
+
+
     }
     void cancelAlarm(PendingIntent pendingIntent,Context context,Calendar calStart )
     {
@@ -91,7 +95,7 @@ public class AlarmService extends Service {
         calStart.setTime(new Date());
         calStart.set(Calendar.HOUR_OF_DAY, 4);
         calStart.set(Calendar.MINUTE, 55);
-        calStart.set(Calendar.SECOND, 0);
+        calStart.set(Calendar.SECOND, 30);
         calStart.set(Calendar.MILLISECOND, 0);
 
          //  calStart.set(Calendar.HOUR_OF_DAY, AlramUtility.getFromTimeHours(context));

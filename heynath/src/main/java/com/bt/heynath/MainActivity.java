@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 import com.bt.heynath.shreemukhi.ShreeMukhiSubmenu;
 import com.judemanutd.autostarter.AutoStartPermissionHelper;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -185,6 +188,32 @@ public class MainActivity extends AppCompatActivity
             }
         });
         alBuilder.show();
+    }
+    Bitmap bt=null;
+    void loadImage()
+    {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    bt=  getBitmap("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public Bitmap getBitmap(String Url) throws Exception
+    {
+        URL url1 = null;
+        url1 = new URL(Url);
+        BitmapFactory.Options bfo = new BitmapFactory.Options();
+        bfo.outWidth = 620;
+        bfo.outHeight = 350;
+        return BitmapFactory.decodeStream(url1.openConnection()
+                .getInputStream(), null, bfo);
     }
     void openAutoStart()
     {

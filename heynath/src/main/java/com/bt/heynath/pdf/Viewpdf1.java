@@ -44,7 +44,7 @@ public class Viewpdf1 extends AppCompatActivity
         }
         if(no==12)
         {
-            pdfView.fromAsset("f12.pdf").load();
+            pdfView.fromAsset("shlok.pdf").load();
         }
         if(no==16)
         {

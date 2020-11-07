@@ -295,7 +295,7 @@ ResponseBody responseBody=new ResponseBody(0,"");
 
 	//   get Input Stream method return inputstream
 
-public  int contentLength;
+    public  int contentLength;
 	public InputStream getConnectionInputStream (String myurl) throws IOException {
 		InputStream is = null;
 		// Only display the first 500 characters of the retrieved

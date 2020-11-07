@@ -102,6 +102,15 @@ public class MyMorningWorker extends Worker
                     }
                 }
             }
+
+            if(intent.getAction().equalsIgnoreCase("Delete Stuti"))
+            {
+                if(mediaPlayer!=null) {
+                    try {
+                        mediaPlayer.stop();
+                    }catch (Exception ex){}
+                }
+            }
         }
     };
     private void playAudio()
@@ -122,6 +131,7 @@ public class MyMorningWorker extends Worker
                 IntentFilter filter=  new IntentFilter();
                 filter.addAction("Pause Stuti");
                 filter.addAction("Play Stuti");
+                filter.addAction("Delete Stuti");
                 context.registerReceiver(receiver,filter);
                 this.mediaPlayer.start();
                 this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

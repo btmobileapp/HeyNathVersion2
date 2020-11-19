@@ -81,7 +81,7 @@ public class AlarmReciever extends BroadcastReceiver {
            {
              //  NewMessageNotification.notify(context,"Pre Schedule 455", "Pre Schedule 455", 7, null);
 
-               if ( !AlramUtility.isMute(context) && AlramUtility.isStart(context)   && !isAirplaneModeOn(context)  && !isCallActive(context))
+               if ( !AlramUtility.isMute(context) && AlramUtility.isNityaSuchiStart(context)   && !isAirplaneModeOn(context)  && !isCallActive(context))
                {
                    {
 

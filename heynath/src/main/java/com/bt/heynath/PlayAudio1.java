@@ -77,11 +77,20 @@ public class PlayAudio1 extends AppCompatActivity {
     public void finish() {
         super.finish();
         try {
-
             player.stop();
         }
         catch (Exception ex)
         {}
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //if(android.os)
+        if (android.os.Build.VERSION.SDK_INT >21)
+        {
+            requestVisibleBehind(true);
+        }
     }
 
     @Override
@@ -112,7 +121,7 @@ public class PlayAudio1 extends AppCompatActivity {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                startActivity(new Intent(PlayAudio1.this,PlayAudio2.class));
+               // startActivity(new Intent(PlayAudio1.this,PlayAudio2.class));
             }
         });
 
@@ -120,7 +129,8 @@ public class PlayAudio1 extends AppCompatActivity {
             videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-
+                   // mediaPlayer.setScreenOnWhilePlaying(true);
+                    mediaPlayer.setScreenOnWhilePlaying(true);
                 }
             });
         }
@@ -146,12 +156,6 @@ public class PlayAudio1 extends AppCompatActivity {
 
             }
         }).start();
-        // mediaController.show(0);
-        // mediaController.setEnabled(true);
 
-    }
-
-
-
-
+       }
 }

@@ -120,7 +120,10 @@ public class UserHomeScreen extends AppCompatActivity implements AdapterView.OnI
 
         productRandomAdapter = new ProductRandomAdapter(this, 1, moduleUserHomeScreen.randomList);
         gridView.setAdapter(productRandomAdapter);
-
+        if(LaunchActivity.appName.equalsIgnoreCase("Choice Electric"))
+        {
+            gridView.setVisibility(View.GONE);
+        }
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

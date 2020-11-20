@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,7 +61,19 @@ public class PlayAudio1 extends AppCompatActivity {
         playNormal();
     }
 
-    @Override
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        try {
+//
+//            //player.stop();
+//        }
+//        catch (Exception ex)
+//        {}
+//
+//    }
+
+        @Override
     public void finish() {
         super.finish();
         try {
@@ -90,6 +103,8 @@ public class PlayAudio1 extends AppCompatActivity {
         final MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
 
+
+        //videoView.set
         videoView.setMediaController(mediaController);
         //videoView.setMe
         videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" +

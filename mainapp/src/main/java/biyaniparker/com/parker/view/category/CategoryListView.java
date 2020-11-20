@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +22,10 @@ import java.util.ArrayList;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.beans.CategoryBean;
+import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.view.adapter.CategoryAdapter;
-
+                                                ///, SearchView.OnQueryTextListener
 public class CategoryListView extends AppCompatActivity implements DownloadUtility, AdapterView.OnItemClickListener {
 
 
@@ -34,6 +36,10 @@ public class CategoryListView extends AppCompatActivity implements DownloadUtili
 
     CategoryAdapter adapter;
     ModuleCategory moduleCategory;
+
+//    SearchView editsearch;
+//    ArrayList<CategoryBean> arraylist = new ArrayList<CategoryBean>();
+//    ArrayList<String> productName= new ArrayList<>();
 
 
     @Override
@@ -52,6 +58,8 @@ public class CategoryListView extends AppCompatActivity implements DownloadUtili
        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        getSupportActionBar().setHomeButtonEnabled(true);
 
+       // editsearch = (SearchView) findViewById(R.id.simpleSearchView);
+
 
         init();
         //categoryList=new CategoryList(this);
@@ -66,7 +74,21 @@ public class CategoryListView extends AppCompatActivity implements DownloadUtili
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
+       // editsearch.setOnQueryTextListener(this);//19-11-20
+
     }
+
+//    @Override
+//    public boolean onQueryTextSubmit(String s) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean onQueryTextChange(String newText) {
+//        String text = newText;
+//        adapter.filter(text);
+//        return false;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,4 +146,6 @@ public class CategoryListView extends AppCompatActivity implements DownloadUtili
         intent.putExtra("CategoryId",bean.getCategoryId());
         startActivity(intent);
     }
+
+
 }

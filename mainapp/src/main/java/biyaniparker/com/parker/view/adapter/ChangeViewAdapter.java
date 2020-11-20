@@ -32,21 +32,33 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import biyaniparker.com.parker.R;
+import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.ProductBeanWithQnty;
 
 public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.ViewHolder> {
     public ArrayList<ProductBeanWithQnty> newProductList;
+
     Context context;
     ChangeViewCallBack changeViewCallBack;
     int Position;
     ArrayList<View> viewList = new ArrayList<View>();
     boolean isSelectedAll;
     boolean select;
+    double price;
+
+    double totalPrice=0.0;
+    //19-11-20
+//    private ArrayList<ProductBeanWithQnty> arrayList;
+    private ArrayList<ProductBeanWithQnty> arrayList;
 
     public  ChangeViewAdapter(Context context,ArrayList<ProductBeanWithQnty> list,ChangeViewCallBack ChangeViewCallBack){
         this.context = context;
         this.newProductList = list;
         this.changeViewCallBack = ChangeViewCallBack;
+        //19-11-20
+        this.arrayList = new ArrayList<ProductBeanWithQnty>();
+        arrayList.addAll(newProductList);                  //19-11-20
+
     }
 
     @Override
@@ -85,7 +97,8 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
 
         try
         {
-            double price = productBeanWithQnty.price;     //itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
+             price = productBeanWithQnty.price;//itemDAOPrice.getPriceBeanByPriceId(rowItem.getPriceId()).consumerPrice;
+           // Toast.makeText(context, "Price= "+price, Toast.LENGTH_SHORT).show();
             DecimalFormat df = new DecimalFormat("#.##");
             holder.tv2.setText("₹. " + df.format(price));
         } catch (Exception e) {
@@ -138,6 +151,10 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                                     obj.quantity = qty + "";
                                     obj.checkValue = true;
                                     notifyDataSetChanged();
+
+//                                    double oneTypeProductPrice=Double.valueOf(q)+productBeanWithQnty.price;
+//                                    totalPrice=totalPrice+oneTypeProductPrice;
+
                                 }
                                 else
                                 {
@@ -234,6 +251,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
             @Override
             public void onClick(View view) {
                 if (holder.checkBox.isChecked()){
+                   // Toast.makeText(context, "checkBox clicked", Toast.LENGTH_SHORT).show();
                     productBeanWithQnty.setCheckValue(true);
                 } else {
                     productBeanWithQnty.setCheckValue(false);
@@ -421,6 +439,25 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         });*/
     }
 
+
+        //19-11-20
+    // Filter Class
+//    public void filter(String charText) {
+//        charText = charText.toLowerCase();
+//        newProductList.clear();
+//        if (charText.length() == 0) {
+//            newProductList.addAll(arrayList);
+//        } else {
+//            for (ProductBeanWithQnty wp : arrayList) {
+//                if (wp.getProductName().toLowerCase().contains(charText)) {
+//                    newProductList.add(wp);
+//                }
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
+
+
     long startTime=System.currentTimeMillis();
 
     @Override
@@ -442,6 +479,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         ImageView imageView;
         TextView tv2,tv3,tv4,tv5,tv6;
         TextView et;
+        TextView totalPrice;                                                   //19-11-20
         Button addToBag;
         CheckBox checkBox,cbSelectAll;
 
@@ -455,17 +493,39 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
             tv4 = itemView.findViewById(R.id.tvRemarkChange);
             tv5 = itemView.findViewById(R.id.txtName);
             checkBox = itemView.findViewById(R.id.chk);
+            //totalPrice= itemView.findViewById(R.id.totalPrice);                 // 19-11-20
           //  cbSelectAll = itemView.findViewById(R.id.chkAll);
            // tv6 = itemView.findViewById(R.id.s);
           }
         }
-
-public interface ChangeViewCallBack{
+        public interface ChangeViewCallBack{
     //void getData(List<ProductBeanWithQnty> productBeanWithQnty,int position,String qty);
     void getPosition(int adapterPosition);
     void getList(ProductBeanWithQnty newProductList,String qty);
     boolean getCheckBoxes();
 
     boolean getOneCheckBox();
-}
+    }
+
+    // Filter Class
+    public void filter(String charText)
+    {
+        charText = charText.toLowerCase();
+        newProductList.clear();
+        if (charText.length() == 0)
+        {
+            newProductList.addAll(arrayList);
+        }
+        else
+        {
+            for (ProductBeanWithQnty wp : arrayList)
+            {
+                if (wp.getProductName().toLowerCase().contains(charText))
+                {
+                    newProductList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 }

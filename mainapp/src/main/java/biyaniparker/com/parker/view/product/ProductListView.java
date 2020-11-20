@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,14 +30,22 @@ import biyaniparker.com.parker.view.adapter.CategoryAdapter;
 import biyaniparker.com.parker.view.adapter.ProductAdapter;
 import biyaniparker.com.parker.view.category.CategoryCreateView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
-
-public class ProductListView extends AppCompatActivity implements DownloadUtility, AdapterView.OnItemClickListener {
+                                                                 //SearchView.OnQueryTextListener
+public class ProductListView extends AppCompatActivity implements DownloadUtility, AdapterView.OnItemClickListener,SearchView.OnQueryTextListener{
 
     ArrayList<ProductBean> productBeanList;
     ListView listView;
     ProductAdapter adapter;
     ModuleProduct moduleProduct;
-    boolean isCustomList=false;           // used to differntiate between custom list or complete list
+    SearchView editsearch;
+    boolean isCustomList=false;    // used to differntiate between custom list or complete list
+
+//      ArrayList<ProductBean> arraylist = new ArrayList<ProductBean>();
+//      ArrayList<String> productName= new ArrayList<>();
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,8 +66,12 @@ public class ProductListView extends AppCompatActivity implements DownloadUtilit
         getSupportActionBar().setHomeButtonEnabled(true);
         listView=(ListView)findViewById(R.id.listView);
         moduleProduct=new ModuleProduct(this);
+
+        editsearch = (SearchView) findViewById(R.id.simpleSearchView);      //19-11-2020
        // 1567017000000l
       //  1566719391523l
+
+
 
         //moduleProduct.getProductListAboveDate( 1567017000000l);
         moduleProduct.getProductList();
@@ -68,8 +81,25 @@ public class ProductListView extends AppCompatActivity implements DownloadUtilit
 
         listView.setOnItemClickListener(this);
 
+        editsearch.setOnQueryTextListener(this);//19-11-20
+
+
+
       //  startProcessImage();
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String text = newText;
+        adapter.filter(text);
+        return false;
     }
 
     void startProcessImage()

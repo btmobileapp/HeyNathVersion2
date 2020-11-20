@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,8 +53,8 @@ import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
 import biyaniparker.com.parker.view.adapter.ChangeViewAdapter;
 import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
-
-public class ChangeView extends AppCompatActivity implements DownloadUtility, NotifyCallback, ChangeViewAdapter.ChangeViewCallBack, CompoundButton.OnCheckedChangeListener
+                                                                 //,SearchView.OnQueryTextListener
+public class ChangeView extends AppCompatActivity implements DownloadUtility, NotifyCallback, ChangeViewAdapter.ChangeViewCallBack, CompoundButton.OnCheckedChangeListener,SearchView.OnQueryTextListener
 {
 
 
@@ -67,13 +68,19 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
   ArrayList<SizeMaster> list;
   CheckBox checkAll;
   Button  btnAddToBag;
-
   AlertDialog.Builder alertDialog;
+
+  //19-11-20
+  SearchView editsearch;
+
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_change_view);
+
+    Toast.makeText(this, "ChangeView", Toast.LENGTH_SHORT).show();
+
     moduleProductDetails = new ModuleProductDetails(this);
     checkAll = (CheckBox) findViewById(R.id.chkAll);
     // linearLayout =(LinearLayout)findViewById(R.id.lmainchange);
@@ -92,6 +99,12 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
     recyclerView.addItemDecoration(new DividerItemDecoration(ChangeView.this, LinearLayoutManager.VERTICAL));
     recyclerView.setAdapter(adapter);
     // recyclerView.getAdapter().getItemCount();
+
+    //19-11-20
+    editsearch = (SearchView) findViewById(R.id.simpleSearchView);
+    editsearch.setOnQueryTextListener(this);
+
+
 
     if (new ConnectionDetector(this).isConnectingToInternet())
     {
@@ -194,16 +207,29 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
         });
 
         alertDialog.show();
-
-
-
       }
     });
   }
 
+  //19-11-20 2 method
+  @Override
+  public boolean onQueryTextSubmit(String query) {
+
+    return false;
+  }
+
+  @Override
+  public boolean onQueryTextChange(String newText) {
+    String text = newText;
+    adapter.filter(text);
+    return false;
+  }
+
+
+
   @Override
   public void onComplete(String str, int requestCode, int responseCode) {
-    if(requestCode==2&&responseCode==200)
+    if(requestCode==2 &&responseCode==200)
     {
       try
       {
@@ -269,7 +295,8 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
   public void getData(ProductBeanWithQnty productBeanWithQnty,String qty) {
     CommonUtilities.hideSoftKeyBord(this);
 
-    if(validation(productBeanWithQnty,qty)) {
+    if(validation(productBeanWithQnty,qty))
+    {
 
     }
   }
@@ -290,7 +317,8 @@ public class ChangeView extends AppCompatActivity implements DownloadUtility, No
     ItemDAOSizeMaster itemDAOSizeMaster = new ItemDAOSizeMaster(getApplicationContext());
     list = itemDAOSizeMaster.getAllSize(UserUtilities.getClientId(getApplicationContext()));
 
-    for (int i = 0; i < list.size(); i++) {
+    for (int i = 0; i < list.size(); i++)
+    {
       StockMasterBean s = new StockMasterBean();
       int sizeId = list.get(i).getSizeId();
       s.setProductId(productBeanWithQnty.getProductId());

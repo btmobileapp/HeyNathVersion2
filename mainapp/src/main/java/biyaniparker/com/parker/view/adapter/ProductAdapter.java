@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.ProductBean;
@@ -34,6 +35,7 @@ public class ProductAdapter extends ArrayAdapter {
 
     ArrayList<ProductBean> productList;
     Context context;
+    private ArrayList<ProductBean> arrayList;
 
 
     //*********************Copy This  ******************
@@ -49,6 +51,10 @@ public class ProductAdapter extends ArrayAdapter {
         super(context, resource,productList);
         this.productList=productList;
         this.context=context;
+
+        this.arrayList = new ArrayList<ProductBean>();
+        arrayList.addAll(productList);                  //19-11-20
+
         utilities=new BitmapUtilities();
         animateFirstListener=new AnimateFirstDisplayListener();
         doption=new DisplayImageOptions.Builder().
@@ -63,7 +69,7 @@ public class ProductAdapter extends ArrayAdapter {
     class ViewHolder
     {
         TextView tv;
-        ImageView imageView;
+       // ImageView imageView;
     }
 
     @Override
@@ -90,7 +96,7 @@ public class ProductAdapter extends ArrayAdapter {
         holder.tv = (TextView) convertView.findViewById(R.id.textView);
         // holder.im=(ImageView) convertView.findViewById(R.id.imageView1);
         holder.tv.setText( productList.get(position).productName);
-        holder.imageView=(ImageView)convertView.findViewById(R.id.imageView);
+       // holder.imageView=(ImageView)convertView.findViewById(R.id.imageView);
 //        holder.imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -105,12 +111,12 @@ public class ProductAdapter extends ArrayAdapter {
         }
         catch (Exception ex){}
 
-        imageLoader = ImageLoader.getInstance();
-        //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
-        imageLoader.displayImage(
-                productList.get(position).iconThumb
-                ,
-                holder.imageView, doption, animateFirstListener);
+//        imageLoader = ImageLoader.getInstance();
+//        //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
+//        imageLoader.displayImage(
+//                productList.get(position).iconThumb
+//                ,
+//                holder.imageView, doption, animateFirstListener);
 
         return convertView;
     }
@@ -143,5 +149,27 @@ public class ProductAdapter extends ArrayAdapter {
                 }
             }
         }
+    }
+
+    // Filter Class
+    public void filter(String charText)
+    {
+        charText = charText.toLowerCase();
+        productList.clear();
+        if (charText.length() == 0)
+        {
+            productList.addAll(arrayList);
+        }
+        else
+         {
+            for (ProductBean wp : arrayList)
+            {
+                if (wp.getProductName().toLowerCase().contains(charText))
+                {
+                    productList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

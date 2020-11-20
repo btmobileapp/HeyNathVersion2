@@ -176,7 +176,7 @@ public class UserCreateView extends AppCompatActivity implements View.OnClickLis
         }
         if(edShopName.getText().toString().equals("")||edPersonName.getText().toString().equals("")||edContact.getText().toString().equals("")
                 ||edAddress.getText().toString().equals("")||edCreadit.getText().toString().equals("")||edUserName.getText().toString().equals("")
-                ||edPassward.getText().toString().equals("")||edEmail.getText().toString().equals(""))
+                ||edPassward.getText().toString().equals(""))
         {return false;}
 
         else

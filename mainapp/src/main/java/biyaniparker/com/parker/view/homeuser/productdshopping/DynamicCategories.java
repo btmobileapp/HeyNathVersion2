@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +24,7 @@ import biyaniparker.com.parker.view.adapter.CategoryAdapter;
 import biyaniparker.com.parker.view.adapter.ProductGridAdapter;
 import biyaniparker.com.parker.view.homeuser.NewArrival;
 
-public class DynamicCategories extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class DynamicCategories extends AppCompatActivity implements AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
 
     ModuleCategory moduleCategory;
     int catId;
@@ -132,4 +133,13 @@ public class DynamicCategories extends AppCompatActivity implements AdapterView.
 
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
 }

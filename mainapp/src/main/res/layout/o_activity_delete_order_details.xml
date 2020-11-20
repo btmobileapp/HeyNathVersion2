@@ -103,9 +103,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scroll"
-
         android:layout_below="@id/lMain"
-        android:layout_above="@id/lbottom"
+        android:layout_above="@id/btnRestoreOrder"
         >
 
 
@@ -120,6 +119,21 @@
         </LinearLayout>
 
     </ScrollView>
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:id="@+id/btnRestoreOrder"
+        android:text="Restore Order"
+        android:textAllCaps="false"
+        android:background="@drawable/buttonround"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        />
 
 
 

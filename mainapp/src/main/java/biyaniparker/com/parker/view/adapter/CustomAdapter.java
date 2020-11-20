@@ -80,7 +80,8 @@ public class CustomAdapter extends BaseAdapter {
 		RowItem row_pos = rowItem.get(position);
 		if(row_pos.isStartSection)
 		{
-			convertView = mInflater.inflate(R.layout.d_item_drawermenusection, null);				((TextView)convertView.findViewById(R.id.txtsection)).setText(row_pos.sectionName);
+			convertView = mInflater.inflate(R.layout.d_item_drawermenusection, null);
+			((TextView)convertView.findViewById(R.id.txtsection)).setText(row_pos.sectionName);
 		}
 		else
 		{

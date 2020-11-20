@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -419,7 +420,7 @@ public class ItemDAOOrder
         db.delete("OrderMaster", null, null);
         db.close();
     }
-
+//DeleteStatus
     public Collection<? extends OrderMasterBean> getAllOrders() {
         SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
         Cursor c=db.rawQuery(" Select * from OrderMaster  order by OrderId desc ", null);
@@ -443,7 +444,12 @@ public class ItemDAOOrder
                 bean.setTotolAmount(c.getString(c.getColumnIndex("TotolAmount")));
                 bean.setUserId(c.getLong(c.getColumnIndex("UserId")));
                 bean.setTotalQnty(c.getInt(c.getColumnIndex("TotalQnty")));
-                list.add(bean);
+                String deletestatus= c.getString(c.getColumnIndex("DeleteStatus"));
+                //Toast.makeText(context, "Status= "+deletestatus, Toast.LENGTH_SHORT).show();
+                if (!deletestatus.equals("true"))
+                {
+                    list.add(bean);
+                }
                 c.moveToNext();
                 i++;
             }

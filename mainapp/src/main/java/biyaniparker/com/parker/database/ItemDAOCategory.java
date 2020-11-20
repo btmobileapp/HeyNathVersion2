@@ -267,7 +267,8 @@ public class ItemDAOCategory
         contentValues.put("ChangedBy",categoryBean.getChangedBy());
         contentValues.put("ChangedDate",categoryBean.getChangedDate());
         contentValues.put("DeleteStatus",categoryBean.getDeleteStatus());
-        db.insert("Category", null, contentValues);
+        long l= db.insert("Category", null, contentValues);
+
         db.close();
     }
 

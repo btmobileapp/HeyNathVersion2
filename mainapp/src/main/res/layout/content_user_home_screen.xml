@@ -30,6 +30,9 @@
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal" />
 
+
+
+
     <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_below="@+id/SliderDots"
@@ -37,6 +40,25 @@
         android:orientation="vertical"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardView"
+            android:visibility="gone"
+            android:elevation="10dp"
+            android:layout_margin="4dp"
+            app:cardCornerRadius="5dp">
+            <SearchView
+                android:id="@+id/simpleSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search Here"
+                android:layout_alignParentTop="true" />
+        </androidx.cardview.widget.CardView>
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -48,7 +70,7 @@
                 android:text="T-Shirts"
                 android:id="@+id/btnshirt"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:background="#f91d1016"
@@ -60,7 +82,7 @@
                 android:text="T-Shirts"
                 android:id="@+id/btntshirt"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:background="#0d0729"
@@ -72,7 +94,7 @@
                 android:text="Pants"
                 android:id="@+id/btnpants"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:background="#f9363019"
                 android:layout_margin="5dp"
@@ -90,7 +112,7 @@
                 android:text="Accessories"
                 android:id="@+id/btnaccessories"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:background="#f9363019"
@@ -103,7 +125,7 @@
                 android:text=""
                 android:id="@+id/btn5"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:background="#f92b0d40"
@@ -116,7 +138,7 @@
                 android:text=""
                 android:id="@+id/btn6"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:background="#f91d1016"
@@ -134,7 +156,7 @@
                 android:text="Accessories1"
                 android:id="@+id/btn7"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:background="#f9363019"
@@ -146,7 +168,7 @@
                 android:text=""
                 android:id="@+id/btn8"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:background="#f92b0d40"
@@ -159,7 +181,7 @@
                 android:text=""
                 android:id="@+id/btn9"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:background="#f91d1016"

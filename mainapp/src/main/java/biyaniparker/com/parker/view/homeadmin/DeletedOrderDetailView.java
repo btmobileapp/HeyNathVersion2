@@ -27,6 +27,8 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -39,6 +41,7 @@ import biyaniparker.com.parker.beans.OrderMasterBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.OrderDispatchView;
+import biyaniparker.com.parker.view.homeuser.productdshopping.ChangeView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
 
 public class DeletedOrderDetailView extends AppCompatActivity implements View.OnClickListener, DownloadUtility {
@@ -59,6 +62,8 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
     ArrayList<OrderDetailBean> orderDetails=new ArrayList<>();
     ArrayList<OrderDetailBean> orderDetailsNew=new ArrayList<>();
     int totalQnty=0;
+
+    Button btnRestoreOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,6 +186,49 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
 
         registerReceiver(mMessageReceiver, new IntentFilter("CloseMe"));
 
+
+
+//        btnRestoreOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view)
+//            {
+//                for (int i = 0; i < moduleUserProduct.newProductList.size(); i++) {
+//                    if (moduleUserProduct.newProductList.get(i).getQuantity() == null) {
+//
+//                    }
+//                    else {
+//                        getData(moduleUserProduct.newProductList.get(i), moduleUserProduct.newProductList.get(i).getQuantity());
+//
+//                    }
+//                }
+//
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangeView.this);
+//                alertDialog.setTitle(getString(R.string.app_name));
+//                alertDialog.setMessage("Do you want to Restore this order");
+//                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        try
+//                        {
+//                            moduleProductDetails.addToBag1(stockList);
+//                        } catch (JSONException e)
+//                        {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//                //   alertDialog.setNegativeButton("No", null);
+//                alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//                alertDialog.show();
+//            }
+//        });
+
     }
 
 
@@ -201,6 +249,8 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
         linear=(LinearLayout)findViewById(R.id.linearScroll);
 
         moduleOrder=new ModuleOrder(this);
+
+        btnRestoreOrder = findViewById(R.id.btnRestoreOrder);
     }
 
     @Override

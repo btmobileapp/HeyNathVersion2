@@ -57,7 +57,7 @@ public class DynamicProducts extends AppCompatActivity implements AdapterView.On
         Intent intent = getIntent();
         catId = intent.getIntExtra("CategoryId", 0);
 
-       arrayList.addAll( moduleCategory.getListByParentId(catId));
+        arrayList.addAll( moduleCategory.getListByParentId(catId));
         if (arrayList.size() != 0 || catId == 0)
         {
             setContentView(R.layout.o_activity_refill_list);
@@ -79,7 +79,7 @@ public class DynamicProducts extends AppCompatActivity implements AdapterView.On
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                 startActivity(new Intent(DynamicProducts.this, ProductCreateViewNew.class));
+                    startActivity(new Intent(DynamicProducts.this, ProductCreateViewNew.class));
                 }
             });
 
@@ -100,7 +100,7 @@ public class DynamicProducts extends AppCompatActivity implements AdapterView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(Pressed)
-        getMenuInflater().inflate(R.menu.menufilter,menu);
+            getMenuInflater().inflate(R.menu.menufilter,menu);
         return super.onCreateOptionsMenu(menu);
     }
 

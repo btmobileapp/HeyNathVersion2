@@ -24,6 +24,7 @@ import java.util.List;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.CategoryBean;
+import biyaniparker.com.parker.beans.ProductBean;
 
 /**
  * Created by bt on 08/11/2016.
@@ -31,6 +32,8 @@ import biyaniparker.com.parker.beans.CategoryBean;
 public class CategoryAdapter  extends ArrayAdapter {
     Context context;
     ArrayList<CategoryBean> categoryList;
+
+    private ArrayList<CategoryBean> arrayList;
 
 
 
@@ -45,6 +48,9 @@ public class CategoryAdapter  extends ArrayAdapter {
         super(context, resource,categoryBeanArrayList);
         this.context=context;
         categoryList=categoryBeanArrayList;
+
+        this.arrayList = new ArrayList<CategoryBean>();
+        arrayList.addAll(categoryList);
 
         doption = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.bgpaker1)
@@ -67,7 +73,7 @@ public class CategoryAdapter  extends ArrayAdapter {
     class ViewHolder
     {
         TextView tv;
-        ImageView imageView;
+       // ImageView imageView;
     }
 
     @Override
@@ -81,8 +87,6 @@ public class CategoryAdapter  extends ArrayAdapter {
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_o_category, null);
-
-
             convertView.setTag(holder );
 
         }
@@ -94,16 +98,16 @@ public class CategoryAdapter  extends ArrayAdapter {
         holder.tv = (TextView) convertView.findViewById(R.id.textView);
         // holder.im=(ImageView) convertView.findViewById(R.id.imageView1);
         holder.tv.setText( categoryList.get(position).categoryName);
-        holder.imageView=(ImageView)convertView.findViewById(R.id.imageView);
+       // holder.imageView=(ImageView)convertView.findViewById(R.id.imageView);
 
 
 
-        imageLoader = ImageLoader.getInstance();
-        //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
-        imageLoader.displayImage(
-             categoryList.get(position).icon
-                ,
-                holder.imageView, doption, animateFirstListener);
+//        imageLoader = ImageLoader.getInstance();
+//        //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
+//        imageLoader.displayImage(
+//             categoryList.get(position).icon
+//                ,
+//                holder.imageView, doption, animateFirstListener);
 
 
         return convertView;
@@ -134,6 +138,28 @@ public class CategoryAdapter  extends ArrayAdapter {
             }
         }
     }
+
+//    // Filter Class
+//    public void filter(String charText)
+//    {
+//        charText = charText.toLowerCase();
+//        categoryList.clear();
+//        if (charText.length() == 0)
+//        {
+//            categoryList.addAll(arrayList);
+//        }
+//        else
+//        {
+//            for (CategoryBean wp : arrayList)
+//            {
+//                if (wp.getCategoryName().toLowerCase().contains(charText))
+//                {
+//                    categoryList.add(wp);
+//                }
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
 
 
 

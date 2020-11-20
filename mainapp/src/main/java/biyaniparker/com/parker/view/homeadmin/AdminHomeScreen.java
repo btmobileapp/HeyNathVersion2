@@ -374,6 +374,8 @@ public class AdminHomeScreen extends AppCompatActivity
         }
     }
 
+
+    // DrawerLayout
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -408,10 +410,12 @@ public class AdminHomeScreen extends AppCompatActivity
             else if (items.get(position).getTitle().equalsIgnoreCase("Change Password"))
             {
                 startActivity(new Intent(this, PasswordUpdateView.class));
-            } else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
+            }
+            else if (items.get(position).getTitle().equalsIgnoreCase("Products"))
             {
                 startActivity(new Intent(this, AdminProductMenu.class));
-            } else if (items.get(position).getTitle().equalsIgnoreCase("Users"))
+            }
+            else if (items.get(position).getTitle().equalsIgnoreCase("Users"))
             {
                 startActivity(new Intent(this, UserListView.class));
             }

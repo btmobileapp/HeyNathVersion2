@@ -47,7 +47,7 @@ public class AdminProductMenu extends AppCompatActivity implements AdapterView.O
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_product_menu);
-        list.add(new MenuBean(R.drawable.facilities, "Add new Product"));
+        //list.add(new MenuBean(R.drawable.facilities, "Add new Product"));
         list.add(new MenuBean(R.drawable.facilities, "Category"));
         list.add(new MenuBean(R.drawable.facilities,"Products"));
         list.add(new MenuBean(R.drawable.facilities,"Categorywise Products"));

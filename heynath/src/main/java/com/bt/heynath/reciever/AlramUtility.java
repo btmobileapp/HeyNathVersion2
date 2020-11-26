@@ -32,7 +32,7 @@ public class AlramUtility
         startCalendar.set(Calendar.MINUTE,55);
         Calendar endCalendar= Calendar.getInstance();
 
-        endCalendar.set(Calendar.HOUR_OF_DAY,15);
+        endCalendar.set(Calendar.HOUR_OF_DAY,5);
         endCalendar.set(Calendar.MINUTE,30);
 
         if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
@@ -83,19 +83,19 @@ public class AlramUtility
     static   public String getFromTime(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
-        String hh= sh.getString("FromTime","18:0");
+        String hh= sh.getString("FromTime","8:0");
         return  hh;
     }
   static   public int getFromTimeHours(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
-        String hh= sh.getString("FromTime","18:0").split(":")[0];
+        String hh= sh.getString("FromTime","8:0").split(":")[0];
         return  Integer.parseInt(hh);
     }
   static   public int getFromTimeMinute(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
-        String hh= sh.getString("FromTime","18:0").split(":")[1];
+        String hh= sh.getString("FromTime","8:0").split(":")[1];
         return  Integer.parseInt(hh);
     }
 

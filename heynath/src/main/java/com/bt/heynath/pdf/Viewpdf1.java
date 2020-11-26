@@ -75,7 +75,7 @@ public class Viewpdf1 extends AppCompatActivity
             pdfView.fromAsset("meta_human.pdf").load();
         }
         if(no==786) {
-            pdfView.fromAsset("imp.pdf").load();
+            pdfView.fromAsset("imp_nitya.pdf").load();
         }
     }
     @Override

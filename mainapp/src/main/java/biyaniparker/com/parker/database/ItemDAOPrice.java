@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ public class ItemDAOPrice
         values.put("ChangedBy",priceBean.getChangedBy());
         values.put("ChangedDate",priceBean.getChangedDate());
         values.put("DeleteStatus",priceBean.getDeleteStatus());
+       // values.put("SequenceNo",priceBean.getSequenceNo());
         long ln= db.insert("PriceMaster",null,values);
         db.close();
         return ln;
@@ -57,16 +59,21 @@ public class ItemDAOPrice
         db.close();
     }
 
-    public ArrayList<PriceBean> getAllPrices(int clientId) {
+    public ArrayList<PriceBean> getAllPrices(int clientId)
+    {
         ArrayList<PriceBean> arrayList=new ArrayList<PriceBean>();
 
         SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
         Cursor c=db.rawQuery(" Select * from PriceMaster where ClientId=" + clientId+"  and DeleteStatus='false'", null);
+
+
         int i=0;
         if(c!=null)
         {
+
             if(c.moveToFirst())
             {
+
                 while(i<c.getCount())
                 {
                     PriceBean bean=new PriceBean();
@@ -89,6 +96,7 @@ public class ItemDAOPrice
                 }
             }
         }
+
 
         db.close();
         return arrayList;

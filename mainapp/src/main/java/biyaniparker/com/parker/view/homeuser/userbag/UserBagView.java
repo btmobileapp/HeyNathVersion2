@@ -80,7 +80,7 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_bag_view1);
 
-        Toast.makeText(this, "Inside UserBagView", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Inside UserBagView", Toast.LENGTH_SHORT).show();
         idtimer=(TextView)findViewById(R.id.idtimer);
         idtimer.setVisibility(View.GONE);
 

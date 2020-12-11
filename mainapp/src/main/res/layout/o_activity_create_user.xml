@@ -139,6 +139,7 @@
             android:layout_weight="1"
             android:id="@+id/edCreditLimit"
             android:inputType="numberDecimal"
+            android:visibility="gone"
             style="@android:style/Widget.Holo.Light.EditText"
             />
         <EditText

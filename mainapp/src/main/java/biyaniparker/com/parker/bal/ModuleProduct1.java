@@ -15,11 +15,13 @@ import java.util.List;
 
 import biyaniparker.com.parker.beans.CategoryBean;
 import biyaniparker.com.parker.beans.CreateNoticeBean;
+import biyaniparker.com.parker.beans.PriceBean;
 import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.SizeDetailBean;
 import biyaniparker.com.parker.beans.SizeMaster;
 import biyaniparker.com.parker.beans.StockMasterBean;
 import biyaniparker.com.parker.database.ItemDAOCategory;
+import biyaniparker.com.parker.database.ItemDAOPrice;
 import biyaniparker.com.parker.database.ItemDAOProduct;
 import biyaniparker.com.parker.database.ItemDAOSizeMaster;
 import biyaniparker.com.parker.utilities.CommonUtilities;
@@ -147,16 +149,17 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
         contentValues.put("IconFull", productBean.getIconFull());
         contentValues.put("IconFull1", productBean.getIconFull1());
         contentValues.put("ClientId", productBean.getClientId());
-        //contentValues.put("SequenceNo", productBean.getSequenceNo());
+        contentValues.put("SequenceNo", productBean.getSequenceNo());
         contentValues.put("CreatedBy", productBean.getCreatedBy());
         contentValues.put("CreatedDate", productBean.getCreatedDate());
         contentValues.put("ChangedBy", productBean.getChangedBy());
         contentValues.put("ChangedDate", productBean.getChagedDate());
         contentValues.put("DeleteStatus", productBean.getDeleteStatus());
         contentValues.put("IsActive", productBean.getIsActive());
-
         contentValues.put("Remark",productBean.getRemark());
+        //changed getprice with price
         contentValues.put("price", productBean.price);
+        //contentValues.put("price", productBean.getPrice());
         contentValues.put("IconFull2", productBean.IconFull2);
         contentValues.put("IconFull3", productBean.IconFull3);
         contentValues.put("IconFull4", productBean.IconFull4);
@@ -287,12 +290,37 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
             {
 
 
-                if (parseUpdatedProduct(str)) {
+                if (parseUpdatedProduct(str))
+                {
 
                     downloadUtility.onComplete("Success", 3, responseCode);
+
                 } else {
                     downloadUtility.onComplete("Failed", 3, responseCode);
                 }
+                try
+                {
+                    //ModulePrice modulePrice=new ModulePrice(context);
+                    // modulePrice.syncPriceInBackground();
+                    ItemDAOPrice itemDAOPrice=new ItemDAOPrice(context);
+
+                    ProductBean productBEAN=  parseProductBean(str);
+                    PriceBean priceBean=new PriceBean();
+                    priceBean.priceId=productBEAN.getPriceId();
+                    priceBean.consumerPrice= (double)productBEAN.price;
+                    priceBean.dealerPrice= (double)productBEAN.price;
+                    priceBean.clientId = 1;
+                    priceBean.createdBy = productBEAN.createdBy;
+                    priceBean.createdDate =productBEAN.createdDate;
+                    priceBean.changedBy = productBEAN.changedBy;
+                    priceBean.changedDate= productBEAN.changedDate;
+                    priceBean.deleteStatus= "false";
+                    priceBean.sequenceNo = productBEAN.sequenceNo;
+
+                    itemDAOPrice.insert(priceBean);
+
+                }
+                catch (Exception ex){}
             } else
             {
                 downloadUtility.onComplete("Server Communication Failed", 3, responseCode);
@@ -538,6 +566,7 @@ public class ModuleProduct1 implements DownloadUtility,MultifileUploadUtility
             {
                 bean.Remark=(c.getString("Remark"));
                 bean.UnitName=(c.getString("UnitName"));
+               // bean.setPrice(Float.parseFloat  (c.getString("price")));
                 bean.price=Float.parseFloat  (c.getString("price"));
             }
             catch (Exception e)

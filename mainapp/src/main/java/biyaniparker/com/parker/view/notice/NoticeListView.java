@@ -22,6 +22,7 @@ import biyaniparker.com.parker.beans.CreateNoticeBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.view.adapter.NoticeListViewAdapter;
+import biyaniparker.com.parker.view.homeadmin.AdminHomeScreen;
 import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 public class NoticeListView extends AppCompatActivity implements DownloadUtility, NoticeListViewAdapter.NoticeAdapterCallBack {
@@ -74,8 +75,15 @@ public class NoticeListView extends AppCompatActivity implements DownloadUtility
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home)
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+//        if(item.getItemId()==android.R.id.home)
+//        {
+//            Intent i = new Intent( NoticeListView.this, AdminHomeScreen.class);
+//            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(i);
+//        }
+//
             onBackPressed();
         return super.onOptionsItemSelected(item);
     }

@@ -13,7 +13,9 @@ import org.json.JSONObject;
 
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.view.homeadmin.AdminHomeScreen;
+import biyaniparker.com.parker.view.homeadmin.OrderDetailView;
 import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
+import biyaniparker.com.parker.view.notice.NoticeListView;
 
 import static android.content.ContentValues.TAG;
 
@@ -121,9 +123,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             NOTIFICATION_ID = jobj.getInt("GeneralId");
 
             if(UserUtilities.getUserType(this).equalsIgnoreCase("Admin"))
-            {
+            {                                                                                                                           // AdminHomeScreen  NoticeListView
                 PendingIntent contentIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, new Intent(this, AdminHomeScreen.class)
                         .putExtra("msg", msg).putExtra("Id", NOTIFICATION_ID).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_CANCEL_CURRENT);
+                //R.id.actionNoticeListView
                 NewMessageNotification.notify(this,"Notice :-"+title,""+title,NOTIFICATION_ID,contentIntent);
 
             }

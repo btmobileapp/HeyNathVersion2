@@ -139,7 +139,6 @@
             android:layout_above="@id/lbottom"
             android:id="@+id/listView">
 
-
         </ListView>
 
   <!--  </ScrollView>-->

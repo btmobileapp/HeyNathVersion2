@@ -40,8 +40,6 @@ public class ProductListView extends AppCompatActivity implements DownloadUtilit
     SearchView editsearch;
     boolean isCustomList=false;    // used to differntiate between custom list or complete list
 
-//      ArrayList<ProductBean> arraylist = new ArrayList<ProductBean>();
-//      ArrayList<String> productName= new ArrayList<>();
 
 
 
@@ -52,6 +50,8 @@ public class ProductListView extends AppCompatActivity implements DownloadUtilit
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_activity_product_list);
+
+        //Toast.makeText(this, "ProductListView", Toast.LENGTH_SHORT).show();
 
         FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -208,6 +208,7 @@ public class ProductListView extends AppCompatActivity implements DownloadUtilit
 
         Intent intent=new Intent(this,ProductEditViewNew.class);
         intent.putExtra("ProductId",bean.getProductId());
+        intent.putExtra("productPrice",bean.price);
         startActivity(intent);
 
        /* Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);

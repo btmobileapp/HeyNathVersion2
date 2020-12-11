@@ -182,8 +182,8 @@ public class AdminHomeScreen extends AppCompatActivity
         TextView txtShop=(TextView)navigationView.getHeaderView(0).findViewById(R.id.txtshop);
         TextView txtWelcome=(TextView)navigationView.getHeaderView(0). findViewById(R.id.txtwelcome);
 
-        txtShop.setText(UserUtilities.getShopName(this));
-        txtWelcome.setText("Welcome : " + UserUtilities.getName(this));
+        txtShop.setText(UserUtilities.getShopName(this).toUpperCase());
+        txtWelcome.setText("WELCOME : " + UserUtilities.getName(this).toUpperCase());
         imgHide=(ImageView)findViewById(R.id.imghide);
 
 
@@ -325,6 +325,10 @@ public class AdminHomeScreen extends AppCompatActivity
         else if(id==R.id.actionProductSync)
         {
             moduleProduct.syncRecentProducts();
+        }
+        else if(id==R.id.actionNoticeListView)
+        {
+            startActivity(new Intent(this, NoticeListView.class));
         }
 
 

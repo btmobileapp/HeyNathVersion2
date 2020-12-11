@@ -9,6 +9,15 @@ public class PriceBean
     public  Double consumerPrice, dealerPrice;
     public long clientId, createdBy, createdDate, changedBy, changedDate;
     public String deleteStatus;
+    public int sequenceNo;
+
+    public int getSequenceNo() {
+        return sequenceNo;
+    }
+
+    public void setSequenceNo(int sequenceNo) {
+        this.sequenceNo = sequenceNo;
+    }
 
     public int getPriceId() {
         return priceId;

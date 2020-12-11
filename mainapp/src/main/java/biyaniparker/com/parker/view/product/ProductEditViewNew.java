@@ -2,17 +2,20 @@ package biyaniparker.com.parker.view.product;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 
 import android.util.Log;
@@ -28,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -45,6 +49,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -76,6 +81,7 @@ import biyaniparker.com.parker.view.unitmaster.SharedPreference;
 
 public class ProductEditViewNew extends AppCompatActivity implements View.OnClickListener, DownloadUtility, MultifileUploadUtility, AdapterView.OnItemClickListener {
 
+    private static final int CAMERA_REQUEST =1888 ;
     int width=525,height=700;
     ImageView image1,image2,image3,image4;
     private void intitMultipleImages(String str)
@@ -188,7 +194,10 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
     int flag=0;
     ArrayList<UnitMasterBean> list;
 
+    float productPrice;
+
     long startTime=0l;
+    int productId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,9 +205,20 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.o_activity_edit_product);
         startTime=System.currentTimeMillis();
 
+        Intent intent = getIntent();
+         productId = intent.getIntExtra("ProductId", 0);
+//        Toast.makeText(this, "ProductId in edit view= "+productId, Toast.LENGTH_SHORT).show();
+//        productPrice = intent.getFloatExtra("productPrice",0);
+//        Toast.makeText(this, "productPrice in edit view= "+productPrice, Toast.LENGTH_SHORT).show();
+
+
+
         init();
         modulePrice=new ModulePrice(this);
         modulePrice.getPrices();
+
+
+
         moduleProduct = new ModuleProduct1(this);
         moduleProduct.getProductList();
         moduleCategory = new ModuleCategory(this);
@@ -321,8 +341,17 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         camera = (ImageView) findViewById(R.id.camera);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                callCapturePhoto();
+            public void onClick(View v)
+            {
+                //callCapturePhoto();
+
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                File imagesFolder = new File(Environment.getExternalStorageDirectory(), "MyCameraImages");
+                imagesFolder.mkdirs();
+                File image = new File(imagesFolder, "image.jpg");
+                Uri uriSavedImage = Uri.fromFile(image);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
         });
         gallary = (ImageView) findViewById(R.id.gallary);
@@ -348,6 +377,8 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         animateFirstListener=new AnimateFirstDisplayListener();
     }
 
+
+
     int previousCateposition=-1;
     int previousUnitposition = -1;
 
@@ -361,27 +392,49 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
         Intent intent = getIntent();
         int productId = intent.getIntExtra("ProductId", 0);
-        for (int i = 0; i < moduleProduct.list.size(); i++) {
-            if (moduleProduct.list.get(i).getProductId() == productId) {
+        int priceId=  intent.getIntExtra("priceId", 0);
+
+
+        for (int i = 0; i < moduleProduct.list.size(); i++)
+        {
+            if (moduleProduct.list.get(i).getProductId() == productId)
+            {
+                //Toast.makeText(this, "ProductId find="+moduleProduct.list.get(i).getProductId(), Toast.LENGTH_SHORT).show();
                 bean = moduleProduct.list.get(i);
+               // productPrice= moduleProduct.list.get(i).price;
             }
         }
+
 //        edRemark.setText(bean.getRemark());
+//        float  rate= bean.price;
+//        Toast.makeText(this, "rate= "+rate, Toast.LENGTH_SHORT).show();
 
         edName.setText(bean.getProductName());
+
+        //edPrice.setText(bean.getPriceId());
         //ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, moduleCategory.list);
         //spCategory.setAdapter(arrayAdapter);
         String catName="";
 
         moduleProduct.setSameParentCategoryList(bean.getCategoryId());
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, moduleProduct.sameParentCategoryList);
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, moduleCategory.lastCategoryList);
         //moduleProduct.sameParentCategoryList);
         spCategory.setAdapter(arrayAdapter);
 
+        /*
         for (int i = 0; i < moduleProduct.sameParentCategoryList.size(); i++)
         {
             if (moduleProduct.sameParentCategoryList.get(i).getCategoryId() == bean.getCategoryId()) {
                 catName=moduleProduct.sameParentCategoryList.get(i).categoryName;
+                spCategory.setSelection(i);
+                previousCateposition=i;
+            }
+        }*/
+        for (int i = 0; i < moduleCategory.lastCategoryList.size(); i++)
+        {
+            if (moduleCategory.lastCategoryList.get(i).getCategoryId() == bean.getCategoryId()) {
+                catName=moduleCategory.lastCategoryList.get(i).categoryName;
                 spCategory.setSelection(i);
                 previousCateposition=i;
             }
@@ -392,11 +445,25 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         {
                 if(modulePrice.list.get(j).getPriceId()==bean.getPriceId())
                 {
+                   // Toast.makeText(this, "Inside Priceid="+modulePrice.list.get(j).getPriceId(), Toast.LENGTH_SHORT).show();
                     price=modulePrice.list.get(j).getConsumerPrice();
                     //spPrice.setSelection(j);
                 }
         }
-        edPrice.setText(bean.price+"");
+     //   Toast.makeText(this, "Price= "+price, Toast.LENGTH_SHORT).show();
+
+
+
+        //edPrice.setText(bean.price+"");                        23-11-2020
+        //float p= bean.price;
+        //edPrice.setText( String.valueOf(bean.price));
+
+
+        edPrice.setText(price+"");
+
+
+
+
 
         chkIsActive.setChecked((bean.getIsActive().equals("true")));
         edStripCode.setText(bean.getStripCode());
@@ -431,14 +498,16 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(1000);
-                    runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable()
+                    {
                         @Override
                         public void run()
                         {
@@ -468,7 +537,8 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         else
         {
             if(btnSave.getId()==v.getId()) {
-                if (validation()) {
+                if (validation())
+                {
                     bean.setProductCode("Test");
                     bean.setProductName(edName.getText().toString());
                     bean.setStripCode(edStripCode.getText().toString());
@@ -484,7 +554,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
                     try {
                         int selectedIndex=spCategory.getSelectedItemPosition();
-                        CategoryBean selectedBean=moduleProduct.sameParentCategoryList.get(selectedIndex);
+                        CategoryBean selectedBean=moduleCategory.lastCategoryList.get(selectedIndex);
                         bean.setCategoryId(selectedBean.getCategoryId());
                         int i=0;
                         i++;
@@ -511,6 +581,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                     bean.setDeleteStatus("false");
                     try
                     {
+                        //bean.setPrice(Float.parseFloat(edPrice.getText().toString()));
                         bean.price=Float.parseFloat(edPrice.getText().toString());
                     }
                     catch (Exception ex)
@@ -582,10 +653,16 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
 
     private boolean validation() {
-        if(edStripCode.getText().toString().equals("")||edName.getText().toString().equals(""))
-        {return false;}
+        //edStripCode.getText().toString().equals("")||
+        if(edName.getText().toString().equals(""))
+        {
+            //Toast.makeText(this, "inside", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         else
-        {return true;}
+        {
+            return true;
+        }
     }
 
 
@@ -613,29 +690,47 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
     // Call Capture Intent
     void callCapturePhoto() {
+     //   MediaStore.ACTION_IMAGE_CAPTURE    //android.media.action.IMAGE_CAPTURE
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 				/*create instance of File with name img.jpg*/
         File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
 				/*put uri as extra in intent object*/
+      //  File file = new File(Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES) + File.separator + "img.jpg");
+
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
 				/*start activity for result pass intent as argument and request code */
         startActivityForResult(intent, 1);
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK)
+      /*  if (requestCode == CAMERA_REQUEST  && resultCode == RESULT_OK) {
+           // Bitmap photo = (Bitmap) data.getExtras().get("data");
+          //  img.setImageBitmap(photo);
+
+          File imagesFolder = new File(Environment.getExternalStorageDirectory()+ "/MyCameraImages/image.jpg");
+            Bitmap  bitmap = BitmapFactory.decodeFile(imagesFolder.getAbsolutePath(), null);
+            img.setImageBitmap(bitmap);
+          //  imagesFolder.mkdirs();
+         //   File image = new File(imagesFolder, "image.jpg");
+          //  File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
+        }*/
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
         {
             try {
 
-
-                File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
+               // File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
+                File file = new File(Environment.getExternalStorageDirectory()+ "/MyCameraImages/image.jpg");
                 file=  CompressImage(file.getAbsolutePath());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+
+//                Matrix matrix = new Matrix();
+//                matrix.postRotate(90);
 
 
                 bitmap=BitmapUtilities.rotetBitmap(bitmap,this);
@@ -644,7 +739,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
                 //***************************************************************************
                 SharedPreferences rotetPreference=getSharedPreferences("rotet", MODE_PRIVATE);
-                int rotetInt= rotetPreference.getInt("rotet", 0);
+                int rotetInt= rotetPreference.getInt("rotet", -90);
 
                 /*
                 if(rotetInt==90)
@@ -868,6 +963,21 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 file=  CompressImage(file.getAbsolutePath());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+                //<------------------------------------23-11-2020------------------------------------------------>
+
+
+
+
+
+
+
+
+                //<------------------------------------23-11-2020------------------------------------------------>
+
+
+
+
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
                 Bitmap thePic = ThumbnailUtils.extractThumbnail(bitmap,CommonUtilities.Width, CommonUtilities.Height);
                 final File bitmapFile =file;// BitmapUtilities.saveToExtenal(thePic, this);

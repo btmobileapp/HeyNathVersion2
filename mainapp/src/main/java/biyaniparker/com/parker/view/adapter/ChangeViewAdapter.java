@@ -1,14 +1,9 @@
 package biyaniparker.com.parker.view.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -17,25 +12,24 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.api.Api;
 import com.squareup.picasso.Picasso;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+
 import biyaniparker.com.parker.R;
-import biyaniparker.com.parker.beans.ProductBean;
+import biyaniparker.com.parker.bal.ModuleUserProduct;
 import biyaniparker.com.parker.beans.ProductBeanWithQnty;
+import biyaniparker.com.parker.view.homeuser.productdshopping.ChangeView;
 
 public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.ViewHolder> {
+
     public ArrayList<ProductBeanWithQnty> newProductList;
 
     Context context;
@@ -46,19 +40,24 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
     boolean select;
     double price;
 
-    double totalPrice=0.0;
-    //19-11-20
-//    private ArrayList<ProductBeanWithQnty> arrayList;
-    private ArrayList<ProductBeanWithQnty> arrayList;
+    ModuleUserProduct moduleUserProduct;
 
-    public  ChangeViewAdapter(Context context,ArrayList<ProductBeanWithQnty> list,ChangeViewCallBack ChangeViewCallBack){
+
+    private ArrayList<ProductBeanWithQnty> productList;
+
+    public  ChangeViewAdapter(Context context,ArrayList<ProductBeanWithQnty> newProductList,ChangeViewCallBack ChangeViewCallBack){
         this.context = context;
-        this.newProductList = list;
+        this.newProductList = newProductList;
         this.changeViewCallBack = ChangeViewCallBack;
         //19-11-20
-        this.arrayList = new ArrayList<ProductBeanWithQnty>();
-        arrayList.addAll(newProductList);                  //19-11-20
+        this.productList = new ArrayList<ProductBeanWithQnty>();
+        productList.addAll(newProductList);                  //19-11-20
 
+    }
+
+    public void setData(ArrayList<ProductBeanWithQnty> newList)
+    {
+        productList.addAll(newList);
     }
 
     @Override
@@ -141,19 +140,34 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String q=  editText.getText().toString();
-                        if(q.length()>0)
+                        if(q.length()==0)
+                            q="0";
+                        if(   true)//q.length()>0)
                         {
                             try
                             {
                                 int qty = Integer.parseInt(q);
-                                if(qty>0) {
+                                if(  true )//qty>0) {
+                                {
                                     ProductBeanWithQnty obj = (ProductBeanWithQnty) v.getTag();
                                     obj.quantity = qty + "";
                                     obj.checkValue = true;
+                                    if(qty==0)
+                                        obj.checkValue=false;
+
+                                    //double oneTypeProductPrice=Double.valueOf(q) *productBeanWithQnty.price;
+
+                                    //((ChangeView)context).getTotalValue(productBeanWithQnty.price,q);
+                                    ((ChangeView)context).calculateTotalAmount();
+
                                     notifyDataSetChanged();
 
-//                                    double oneTypeProductPrice=Double.valueOf(q)+productBeanWithQnty.price;
+
+//                                    double oneTypeProductPrice=Double.valueOf(q)*productBeanWithQnty.price;
 //                                    totalPrice=totalPrice+oneTypeProductPrice;
+//                                    TotalPrice t= new TotalPrice();
+//                                    t.setTotalPrice(totalPrice);
+
 
                                 }
                                 else
@@ -165,6 +179,10 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                                 }
                             }
                             catch (Exception ex){}
+                        }
+                        else
+                        {
+
                         }
                     }
                 });
@@ -258,7 +276,13 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
                 }
             }
         });
-
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                productBeanWithQnty.setCheckValue(b);
+                ((ChangeView)context).calculateTotalAmount();
+            }
+        });
 //        holder.cbSelectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //            @Override
 //            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -391,9 +415,9 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
             changeViewCallBack.getCheckBoxes();
         }
         
-        if (holder.checkBox.isChecked()){
-            changeViewCallBack.getOneCheckBox();
-        }
+//        if (holder.checkBox.isChecked()){
+//            changeViewCallBack.getOneCheckBox();
+//        }
         /*
         holder.et.addTextChangedListener(new TextWatcher() {
             @Override
@@ -498,34 +522,33 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
            // tv6 = itemView.findViewById(R.id.s);
           }
         }
-        public interface ChangeViewCallBack{
-    //void getData(List<ProductBeanWithQnty> productBeanWithQnty,int position,String qty);
-    void getPosition(int adapterPosition);
-    void getList(ProductBeanWithQnty newProductList,String qty);
-    boolean getCheckBoxes();
+        public interface ChangeViewCallBack
+        {
+            //void getData(List<ProductBeanWithQnty> productBeanWithQnty,int position,String qty);
+            void getPosition(int adapterPosition);
+            void getList(ProductBeanWithQnty newProductList,String qty);
+            boolean getCheckBoxes();
 
-    boolean getOneCheckBox();
-    }
+            boolean getOneCheckBox();
+        }
 
     // Filter Class
     public void filter(String charText)
     {
-        charText = charText.toLowerCase();
-        newProductList.clear();
-        if (charText.length() == 0)
-        {
-            newProductList.addAll(arrayList);
-        }
-        else
-        {
-            for (ProductBeanWithQnty wp : arrayList)
-            {
-                if (wp.getProductName().toLowerCase().contains(charText))
-                {
-                    newProductList.add(wp);
+            charText = charText.toLowerCase();
+            newProductList.clear();
+            if(charText.length()!=0) {
+                for (ProductBeanWithQnty wp : productList) {
+                    if (wp.getProductName().toLowerCase().contains(charText)) {
+                        newProductList.add(wp);
+                    }
                 }
             }
-        }
+            else
+            {
+                newProductList.addAll(productList);
+            }
+
         notifyDataSetChanged();
     }
 }

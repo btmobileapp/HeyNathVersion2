@@ -252,7 +252,8 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
         }
         else
         {
-            if (validation()) {
+            if (validation())
+            {
                 for(int i=0;i<viewList.size();i++)
                 {
                     View v1=viewList.get(i);
@@ -307,6 +308,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
                 {
                     bean.setCategoryId(categoryId);
                 } catch (Exception e){}
+
                 bean.setClientId(UserUtilities.getClientId(this));
                 bean.setSequenceNo(0);
                 bean.setCreatedBy(UserUtilities.getUserId(this));
@@ -351,13 +353,21 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
 
     }
 
-    private boolean validation() {
-        if(edStripCode.getText().toString().equals("")||edName.getText().toString().equals(""))
-        {return false;}
+    private boolean validation()
+    {
+        //edStripCode.getText().toString().equals("")||
+        if(edName.getText().toString().equals(""))
+        {
+            return false;
+        }
         else  if(edPrice.getText().toString().equals(""))
-        {return false;}
+        {
+            return false;
+        }
         else
-        {return true;}
+        {
+            return true;
+        }
     }
 
     @Override

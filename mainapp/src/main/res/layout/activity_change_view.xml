@@ -36,15 +36,15 @@
                     />
 
                 <TextView
-                    android:id="@+id/tPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
                     android:textSize="15sp"
                     android:layout_marginLeft="150dp"
-                    android:text="Total Price: "/>
+                    android:text="Total Price:  "/>
 
                 <TextView
+                    android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"

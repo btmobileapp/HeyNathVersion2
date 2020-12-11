@@ -32,6 +32,13 @@
         android:icon="@drawable/ic_filter"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/actionNoticeListView"
+        android:orderInCategory="100"
+        android:title="Notice"
+        android:icon="@drawable/notification_bell"
+        app:showAsAction="always"/>
+
 
 
 

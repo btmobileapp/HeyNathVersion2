@@ -252,11 +252,13 @@
                 android:layout_gravity="bottom"
                 android:src="@drawable/g"
                 android:id="@+id/gallary"
+
                 android:layout_height="50dp" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+
                 android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_camera"
                 android:id="@+id/img" />
@@ -360,17 +362,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="Update"
-        android:id="@+id/buttonSave"
-        android:background="@drawable/buttonround"
-        android:textColor="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_weight="1"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Update"
+                android:id="@+id/buttonSave"
+                android:background="@drawable/buttonround"
+                android:textColor="@android:color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"/>
 
             <Button
                 android:layout_width="match_parent"

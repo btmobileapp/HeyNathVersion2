@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,10 +37,13 @@ import java.util.List;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleOrder;
+import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.beans.OrderDetailBean;
 import biyaniparker.com.parker.beans.OrderMasterBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
+import biyaniparker.com.parker.utilities.UserUtilities;
+import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.OrderDispatchView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ChangeView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
@@ -57,6 +61,8 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
     LinearLayout linear;
 
     ModuleOrder moduleOrder;
+
+    ModuleProduct moduleProduct;
 
     OrderMasterBean bean;
     ArrayList<OrderDetailBean> orderDetails=new ArrayList<>();
@@ -99,6 +105,9 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
         txtOrderNo.setText("Or.No : " + String.valueOf(bean.getOrderId()));
         txtOrderDate.setText(CommonUtilities.longToDate(bean.getOrderDate()));
         txtGAmount.setText("Total Amt : " + (int) Double.parseDouble(bean.getTotolAmount())+ " Rs");
+
+
+        //Toast.makeText(this, "OrderId= "+bean.getOrderId() , Toast.LENGTH_SHORT).show();
 
 
         orderDetails.addAll(moduleOrder.getOrderDetailsById(orderId));
@@ -188,46 +197,38 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
 
 
 
-//        btnRestoreOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view)
-//            {
-//                for (int i = 0; i < moduleUserProduct.newProductList.size(); i++) {
-//                    if (moduleUserProduct.newProductList.get(i).getQuantity() == null) {
-//
-//                    }
-//                    else {
-//                        getData(moduleUserProduct.newProductList.get(i), moduleUserProduct.newProductList.get(i).getQuantity());
-//
-//                    }
-//                }
-//
-//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangeView.this);
-//                alertDialog.setTitle(getString(R.string.app_name));
-//                alertDialog.setMessage("Do you want to Restore this order");
-//                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        try
-//                        {
-//                            moduleProductDetails.addToBag1(stockList);
-//                        } catch (JSONException e)
-//                        {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//                //   alertDialog.setNegativeButton("No", null);
-//                alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//                alertDialog.show();
-//            }
-//        });
+        btnRestoreOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DeletedOrderDetailView.this);
+                alertDialog.setTitle(getString(R.string.app_name));
+                alertDialog.setMessage("Do you want to Restore this order");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //  moduleProductDetails.addToBag1(stockList);
+
+
+
+                        //http://btwebservices.biyanitechnologies.com/dealerchoice/OrderService.svc/RestoreOrder?OrderId=
+                        String url=CommonUtilities.URL+"OrderService.svc/RestoreOrder?OrderId="+bean.getOrderId();
+                     //   Toast.makeText(DeletedOrderDetailView.this, "OrderId= "+bean.getOrderId() , Toast.LENGTH_SHORT).show();
+                        AsyncUtilities utilities=new AsyncUtilities(DeletedOrderDetailView.this,false,url,"",76,DeletedOrderDetailView.this);
+                        utilities.execute();
+                    }
+                });
+                //   alertDialog.setNegativeButton("No", null);
+                alertDialog.setNegativeButton("No ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialog.show();
+            }
+        });
 
     }
 
@@ -304,6 +305,9 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
     @Override
     public void onComplete(String str, int requestCode, int responseCode)
     {
+        Toast.makeText(this, "String= "+str, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "responseCode= "+responseCode, Toast.LENGTH_SHORT).show();
+
             if(requestCode==2 && responseCode==200) {
                 if (str.equals("Success")) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -334,6 +338,33 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
                     });
                     alertDialog.show();
                 }
+            }
+            if(requestCode==76 && responseCode==200 )
+            {
+               // Toast.makeText(this, "Inside ", Toast.LENGTH_SHORT).show();
+                if (str.contains("Restored") && str.length()<15)
+                {
+                    //Toast.makeText(this, "Inside Restored", Toast.LENGTH_SHORT).show();
+                    Intent intent= new Intent(DeletedOrderDetailView.this,AdminHomeScreen.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+
+            }
+            else
+            {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle(getString(R.string.app_name));
+                alertDialog.setMessage("Order Restore failed .. Try Again.. " + responseCode);
+                alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(DeletedOrderDetailView.this, AdminHomeScreen.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                });
+                alertDialog.show();
             }
     }
 

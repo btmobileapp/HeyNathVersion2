@@ -47,7 +47,8 @@ public class NoticeListViewAdapter extends RecyclerView.Adapter<NoticeListViewAd
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
         TextView title,description;
 
         public ViewHolder(@NonNull View itemView) {

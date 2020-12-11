@@ -12,6 +12,15 @@ public class ProductBean
     public long createdDate;
     public long changedBy;
     public long changedDate;
+
+//    public float getPrice() {
+//        return price;
+//    }
+//
+//    public void setPrice(float price) {
+//        this.price = price;
+//    }
+
     public float price;
     public String IconFull2;
     public String IconFull3;
@@ -19,6 +28,7 @@ public class ProductBean
     public String IconFull5;
     public String UnitName;
     public  String Remark;
+
 
     public String getQuantity() {
         return quantity;

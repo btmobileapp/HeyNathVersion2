@@ -82,7 +82,14 @@ public class ModulePrice implements DownloadUtility {
     {
 
         // request code 1 for getting all users
-
+        if(requestCode==183)
+        {
+             try
+             {
+                 parsePrices(str);
+             }
+             catch (Exception ex){}
+        }
         if(requestCode==1)
         {
             DownloadUtility downloadUtility = (DownloadUtility) context;
@@ -240,6 +247,11 @@ public class ModulePrice implements DownloadUtility {
         AsyncUtilities serverAsync=new AsyncUtilities(context,false, CommonUtilities.URL+"ProductService.svc/GetAllPrices?ClientId="+1,"",1,this);
         serverAsync.execute();
     }
+    public void syncPriceInBackground() {
+        AsyncUtilities serverAsync=new AsyncUtilities(context,false, CommonUtilities.URL+"ProductService.svc/GetAllPrices?ClientId="+1,"",183,this);
+        serverAsync.hideDialouge();
+        serverAsync.execute();
+    }
 
     public void getPrices() {
         ItemDAOPrice itemDAOPrice=new ItemDAOPrice(context);
@@ -249,7 +261,6 @@ public class ModulePrice implements DownloadUtility {
 
     public PriceBean getPriceBean(int priceId) {
         ItemDAOPrice itemDAOPrice=new ItemDAOPrice(context);
-
         return  itemDAOPrice.getPriceBeanByPriceId(priceId);
     }
 

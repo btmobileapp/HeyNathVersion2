@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,6 +52,7 @@ public class DynamicProducts extends AppCompatActivity implements AdapterView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         moduleCategory = new ModuleCategory(this);
         arrayList=new ArrayList<CategoryBean>();
 
@@ -142,6 +144,9 @@ public class DynamicProducts extends AppCompatActivity implements AdapterView.On
             //Toast.makeText(this," "+bean.getCategoryName(),Toast.LENGTH_SHORT).show();
 
             Intent intent=new Intent(this,ProductEditViewNew.class);
+           // Toast.makeText(this, "ProductId= "+bean.getProductId(), Toast.LENGTH_SHORT).show();
+
+            intent.putExtra("priceId", bean.getPriceId());
             intent.putExtra("ProductId",bean.getProductId());
             startActivity(intent);
         }

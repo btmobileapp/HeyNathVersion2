@@ -70,7 +70,6 @@ public class NityaStuti extends AppCompatActivity {
                 SharedPreferences sh=getSharedPreferences("Scheduler",MODE_PRIVATE);
                 SharedPreferences.Editor editor= sh.edit();
                 editor.putBoolean("NityaSuchi",true);
-
                 editor.commit();
                 AlertDialog.Builder alert=new AlertDialog.Builder(NityaStuti.this);
                // alert.setTitle("नित्य स्तुति शुरू हो चुकी है");
@@ -93,7 +92,7 @@ public class NityaStuti extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sh=getSharedPreferences("Scheduler",MODE_PRIVATE);
                 SharedPreferences.Editor editor= sh.edit();
-                editor.putBoolean("NityaSuchi",true);
+                editor.putBoolean("NityaSuchi",false);
                 editor.commit();
 
                 AlertDialog.Builder alert=new AlertDialog.Builder(NityaStuti.this);

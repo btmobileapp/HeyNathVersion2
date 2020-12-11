@@ -1,5 +1,6 @@
 package com.bt.heynath;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -46,7 +47,15 @@ public class PlayAudio2 extends AppCompatActivity {
         catch (Exception ex)
         {}
     }
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //if(android.os)
+        if (android.os.Build.VERSION.SDK_INT >21)
+        {
+            requestVisibleBehind(true);
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==android.R.id.home)
@@ -70,8 +79,19 @@ public class PlayAudio2 extends AppCompatActivity {
         //videoView.setMe
         videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" +
                 R.raw.tone500));
-
+        try {
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    // mediaPlayer.setScreenOnWhilePlaying(true);
+                    mediaPlayer.setScreenOnWhilePlaying(true);
+                }
+            });
+        }
+        catch (Exception ex){}
         videoView.start();
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,6 +46,8 @@ public class DynamicCategories extends AppCompatActivity implements AdapterView.
     {
         super.onCreate(savedInstanceState);
 
+
+        Toast.makeText(this, "DynamicCategories", Toast.LENGTH_SHORT).show();
 
         moduleCategory = new ModuleCategory(this);
         arrayList=new ArrayList<CategoryBean>();

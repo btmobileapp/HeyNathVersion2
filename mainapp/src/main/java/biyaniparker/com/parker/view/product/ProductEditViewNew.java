@@ -338,6 +338,8 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
             }
         });
+
+
         camera = (ImageView) findViewById(R.id.camera);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -354,6 +356,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
         });
+
         gallary = (ImageView) findViewById(R.id.gallary);
         chkIsActive=(CheckBox)findViewById(R.id.isActive);
         gallary.setOnClickListener(new View.OnClickListener() {

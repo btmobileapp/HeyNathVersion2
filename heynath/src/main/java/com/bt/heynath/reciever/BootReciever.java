@@ -1,5 +1,7 @@
 package com.bt.heynath.reciever;
 import java.util.concurrent.TimeUnit;
+
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.bt.heynath.MainActivity;
+import com.bt.heynath.R;
 import com.bt.heynath.scheduler.MyMorningWorker;
 import com.bt.heynath.scheduler.MyWorker;
 
@@ -29,6 +32,8 @@ public class BootReciever extends BroadcastReceiver
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
        // throw new UnsupportedOperationException("Not yet implemented");
+
+
         try {
             registerAlarmReciever(context);
         }
@@ -75,6 +80,16 @@ public class BootReciever extends BroadcastReceiver
         {
             Log.d("Heynath", "boot Error-"+ex.toString());
         }
+
+        try {
+            PendingIntent contentIntent = PendingIntent.getActivity(context, 1,
+                    new Intent(context, MainActivity.class).
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+            com.bt.heynath.NewMessageNotification.notify(context, context.getString(R.string.app_name), context.getString(R.string.app_name), 786, contentIntent);
+        }
+        catch (Exception ex)
+        {}
 
     }
 

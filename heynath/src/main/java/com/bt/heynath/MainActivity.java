@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -161,6 +162,15 @@ public class MainActivity extends AppCompatActivity
           }
               });
 
+        try {
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 1,
+                    new Intent(this, MainActivity.class).
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+            com.bt.heynath.NewMessageNotification.notify(this, getString(R.string.app_name), getString(R.string.app_name), 786, contentIntent);
+        }
+        catch (Exception ex)
+        {}
     }
     void alertMenu()
     {

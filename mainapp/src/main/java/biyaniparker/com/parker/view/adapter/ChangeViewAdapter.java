@@ -106,7 +106,7 @@ public class ChangeViewAdapter extends RecyclerView.Adapter<ChangeViewAdapter.Vi
         // holder.tv2.setText(Integer.toString(productBeanWithQnty.getPriceId()));
         holder.tv3.setText(productBeanWithQnty.getUnitName());
         holder.tv4.setText(productBeanWithQnty.getRemark());
-        holder.tv5.setText(productBeanWithQnty.getProductName());
+        holder.tv5.setText(productBeanWithQnty.getProductName()+" ("+productBeanWithQnty.getRemark()+")");
         //   holder.et.setText(holder.et.getText().toString());
         // holder.tv5.setText(moduleProductDetails.stockList.get(position).getQnty() + "");
         // holder.tv5.setText(Integer.toString(productBeanWithQnty.getQnt()));

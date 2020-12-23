@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.bt.heynath.fcm.FcmUtility;
 import com.bt.heynath.shreemukhi.ShreeMukhiSubmenu;
 import com.judemanutd.autostarter.AutoStartPermissionHelper;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        new FcmUtility().callProcedure(this);
 
     }
 

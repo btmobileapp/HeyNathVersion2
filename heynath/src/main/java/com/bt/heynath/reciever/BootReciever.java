@@ -53,6 +53,7 @@ public class BootReciever extends BroadcastReceiver
             Log.d("Heynath", "Service Called");
 
              */
+
             if (Build.VERSION.SDK_INT >= 26)
             {
                 if( AlramUtility.isStart(context)  && AlramUtility.getIntervalTimeInMinute(context)>10)

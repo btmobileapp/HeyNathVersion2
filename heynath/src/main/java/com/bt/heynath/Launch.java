@@ -39,6 +39,9 @@ public class Launch extends AppCompatActivity {
         Intent intent=new Intent();
         intent.setAction("com.bt.heynath.Check");
         sendBroadcast(intent);
+
+
+
     }
 
 

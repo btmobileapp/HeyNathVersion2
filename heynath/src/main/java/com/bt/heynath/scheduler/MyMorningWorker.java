@@ -1,17 +1,22 @@
 package com.bt.heynath.scheduler;
 
 import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -40,6 +45,7 @@ public class MyMorningWorker extends Worker
     @Override
     public Result doWork()
     {
+
         if(AlramUtility.lastPalytime==null)
         {
             try {
@@ -260,4 +266,41 @@ public class MyMorningWorker extends Worker
     Handler handler;
     public static int firstRunnable=0;
     Runnable playerRunnable;
+
+
+
+    void callJobScheduler()
+    {
+        Calendar calendar= Calendar.getInstance();
+        int h=  calendar.get(Calendar.HOUR);
+        int min=calendar.get(Calendar.MINUTE);
+
+        if(h==4 && min>25 && min<56)
+        {
+              int minuteRemaining=55-min;
+            if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
+                callJobService(context, minuteRemaining);
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    void callJobService(Context context,int minute)
+    {
+
+        ComponentName serviceComponent = new ComponentName(context, MorningJobService.class);
+        JobInfo.Builder builder = new JobInfo.Builder(1857, serviceComponent);
+        builder.setMinimumLatency(minute*60 * 1000); // wait at least
+        builder.setOverrideDeadline((minute*60 * 1000)+5000); // maximum delay
+        //builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED); // require unmetered network
+        //builder.setRequiresDeviceIdle(true); // device should be idle
+        //builder.setRequiresCharging(false); // we don't care if the device is charging or not
+        JobScheduler jobScheduler = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+        {
+            jobScheduler = context.getSystemService(JobScheduler.class);
+            jobScheduler.schedule(builder.build());
+        }
+
+    }
 }

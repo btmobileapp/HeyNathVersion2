@@ -1,10 +1,9 @@
 package com.bt.heynath.scheduler;
 
 import android.app.PendingIntent;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
+import android.app.job.JobParameters;
+import android.app.job.JobService;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -14,11 +13,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
+import androidx.work.ListenableWorker;
 
 import com.bt.heynath.MainActivity;
 import com.bt.heynath.MorningStutiWithUiBinber;
@@ -29,32 +27,27 @@ import com.bt.heynath.reciever.PlayMorningStuti;
 
 import java.util.Calendar;
 
-public class MyMorningWorker extends Worker
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+public class MorningJobService extends JobService
 {
-
     public static MediaPlayer mediaPlayer;
 
     Context context;
-    public MyMorningWorker(@NonNull Context context, @NonNull WorkerParameters workerParams)
-    {
-        super(context, workerParams);
-        this.context=context;
-    }
 
-    @NonNull
     @Override
-    public Result doWork()
-    {
-
+    public boolean onStartJob(JobParameters params) {
+        context=this;
+        Toast.makeText(context, "Job Service", Toast.LENGTH_SHORT).show();
         if(AlramUtility.lastPalytime==null)
         {
-            try {
+            try
+            {
                 AlramUtility.loadLastTime(getApplicationContext());
             }
             catch (Exception ex)
             {}
         }
-        if(!AlramUtility.isMute(getApplicationContext())  && AlramUtility.isNityaSuchiStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
+        if( !AlramUtility.isMute(getApplicationContext())  && AlramUtility.isNityaSuchiStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
         {
             Calendar calendar= Calendar.getInstance();
 
@@ -73,35 +66,39 @@ public class MyMorningWorker extends Worker
 
             if ( AlramUtility.isToPlay() )
             {
-
                 PendingIntent contentIntent = PendingIntent.getActivity(context, 1,
                         new Intent(getApplicationContext(), MorningStutiWithUiBinber.class).
                                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK ),
                         PendingIntent.FLAG_CANCEL_CURRENT);
 
                 NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
-
                 AlramUtility.updateMorningTime(getApplicationContext());
-
                 playAudio();
+
             }
         }
-        return Result.success();
+
+        return  true;
+    }
+
+    @Override
+    public boolean onStopJob(JobParameters jobParameters) {
+        return false;
     }
 
     BroadcastReceiver receiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-           if(intent.getAction().equalsIgnoreCase("Pause Stuti"))
-           {
-                 if(mediaPlayer!=null) {
-                     if (mediaPlayer.isPlaying()) {
-                            mediaPlayer.pause();
-                     }
-                 }
-             }
-           if(intent.getAction().equalsIgnoreCase("Play Stuti"))
-           {
+            if(intent.getAction().equalsIgnoreCase("Pause Stuti"))
+            {
+                if(mediaPlayer!=null) {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.pause();
+                    }
+                }
+            }
+            if(intent.getAction().equalsIgnoreCase("Play Stuti"))
+            {
                 if(mediaPlayer!=null) {
                     if (!mediaPlayer.isPlaying()) {
                         mediaPlayer.start();
@@ -138,12 +135,12 @@ public class MyMorningWorker extends Worker
                 filter.addAction("Pause Stuti");
                 filter.addAction("Play Stuti");
                 filter.addAction("Delete Stuti");
-                context.registerReceiver(receiver,filter);
+                registerReceiver(receiver,filter);
                 this.mediaPlayer.start();
                 this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp)
                     {
-                       // playAudio1();
+                        // playAudio1();
                         /*
                         MyMorningWorker.this.mediaPlayer.reset();
                         MyMorningWorker.this.mediaPlayer.release();
@@ -170,34 +167,6 @@ public class MyMorningWorker extends Worker
         {
             e.printStackTrace();
         }
-
-    }
-    private void playAudio1()
-    {
-        try
-        {
-            NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग २-", "नित्य स्तुति - भाग २-", 1, null);
-
-            this.mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tone500);
-            if (!this.mediaPlayer.isPlaying())
-            {
-                this.mediaPlayer.start();
-                this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    public void onCompletion(MediaPlayer mp)
-                    {
-
-                        MyMorningWorker.this.mediaPlayer.reset();
-                        MyMorningWorker.this.mediaPlayer.release();
-                        MyMorningWorker.this.mediaPlayer = null;
-                    }
-                });
-            }
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-
 
     }
 
@@ -243,22 +212,22 @@ public class MyMorningWorker extends Worker
         handler=new Handler();
         playerRunnable  =new Runnable()
         {
-          @Override
-          public void run() {
-            try
-            {
-                firstRunnable++;
-                if(firstRunnable<1200  && PlayMorningStuti.player!=null)
-                    handler.postDelayed(playerRunnable,1000);
-                   // int val= PlayMorningStuti.player.getCurrentPosition();
+            @Override
+            public void run() {
+                try
+                {
+                    firstRunnable++;
+                    if(firstRunnable<1200  && PlayMorningStuti.player!=null)
+                        handler.postDelayed(playerRunnable,1000);
+                    // int val= PlayMorningStuti.player.getCurrentPosition();
 
-            }
-            catch (Exception ex)
-            {
+                }
+                catch (Exception ex)
+                {
 
+                }
             }
-        }
-    };
+        };
     }
 
 
@@ -267,40 +236,4 @@ public class MyMorningWorker extends Worker
     public static int firstRunnable=0;
     Runnable playerRunnable;
 
-
-
-    void callJobScheduler()
-    {
-        Calendar calendar= Calendar.getInstance();
-        int h=  calendar.get(Calendar.HOUR);
-        int min=calendar.get(Calendar.MINUTE);
-
-        if(h==4 && min>25 && min<56)
-        {
-              int minuteRemaining=55-min;
-            if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
-                callJobService(context, minuteRemaining);
-            }
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    void callJobService(Context context,int minute)
-    {
-
-        ComponentName serviceComponent = new ComponentName(context, MorningJobService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(1857, serviceComponent);
-        builder.setMinimumLatency(minute*60 * 1000); // wait at least
-        builder.setOverrideDeadline((minute*60 * 1000)+5000); // maximum delay
-        //builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED); // require unmetered network
-        //builder.setRequiresDeviceIdle(true); // device should be idle
-        //builder.setRequiresCharging(false); // we don't care if the device is charging or not
-        JobScheduler jobScheduler = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-        {
-            jobScheduler = context.getSystemService(JobScheduler.class);
-            jobScheduler.schedule(builder.build());
-        }
-
-    }
 }

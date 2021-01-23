@@ -27,8 +27,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bt.heynath.fcm.FcmUtility;
 import com.bt.heynath.reciever.AlramUtility;
 import com.bt.heynath.reciever.BootReciever;
+import com.google.firebase.FirebaseApp;
 
 import java.util.Calendar;
 
@@ -73,6 +75,8 @@ public class Launch1 extends AppCompatActivity {
         sendBroadcast(intent);
 
 
+        new FcmUtility().callProcedure(this);
+       // FirebaseApp.initializeApp(this);
     }
 
     BootReciever reciever;

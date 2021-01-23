@@ -1,16 +1,22 @@
 package com.bt.heynath;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +28,8 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.bt.heynath.fcm.FcmUtility;
+import com.bt.heynath.scheduler.MorningJobService;
 import com.bt.heynath.shreemukhi.ShreeMukhiSubmenu;
 import com.judemanutd.autostarter.AutoStartPermissionHelper;
 
@@ -38,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        new FcmUtility().callProcedure(this);
 
     }
 
@@ -84,8 +93,8 @@ public class MainActivity extends AppCompatActivity
           menus.add("नित्य स्तुति");
           menus.add("है नाथ की पुकार");
           menus.add("भगवान के श्रीमुखकी वाणी श्रीमद्भगवद् गीता");
-       // menus.add("Play");
-       // menus.add("Pause");
+       //   menus.add("Play");
+        //  menus.add("Pause");
        // menus.add("गीता अध्याय");
 
 
@@ -132,8 +141,12 @@ public class MainActivity extends AppCompatActivity
                 {
                  //   filter.addAction("Pause Stuti");
                 //    filter.addAction("Play Stuti");
-                   Intent intent=new Intent("Play Stuti");
-                   sendBroadcast(intent);
+                //   Intent intent=new Intent("Play Stuti");
+                 //  sendBroadcast(intent);
+                     if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP)
+                     {
+                         callJobService();
+                     }
                 }
                 else if(i==4)
                 {
@@ -161,6 +174,15 @@ public class MainActivity extends AppCompatActivity
           }
               });
 
+        try {
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 1,
+                    new Intent(this, MainActivity.class).
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+            com.bt.heynath.NewMessageNotification.notify(this, getString(R.string.app_name), getString(R.string.app_name), 786, contentIntent);
+        }
+        catch (Exception ex)
+        {}
     }
     void alertMenu()
     {
@@ -305,6 +327,27 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    void callJobService()
+    {
+
+
+            ComponentName serviceComponent = new ComponentName(this, MorningJobService.class);
+            JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
+             builder.setMinimumLatency(4 * 5000); // wait at least
+            builder.setOverrideDeadline(5 * 1000); // maximum delay
+            //builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED); // require unmetered network
+            //builder.setRequiresDeviceIdle(true); // device should be idle
+            //builder.setRequiresCharging(false); // we don't care if the device is charging or not
+            JobScheduler jobScheduler = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+            {
+                jobScheduler = getSystemService(JobScheduler.class);
+                jobScheduler.schedule(builder.build());
+            }
+
+    }
 
 
 

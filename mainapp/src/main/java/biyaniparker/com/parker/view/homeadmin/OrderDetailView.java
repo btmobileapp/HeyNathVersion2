@@ -32,6 +32,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -51,6 +52,7 @@ import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.adapter.OrderDetailAdapter;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.OrderDispatchView;
+import biyaniparker.com.parker.view.homeadmin.orderdispatch.RecentDispatchListView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
 import biyaniparker.com.parker.view.homeuser.userbag.OrderSummaryView;
 import biyaniparker.com.parker.view.homeuser.userorders.UserOrderDetailView;
@@ -77,6 +79,8 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
     OrderMasterBean bean;
     ArrayList<OrderDetailBean> orderDetails=new ArrayList<>();
     ArrayList<OrderDetailBean> orderDetailsNew=new ArrayList<>();
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
+
     int totalQnty=0;
     int orderId;
     @Override
@@ -102,7 +106,14 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(" Order details");
+        if (RecentDispatchListView.isDispatched)
+        {
+            getSupportActionBar().setTitle(" Dispatched order details");
+        }
+        else
+        {
+            getSupportActionBar().setTitle(" Order details");
+        }
 
         Intent intent =getIntent();
         orderId=intent.getIntExtra("OrderId", 0);
@@ -305,7 +316,10 @@ public class OrderDetailView extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home)
+        {
             onBackPressed();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

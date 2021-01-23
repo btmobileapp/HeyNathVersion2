@@ -26,7 +26,7 @@ import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.view.adapter.CategoryAdapter;
                                                 ///, SearchView.OnQueryTextListener
-public class CategoryListView extends AppCompatActivity implements DownloadUtility, AdapterView.OnItemClickListener {
+public class CategoryListView extends AppCompatActivity implements DownloadUtility, AdapterView.OnItemClickListener,SearchView.OnQueryTextListener {
 
 
     ArrayList<CategoryBean> categoryBeanList;
@@ -37,7 +37,8 @@ public class CategoryListView extends AppCompatActivity implements DownloadUtili
     CategoryAdapter adapter;
     ModuleCategory moduleCategory;
 
-//    SearchView editsearch;
+
+    SearchView editsearch;
 //    ArrayList<CategoryBean> arraylist = new ArrayList<CategoryBean>();
 //    ArrayList<String> productName= new ArrayList<>();
 
@@ -74,21 +75,24 @@ public class CategoryListView extends AppCompatActivity implements DownloadUtili
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
-       // editsearch.setOnQueryTextListener(this);//19-11-20
+        editsearch = (SearchView) findViewById(R.id.simpleSearchView);
+
+        editsearch.setOnQueryTextListener(this);//19-11-20
 
     }
 
-//    @Override
-//    public boolean onQueryTextSubmit(String s) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onQueryTextChange(String newText) {
-//        String text = newText;
-//        adapter.filter(text);
-//        return false;
-//    }
+     @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String text = newText;
+        adapter.filter(text);
+        return false;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

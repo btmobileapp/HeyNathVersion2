@@ -7,6 +7,7 @@ public class GsonOrderDetails
 {
     public int OrderDetailId, OrderId,ProductId, SizeId, PriceId,Quantity;
         public String DeleteStatus, ProductName, SizeName, ConsumerPrice, IconThumb, DealerPrice,UnitName;
+        public float price;
 
 
 
@@ -26,6 +27,7 @@ public class GsonOrderDetails
         orderDetailBean.setIconThumb(IconThumb);
         orderDetailBean.setDealerPrice(DealerPrice);
         orderDetailBean.setUnitName(UnitName);
+        orderDetailBean.setPrice(price);
         return orderDetailBean;
     }
 }

@@ -62,7 +62,6 @@ public class AdminHomeScreen extends AppCompatActivity
 
     ArrayList<RowItem> items=new ArrayList<>();
     CustomAdapter customAdapter;
-
     ListView listView;
     ModuleOrder moduleOrder;
     OrderAdapter orderAdapter;
@@ -100,6 +99,7 @@ public class AdminHomeScreen extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+
        // RowItem item=new RowItem("Home",R.drawable.ic_menu_camera);
        // items.add(item);
         RowItem item1= new RowItem("Orders", R.drawable.iconorder);
@@ -113,7 +113,9 @@ public class AdminHomeScreen extends AppCompatActivity
         RowItem item8= new RowItem("Create Notice",R.drawable.verify_user);
         item1.isLocal=true;
         item2.isLocal=true;
-     //   item3.isLocal=true;
+
+        item3.isLocal=true;
+
         item4.isLocal=true;
         item4.isStartSection=true;
         item4.sectionName="Users And Account";
@@ -125,6 +127,9 @@ public class AdminHomeScreen extends AppCompatActivity
         items.add(item2);
         items.add(item8);
         items.add(item34);
+
+        items.add(item3);
+
         item34.isLocal=true;
         if(CommonUtilities.isDispatchEnable)
         {
@@ -247,6 +252,7 @@ public class AdminHomeScreen extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                RecentDispatchListView.isDispatched=false;
                                 Intent intent=new Intent(AdminHomeScreen.this,OrderDetailView.class);
                                 intent.putExtra("OrderId",bean.getOrderId());
                                 startActivity(intent);
@@ -318,10 +324,10 @@ public class AdminHomeScreen extends AppCompatActivity
         {
             startActivity(new Intent(this, ImageRotateSetting.class));
         }
-        else if(id==R.id.actionDelOrder)
-        {
-            startActivity(new Intent(this, DeletedOrderListView.class));
-        }
+//        else if(id==R.id.actionDelOrder )
+//        {
+//            startActivity(new Intent(this, DeletedOrderListView.class));
+//        }
         else if(id==R.id.actionProductSync)
         {
             moduleProduct.syncRecentProducts();

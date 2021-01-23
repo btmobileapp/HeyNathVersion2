@@ -38,6 +38,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -72,6 +73,7 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
 
     TextView idtimer;
 
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     long bagStartTimeMillis=0;
     @Override
@@ -267,9 +269,9 @@ public class UserBagView extends AppCompatActivity implements DownloadUtility, C
 
                 for(int j=0;j<master.bagDetails.size();j++)
                 {
-                    txtCPrice.setText("₹ "+(double) master.bagDetails.get(j).cPrice+"");
+                    txtCPrice.setText("₹ "+(df2.format((double) master.bagDetails.get(j).cPrice))+"");
                     txtName.setText("Name:  "+master.bagDetails.get(j).productName);
-                    txtTPrice.setText("₹ " + total+"");
+                    txtTPrice.setText("₹ " + df2.format(total)+"");
                         v.setTag(master.bagDetails.get(j).stockId);
 
                     imageLoader = ImageLoader.getInstance();

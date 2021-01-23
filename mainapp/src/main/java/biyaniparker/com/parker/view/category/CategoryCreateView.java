@@ -172,6 +172,18 @@ callCapturePhoto();
             if (validation()) {
                 boolean isLast = checkBox.isChecked();
                 String strIsLast = isLast ? "true" : "false";
+
+//                boolean isMiddle = checkBox2.isChecked();
+//                String strIsMiddle = isMiddle ? "true" : "false";
+//
+//                if (strIsMiddle.equals("true"))
+//                {
+//                    strIsLast="true";
+//                }
+
+
+
+               // strIsLast=strIsMiddle;
                 CategoryBean categoryBean = new CategoryBean();
                 categoryBean.setCategoryName(edCatName.getText().toString());
                 categoryBean.setClientId(1);
@@ -189,6 +201,7 @@ callCapturePhoto();
                 categoryBean.setDeleteStatus("false");
                 categoryBean.setIcon(path);
                 categoryBean.setRemark("Development phase record");
+
                 categoryBean.setIsLast(strIsLast);
 
                 Intent in=new Intent();

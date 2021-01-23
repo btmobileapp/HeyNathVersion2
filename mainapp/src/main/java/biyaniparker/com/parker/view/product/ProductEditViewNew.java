@@ -50,6 +50,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -84,98 +85,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
     private static final int CAMERA_REQUEST =1888 ;
     int width=525,height=700;
     ImageView image1,image2,image3,image4;
-    private void intitMultipleImages(String str)
-    {
-        image1 = findViewById(R.id.image1);
-        image2 = findViewById(R.id.image2);
-        image3 = findViewById(R.id.image3);
-        image4 = findViewById(R.id.image4);
 
-        try
-        {
-           // JSONArray  array=new JSONArray(str);
-            final String url1=  bean.IconFull2;  // array.getJSONObject(0).getString("IconFull2");
-            final String url2= bean.IconFull3; // array.getJSONObject(0).getString("IconFull3");
-            final String url3=  bean.IconFull4;// array.getJSONObject(0).getString("IconFull4");
-            final String url4= bean.IconFull5;//  array.getJSONObject(0).getString("IconFull5");
-
-            imageLoader = ImageLoader.getInstance();
-            //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
-            imageLoader.displayImage(url1,image1, doption, animateFirstListener);
-            imageLoader.displayImage(url2,image2, doption, animateFirstListener);
-            imageLoader.displayImage(url3,image3, doption, animateFirstListener);
-            imageLoader.displayImage(url4,image4, doption, animateFirstListener);
-            image1.setTag(url1);  image2.setTag(url2);  image3.setTag(url3);  image4.setTag(url4);
-            image1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPhoto(12);
-                }
-            });
-            image2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPhoto(22);
-                }
-            });
-            image3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPhoto(32);
-                }
-            });
-            image4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPhoto(42);
-                }
-            });
-          /*
-            image1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //   CommonUtilities.alert(UserBagView.this,"String : "+str);
-                    Intent intent=new Intent(ProductEditViewNew.this, ViewProductImage.class);
-                    intent.putExtra("path",url1);
-                    startActivity(intent);
-                }
-            });
-            image4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //   CommonUtilities.alert(UserBagView.this,"String : "+str);
-                    Intent intent=new Intent(ProductEditViewNew.this, ViewProductImage.class);
-                    intent.putExtra("path",url4);
-                    startActivity(intent);
-                }
-            });
-            image2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //   CommonUtilities.alert(UserBagView.this,"String : "+str);
-                    Intent intent=new Intent(ProductEditViewNew.this, ViewProductImage.class);
-                    intent.putExtra("path",url2);
-                    startActivity(intent);
-                }
-            });
-            image3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //   CommonUtilities.alert(UserBagView.this,"String : "+str);
-                    Intent intent=new Intent(ProductEditViewNew.this, ViewProductImage.class);
-                    intent.putExtra("path",url3);
-                    startActivity(intent);
-                }
-            });*/
-
-        }
-        catch (Exception ec)
-        {}
-    }
 
     EditText edName, edStripCode, edPrice,edRemark;
     CheckBox chkIsActive;
@@ -198,6 +108,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
     long startTime=0l;
     int productId;
+    String catName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,6 +118,7 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
 
         Intent intent = getIntent();
          productId = intent.getIntExtra("ProductId", 0);
+         catName= intent.getStringExtra("catName");
 //        Toast.makeText(this, "ProductId in edit view= "+productId, Toast.LENGTH_SHORT).show();
 //        productPrice = intent.getFloatExtra("productPrice",0);
 //        Toast.makeText(this, "productPrice in edit view= "+productPrice, Toast.LENGTH_SHORT).show();
@@ -380,6 +292,99 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         animateFirstListener=new AnimateFirstDisplayListener();
     }
 
+    private void intitMultipleImages(String str)
+    {
+        image1 = findViewById(R.id.image1);
+        image2 = findViewById(R.id.image2);
+        image3 = findViewById(R.id.image3);
+        image4 = findViewById(R.id.image4);
+
+        try
+        {
+            // JSONArray  array=new JSONArray(str);
+            final String url1=  bean.IconFull2;  // array.getJSONObject(0).getString("IconFull2");
+            final String url2= bean.IconFull3; // array.getJSONObject(0).getString("IconFull3");
+            final String url3=  bean.IconFull4;// array.getJSONObject(0).getString("IconFull4");
+            final String url4= bean.IconFull5;//  array.getJSONObject(0).getString("IconFull5");
+
+            imageLoader = ImageLoader.getInstance();
+            //  ImageLoaderConfiguration.//408, 306, CompressFormat.JPEG, 75, null);
+            imageLoader.displayImage(url1,image1, doption, animateFirstListener);
+            imageLoader.displayImage(url2,image2, doption, animateFirstListener);
+            imageLoader.displayImage(url3,image3, doption, animateFirstListener);
+            imageLoader.displayImage(url4,image4, doption, animateFirstListener);
+            image1.setTag(url1);  image2.setTag(url2);  image3.setTag(url3);  image4.setTag(url4);
+            image1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPhoto(12);
+                }
+            });
+            image2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPhoto(22);
+                }
+            });
+            image3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPhoto(32);
+                }
+            });
+            image4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPhoto(42);
+                }
+            });
+          /*
+            image1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //   CommonUtilities.alert(UserBagView.this,"String : "+str);
+                    Intent intent=new Intent(ProductEditViewNew.this, ViewProductImage.class);
+                    intent.putExtra("path",url1);
+                    startActivity(intent);
+                }
+            });
+            image4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //   CommonUtilities.alert(UserBagView.this,"String : "+str);
+                    Intent intent=new Intent(ProductEditViewNew.this, ViewProductImage.class);
+                    intent.putExtra("path",url4);
+                    startActivity(intent);
+                }
+            });
+            image2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //   CommonUtilities.alert(UserBagView.this,"String : "+str);
+                    Intent intent=new Intent(ProductEditViewNew.this, ViewProductImage.class);
+                    intent.putExtra("path",url2);
+                    startActivity(intent);
+                }
+            });
+            image3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //   CommonUtilities.alert(UserBagView.this,"String : "+str);
+                    Intent intent=new Intent(ProductEditViewNew.this, ViewProductImage.class);
+                    intent.putExtra("path",url3);
+                    startActivity(intent);
+                }
+            });*/
+
+        }
+        catch (Exception ec)
+        {}
+    }
+
 
 
     int previousCateposition=-1;
@@ -461,8 +466,11 @@ public class ProductEditViewNew extends AppCompatActivity implements View.OnClic
         //float p= bean.price;
         //edPrice.setText( String.valueOf(bean.price));
 
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        String priceformatted=df.format(price);
 
-        edPrice.setText(price+"");
+        edPrice.setText(priceformatted+"");
 
 
 

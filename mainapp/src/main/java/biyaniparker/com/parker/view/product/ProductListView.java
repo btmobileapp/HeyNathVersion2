@@ -40,11 +40,6 @@ public class ProductListView extends AppCompatActivity implements DownloadUtilit
     SearchView editsearch;
     boolean isCustomList=false;    // used to differntiate between custom list or complete list
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,6 +52,7 @@ public class ProductListView extends AppCompatActivity implements DownloadUtilit
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getApplicationContext(), ProductCreateViewNew.class));
             }
         });

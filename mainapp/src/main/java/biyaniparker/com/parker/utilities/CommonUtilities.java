@@ -43,9 +43,9 @@ public class CommonUtilities
        //     "http://testing.biyanitechnologies.com/parkerservices/";
     // public final static String URL= "http://btwebservices.biyanitechnologies.com/sunanda/";
     //  "http://192.168.73.133/parker/";
-    // "http://btwebservices.biyanitechnologies.com/dealerapp/";
+     //"http://btwebservices.biyanitechnologies.com/dealerapp/";// Rajashiree industries
 
-     "http://btwebservices.biyanitechnologies.com/dealerchoice/";
+     "http://btwebservices.biyanitechnologies.com/dealerchoice/";  //Choice
 
     public static int Height=800;
     public static int Width=600;

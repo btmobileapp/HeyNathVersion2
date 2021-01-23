@@ -71,19 +71,18 @@
 
 
                 <ImageView
+                    android:id="@+id/img"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:id="@+id/img"/>
-
+                    android:layout_margin="10dp" />
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/linear"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -92,48 +91,48 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Unit"
-                        android:gravity="center"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"
-                        android:layout_weight="2"
-                        android:layout_marginTop="5dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginLeft="0dp"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"
+                        android:layout_weight="2"
                         android:gravity="center"
+                        android:text="Unit"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/txtsqnty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="5dp"
                         android:layout_weight="2"
-                        android:text="Qnty "/>
+                        android:gravity="center"
+                        android:text="Qnty "
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:gravity="center"
                         android:text="Price"
-                        android:gravity="center"
                         android:textColor="@android:color/black"
-                        android:textStyle="bold"
-                        android:layout_weight="2"
-                        android:layout_marginTop="5dp"/>
+                        android:textStyle="bold" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total"
-                        android:gravity="center"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"
+                        android:layout_marginTop="5dp"
                         android:layout_weight="2"
-                        android:layout_marginTop="5dp"/>
-
-
-
+                        android:gravity="center"
+                        android:text="Total"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>

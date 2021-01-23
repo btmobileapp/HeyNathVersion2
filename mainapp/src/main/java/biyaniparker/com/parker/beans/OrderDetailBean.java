@@ -18,6 +18,13 @@ public class OrderDetailBean
     public int priceId;
     public float price;
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
     public String getUnitName() {
         return unitName;

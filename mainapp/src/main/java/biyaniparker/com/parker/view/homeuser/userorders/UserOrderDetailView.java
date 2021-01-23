@@ -24,6 +24,7 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -58,6 +59,8 @@ public class UserOrderDetailView extends AppCompatActivity {
     public static final int REQUEST_PERM_WRITE_STORAGE = 102;
     public static final int REQUEST_PERM_READ_STORAGE = 103;
    // String unitName;
+
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -97,7 +100,7 @@ public class UserOrderDetailView extends AppCompatActivity {
         txtOrderDate.setText(CommonUtilities.longToDate(bean.getOrderDate()));
         try
         {
-            txtGAmount.setText("Total Amt : ₹ " +  Double.parseDouble(bean.getTotolAmount())+ "");
+            txtGAmount.setText("Total Amt : ₹ " +  df2.format(Double.parseDouble(bean.getTotolAmount()))+ "");
         }
         catch (Exception e)
         {}
@@ -149,7 +152,7 @@ public class UserOrderDetailView extends AppCompatActivity {
 
 
             pName.setText(orderD.getProductName());
-            cPrice.setText("₹. " +  Double.parseDouble(orderD.getConsumerPrice()) + "");
+            cPrice.setText("₹. " +  df2.format(Double.parseDouble(orderD.getConsumerPrice())) + "");
 
 
             imageLoader = ImageLoader.getInstance();
@@ -176,7 +179,7 @@ public class UserOrderDetailView extends AppCompatActivity {
                     l.addView(sub);
                 }
             }
-            tPrice.setText("Total : ₹. " + total + " ");
+            tPrice.setText("Total : ₹. " +df2.format( total) + " ");
             linear.addView(v);
         }
 

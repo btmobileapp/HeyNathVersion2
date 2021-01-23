@@ -24,12 +24,12 @@
         android:icon="@drawable/ic_filter"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/actionDelOrder"
-        android:orderInCategory="100"
-        android:title="Deleted Order List"
-        android:icon="@drawable/ic_filter"
-        app:showAsAction="never"/>
+<!--    <item-->
+<!--        android:id="@+id/actionDelOrder"-->
+<!--        android:orderInCategory="100"-->
+<!--        android:title="Deleted Order List"-->
+<!--        android:icon="@drawable/ic_filter"-->
+<!--        app:showAsAction="never"/>-->
 
     <item
         android:id="@+id/actionProductSync"

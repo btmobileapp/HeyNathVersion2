@@ -20,10 +20,16 @@ import java.util.Collections;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleDispatch;
+import biyaniparker.com.parker.bal.ModuleOrder;
 import biyaniparker.com.parker.beans.DispatchMasterAndDetails;
+import biyaniparker.com.parker.beans.OrderMasterBean;
+import biyaniparker.com.parker.database.ItemDAOOrder;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.view.adapter.OrderAdapter;
 import biyaniparker.com.parker.view.adapter.RecentDispatchAdapter;
+import biyaniparker.com.parker.view.adapter.UserDeletedOrderAdapter;
+import biyaniparker.com.parker.view.homeadmin.DeletedOrderDetailView;
+import biyaniparker.com.parker.view.homeadmin.OrderDetailView;
 import biyaniparker.com.parker.view.homeadmin.OrderFilterView;
 
 
@@ -35,6 +41,11 @@ public class RecentDispatchListView extends AppCompatActivity implements Adapter
     ModuleDispatch moduleDispatch;
     RecentDispatchAdapter adapter;
 
+    ModuleOrder moduleOrder;
+    OrderAdapter orderDispatchAdapter;
+
+    public static Boolean isDispatched=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -42,18 +53,36 @@ public class RecentDispatchListView extends AppCompatActivity implements Adapter
         setContentView(R.layout.o_activity_recent_dispatch_list_view);
         listView=(ListView)findViewById(R.id.lstRecentDispatch);
 
-        moduleDispatch=new ModuleDispatch(this);
+        //-------------------1Jan21 by amit (For Dispatched order list)-----------------------------------------------------------------------------------------------
 
-        moduleDispatch.getRecenteDispatchList();
-        Collections.reverse(moduleDispatch.recentDispatchedList);
-        adapter=new RecentDispatchAdapter(this,1, moduleDispatch.recentDispatchedList);
-        listView.setAdapter(adapter);
-        if(moduleDispatch.recentDispatchedList.size()==0)
+        if(getApplicationContext().getString(R.string.app_name).contains("Choice"))
         {
-             moduleDispatch.getRecentDispatch();
+            moduleOrder=new ModuleOrder(this);
+            moduleOrder.getDispatchOrderList();
+            orderDispatchAdapter=new OrderAdapter(this,1,moduleOrder.dispatchedOrderList);
+            listView.setAdapter(orderDispatchAdapter);
+            listView.setOnItemClickListener(this);
+
+        }
+        //------------------------------------------------------------------------------------------------------------------
+
+        else
+        {
+            moduleDispatch=new ModuleDispatch(this);
+
+            moduleDispatch.getRecenteDispatchList();
+            Collections.reverse(moduleDispatch.recentDispatchedList);
+            adapter=new RecentDispatchAdapter(this,1, moduleDispatch.recentDispatchedList);
+            listView.setAdapter(adapter);
+            if(moduleDispatch.recentDispatchedList.size()==0)
+            {
+                moduleDispatch.getRecentDispatch();
+            }
+
+            listView.setOnItemClickListener(this);
         }
 
-        listView.setOnItemClickListener(this);
+
         getSupportActionBar().setTitle("Recent Dispatch List ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -71,12 +100,24 @@ public class RecentDispatchListView extends AppCompatActivity implements Adapter
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        DispatchMasterAndDetails bean= (DispatchMasterAndDetails) adapter.getItem(position);
-        Gson gson=new Gson();
-        String str=gson.toJson(bean);
-        Intent intent=new Intent(this,RecentDispatchDetailView.class);
-        intent.putExtra("str", str);
-        startActivity(intent);
+        if(getApplicationContext().getString(R.string.app_name).contains("Choice"))
+        {
+            isDispatched=true;
+            OrderMasterBean bean = moduleOrder.dispatchedOrderList.get(position);
+            Intent intent = new Intent(this, OrderDetailView.class);
+            intent.putExtra("OrderId", bean.getOrderId());
+            startActivity(intent);
+        }
+        else
+        {
+            DispatchMasterAndDetails bean= (DispatchMasterAndDetails) adapter.getItem(position);
+            Gson gson=new Gson();
+            String str=gson.toJson(bean);
+            Intent intent=new Intent(this,RecentDispatchDetailView.class);
+            intent.putExtra("str", str);
+            startActivity(intent);
+        }
+
 
     }
 

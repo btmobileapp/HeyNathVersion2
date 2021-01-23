@@ -31,6 +31,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import org.json.JSONException;
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -73,6 +74,8 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
     int greatTotalQty=0;
     GsonSelectedItem gsonSelectedItem;
     BagDetailsBean details;
+
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +174,7 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
                 {
                     grandTotal=grandTotal+total;
                     //txtPrice.setText((int)total+" Rs");
-                    txtPrice.setText("₹ "+details.cPrice+"");
+                    txtPrice.setText("₹ "+df2.format(details.cPrice)+"");
                     txtPName.setText(details.productName);
                     txtCName.setText(CName);
                     imageLoader = ImageLoader.getInstance();
@@ -183,7 +186,7 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
                 }
 
             }
-            txtGTotal.setText(" Total : ₹ "+(double)grandTotal +"");
+            txtGTotal.setText(" Total : ₹ "+df2.format((double)grandTotal) +"");
             TextView txtGTotalQnty=(TextView)findViewById(R.id.txtGTotalQnty);
             txtGTotalQnty.setText("Total Qty : "+greatTotalQty);
 

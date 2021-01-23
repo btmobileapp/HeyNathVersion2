@@ -36,6 +36,7 @@ public class DynamicProducts extends AppCompatActivity implements AdapterView.On
 
     ModuleCategory moduleCategory;
     int catId;
+    String catName="";
     CategoryAdapter categoryAdapter;
     ListView listView;
     ArrayList<CategoryBean> arrayList;
@@ -58,6 +59,11 @@ public class DynamicProducts extends AppCompatActivity implements AdapterView.On
 
         Intent intent = getIntent();
         catId = intent.getIntExtra("CategoryId", 0);
+        catName= intent.getStringExtra("CatName");
+        if (catName=="")
+        {
+
+        }
 
         arrayList.addAll( moduleCategory.getListByParentId(catId));
         if (arrayList.size() != 0 || catId == 0)
@@ -80,8 +86,12 @@ public class DynamicProducts extends AppCompatActivity implements AdapterView.On
             FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(DynamicProducts.this, ProductCreateViewNew.class));
+                public void onClick(View v)
+                {
+                    int cateId =moduleCategory.getCategoryBeanById(catId).getCategoryId();
+                    Intent intent= new Intent(DynamicProducts.this, ProductCreateViewNew.class);
+                    intent.putExtra("CatId",cateId);
+                    startActivity(intent);
                 }
             });
 

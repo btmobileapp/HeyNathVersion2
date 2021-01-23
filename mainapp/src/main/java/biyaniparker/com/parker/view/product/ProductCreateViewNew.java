@@ -79,23 +79,54 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
     String path="";
     String path1="";
     String UnitName;
+    int cateId;
     ArrayList<View> viewList=new ArrayList<View>() ;
     ArrayList<StockMasterBean> stockList=new ArrayList<StockMasterBean>();
+
+    ArrayList<CategoryBean> arrayList;
      int categoryId;
+
+
+
+    ProductBean bean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_activity_create_product_new);
         init();
+
+        Intent intent = getIntent();
+        cateId= intent.getIntExtra("CatId",0);
+
         stockBean=new StockMasterBean();
         moduleProduct=new ModuleProduct1(this);
         moduleCategory=new ModuleCategory(this);
         modulePrice=new ModulePrice(this);
         moduleCategory.getLastCategoryList();
+
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,moduleCategory.lastCategoryList);
         spCategory.setAdapter(arrayAdapter);
 
+
+
+        moduleCategory = new ModuleCategory(this);
+        arrayList=new ArrayList<CategoryBean>();
+        moduleCategory.getLastCategoryList();
+
+        for (int i = 0; i < moduleCategory.lastCategoryList.size(); i++)
+        {
+            int cId=moduleCategory.lastCategoryList.get(i).getCategoryId();
+           //if (moduleCategory.lastCategoryList.get(i).getCategoryId() == bean.getCategoryId()) {
+            if (cId == cateId) {
+
+                cateId=moduleCategory.lastCategoryList.get(i).categoryId;
+                spCategory.setSelection(i);
+                previousCateposition=i;
+            }
+        }
+
+       // int num=a;
         ModuleProduct moduleProduct = new ModuleProduct(getApplicationContext());
         ArrayList<UnitMasterBean> listUnitMaster = moduleProduct.getUnitMasterList();
         ArrayAdapter arrayAdapter1=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,listUnitMaster);
@@ -110,6 +141,32 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
 
         CommonUtilities.hideatInItInputBoard(this);
         intitMultipleImages();
+    }
+
+    int previousCateposition=-1;
+
+
+    protected void onResume() {
+        super.onResume();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            // Toast.makeText(ProductEditViewNew.this, previousCateposition+"", Toast.LENGTH_SHORT).show();
+                            spCategory.setSelection(previousCateposition);
+
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void intitMultipleImages() {
@@ -347,7 +404,7 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
             }
             else
             {
-                Toast.makeText(getApplicationContext(), "Please Enter all fileds ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Please Enter all fields ", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -628,7 +685,8 @@ public class ProductCreateViewNew extends AppCompatActivity implements View.OnCl
 
 
         }
-        else if(requestCode==2 && resultCode==RESULT_OK) {
+        else if(requestCode==2 && resultCode==RESULT_OK)
+        {
 
             try
             {

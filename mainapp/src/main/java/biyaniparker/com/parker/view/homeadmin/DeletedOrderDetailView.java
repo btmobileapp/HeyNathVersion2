@@ -305,7 +305,7 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
     @Override
     public void onComplete(String str, int requestCode, int responseCode)
     {
-        Toast.makeText(this, "String= "+str, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "String= "+str, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, "responseCode= "+responseCode, Toast.LENGTH_SHORT).show();
 
             if(requestCode==2 && responseCode==200) {
@@ -344,10 +344,33 @@ public class DeletedOrderDetailView extends AppCompatActivity implements View.On
                // Toast.makeText(this, "Inside ", Toast.LENGTH_SHORT).show();
                 if (str.contains("Restored") && str.length()<15)
                 {
-                    //Toast.makeText(this, "Inside Restored", Toast.LENGTH_SHORT).show();
-                    Intent intent= new Intent(DeletedOrderDetailView.this,AdminHomeScreen.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                    alertDialog.setTitle(getString(R.string.app_name));
+                    alertDialog.setMessage(" Order Successfully Restore");
+                    alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent= new Intent(DeletedOrderDetailView.this,AdminHomeScreen.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    });
+                    alertDialog.show();
+                }
+                else
+                {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                    alertDialog.setTitle(getString(R.string.app_name));
+                    alertDialog.setMessage("Order restore failed .. Try Again.. " + responseCode);
+                    alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(DeletedOrderDetailView.this, AdminHomeScreen.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    });
+                    alertDialog.show();
                 }
 
             }

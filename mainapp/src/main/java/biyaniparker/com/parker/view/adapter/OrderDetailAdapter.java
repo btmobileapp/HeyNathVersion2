@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
+import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +45,8 @@ public class OrderDetailAdapter extends ArrayAdapter {
     Context context;
     ModuleCategory moduleCategory;
     ModuleProduct moduleProduct;
+
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     public OrderDetailAdapter(Context context, int resource, List<OrderDetailBean> orderDetailsNew, List<OrderDetailBean> orderDetails) {
         super(context, resource, orderDetailsNew);
@@ -126,7 +129,7 @@ public class OrderDetailAdapter extends ArrayAdapter {
 
         //holder.pName.setText(orderD.getProductName()+"("+orderD.getProductId()+")");
         holder.pName.setText(orderD.getProductName());
-        holder.cPrice.setText("" +  Double.parseDouble(orderD.getConsumerPrice()) + "  Rs");
+        holder.cPrice.setText("" +  df2.format(Double.parseDouble(orderD.getConsumerPrice())) + "  Rs");
 
         for(int c=position;c<orderDetails.size();c++)
         {

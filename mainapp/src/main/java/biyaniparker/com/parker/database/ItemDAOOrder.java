@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.GsonOrderDetails;
 import biyaniparker.com.parker.beans.OrderDetailBean;
 import biyaniparker.com.parker.beans.OrderMasterBean;
@@ -421,9 +422,71 @@ public class ItemDAOOrder
         db.close();
     }
 //DeleteStatus
-    public Collection<? extends OrderMasterBean> getAllOrders() {
+
+   // Select * from OrderMaster where OrderStatus !='dispatch' order by OrderId desc
+
+    public Collection<? extends OrderMasterBean> getAllOrders()
+    {
         SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
-        Cursor c=db.rawQuery(" Select * from OrderMaster  order by OrderId desc ", null);
+        String query=null;
+        if(context.getString(R.string.app_name).contains("Choice"))
+        {
+            query=" Select * from OrderMaster where OrderStatus !='dispatch' order by OrderId desc ";
+        }
+        else
+        {
+             query=" Select * from OrderMaster order by OrderId desc ";
+        }
+        Cursor c=db.rawQuery(query, null);
+
+        ArrayList<OrderMasterBean> list=new ArrayList<OrderMasterBean>();
+        if(c!=null)
+        {
+            int i=0;
+            c.moveToFirst();
+            while(i<c.getCount())
+            {
+                OrderMasterBean bean=new OrderMasterBean();
+                bean.setOrderId(c.getInt(c.getColumnIndex("OrderId")));
+                bean.setDeleteStatus(c.getString(c.getColumnIndex("DeleteStatus")));
+                bean.setAddress(c.getString(c.getColumnIndex("Address")));
+                bean.setChangeBy(c.getLong(c.getColumnIndex("ChangeBy")));
+                bean.setChangedDate(c.getLong(c.getColumnIndex("ChangedDate")));
+                bean.setName(c.getString(c.getColumnIndex("Name")));
+                bean.setOrderDate(c.getLong(c.getColumnIndex("OrderDate")));
+                bean.setOrderStatus(c.getString(c.getColumnIndex("OrderStatus")));
+                bean.setShopName(c.getString(c.getColumnIndex("ShopName")));
+                bean.setTotolAmount(c.getString(c.getColumnIndex("TotolAmount")));
+                bean.setUserId(c.getLong(c.getColumnIndex("UserId")));
+                bean.setTotalQnty(c.getInt(c.getColumnIndex("TotalQnty")));
+                String deletestatus= c.getString(c.getColumnIndex("DeleteStatus"));
+                //Toast.makeText(context, "Status= "+deletestatus, Toast.LENGTH_SHORT).show();
+                if (!deletestatus.equals("true"))
+                {
+                    list.add(bean);
+                }
+                c.moveToNext();
+                i++;
+            }
+        }
+        db.close();
+        return list;
+    }
+
+    public Collection<? extends OrderMasterBean> getAllDispatchOrders()
+    {
+        SQLiteDatabase db=new DBHELPER(context).getReadableDatabase();
+        String query=null;
+        if(context.getString(R.string.app_name).contains("Choice"))
+        {
+            query=" Select * from OrderMaster where OrderStatus ='dispatch' order by OrderId desc ";
+        }
+        else
+        {
+            query=" Select * from OrderMaster order by OrderId desc ";
+        }
+        Cursor c=db.rawQuery(query, null);
+
         ArrayList<OrderMasterBean> list=new ArrayList<OrderMasterBean>();
         if(c!=null)
         {

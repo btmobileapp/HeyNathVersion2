@@ -30,9 +30,9 @@ import biyaniparker.com.parker.beans.ProductBean;
  * Created by bt on 08/11/2016.
  */
 public class CategoryAdapter  extends ArrayAdapter {
+
     Context context;
     ArrayList<CategoryBean> categoryList;
-
     private ArrayList<CategoryBean> arrayList;
 
 
@@ -139,27 +139,27 @@ public class CategoryAdapter  extends ArrayAdapter {
         }
     }
 
-//    // Filter Class
-//    public void filter(String charText)
-//    {
-//        charText = charText.toLowerCase();
-//        categoryList.clear();
-//        if (charText.length() == 0)
-//        {
-//            categoryList.addAll(arrayList);
-//        }
-//        else
-//        {
-//            for (CategoryBean wp : arrayList)
-//            {
-//                if (wp.getCategoryName().toLowerCase().contains(charText))
-//                {
-//                    categoryList.add(wp);
-//                }
-//            }
-//        }
-//        notifyDataSetChanged();
-//    }
+    // Filter Class
+    public void filter(String charText)
+    {
+        charText = charText.toLowerCase();
+        categoryList.clear();
+        if (charText.length() == 0)
+        {
+            categoryList.addAll(arrayList);
+        }
+        else
+        {
+            for (CategoryBean wp : arrayList)
+            {
+                if (wp.getCategoryName().toLowerCase().contains(charText))
+                {
+                    categoryList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 
 
 

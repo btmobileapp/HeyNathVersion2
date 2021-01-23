@@ -80,8 +80,10 @@ public class PrintOrderSummary
     ImageLoader imageLoader;
     public static final int REQUEST_PERM_WRITE_STORAGE = 102;
     public static final int REQUEST_PERM_READ_STORAGE = 103;
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
-   public  ArrayList<OrderDetailBean> orderDetails;
+
+    public  ArrayList<OrderDetailBean> orderDetails;
     public OrderMasterBean master;
     Bitmap bitmap;
 
@@ -388,7 +390,8 @@ public class PrintOrderSummary
 
 
 
-          int totp=0,totq=0;
+          float totp=0 ;
+        int totq=0;
 
         for (int i = 0; i < orderDetails.size(); i++)
         {
@@ -426,7 +429,8 @@ public class PrintOrderSummary
 
             DecimalFormat df = new DecimalFormat("#.##");
           //  txtprice.setText( df.format( price)+" Rs");
-            if(!LaunchActivity.appName.contains("Rajashree")) {
+            if(!LaunchActivity.appName.contains("Rajashree"))
+            {
 
 //                    table.addCell(orderDetails.get(i).sizeName);
                 c = new PdfPCell(new Phrase(orderDetails.get(i).unitName + ""));
@@ -441,9 +445,9 @@ public class PrintOrderSummary
                 table.addCell(c);
 
                 totq = totq + orderDetails.get(i).getQuantity();
-                totp = totp + ((int) Float.parseFloat(orderDetails.get(i).getDealerPrice()) * orderDetails.get(i).quantity);
+                totp = totp + ( Float.parseFloat(orderDetails.get(i).price+"") * orderDetails.get(i).quantity);
 
-                c = new PdfPCell(new Phrase(df.format((Float.parseFloat(orderDetails.get(i).consumerPrice) * 1.0)) + ""));
+                c = new PdfPCell(new Phrase(df.format((Float.parseFloat(orderDetails.get(i).price+"") * 1.0)) + ""));
                 c.setHorizontalAlignment(Element.ALIGN_CENTER);
                 c.setVerticalAlignment(Element.ALIGN_CENTER);
                 c.setPadding(12);
@@ -451,7 +455,7 @@ public class PrintOrderSummary
 
 
                 c = new PdfPCell(new Phrase(
-                        df.format((Float.parseFloat(orderDetails.get(i).consumerPrice) * 1.0
+                        df.format((Float.parseFloat(orderDetails.get(i).price+"") * 1.0
                                 * orderDetails.get(i).getQuantity()
                         )) + ""));
                 c.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -475,9 +479,9 @@ public class PrintOrderSummary
                 table.addCell(c);
 
                 totq = totq + orderDetails.get(i).getQuantity();
-                totp = totp + ((int) Float.parseFloat(orderDetails.get(i).getDealerPrice()) * orderDetails.get(i).quantity);
+                totp = totp + ( Float.parseFloat(orderDetails.get(i).price+"") * orderDetails.get(i).quantity);
 
-                c = new PdfPCell(new Phrase(df.format((Float.parseFloat(orderDetails.get(i).consumerPrice) * 1.0)) + ""));
+                c = new PdfPCell(new Phrase(df.format((Float.parseFloat(orderDetails.get(i).price+"") * 1.0)) + ""));
                 c.setHorizontalAlignment(Element.ALIGN_CENTER);
                 c.setVerticalAlignment(Element.ALIGN_CENTER);
                 c.setPadding(12);
@@ -485,7 +489,7 @@ public class PrintOrderSummary
 
 
                 c = new PdfPCell(new Phrase(
-                        df.format((Float.parseFloat(orderDetails.get(i).consumerPrice) * 1.0
+                        df.format((Float.parseFloat(orderDetails.get(i).price+"") * 1.0
                                * orderDetails.get(i).getQuantity()
                 )) + ""));
                 c.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -515,10 +519,9 @@ public class PrintOrderSummary
         table.addCell(c);
         table.addCell("");
 
-        Font f1 =
-                FontFactory.getFont("resources/fonts/PlayfairDisplay-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
+        Font f1 = FontFactory.getFont("resources/fonts/PlayfairDisplay-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
 
-        c = new PdfPCell(new Phrase("Rs. "+totp+"",f1));
+        c = new PdfPCell(new Phrase("Rs. "+df2.format(totp)+"",f1));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         c.setVerticalAlignment(Element.ALIGN_CENTER);
         table.addCell(c);

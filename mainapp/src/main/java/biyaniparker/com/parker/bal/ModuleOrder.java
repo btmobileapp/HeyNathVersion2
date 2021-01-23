@@ -42,6 +42,7 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
     public ArrayList<OrderMasterBean> userOrderList = new ArrayList<>();
     public ArrayList<OrderMasterBean> customOrderList = new ArrayList<>();
     public ArrayList<OrderMasterBean> deletedOrderList = new ArrayList<>();
+    public ArrayList<OrderMasterBean> dispatchedOrderList = new ArrayList<>();
 
     long dispatcgid = 0;
 
@@ -153,12 +154,26 @@ public class ModuleOrder implements DownloadUtility,ParsingUtilities {
         {
             orderList.addAll(itemDAOOrder.getAllOrders());
         }
-        else
-            {
+        else {
             orderList.addAll(itemDAOOrder.getOrders());
         }
         //  CommonUtilities.alert(context,orderList.size()+"");
     }
+
+    public void getDispatchOrderList()
+    {
+        ItemDAOOrder itemDAOOrder = new ItemDAOOrder(context);
+        dispatchedOrderList.clear();
+        if(context.getString(R.string.app_name).contains("Choice")  || true)
+        {
+            dispatchedOrderList.addAll(itemDAOOrder.getAllDispatchOrders());
+        }
+        else {
+            dispatchedOrderList.addAll(itemDAOOrder.getOrders());
+        }
+        //  CommonUtilities.alert(context,orderList.size()+"");
+    }
+
 
     public void getCustomList(String custName, long fromDate, long toDate) {
         ItemDAOOrder itemDAOOrder = new ItemDAOOrder(context);

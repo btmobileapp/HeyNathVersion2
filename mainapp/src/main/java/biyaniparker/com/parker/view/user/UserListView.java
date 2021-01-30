@@ -16,13 +16,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.List;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleUser;
-import biyaniparker.com.parker.beans.UserBean;
 import biyaniparker.com.parker.beans.UserShopBean;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.view.adapter.UserAdapter;

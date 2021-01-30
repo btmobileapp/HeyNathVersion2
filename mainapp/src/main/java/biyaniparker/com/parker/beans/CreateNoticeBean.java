@@ -1,7 +1,5 @@
 package biyaniparker.com.parker.beans;
 
-import org.json.JSONObject;
-
 public class CreateNoticeBean {
     public int noticeId;
     public String title;

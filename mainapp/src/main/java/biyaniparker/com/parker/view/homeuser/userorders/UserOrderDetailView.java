@@ -35,7 +35,6 @@ import biyaniparker.com.parker.bal.ModuleOrder;
 import biyaniparker.com.parker.beans.OrderDetailBean;
 import biyaniparker.com.parker.beans.OrderMasterBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
-import biyaniparker.com.parker.view.homeuser.productdshopping.ProductDetailView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
 import biyaniparker.com.parker.view.reports.PrintOrderSummary;
 

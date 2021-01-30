@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
-import java.io.IOException;
-
-import biyaniparker.com.parker.bal.ModuleLogin;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 
 /**

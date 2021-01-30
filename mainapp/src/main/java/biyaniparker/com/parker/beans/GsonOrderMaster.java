@@ -1,7 +1,6 @@
 package biyaniparker.com.parker.beans;
 
 import biyaniparker.com.parker.utilities.CommonUtilities;
-import biyaniparker.com.parker.utilities.UserUtilities;
 
 /**
  * Created by bt on 09/13/2016.

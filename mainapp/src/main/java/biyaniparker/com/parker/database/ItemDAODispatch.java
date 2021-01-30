@@ -4,16 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import biyaniparker.com.parker.beans.DispatchDetailBean;
 import biyaniparker.com.parker.beans.DispatchMasterAndDetails;
 import biyaniparker.com.parker.beans.DispatchMasterBean;
-import biyaniparker.com.parker.beans.GsonDispatchCombine;
 
 /**
  * Created by bt on 08/23/2016.

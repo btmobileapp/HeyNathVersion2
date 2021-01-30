@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 
 import java.io.File;
 
-import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.MultifileUploadUtility;
 
 /**

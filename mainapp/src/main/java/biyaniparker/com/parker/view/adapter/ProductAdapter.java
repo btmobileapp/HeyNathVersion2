@@ -21,12 +21,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.utilities.BitmapUtilities;
-import biyaniparker.com.parker.utilities.DateAndOther;
 
 /**
  * Created by bt on 08/13/2016.

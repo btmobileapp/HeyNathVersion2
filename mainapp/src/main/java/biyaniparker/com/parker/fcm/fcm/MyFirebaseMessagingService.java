@@ -8,9 +8,12 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import biyaniparker.com.parker.bal.ModuleProduct1;
+import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.fcm.NewMessageNotification;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.view.homeadmin.AdminHomeScreen;
@@ -22,6 +25,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 {
 
     private NotificationManager mNotificationManager;
+    ModuleProduct1 moduleProduct;
 
     @Override
     public void onNewToken(String token) {
@@ -130,10 +134,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             }
             else
             {
-                PendingIntent contentIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, new Intent(this, UserHomeScreen.class)
-                        .putExtra("msg", msg).putExtra("Id", NOTIFICATION_ID).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_CANCEL_CURRENT);
-                NewMessageNotification.notify(this,"Notice :-"+title,""+title,NOTIFICATION_ID,contentIntent);
-
+                if(title.equals("Product Updated"))
+                {
+                    Gson gson = new Gson();
+                    ProductBean bean = gson.fromJson(jobj.getJSONObject("NM").toString(), ProductBean.class);
+                    moduleProduct.updateProduct(bean);
+                }
+                else
+                 {
+                    PendingIntent contentIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, new Intent(this, UserHomeScreen.class)
+                            .putExtra("msg", msg).putExtra("Id", NOTIFICATION_ID).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), PendingIntent.FLAG_CANCEL_CURRENT);
+                    NewMessageNotification.notify(this, "Notice :-" + title, "" + title, NOTIFICATION_ID, contentIntent);
+                }
             }
 
         }

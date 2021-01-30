@@ -14,9 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleOrder;
 import biyaniparker.com.parker.beans.OrderMasterBean;
-import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
-import biyaniparker.com.parker.view.adapter.OrderAdapter;
 import biyaniparker.com.parker.view.adapter.UserOrderAdapter;
 
 public class OrderListView extends AppCompatActivity implements AdapterView.OnItemClickListener,DownloadUtility {

@@ -1,12 +1,10 @@
 package biyaniparker.com.parker.utilities.serverutilities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
-import biyaniparker.com.parker.bal.ModuleSync;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.ParsingUtilities;
 

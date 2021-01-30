@@ -6,10 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.ExecutionException;
 
-import biyaniparker.com.parker.beans.CategoryBean;
 import biyaniparker.com.parker.beans.ShopMaster;
 import biyaniparker.com.parker.beans.UserBean;
 import biyaniparker.com.parker.beans.UserShopBean;

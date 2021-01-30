@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import biyaniparker.com.parker.beans.CategoryBean;
@@ -18,7 +17,6 @@ import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncFileUploadUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
-import biyaniparker.com.parker.utilities.serverutilities.FileUpload;
 
 /**
  * Created by bt on 08/11/2016.

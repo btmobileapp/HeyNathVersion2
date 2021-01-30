@@ -2,7 +2,6 @@ package biyaniparker.com.parker.view.notice;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +14,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.CreateNoticeBean;

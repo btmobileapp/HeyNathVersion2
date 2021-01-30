@@ -1,8 +1,5 @@
 package biyaniparker.com.parker;
 
-import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.os.Bundle;
 
 
@@ -17,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import biyaniparker.com.parker.bal.ModuleMainActivity;
-import biyaniparker.com.parker.beans.AlbumBean;
-import biyaniparker.com.parker.database.DBHELPER;
 
 public class MainActivity extends AppCompatActivity {
 

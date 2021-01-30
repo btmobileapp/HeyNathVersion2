@@ -2,13 +2,9 @@ package biyaniparker.com.parker.view.unitmaster;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -16,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,8 +25,6 @@ import biyaniparker.com.parker.beans.UnitMasterBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
-import biyaniparker.com.parker.view.adapter.UnitMasterAdapter;
-import biyaniparker.com.parker.view.adapter.UserAdapter;
 import biyaniparker.com.parker.view.adapter.masteradapter;
 
 

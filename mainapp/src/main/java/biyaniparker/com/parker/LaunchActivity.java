@@ -1,10 +1,8 @@
 package biyaniparker.com.parker;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Environment;
@@ -17,7 +15,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.common.internal.service.Common;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
@@ -144,7 +141,7 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
         //    Run Service To Sync Data
         if(UserUtilities.getClientId(this)!=0)
         {
-         //   startService(new Intent(this, SyncServiceBg.class));
+         //   startService(new Intent(this, ccServiceBg.class));
         }
 
 
@@ -208,9 +205,8 @@ public class LaunchActivity extends AppCompatActivity implements DownloadUtility
                 {
                     final Intent intent=new Intent(getApplicationContext(),ProductSyncService.class);
                      //startActivity(new Intent(LaunchActivity.this, SyncActivity.class));
-                   startActivity(new Intent(LaunchActivity.this, AdminHomeScreen.class));
+                     startActivity(new Intent(LaunchActivity.this, AdminHomeScreen.class));
                     overridePendingTransition(R.animator.pull_in_right, R.animator.push_out_left);
-
                     finish();
                     startService(intent);
                 }

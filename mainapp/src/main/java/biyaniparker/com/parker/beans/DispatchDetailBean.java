@@ -4,7 +4,6 @@ import android.content.Context;
 
 import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.bal.ModuleProduct;
-import biyaniparker.com.parker.database.ItemDAOProduct;
 
 /**
  * Created by bt18 on 09/17/2016.

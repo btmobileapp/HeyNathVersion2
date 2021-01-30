@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,11 +25,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -37,16 +43,35 @@ import biyaniparker.com.parker.LaunchActivity;
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleOrder;
 import biyaniparker.com.parker.bal.ModuleProduct;
+import biyaniparker.com.parker.beans.CategoryBean;
+import biyaniparker.com.parker.beans.GsonCategoryBean;
+import biyaniparker.com.parker.beans.GsonPriceBean;
+import biyaniparker.com.parker.beans.GsonProductBean;
+import biyaniparker.com.parker.beans.GsonShopMaster;
+import biyaniparker.com.parker.beans.GsonSizeBean;
+import biyaniparker.com.parker.beans.GsonUserBean;
 import biyaniparker.com.parker.beans.OrderMasterBean;
+import biyaniparker.com.parker.beans.PriceBean;
+import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.RowItem;
+import biyaniparker.com.parker.beans.ShopMaster;
+import biyaniparker.com.parker.beans.SizeMaster;
+import biyaniparker.com.parker.beans.TempBean;
+import biyaniparker.com.parker.beans.UnitMasterBean;
+import biyaniparker.com.parker.beans.UserBean;
+import biyaniparker.com.parker.database.ItemDAOCategory;
+import biyaniparker.com.parker.database.ItemDAOPrice;
+import biyaniparker.com.parker.database.ItemDAOProduct;
+import biyaniparker.com.parker.database.ItemDAOSizeMaster;
+import biyaniparker.com.parker.database.ItemDAOUser;
 import biyaniparker.com.parker.fcm.FcmUtility;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.Constants;
 import biyaniparker.com.parker.utilities.DownloadUtility;
+import biyaniparker.com.parker.utilities.ParsingUtilities;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
 import biyaniparker.com.parker.view.homeadmin.orderdispatch.RecentDispatchListView;
-import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 import biyaniparker.com.parker.view.notice.CreateNoticeView;
 import biyaniparker.com.parker.view.adapter.CustomAdapter;
 import biyaniparker.com.parker.view.adapter.OrderAdapter;
@@ -68,6 +93,7 @@ public class AdminHomeScreen extends AppCompatActivity
     ModuleProduct moduleProduct;
     ListView slider_list;
     ImageView imgHide;
+    Context context;
     void callPermission()
     {
         ActivityCompat.requestPermissions(this,
@@ -324,22 +350,23 @@ public class AdminHomeScreen extends AppCompatActivity
         {
             startActivity(new Intent(this, ImageRotateSetting.class));
         }
-//        else if(id==R.id.actionDelOrder )
-//        {
-//            startActivity(new Intent(this, DeletedOrderListView.class));
-//        }
+        else if(id==R.id.actionDelOrder )
+        {
+            startActivity(new Intent(this, DeletedOrderListView.class));
+        }
         else if(id==R.id.actionProductSync)
         {
-            moduleProduct.syncRecentProducts();
+          //  moduleProduct.syncRecentProducts();
+            moduleProduct.syncAllProducts();
         }
         else if(id==R.id.actionNoticeListView)
         {
             startActivity(new Intent(this, NoticeListView.class));
         }
 
-
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -543,6 +570,9 @@ public class AdminHomeScreen extends AppCompatActivity
     DisplayImageOptions doption = null;
     private AnimateFirstDisplayListener animateFirstListener;
     private ImageLoader imageLoader;
+
+
+
     //*************************************************
     private  class AnimateFirstDisplayListener extends
             SimpleImageLoadingListener {

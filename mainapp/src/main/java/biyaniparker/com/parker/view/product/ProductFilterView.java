@@ -12,8 +12,6 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
-
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleCategory;
 import biyaniparker.com.parker.bal.ModulePrice;

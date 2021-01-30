@@ -3,7 +3,6 @@ package biyaniparker.com.parker.view.homeuser.userbag;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,14 +27,12 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.bal.ModuleBag;
@@ -45,13 +41,9 @@ import biyaniparker.com.parker.bal.ModuleProduct;
 import biyaniparker.com.parker.beans.BagDetailsBean;
 import biyaniparker.com.parker.beans.BagMasterBean;
 import biyaniparker.com.parker.beans.GsonSelectedItem;
-import biyaniparker.com.parker.beans.GsonShopMaster;
-import biyaniparker.com.parker.beans.OrderDetailBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
-import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
 import biyaniparker.com.parker.view.homeuser.userorders.UserOrderDetailView;
-import biyaniparker.com.parker.view.reports.PrintOrderSummary;
 
 public class OrderSummaryView extends AppCompatActivity implements View.OnClickListener , DownloadUtility{
 
@@ -194,7 +186,7 @@ public class OrderSummaryView extends AppCompatActivity implements View.OnClickL
             viewList.add(v);
 
         }
-        grandTotal=  ((double)grandTotal *((100.0-10.0)/100.0));
+      //  grandTotal=  ((double)grandTotal *((100.0-10.0)/100.0));
        // TextView txtWithDiscount=findViewById(R.id.txtWithDiscount);
        // txtWithDiscount.setText("With Discount : "+(int) grandTotal +" Rs");
     }

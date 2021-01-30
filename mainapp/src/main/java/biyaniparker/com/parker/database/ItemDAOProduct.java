@@ -6,13 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-import biyaniparker.com.parker.beans.CategoryBean;
 import biyaniparker.com.parker.beans.ProductBean;
-import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.UserUtilities;
 
 /**

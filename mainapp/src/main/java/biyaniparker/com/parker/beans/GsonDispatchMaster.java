@@ -1,7 +1,5 @@
 package biyaniparker.com.parker.beans;
 
-import java.security.interfaces.DSAPrivateKey;
-
 import biyaniparker.com.parker.utilities.CommonUtilities;
 
 /**

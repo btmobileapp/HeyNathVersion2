@@ -24,9 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import biyaniparker.com.parker.R;
-import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.beans.ProductBeanWithQnty;
-import biyaniparker.com.parker.database.ItemDAOPrice;
 
 
 public class ProductRandomAdapter extends ArrayAdapter implements OnClickListener

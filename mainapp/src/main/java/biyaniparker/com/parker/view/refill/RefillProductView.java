@@ -45,7 +45,6 @@ import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.ConnectionDetector;
-import biyaniparker.com.parker.view.homeuser.productdshopping.ProductDetailView;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
 
 public class RefillProductView extends AppCompatActivity implements View.OnClickListener , DownloadUtility{

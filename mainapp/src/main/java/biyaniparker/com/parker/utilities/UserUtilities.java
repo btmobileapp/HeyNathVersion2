@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 
 import org.json.JSONObject;
 
-import biyaniparker.com.parker.view.homeuser.UserHomeScreen;
-
 /**
  * Created by bt18 on 08/10/2016.
  */

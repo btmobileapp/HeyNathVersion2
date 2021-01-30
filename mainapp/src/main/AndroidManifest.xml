@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="biyaniparker.com.parker">
+    <!-- Package name (Choice)= parker && keyalice = choice
+    Package name (Rajashree)= rajashree && keyalice = rajashree -->
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,8 +21,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+
+    <!-- Changes Do 1. changes images(6 changes)   2.Change App name in string file(1 change)   3.changes in Utilites.java file(4 changes)  -->
+
     <application
-        android:name=".utilities.UILApplication"
+        android:name="biyaniparker.com.parker.utilities.UILApplication"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -29,119 +34,119 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name="biyaniparker.com.parker.MainActivity"
             android:label="Parker"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name="biyaniparker.com.parker.view.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.category.CategoryListView"
+            android:name="biyaniparker.com.parker.view.category.CategoryListView"
             android:label="@string/title_activity_category_list"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.category.CategoryCreateView"
+            android:name="biyaniparker.com.parker.view.category.CategoryCreateView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.category.CategoryEditView"
+            android:name="biyaniparker.com.parker.view.category.CategoryEditView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.product.ProductListView"
+            android:name="biyaniparker.com.parker.view.product.ProductListView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.product.ProductCreateViewNew"
+            android:name="biyaniparker.com.parker.view.product.ProductCreateViewNew"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeadmin.AdminProductMenu"
+            android:name="biyaniparker.com.parker.view.homeadmin.AdminProductMenu"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.size.SizeCreateView"
+            android:name="biyaniparker.com.parker.view.size.SizeCreateView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.size.SizeListView"
+            android:name="biyaniparker.com.parker.view.size.SizeListView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.size.SizeEditView"
+            android:name="biyaniparker.com.parker.view.size.SizeEditView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.user.UserCreateView"
+            android:name="biyaniparker.com.parker.view.user.UserCreateView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.user.UserEditView"
+            android:name="biyaniparker.com.parker.view.user.UserEditView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.user.PasswordUpdateView"
+            android:name="biyaniparker.com.parker.view.user.PasswordUpdateView"
             android:label="@string/title_activity_password_update_view"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.user.UserListView"
+            android:name="biyaniparker.com.parker.view.user.UserListView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.price.PriceCreateView"
+            android:name="biyaniparker.com.parker.view.price.PriceCreateView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.price.PriceListView"
+            android:name="biyaniparker.com.parker.view.price.PriceListView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.price.PriceEditView"
+            android:name="biyaniparker.com.parker.view.price.PriceEditView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeuser.UserHomeScreen"
+            android:name="biyaniparker.com.parker.view.homeuser.UserHomeScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.homeadmin.AdminHomeScreen"
+            android:name="biyaniparker.com.parker.view.homeadmin.AdminHomeScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.homeuser.NewArrival"
+            android:name="biyaniparker.com.parker.view.homeuser.NewArrival"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.refill.RefillListView"
+            android:name="biyaniparker.com.parker.view.refill.RefillListView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.refill.RefillSubListView"
+            android:name="biyaniparker.com.parker.view.refill.RefillSubListView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.refill.ProductGridListView"
+            android:name="biyaniparker.com.parker.view.refill.ProductGridListView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.refill.RefillProductView"
+            android:name="biyaniparker.com.parker.view.refill.RefillProductView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.refill.DynamicProducts"
+            android:name="biyaniparker.com.parker.view.refill.DynamicProducts"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeuser.productdshopping.ProductDetailView"
+            android:name="biyaniparker.com.parker.view.homeuser.productdshopping.ProductDetailView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.login.SyncActivity"
+            android:name="biyaniparker.com.parker.view.login.SyncActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeuser.productdshopping.DynamicCategories"
+            android:name="biyaniparker.com.parker.view.homeuser.productdshopping.DynamicCategories"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeuser.productdshopping.SearchUserProductsList"
+            android:name="biyaniparker.com.parker.view.homeuser.productdshopping.SearchUserProductsList"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeuser.productdshopping.UserProductFilterView"
+            android:name="biyaniparker.com.parker.view.homeuser.productdshopping.UserProductFilterView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeuser.userbag.UserBagView"
+            android:name="biyaniparker.com.parker.view.homeuser.userbag.UserBagView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeuser.userbag.OrderSummaryView"
+            android:name="biyaniparker.com.parker.view.homeuser.userbag.OrderSummaryView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeadmin.OrderDetailView"
+            android:name="biyaniparker.com.parker.view.homeadmin.OrderDetailView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.product.ProductEditViewNew"
+            android:name="biyaniparker.com.parker.view.product.ProductEditViewNew"
             android:screenOrientation="portrait" />
-        <activity android:name=".LaunchActivity">
+        <activity android:name="biyaniparker.com.parker.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -149,117 +154,117 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".SyncServiceBg" />
+        <service android:name="biyaniparker.com.parker.SyncServiceBg" />
 
         <activity
-            android:name=".view.homeuser.userorders.OrderListView"
+            android:name="biyaniparker.com.parker.view.homeuser.userorders.OrderListView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeuser.userorders.UserOrderDetailView"
+            android:name="biyaniparker.com.parker.view.homeuser.userorders.UserOrderDetailView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeadmin.orderdispatch.OrderDispatchView"
+            android:name="biyaniparker.com.parker.view.homeadmin.orderdispatch.OrderDispatchView"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".view.homeuser.productdshopping.ViewProductImage"
+            android:name="biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".view.homeadmin.orderdispatch.DispatchSummaryView"
+            android:name="biyaniparker.com.parker.view.homeadmin.orderdispatch.DispatchSummaryView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.product.ProductFilterView"
+            android:name="biyaniparker.com.parker.view.product.ProductFilterView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeadmin.orderdispatch.RecentDispatchListView"
+            android:name="biyaniparker.com.parker.view.homeadmin.orderdispatch.RecentDispatchListView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeadmin.OrderFilterView"
+            android:name="biyaniparker.com.parker.view.homeadmin.OrderFilterView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeadmin.orderdispatch.PartialDispatchListView"
+            android:name="biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchListView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeadmin.orderdispatch.PartialDispatchDetail"
+            android:name="biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchDetail"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeadmin.orderdispatch.PartialDispatchDetailNew"
+            android:name="biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchDetailNew"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeadmin.orderdispatch.RecentDispatchDetailView"
+            android:name="biyaniparker.com.parker.view.homeadmin.orderdispatch.RecentDispatchDetailView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeuser.dispatch.UserDispatchListView"
+            android:name="biyaniparker.com.parker.view.homeuser.dispatch.UserDispatchListView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.reports.DynamicCategoryReport"
+            android:name="biyaniparker.com.parker.view.reports.DynamicCategoryReport"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.refill.RefillProductFilterView"
+            android:name="biyaniparker.com.parker.view.refill.RefillProductFilterView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.deduct.DeductProductView"
+            android:name="biyaniparker.com.parker.view.deduct.DeductProductView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.deduct.DynamicProducts"
+            android:name="biyaniparker.com.parker.view.deduct.DynamicProducts"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.productscategarywise.DynamicProducts"
+            android:name="biyaniparker.com.parker.view.productscategarywise.DynamicProducts"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.productscategarywise.ProductFilterView"
+            android:name="biyaniparker.com.parker.view.productscategarywise.ProductFilterView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.homeadmin.ImageRotateSetting"
+            android:name="biyaniparker.com.parker.view.homeadmin.ImageRotateSetting"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".utilities.ImageQuality"
+            android:name="biyaniparker.com.parker.utilities.ImageQuality"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeadmin.DeletedOrderListView"
+            android:name="biyaniparker.com.parker.view.homeadmin.DeletedOrderListView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeadmin.DeletedOrderDetailView"
+            android:name="biyaniparker.com.parker.view.homeadmin.DeletedOrderDetailView"
             android:screenOrientation="portrait"></activity>
 
-        <service android:name=".services.ProductSyncService"></service>
+        <service android:name="biyaniparker.com.parker.services.ProductSyncService"></service>
 
         <activity
-            android:name=".view.reports.ReportMenu"
+            android:name="biyaniparker.com.parker.view.reports.ReportMenu"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.reports.physical_reports.DynamicCategoryPhysicalReport"
+            android:name="biyaniparker.com.parker.view.reports.physical_reports.DynamicCategoryPhysicalReport"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.emptystock.DynamicProducts"
+            android:name="biyaniparker.com.parker.view.emptystock.DynamicProducts"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.managestock.StockManageProductView"
+            android:name="biyaniparker.com.parker.view.managestock.StockManageProductView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.unitmaster.UnitMasterListView"
+            android:name="biyaniparker.com.parker.view.unitmaster.UnitMasterListView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.unitmaster.CreateUnitMaster"
+            android:name="biyaniparker.com.parker.view.unitmaster.CreateUnitMaster"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.unitmaster.UnitMasterEditView"
+            android:name="biyaniparker.com.parker.view.unitmaster.UnitMasterEditView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.notice.CreateNoticeView"
+            android:name="biyaniparker.com.parker.view.notice.CreateNoticeView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.notice.NoticeListView"
+            android:name="biyaniparker.com.parker.view.notice.NoticeListView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.notice.NoticeView"
+            android:name="biyaniparker.com.parker.view.notice.NoticeView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeuser.productdshopping.ChangeView"
+            android:name="biyaniparker.com.parker.view.homeuser.productdshopping.ChangeView"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.homeuser.productdshopping.ImageClass"
+            android:name="biyaniparker.com.parker.view.homeuser.productdshopping.ImageClass"
             android:screenOrientation="portrait"></activity>
 
         <provider
@@ -287,7 +292,7 @@
             </intent-filter>
         </activity>
         -->
-        <service android:name=".fcm.MyFirebaseMessagingService">
+        <service android:name="biyaniparker.com.parker.fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

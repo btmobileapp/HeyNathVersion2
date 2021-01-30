@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,7 +35,6 @@ import biyaniparker.com.parker.beans.DispatchMasterAndDetails;
 import biyaniparker.com.parker.beans.ProductBean;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.view.homeuser.productdshopping.ViewProductImage;
-import biyaniparker.com.parker.view.reports.PrintDeliverChallanFullReport;
 import biyaniparker.com.parker.view.reports.PrintDeliverChallanReport;
 
 public class RecentDispatchDetailView extends AppCompatActivity {

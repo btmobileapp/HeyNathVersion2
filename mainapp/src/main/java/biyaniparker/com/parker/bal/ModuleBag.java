@@ -1,16 +1,10 @@
 package biyaniparker.com.parker.bal;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.TableRow;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,23 +16,18 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import biyaniparker.com.parker.R;
 import biyaniparker.com.parker.beans.BagDetailsBean;
 import biyaniparker.com.parker.beans.BagMasterBean;
-import biyaniparker.com.parker.beans.CombineBagBean;
 import biyaniparker.com.parker.beans.GsonOrderCombine;
 import biyaniparker.com.parker.beans.GsonSelectedItem;
 import biyaniparker.com.parker.beans.OrderDetailBean;
 import biyaniparker.com.parker.beans.OrderMasterBean;
 import biyaniparker.com.parker.database.ItemDAOOrder;
-import biyaniparker.com.parker.database.ItemDAOPrice;
 import biyaniparker.com.parker.utilities.CommonUtilities;
 import biyaniparker.com.parker.utilities.DateAndOther;
 import biyaniparker.com.parker.utilities.DownloadUtility;
 import biyaniparker.com.parker.utilities.UserUtilities;
 import biyaniparker.com.parker.utilities.serverutilities.AsyncUtilities;
-import biyaniparker.com.parker.view.homeadmin.orderdispatch.PartialDispatchListView;
-import biyaniparker.com.parker.view.reports.PrintOrderSummary;
 
 /**
  * Created by bt on 09/08/2016.

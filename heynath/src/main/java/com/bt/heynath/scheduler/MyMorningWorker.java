@@ -20,12 +20,18 @@ import androidx.annotation.RequiresApi;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.bt.heynath.DeviceUuidFactory;
+import com.bt.heynath.ItemDAOLOg;
+import com.bt.heynath.Launch;
 import com.bt.heynath.MainActivity;
+import com.bt.heynath.ModelLogs;
 import com.bt.heynath.MorningStutiWithUiBinber;
 import com.bt.heynath.R;
+import com.bt.heynath.reciever.AlarmReciever;
 import com.bt.heynath.reciever.AlramUtility;
 import com.bt.heynath.reciever.NewMessageNotification;
 import com.bt.heynath.reciever.PlayMorningStuti;
+import com.bt.heynath.reciever.UpdateLogToServer;
 
 import java.util.Calendar;
 
@@ -45,6 +51,7 @@ public class MyMorningWorker extends Worker
     @Override
     public Result doWork()
     {
+        Log.d("Heynath","Morning Periodic Worker");
 
         if(AlramUtility.lastPalytime==null)
         {
@@ -54,14 +61,37 @@ public class MyMorningWorker extends Worker
             catch (Exception ex)
             {}
         }
+
+        if(Launch.isLogMaintain)
+            try
+            {
+                ModelLogs l=new ModelLogs();
+                l.Type="Nitya Stuti";
+                l.LogMessage="loop 15-NityaStuti-MyMorningWorker -Last Play Time-"+AlramUtility.lastPalytime.getTimeInMillis();
+                l.LogDate=System.currentTimeMillis();
+                l.HI1= DeviceUuidFactory.getSimNumber(context);
+                l.HI1= DeviceUuidFactory.getIMENumber(context);
+                l.LogToken=new DeviceUuidFactory(context).getDeviceUuid().toString()+"_"+System.currentTimeMillis();
+                String reqString = Build.MANUFACTURER
+                        + "," + Build.MODEL + " " + Build.VERSION.RELEASE
+                        + "," + Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName();
+                l.HD=reqString;
+                ItemDAOLOg itemDAOLOg=new ItemDAOLOg(context);
+                itemDAOLOg.insertRecord(l);
+            }
+            catch (Exception ex){}
+        callJobScheduler();
+
         if(!AlramUtility.isMute(getApplicationContext())  && AlramUtility.isNityaSuchiStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
         {
+            Log.d("Heynath","Morning Periodic Worker-ConditionMatch");
+
             Calendar calendar= Calendar.getInstance();
 
-            int startHour=4;
-            int startMinute=55;
-            int endHour=6;
-            int endMinute=00;
+            int startHour=AlramUtility.nityaH;
+            int startMinute=AlramUtility.nityaM;
+            int endHour= AlramUtility.nityaHTo;
+            int endMinute=AlramUtility.nityaMTo;
 
             Calendar startCalendar= Calendar.getInstance();
             startCalendar.set(Calendar.HOUR_OF_DAY,startHour);
@@ -84,8 +114,35 @@ public class MyMorningWorker extends Worker
                 AlramUtility.updateMorningTime(getApplicationContext());
 
                 playAudio();
+                if(Launch.isLogMaintain)
+                    try
+                    {
+                        ModelLogs l=new ModelLogs();
+                        l.Type="Nitya Stuti";
+                        l.LogMessage="MyMorningWorker Playing Audio";
+                        l.LogDate=System.currentTimeMillis();
+                        l.HI1= DeviceUuidFactory.getSimNumber(context);
+                        l.HI1= DeviceUuidFactory.getIMENumber(context);
+                        l.LogToken=new DeviceUuidFactory(context).getDeviceUuid().toString()+"_"+System.currentTimeMillis();
+                        String reqString = Build.MANUFACTURER
+                                + "," + Build.MODEL + " " + Build.VERSION.RELEASE
+                                + "," + Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName();
+                        l.HD=reqString;
+                        ItemDAOLOg itemDAOLOg=new ItemDAOLOg(context);
+                        itemDAOLOg.insertRecord(l);
+                    }
+                    catch (Exception ex){}
             }
         }
+
+        try
+        {
+            UpdateLogToServer logToServer=new UpdateLogToServer();
+          //  logToServer.saveLogs(context);
+        }
+        catch (Exception ex)
+        {}
+
         return Result.success();
     }
 
@@ -272,12 +329,18 @@ public class MyMorningWorker extends Worker
     void callJobScheduler()
     {
         Calendar calendar= Calendar.getInstance();
-        int h=  calendar.get(Calendar.HOUR);
+        int h=  calendar.get(Calendar.HOUR_OF_DAY);
         int min=calendar.get(Calendar.MINUTE);
 
-        if(h==4 && min>25 && min<56)
+        if(h==AlramUtility.nityaH && min>30 && min<59)
         {
-              int minuteRemaining=55-min;
+
+            int minuteRemaining= 0;// 55-min;
+            if(AlramUtility.nityaM>min)
+            {
+                minuteRemaining= AlramUtility.nityaM-min;
+            }
+
             if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
                 callJobService(context, minuteRemaining);
             }
@@ -287,11 +350,29 @@ public class MyMorningWorker extends Worker
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     void callJobService(Context context,int minute)
     {
-
+        int latencyTime= minute*60 * 1000+(AlramUtility.nityaS*1000);
+        if(Launch.isLogMaintain)
+            try
+            {
+                ModelLogs l=new ModelLogs();
+                l.Type="Nitya Stuti";
+                l.LogMessage="Job Schedular with latency-"+latencyTime+"-MyMorningWorker";
+                l.LogDate=System.currentTimeMillis();
+                l.HI1= DeviceUuidFactory.getSimNumber(context);
+                l.HI1= DeviceUuidFactory.getIMENumber(context);
+                l.LogToken=new DeviceUuidFactory(context).getDeviceUuid().toString()+"_"+System.currentTimeMillis();
+                String reqString = Build.MANUFACTURER
+                        + "," + Build.MODEL + " " + Build.VERSION.RELEASE
+                        + "," + Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName();
+                l.HD=reqString;
+                ItemDAOLOg itemDAOLOg=new ItemDAOLOg(context);
+                itemDAOLOg.insertRecord(l);
+            }
+            catch (Exception ex){}
         ComponentName serviceComponent = new ComponentName(context, MorningJobService.class);
         JobInfo.Builder builder = new JobInfo.Builder(1857, serviceComponent);
-        builder.setMinimumLatency(minute*60 * 1000); // wait at least
-        builder.setOverrideDeadline((minute*60 * 1000)+5000); // maximum delay
+        builder.setMinimumLatency((minute*60 * 1000)+(AlramUtility.nityaS*1000)); // wait at least
+        builder.setOverrideDeadline((minute*60 * 1000)+(AlramUtility.nityaS*1000)+5000); // maximum delay
         //builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED); // require unmetered network
         //builder.setRequiresDeviceIdle(true); // device should be idle
         //builder.setRequiresCharging(false); // we don't care if the device is charging or not

@@ -49,8 +49,9 @@ public class PlayStutiService extends Service {
 
         if ( !AlramUtility.isMute(this) && AlramUtility.isStart(this)  && AlramUtility.isToPlay() )
         {
-            AlramUtility.updateMorningTime(getApplicationContext());
+            //AlramUtility.updateMorningTime(getApplicationContext());
             player.start();
+           // AlramUtility.updateMorningTime();
             PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
                     new Intent(getApplicationContext(), MainActivity.class).
                             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),

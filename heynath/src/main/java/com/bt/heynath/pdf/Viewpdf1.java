@@ -77,6 +77,10 @@ public class Viewpdf1 extends AppCompatActivity
         if(no==786) {
             pdfView.fromAsset("imp_nitya.pdf").load();
         }
+        if(no==156)
+        {
+            pdfView.fromAsset("manuals.pdf").load();
+        }
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

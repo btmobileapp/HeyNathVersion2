@@ -18,7 +18,11 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.work.ListenableWorker;
 
+import com.bt.heynath.DeviceUuidFactory;
+import com.bt.heynath.ItemDAOLOg;
+import com.bt.heynath.Launch;
 import com.bt.heynath.MainActivity;
+import com.bt.heynath.ModelLogs;
 import com.bt.heynath.MorningStutiWithUiBinber;
 import com.bt.heynath.R;
 import com.bt.heynath.reciever.AlramUtility;
@@ -49,20 +53,20 @@ public class MorningJobService extends JobService
         }
         if( !AlramUtility.isMute(getApplicationContext())  && AlramUtility.isNityaSuchiStart(getApplicationContext())  && !isAirplaneModeOn(getApplicationContext())  && !isCallActive(getApplicationContext())  && !isSilentMode(getApplicationContext()))
         {
-            Calendar calendar= Calendar.getInstance();
+         //   Calendar calendar= Calendar.getInstance();
 
-            int startHour=4;
-            int startMinute=55;
-            int endHour=6;
-            int endMinute=00;
+         //   int startHour=4;
+          //  int startMinute=55;
+         //   int endHour=6;
+         //   int endMinute=00;
 
-            Calendar startCalendar= Calendar.getInstance();
-            startCalendar.set(Calendar.HOUR_OF_DAY,startHour);
-            startCalendar.set(Calendar.MINUTE,startMinute);
+         //   Calendar startCalendar= Calendar.getInstance();
+          //  startCalendar.set(Calendar.HOUR_OF_DAY,startHour);
+           // startCalendar.set(Calendar.MINUTE,startMinute);
 
-            Calendar endCalendar= Calendar.getInstance();
-            endCalendar.set(Calendar.HOUR_OF_DAY,endHour);
-            endCalendar.set(Calendar.MINUTE,endMinute);
+          //  Calendar endCalendar= Calendar.getInstance();
+         //   endCalendar.set(Calendar.HOUR_OF_DAY,endHour);
+         //   endCalendar.set(Calendar.MINUTE,endMinute);
 
             if ( AlramUtility.isToPlay() )
             {
@@ -73,7 +77,26 @@ public class MorningJobService extends JobService
 
                 NewMessageNotification.notify(getApplicationContext(), "नित्य स्तुति - भाग १-", "नित्य स्तुति - भाग १-", 1, null);
                 AlramUtility.updateMorningTime(getApplicationContext());
+
                 playAudio();
+                    if(Launch.isLogMaintain)
+                    try
+                    {
+                        ModelLogs l=new ModelLogs();
+                        l.Type="Nitya Stuti";
+                        l.LogMessage="Morning Job Service Called-Playing Stuti";
+                        l.LogDate=System.currentTimeMillis();
+                        l.HI1= DeviceUuidFactory.getSimNumber(context);
+                        l.HI1= DeviceUuidFactory.getIMENumber(context);
+                        l.LogToken=new DeviceUuidFactory(context).getDeviceUuid().toString()+"_"+System.currentTimeMillis();
+                        String reqString = Build.MANUFACTURER
+                                + "," + Build.MODEL + " " + Build.VERSION.RELEASE
+                                + "," + Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName();
+                        l.HD=reqString;
+                        ItemDAOLOg itemDAOLOg=new ItemDAOLOg(context);
+                        itemDAOLOg.insertRecord(l);
+                    }
+                    catch (Exception ex){}
 
             }
         }

@@ -23,7 +23,15 @@ public class AlarmReciever extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent)
     {
       //   NewMessageNotification.notify(context,"Aralm Rec", intent.getAction(), 2, null);
-
+        if(AlramUtility.lastPalytime==null)
+        {
+            try
+            {
+                AlramUtility.loadLastTime(context);
+            }
+            catch (Exception ex)
+            {}
+        }
         String action = intent.getAction();
         if (SOMEACTION.equals(action))
         {
@@ -42,24 +50,21 @@ public class AlarmReciever extends BroadcastReceiver {
             endCalendar.set(Calendar.HOUR_OF_DAY,endHour);
             endCalendar.set(Calendar.MINUTE,endMinute);
 
-            if(!AlramUtility.isMute(context)  && AlramUtility.isStart(context)  && !isAirplaneModeOn(context)  && !isCallActive(context)  && !isSilentMode(context))
-            {
-                if (calendar.after(startCalendar) && calendar.before(endCalendar))
-                {
-                         //  playDialyAlram(context);
 
-                    try
-                    {
-                       Intent intetentService = new Intent(context, PlayStutiService.class);
-                       context.startService(intetentService);
-                      //  context. startActivity(new Intent(context, PlayAudio1.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+           if (!AlramUtility.isMute(context) && AlramUtility.isStart(context) && !isAirplaneModeOn(context) && !isCallActive(context) && !isSilentMode(context)) {
+                    if (calendar.after(startCalendar) && calendar.before(endCalendar)) {
+                        //  playDialyAlram(context);
+
+                        try {
+                            Intent intetentService = new Intent(context, PlayStutiService.class);
+                            context.startService(intetentService);
+                            //  context. startActivity(new Intent(context, PlayAudio1.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        } catch (Exception ex) {
+                            Intent intetentService = new Intent(context, JobPlayStutiService.class);
+                            JobPlayStutiService.enqueueWork(context, intetentService);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Intent intetentService=new Intent(context,JobPlayStutiService.class);
-                        JobPlayStutiService.enqueueWork(context, intetentService);
-                    }
-                }
+
             }
         }
         if (SOMEACTION455.equals(action))
@@ -70,12 +75,12 @@ public class AlarmReciever extends BroadcastReceiver {
             Calendar calendar= Calendar.getInstance();
             Calendar startCalendar= Calendar.getInstance();
 
-            startCalendar.set(Calendar.HOUR_OF_DAY,4);
-            startCalendar.set(Calendar.MINUTE,54);
+            startCalendar.set(Calendar.HOUR_OF_DAY,AlramUtility.nityaH);
+            startCalendar.set(Calendar.MINUTE,AlramUtility.nityaM);
             Calendar endCalendar= Calendar.getInstance();
 
-            endCalendar.set(Calendar.HOUR_OF_DAY,6);
-            endCalendar.set(Calendar.MINUTE,10);
+            endCalendar.set(Calendar.HOUR_OF_DAY,AlramUtility.nityaHTo);
+            endCalendar.set(Calendar.MINUTE,AlramUtility.nityaMTo);
 
            if(   AlramUtility.isToPlay())//calendar.after(startCalendar)  && calendar.before(endCalendar)  )
            {

@@ -11,7 +11,9 @@ import androidx.work.WorkManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,9 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bt.heynath.reciever.BootReciever;
+import com.bt.heynath.reciever.JobPlayMorningStuti;
+import com.bt.heynath.reciever.PlayMorningStuti;
+import com.bt.heynath.scheduler.MorningJobService;
 import com.bt.heynath.scheduler.MyMorningWorker;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -48,9 +53,10 @@ import java.util.concurrent.TimeUnit;
 
 public class NityaStuti extends AppCompatActivity {
 
-    Button button,button1,button2,button3;
-    private SimpleExoPlayer player;
+    Button button,button1,button2,button3,button4;
+    private MediaPlayer player;
     private PeriodicWorkRequest periodicMorningWorkRequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +131,27 @@ public class NityaStuti extends AppCompatActivity {
             }
         });
 
+
+        button4=findViewById(R.id.button4);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.pause();
+                button4.setVisibility(View.GONE);
+            }
+        });
+
+        chekcIsPlayingStuti();
+
+        if(player!=null&& player.isPlaying())
+        {
+            button4.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            button4.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override
@@ -181,29 +208,6 @@ public class NityaStuti extends AppCompatActivity {
 
     private void getAudioFile()
     {
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-        TrackSelection.Factory audioTrackSelectionFactory =
-                new AdaptiveTrackSelection.Factory(bandwidthMeter);
-        TrackSelector trackSelector =
-                new DefaultTrackSelector(audioTrackSelectionFactory);
-        //Initialize the player
-        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
-        //Initialize simpleExoPlayerView
-        SimpleExoPlayerView simpleExoPlayerView = simpleExoPlayerView_Video;
-        simpleExoPlayerView.setPlayer((player));
-        // Produces DataSource instances through which media data is loaded.
-        DataSource.Factory dataSourceFactory =
-                new DefaultDataSourceFactory(this, Util.getUserAgent(this, "CloudinaryExoplayer"));
-        // Produces Extractor instances for parsing the media data.
-        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-        // This is the MediaSource representing the media to be played.
-        Uri uri = RawResourceDataSource.buildRawResourceUri(R.raw.tone455);
-        Uri audioUri =  uri;// Uri.parse(uploadFile);
-        MediaSource audioSource = new ExtractorMediaSource(audioUri,
-                dataSourceFactory, extractorsFactory, null, null);
-        // Prepare the player with the source.
-        player.prepare(audioSource);
-        player.setPlayWhenReady(true);
     }
 
     void playNormal()
@@ -306,6 +310,48 @@ public class NityaStuti extends AppCompatActivity {
         }).start();
         // mediaController.show(0);
         // mediaController.setEnabled(true);
+
+    }
+
+
+
+
+    void chekcIsPlayingStuti()
+    {
+        if(MyMorningWorker.mediaPlayer!=null)
+        {
+            if(MyMorningWorker.mediaPlayer.isPlaying())
+            {
+                player=MyMorningWorker.mediaPlayer;
+            }
+        }
+        try {
+
+            if(Build.VERSION.SDK_INT>21) {
+                if (MorningJobService.mediaPlayer != null) {
+                    if (MorningJobService.mediaPlayer.isPlaying()) {
+                        player = MorningJobService.mediaPlayer;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {}
+
+        if(PlayMorningStuti.player!=null)
+        {
+            if(PlayMorningStuti.player.isPlaying())
+            {
+                player=PlayMorningStuti.player;
+            }
+        }
+        if(JobPlayMorningStuti.player!=null)
+        {
+            if(JobPlayMorningStuti.player.isPlaying())
+            {
+                player=JobPlayMorningStuti.player;
+            }
+        }
 
     }
 }

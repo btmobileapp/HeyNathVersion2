@@ -5,7 +5,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.job.JobInfo;
@@ -14,10 +16,14 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,14 +33,25 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bt.heynath.fcm.FcmUtility;
+import com.bt.heynath.pdf.Viewpdf1;
+import com.bt.heynath.reciever.AlarmService;
+import com.bt.heynath.reciever.AlramUtility;
+import com.bt.heynath.reciever.JobPlayMorningStuti;
+import com.bt.heynath.reciever.PlayMorningStuti;
+import com.bt.heynath.reciever.UpdateLogToServer;
 import com.bt.heynath.scheduler.MorningJobService;
+import com.bt.heynath.scheduler.MyMorningWorker;
 import com.bt.heynath.shreemukhi.ShreeMukhiSubmenu;
 import com.judemanutd.autostarter.AutoStartPermissionHelper;
 
+import org.json.JSONArray;
+
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -47,7 +64,40 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         new FcmUtility().callProcedure(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                //  Log.v(TAG,"Permission is granted");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
+            }
+        }
+        Calendar c= AlramUtility.lastPalytime;
+        chekcIsPlayingStuti();
+
+        if(player!=null&& player.isPlaying())
+        {
+            AlertDialog.Builder alert=new AlertDialog.Builder(this);
+            alert.setTitle("नित्य स्तुति ");
+            alert.setTitle("नित्य स्तुति शुरू हो चुकी हे।  ");
+            alert.setPositiveButton("नित्य स्तुति बंद करे", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    try {
+                          player.pause();
+                    }
+                    catch (Exception ex)
+                    {}
+                }
+            });
+            alert.setNegativeButton("नित्य स्तुति शुरू रखे",null);
+            alert.show();
+        }
+
+        if(Launch.isLogMaintain)
+        {
+            new UpdateLogToServer().saveLogs(this);
+        }
     }
 
 
@@ -183,16 +233,44 @@ public class MainActivity extends AppCompatActivity
         }
         catch (Exception ex)
         {}
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String url = "http://btwebservices.biyanitechnologies.com/galaxybackupservices/galaxy1.svc/HeynathAdhay";
+                    linksStr = new ConnectServer().sendGet(url);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONArray array=new JSONArray(linksStr);
+                                MainActivity.this.getSharedPreferences("links",MODE_PRIVATE).edit().putString("linksStr",linksStr).commit();
+                            }
+                            catch (Exception ex)
+                            {}
+                        }
+                    });
+                }
+                catch (Exception ex){}
+            }
+        }).start();
     }
+    String linksStr;
+
     void alertMenu()
     {
         ArrayList<String> mList=new ArrayList<>();
-        mList.add("लॉग इन करें");
+        mList.add("सुचना");
+        mList.add("यूजर मैनुअल");
+        mList.add("Download Adhay");
         boolean isPermissionAvaialbe=  AutoStartPermissionHelper.getInstance().isAutoStartPermissionAvailable(this)  ;
         if(isPermissionAvaialbe)
         {
             mList.add("ऑटो स्टार्ट");
         }
+
         AlertDialog.Builder alBuilder=new AlertDialog.Builder(this);
         alBuilder.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mList), new DialogInterface.OnClickListener() {
             @Override
@@ -200,7 +278,19 @@ public class MainActivity extends AppCompatActivity
 
                 if(i==0)
                 {
-                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                   // startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    startActivity(new Intent(MainActivity.this,Instructions.class));
+                }
+                else if(i==1)
+                {
+                    Viewpdf1.title="यूजर मैनुअल";
+                    Viewpdf1.no=156;
+                    startActivity(new Intent(MainActivity.this, Viewpdf1.class));
+                }
+                else if(i==2)
+                {
+                    Toast.makeText(MainActivity.this, "Download service Started", Toast.LENGTH_SHORT).show();
+                    startService(new Intent(MainActivity.this, DownloadService.class));
                 }
                 else
                 {
@@ -349,6 +439,46 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    public static MediaPlayer player;
+    void chekcIsPlayingStuti()
+    {
+        if(MyMorningWorker.mediaPlayer!=null)
+        {
+            if(MyMorningWorker.mediaPlayer.isPlaying())
+            {
+                player=MyMorningWorker.mediaPlayer;
+            }
+        }
+        try {
+
+             if(Build.VERSION.SDK_INT>21) {
+                 if (MorningJobService.mediaPlayer != null) {
+                     if (MorningJobService.mediaPlayer.isPlaying()) {
+                         player = MorningJobService.mediaPlayer;
+                     }
+                 }
+             }
+        }
+        catch (Exception ex)
+        {}
+
+        if(PlayMorningStuti.player!=null)
+        {
+            if(PlayMorningStuti.player.isPlaying())
+            {
+                player=PlayMorningStuti.player;
+            }
+        }
+        if(JobPlayMorningStuti.player!=null)
+        {
+            if(JobPlayMorningStuti.player.isPlaying())
+            {
+                player=JobPlayMorningStuti.player;
+            }
+        }
+
+    }
 
 
 }

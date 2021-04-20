@@ -42,7 +42,28 @@ public class MyWorker extends Worker
                             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
                     PendingIntent.FLAG_CANCEL_CURRENT);
 
-            NewMessageNotification.notify(getApplicationContext(), "है नाथ की पुकार-", "है नाथ की पुकार-", 1, contentIntent);
+            try
+            {
+                Calendar calendar= Calendar.getInstance();
+                Calendar startCalendar= Calendar.getInstance();
+
+                startCalendar.set(Calendar.HOUR_OF_DAY,AlramUtility.nityaH);
+                startCalendar.set(Calendar.MINUTE,AlramUtility.nityaM-1);
+                //  startCalendar.set(Calendar.MINUTE,nityaM);
+                Calendar endCalendar= Calendar.getInstance();
+
+                endCalendar.set(Calendar.HOUR_OF_DAY,AlramUtility.nityaHTo);
+                endCalendar.set(Calendar.MINUTE,AlramUtility.nityaMTo);
+
+                if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
+                {
+                    return Result.success();
+                }
+
+            }
+            catch (Exception ex0)
+            {}
+
 
             int startHour=AlramUtility.getFromTimeHours(getApplicationContext());
             int startMinute=AlramUtility.getFromTimeMinute(getApplicationContext());
@@ -57,6 +78,7 @@ public class MyWorker extends Worker
             endCalendar.set(Calendar.MINUTE,endMinute);
             if (calendar.after(startCalendar) && calendar.before(endCalendar))
             {
+                NewMessageNotification.notify(getApplicationContext(), "है नाथ की पुकार-", "है नाथ की पुकार-", 1, contentIntent);
                 playAudio();
             }
         }

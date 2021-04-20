@@ -36,11 +36,23 @@ import java.util.Calendar;
 
 public class Launch1 extends AppCompatActivity {
 
-
+    void initLastTime(Context context)
+    {
+        try {
+            if (AlramUtility.lastPalytime == null) {
+                try {
+                    AlramUtility.loadLastTime(context);
+                } catch (Exception ex) {
+                }
+            }
+        }
+        catch (Exception ex){}
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
+        initLastTime(this);
         new Thread(new Runnable() {
             @Override
             public void run()

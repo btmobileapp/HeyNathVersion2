@@ -93,9 +93,9 @@ public class AlarmService extends Service {
         /*---------------------   SAtrt Time --------*/
         Calendar calStart = new GregorianCalendar();
         calStart.setTime(new Date());
-        calStart.set(Calendar.HOUR_OF_DAY, 4);
-        calStart.set(Calendar.MINUTE, 55);
-        calStart.set(Calendar.SECOND, 30);
+        calStart.set(Calendar.HOUR_OF_DAY, AlramUtility.nityaH);
+        calStart.set(Calendar.MINUTE, AlramUtility.nityaM);
+        calStart.set(Calendar.SECOND, AlramUtility.nityaS);
         calStart.set(Calendar.MILLISECOND, 0);
 
          //  calStart.set(Calendar.HOUR_OF_DAY, AlramUtility.getFromTimeHours(context));

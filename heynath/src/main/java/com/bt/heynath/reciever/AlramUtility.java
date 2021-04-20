@@ -7,6 +7,12 @@ import java.util.Calendar;
 
 public class AlramUtility
 {
+    public static  int nityaH=10;
+    public static  int nityaM=55;
+    public static  int nityaS=34;
+
+    public static  int nityaHTo=11;
+    public static  int nityaMTo=10;
 
     public static Calendar lastPalytime=null;
     public   static void loadLastTime(Context context)
@@ -27,13 +33,16 @@ public class AlramUtility
         Calendar calendar= Calendar.getInstance();
         Calendar startCalendar= Calendar.getInstance();
 
-        startCalendar.set(Calendar.HOUR_OF_DAY,4);
-        startCalendar.set(Calendar.MINUTE,54);
-        startCalendar.set(Calendar.MINUTE,55);
+        startCalendar.set(Calendar.HOUR_OF_DAY,nityaH);
+        startCalendar.set(Calendar.MINUTE,nityaM);
+        startCalendar.set(Calendar.SECOND,nityaS-1);
+       // startCalendar.set(Calendar.MINUTE,nityaM-1);
+
+      //  startCalendar.set(Calendar.MINUTE,nityaM);
         Calendar endCalendar= Calendar.getInstance();
 
-        endCalendar.set(Calendar.HOUR_OF_DAY,5);
-        endCalendar.set(Calendar.MINUTE,30);
+        endCalendar.set(Calendar.HOUR_OF_DAY,nityaHTo);
+        endCalendar.set(Calendar.MINUTE,nityaMTo);
 
         if( calendar.after(startCalendar)  && calendar.before(endCalendar)  )
         {
@@ -50,7 +59,7 @@ public class AlramUtility
         }
         long l=System.currentTimeMillis()- lastPalytime.getTimeInMillis();
 
-        if(l>1000*60*60)
+        if(l>1000*18*60)
         {
             return  true;
         }
@@ -66,7 +75,7 @@ public class AlramUtility
         sh.edit().putLong("lastPalytime",lastPalytime.getTimeInMillis()).commit();
 
     }
-   static public long getIntervalTime(Context context)
+    static public long getIntervalTime(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
         int intVal=  sh.getInt("TimeInteval",10);
@@ -86,13 +95,13 @@ public class AlramUtility
         String hh= sh.getString("FromTime","8:0");
         return  hh;
     }
-  static   public int getFromTimeHours(Context context)
+    static   public int getFromTimeHours(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
         String hh= sh.getString("FromTime","8:0").split(":")[0];
         return  Integer.parseInt(hh);
     }
-  static   public int getFromTimeMinute(Context context)
+    static   public int getFromTimeMinute(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
         String hh= sh.getString("FromTime","8:0").split(":")[1];
@@ -105,13 +114,13 @@ public class AlramUtility
         String hh= sh.getString("ToTime","20:0");
         return hh;
     }
-  static   public int getToTimeHours(Context context)
+    static   public int getToTimeHours(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
         String hh= sh.getString("ToTime","20:0").split(":")[0];
         return  Integer.parseInt(hh);
     }
-   static public int getToTimeMinute(Context context)
+    static public int getToTimeMinute(Context context)
     {
         SharedPreferences sh=context.getSharedPreferences("Scheduler",context.MODE_PRIVATE);
         String hh= sh.getString("ToTime","20:0").split(":")[1];

@@ -61,6 +61,7 @@ public class JobPlayMorningStuti extends JobIntentService {
 
             });
             player.start();
+            AlramUtility.updateMorningTime(getApplicationContext());
             try {
                 IntentFilter filter = new IntentFilter();
                 filter.addAction("Pause Stuti");

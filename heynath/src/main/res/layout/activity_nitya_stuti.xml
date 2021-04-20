@@ -15,34 +15,37 @@
     android:padding="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <Button
         android:id="@+id/button"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:background="@drawable/btnround"
-        android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="नित्य स्तुति का अलार्म शूरू करे" />
+        android:layout_marginLeft="50dp"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/btnround"
+        android:text="दैनंदिन नित्य स्तुति का अलार्म शूरू करे"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="180dp"
 
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         app:srcCompat="@drawable/shrre4" />
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/btnround"
 
-        android:text="नित्य स्तुति का अलार्म बंद करे"
+        android:text="दैनंदिन नित्य स्तुति का अलार्म बंद करे"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 </LinearLayout>
@@ -76,10 +79,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/button2"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/btnround"
         android:text="नित्य स्तुति सुने - भाग २"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button2"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/btnround"
+        android:text="नित्य स्तुति बंद करे"
+        android:textSize="20dp"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 </LinearLayout>

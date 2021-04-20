@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.bt.heynath">
+    package="com.bt.heynath"
+    android:installLocation="internalOnly">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -11,20 +12,15 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="com.cmsbiyani.gcm.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-
 
     <application
         android:name=".MyApplication"
@@ -36,17 +32,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         tools:replace="android:icon">
-        <activity  android:screenOrientation="portrait"
-            android:name=".MorningStutiWithUiBinber"></activity>
+
+        <activity android:name=".Instructions"></activity>
         <activity
-            android:screenOrientation="portrait"
+            android:name=".MorningStutiWithUiBinber"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Viewpdf"
-            android:label="@string/title_activity_viewpdf" />
+            android:label="@string/title_activity_viewpdf"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".pdf.Viewpdf1"
-            android:label="@string/title_activity_viewpdf" />
+            android:label="@string/title_activity_viewpdf"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".shreemukhi.GajalActivity"
             android:label="@string/title_activity_gajal"
@@ -156,7 +156,6 @@
             </intent-filter>
         </activity>
 
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/common_full_open_on_phone" />
@@ -178,9 +177,25 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.bt.heynath.scheduler.MorningJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            ></service>
+            android:name=".scheduler.MorningJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".DownloadService"
+            android:enabled="true"
+            android:exported="true" />
+
+
+        <service
+            android:name=".scheduler.Minute_3_JobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".scheduler.Minute_5_JobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".scheduler.Minute_10_JobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
 
     </application>
 

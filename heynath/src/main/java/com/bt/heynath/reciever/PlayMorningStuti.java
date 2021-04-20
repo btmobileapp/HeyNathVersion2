@@ -9,11 +9,16 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.bt.heynath.DeviceUuidFactory;
+import com.bt.heynath.ItemDAOLOg;
+import com.bt.heynath.Launch;
 import com.bt.heynath.MainActivity;
+import com.bt.heynath.ModelLogs;
 import com.bt.heynath.MorningStutiWithUiBinber;
 import com.bt.heynath.R;
 
@@ -47,6 +52,26 @@ public class PlayMorningStuti extends Service {
 
     }
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        if(Launch.isLogMaintain)
+            try
+            {
+                ModelLogs l=new ModelLogs();
+                l.Type="Nitya Stuti<26";
+                l.LogMessage="Play Morning Stuti <26";
+                l.LogDate=System.currentTimeMillis();
+                l.HI1= DeviceUuidFactory.getSimNumber(this);
+                l.HI1= DeviceUuidFactory.getIMENumber(this);
+                l.LogToken=new DeviceUuidFactory(this).getDeviceUuid().toString()+"_"+System.currentTimeMillis();
+                String reqString = Build.MANUFACTURER
+                        + "," + Build.MODEL + " " + Build.VERSION.RELEASE
+                        + "," + Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName();
+                l.HD=reqString;
+                ItemDAOLOg itemDAOLOg=new ItemDAOLOg(this);
+                itemDAOLOg.insertRecord(l);
+            }
+            catch (Exception ex){}
+
         if(!isSilentMode(this))
         {
 

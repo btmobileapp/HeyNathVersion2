@@ -45,6 +45,7 @@ public class JobPlayStutiService extends JobIntentService {
 
         });
         player.start();
+       // AlramUtility.updateMorningTime(getApplicationContext());
         PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1,
                 new Intent(getApplicationContext(), MainActivity.class).
                         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),

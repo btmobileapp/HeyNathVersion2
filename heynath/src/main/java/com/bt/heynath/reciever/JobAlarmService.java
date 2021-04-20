@@ -13,6 +13,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
+import com.bt.heynath.DeviceUuidFactory;
+import com.bt.heynath.ItemDAOLOg;
+import com.bt.heynath.ModelLogs;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -127,6 +131,26 @@ public class JobAlarmService extends JobIntentService {
                 alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             }
           //  NewMessageNotification.notify(context,"set 455- Alarm Set", "set 455- Alarm Set", 4, null);
+
+
+            try
+            {
+                ModelLogs l=new ModelLogs();
+                l.Type="Nitya Stuti";
+                l.LogMessage="Job Alarm Service:- Scheduled";
+                l.LogDate=System.currentTimeMillis();
+                l.HI1= DeviceUuidFactory.getSimNumber(context);
+                l.HI1= DeviceUuidFactory.getIMENumber(context);
+                l.LogToken=new DeviceUuidFactory(context).getDeviceUuid().toString()+"_"+System.currentTimeMillis();
+                String reqString = Build.MANUFACTURER
+                        + "," + Build.MODEL + " " + Build.VERSION.RELEASE
+                        + "," + Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName();
+                l.HD=reqString;
+                ItemDAOLOg itemDAOLOg=new ItemDAOLOg(context);
+
+                itemDAOLOg.insertRecord(l);
+            }
+            catch (Exception ex){}
         }
         catch (Exception ex)
         {

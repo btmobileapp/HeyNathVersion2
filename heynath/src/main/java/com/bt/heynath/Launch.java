@@ -11,6 +11,8 @@ import com.bt.heynath.reciever.BootReciever;
 
 public class Launch extends AppCompatActivity {
 
+    public static boolean isLogMaintain=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

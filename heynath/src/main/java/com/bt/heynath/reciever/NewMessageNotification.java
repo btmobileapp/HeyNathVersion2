@@ -15,6 +15,8 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+import com.bt.heynath.MainActivity;
+import com.bt.heynath.MorningStutiWithUiBinber;
 import com.bt.heynath.R;
 
 
@@ -151,7 +153,8 @@ public class NewMessageNotification {
                 // later.
         if(  newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १-")
                 || newtitle.equalsIgnoreCase("नित्य स्तुति - भाग १")
-        ) {
+        )
+        {
             builder.setStyle(new NotificationCompat.BigTextStyle()
                     .bigText("नित्य स्तुति")
                     .setBigContentTitle("नित्य स्तुति")
@@ -181,6 +184,20 @@ public class NewMessageNotification {
         ) {
             builder .setContentTitle("नित्य स्तुति");
             builder  .setContentText("नित्य स्तुति");
+
+            try
+            {
+              Intent intentToOpen=  new Intent(context, MainActivity.class).
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+              intentToOpen.putExtra("IsPlaying",true);
+
+                PendingIntent contentIntent = PendingIntent.getActivity(context, 1,
+                        intentToOpen  ,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+                builder.setContentIntent(contentIntent);
+            }
+            catch (Exception ex)
+            {}
         }
         else
         {
